@@ -1,10 +1,10 @@
 {
-  "name": "@safaloctagon/common",
+  "name": "common",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@safaloctagon"
+    "registry": "https://npm.pkg.github.com/@safal-octagon"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
