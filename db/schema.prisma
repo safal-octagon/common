@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model Admin {
+    id                        String                      @id @default(uuid()) @map("_id")
+    email_id                  String?                     @unique
+    username                  String                      @unique
+    password                  String
+    balance                   Float                       @default(0.0)
+    setting_id                String?                     @unique
+    status                    AccountStatus               @default(ACTIVE)
+    account_type              AccountType?
+    Settings                  Settings?                   @relation(fields: [setting_id], references: [id])
+    timezone                  String?
+    createdAt                 DateTime                    @default(now())
+    updatedAt                 DateTime                    @updatedAt
+    created_by                String?
+    CreatedBy                 Admin?                      @relation("created_by", fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    User                      Admin[]                     @relation("created_by")
+    account                   AdminBalanceTransactions[]  @relation("account")
+    cashier                   AdminBalanceTransactions[]  @relation("cashier")
+    Player                    Player[]
+    PlayerBalanceTransactions PlayerBalanceTransactions[]
+}
+
+model AdminBalanceTransactions {
+    id             String   @id @default(uuid()) @map("_id")
+    account        String?
+    beforeRecharge Float
+    recharged      Float
+    redeemed       Float
+    afterRecharge  Float
+    cashier        String?
+    balanceBefore  Float
+    balanceAfter   Float
+    remark         String?
+    createdAt      DateTime @default(now())
+    Account_user   Admin?   @relation("account", fields: [account], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    Cashier_user   Admin?   @relation("cashier", fields: [cashier], references: [id], onDelete: SetNull, onUpdate: Cascade)
+}
+
+model Settings {
+    id            String       @id @default(uuid()) @map("_id")
+    grandJP       Boolean      @default(false)
+    grandJP_limit Float        @default(1500.00)
+    majorJP       Boolean      @default(true)
+    majorJP_limit Float        @default(500.00)
+    minorJP       Boolean      @default(false)
+    minorJP_limit Float        @default(100.00)
+    miniJP        Boolean      @default(true)
+    miniJP_limit  Float        @default(20.00)
+    grandScore    Float        @default(1500)
+    majorScore    Float        @default(1500)
+    minorScore    Float        @default(100)
+    miniScore     Float        @default(20)
+    miniShareNum  Float        @default(2)
+    maxShareNum   Float        @default(8)
+    dollarStatus  Boolean      @default(false)
+    account_type  AccountType?
+    createdAt     DateTime     @default(now())
+    updatedAt     DateTime     @updatedAt
+    Admin         Admin?
+    Player        Player?
+}
+
+model Player {
+    id                        String                      @id @default(uuid()) @map("_id")
+    name                      String?
+    username                  String                      @unique
+    password                  String
+    phone_number              Int?
+    country_code              String?
+    status                    AccountStatus               @default(ACTIVE)
+    balance                   Float                       @default(0.0)
+    game_played               Int                         @default(0)
+    won                       Float                       @default(0.0)
+    spent                     Float                       @default(0.0)
+    won_total                 Float                       @default(0.0)
+    spent_total               Float                       @default(0.0)
+    grandJP_won               Float                       @default(0.0)
+    grandJP_won_count         Int                         @default(0)
+    majorJP_won               Float                       @default(0.0)
+    majorJP_won_count         Int                         @default(0)
+    minorJP_won               Float                       @default(0.0)
+    minorJP_won_count         Int                         @default(0)
+    miniJP_won                Float                       @default(0.0)
+    miniJP_won_count          Int                         @default(0)
+    general_won               Float                       @default(0.0)
+    general_won_count         Int                         @default(0)
+    setting_id                String?                     @unique
+    Settings                  Settings?                   @relation(fields: [setting_id], references: [id], onUpdate: Cascade)
+    created_by                String
+    manager                   Admin                       @relation(fields: [created_by], references: [id])
+    PlayerBalanceTransactions PlayerBalanceTransactions[]
+}
+
+model PlayerBalanceTransactions {
+    id             String   @id @default(uuid()) @map("_id")
+    admin          String?
+    player         String?
+    beforeRecharge Float
+    recharged      Float
+    redeem         Float    @default(0.0)
+    afterRecharge  Float
+    ip_address     String?
+    income         Float    @default(0.0)
+    remark         String?
+    createdAt      DateTime @default(now())
+    Player         Player?  @relation(fields: [player], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    Admin          Admin?   @relation(fields: [admin], references: [id], onDelete: SetNull, onUpdate: Cascade)
+}
+
+enum AccountType {
+    PRIMARY_ADMIN
+    ADMIN
+    MASTER
+    DISTRIBUTOR
+    SUB_DISTRIBUTOR
+    STORE
+    CASHIER
+}
+
+enum SlotStatus {
+    STARTED
+    COMPLETED
+}
+
+enum AnnouncementTypes {
+    DISTRIBUTOR
+    REGULAR
+    BONUS
+}
+
+enum AccountStatus {
+    ACTIVE
+    DISABLE
+}
