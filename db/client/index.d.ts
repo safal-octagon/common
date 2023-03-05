@@ -1,0 +1,25414 @@
+
+/**
+ * Client
+**/
+
+import * as runtime from './runtime/library';
+type UnwrapPromise<P extends any> = P extends Promise<infer R> ? R : P
+type UnwrapTuple<Tuple extends readonly unknown[]> = {
+  [K in keyof Tuple]: K extends `${number}` ? Tuple[K] extends Prisma.PrismaPromise<infer X> ? X : UnwrapPromise<Tuple[K]> : UnwrapPromise<Tuple[K]>
+};
+
+
+/**
+ * Model Admin
+ * 
+ */
+export type Admin = {
+  id: string
+  email_id: string | null
+  username: string
+  password: string
+  balance: number
+  setting_id: string | null
+  status: AccountStatus
+  account_type: AccountType | null
+  timezone: string | null
+  createdAt: Date
+  updatedAt: Date
+  created_by: string | null
+  holding: number
+  totalSpent: number
+  totalRedeem: number
+  totalLost: number
+}
+
+/**
+ * Model AdminBalanceTransactions
+ * 
+ */
+export type AdminBalanceTransactions = {
+  id: string
+  account: string | null
+  beforeRecharge: number
+  recharged: number
+  redeemed: number
+  afterRecharge: number
+  cashier: string | null
+  balanceBefore: number
+  balanceAfter: number
+  remark: string | null
+  createdAt: Date
+}
+
+/**
+ * Model Settings
+ * 
+ */
+export type Settings = {
+  id: string
+  grandJP: boolean
+  grandJP_limit: number
+  majorJP: boolean
+  majorJP_limit: number
+  minorJP: boolean
+  minorJP_limit: number
+  miniJP: boolean
+  miniJP_limit: number
+  grandScore: number
+  majorScore: number
+  minorScore: number
+  miniScore: number
+  miniShareNum: number
+  maxShareNum: number
+  dollarStatus: boolean
+  account_type: AccountType | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+/**
+ * Model Player
+ * 
+ */
+export type Player = {
+  id: string
+  name: string | null
+  username: string
+  password: string
+  phone_number: number | null
+  country_code: string | null
+  status: AccountStatus
+  balance: number
+  game_played: number
+  won: number
+  spent: number
+  won_total: number
+  spent_total: number
+  grandJP_won: number
+  grandJP_won_count: number
+  majorJP_won: number
+  majorJP_won_count: number
+  minorJP_won: number
+  minorJP_won_count: number
+  miniJP_won: number
+  miniJP_won_count: number
+  general_won: number
+  general_won_count: number
+  setting_id: string | null
+  created_by: string
+}
+
+/**
+ * Model Games
+ * 
+ */
+export type Games = {
+  id: string
+  name: string
+  description: string | null
+  played: number
+  status: AccountStatus | null
+}
+
+/**
+ * Model GameAssets
+ * 
+ */
+export type GameAssets = {
+  id: string
+  game_id: string | null
+  platform: string
+  path: string | null
+  version: number | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+/**
+ * Model ActiveGamePlay
+ * 
+ */
+export type ActiveGamePlay = {
+  id: string
+  player_id: string
+  game_id: string
+  maxWin: number
+  startedAt: Date
+  updatedAt: Date
+}
+
+/**
+ * Model SlotTransactions
+ * 
+ */
+export type SlotTransactions = {
+  id: string
+  transaction_id: string | null
+  status: SlotStatus | null
+  createdAt: Date
+}
+
+/**
+ * Model GameTransactions
+ * 
+ */
+export type GameTransactions = {
+  id: string
+  date: string | null
+  player: string
+  game: string
+  spent: number | null
+  won: number | null
+  winType: string | null
+  game_id: string | null
+  player_id: string | null
+  user_id: string | null
+  createdAt: Date
+  updatedAt: Date | null
+  room_id: string | null
+  fish_transaction_id: string | null
+}
+
+/**
+ * Model FishGameTransactions
+ * 
+ */
+export type FishGameTransactions = {
+  id: string
+  room_id: string | null
+  player_id: string | null
+  game_id: string | null
+  started: Date
+  ended: Date | null
+}
+
+/**
+ * Model SlotFreeBonus
+ * 
+ */
+export type SlotFreeBonus = {
+  id: string
+  bonus: boolean
+  free_game: boolean
+  player_id: string
+  game_id: string
+  matrix: Prisma.JsonValue[]
+  bonus_pos_matrix: Prisma.JsonValue[]
+  total_spin: number | null
+  remaining_spin: number | null
+  unlocked: Prisma.JsonValue[]
+  start_balance: number
+  won_amount: number | null
+  price_used: number | null
+  max_win_amount: number | null
+  no_of_win_round: number | null
+  multiplier: number | null
+  free_round_win: Prisma.JsonValue | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+/**
+ * Model RefreshToken
+ * 
+ */
+export type RefreshToken = {
+  id: string
+  token: string
+  blacklisted: boolean
+}
+
+/**
+ * Model PlayerBalanceTransactions
+ * 
+ */
+export type PlayerBalanceTransactions = {
+  id: string
+  admin: string | null
+  player: string | null
+  beforeRecharge: number
+  recharged: number
+  redeem: number
+  afterRecharge: number
+  ip_address: string | null
+  income: number
+  remark: string | null
+  createdAt: Date
+}
+
+
+/**
+ * Enums
+ */
+
+// Based on
+// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
+
+export const AccountStatus: {
+  ACTIVE: 'ACTIVE',
+  DISABLE: 'DISABLE'
+};
+
+export type AccountStatus = (typeof AccountStatus)[keyof typeof AccountStatus]
+
+
+export const AccountType: {
+  PRIMARY_ADMIN: 'PRIMARY_ADMIN',
+  ADMIN: 'ADMIN',
+  MASTER: 'MASTER',
+  DISTRIBUTOR: 'DISTRIBUTOR',
+  SUB_DISTRIBUTOR: 'SUB_DISTRIBUTOR',
+  STORE: 'STORE',
+  CASHIER: 'CASHIER'
+};
+
+export type AccountType = (typeof AccountType)[keyof typeof AccountType]
+
+
+export const SlotStatus: {
+  STARTED: 'STARTED',
+  COMPLETED: 'COMPLETED'
+};
+
+export type SlotStatus = (typeof SlotStatus)[keyof typeof SlotStatus]
+
+
+/**
+ * ##  Prisma Client ʲˢ
+ * 
+ * Type-safe database client for TypeScript & Node.js
+ * @example
+ * ```
+ * const prisma = new PrismaClient()
+ * // Fetch zero or more Admins
+ * const admins = await prisma.admin.findMany()
+ * ```
+ *
+ * 
+ * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+ */
+export class PrismaClient<
+  T extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
+  U = 'log' extends keyof T ? T['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<T['log']> : never : never,
+  GlobalReject extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined = 'rejectOnNotFound' extends keyof T
+    ? T['rejectOnNotFound']
+    : false
+      > {
+    /**
+   * ##  Prisma Client ʲˢ
+   * 
+   * Type-safe database client for TypeScript & Node.js
+   * @example
+   * ```
+   * const prisma = new PrismaClient()
+   * // Fetch zero or more Admins
+   * const admins = await prisma.admin.findMany()
+   * ```
+   *
+   * 
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+   */
+
+  constructor(optionsArg ?: Prisma.Subset<T, Prisma.PrismaClientOptions>);
+  $on<V extends (U | 'beforeExit')>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : V extends 'beforeExit' ? () => Promise<void> : Prisma.LogEvent) => void): void;
+
+  /**
+   * Connect with the database
+   */
+  $connect(): Promise<void>;
+
+  /**
+   * Disconnect from the database
+   */
+  $disconnect(): Promise<void>;
+
+  /**
+   * Add a middleware
+   */
+  $use(cb: Prisma.Middleware): void
+
+/**
+   * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
+   * @example
+   * ```
+   * const [george, bob, alice] = await prisma.$transaction([
+   *   prisma.user.create({ data: { name: 'George' } }),
+   *   prisma.user.create({ data: { name: 'Bob' } }),
+   *   prisma.user.create({ data: { name: 'Alice' } }),
+   * ])
+   * ```
+   * 
+   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
+   */
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P]): Promise<UnwrapTuple<P>>
+
+  $transaction<R>(fn: (prisma: Omit<this, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">) => Promise<R>, options?: { maxWait?: number, timeout?: number }): Promise<R>
+
+  /**
+   * Executes a raw MongoDB command and returns the result of it.
+   * @example
+   * ```
+   * const user = await prisma.$runCommandRaw({
+   *   aggregate: 'User',
+   *   pipeline: [{ $match: { name: 'Bob' } }, { $project: { email: true, _id: false } }],
+   *   explain: false,
+   * })
+   * ```
+   * 
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   */
+  $runCommandRaw(command: Prisma.InputJsonObject): Prisma.PrismaPromise<Prisma.JsonObject>
+
+      /**
+   * `prisma.admin`: Exposes CRUD operations for the **Admin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Admins
+    * const admins = await prisma.admin.findMany()
+    * ```
+    */
+  get admin(): Prisma.AdminDelegate<GlobalReject>;
+
+  /**
+   * `prisma.adminBalanceTransactions`: Exposes CRUD operations for the **AdminBalanceTransactions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AdminBalanceTransactions
+    * const adminBalanceTransactions = await prisma.adminBalanceTransactions.findMany()
+    * ```
+    */
+  get adminBalanceTransactions(): Prisma.AdminBalanceTransactionsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.settings`: Exposes CRUD operations for the **Settings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Settings
+    * const settings = await prisma.settings.findMany()
+    * ```
+    */
+  get settings(): Prisma.SettingsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.player`: Exposes CRUD operations for the **Player** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Players
+    * const players = await prisma.player.findMany()
+    * ```
+    */
+  get player(): Prisma.PlayerDelegate<GlobalReject>;
+
+  /**
+   * `prisma.games`: Exposes CRUD operations for the **Games** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Games
+    * const games = await prisma.games.findMany()
+    * ```
+    */
+  get games(): Prisma.GamesDelegate<GlobalReject>;
+
+  /**
+   * `prisma.gameAssets`: Exposes CRUD operations for the **GameAssets** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameAssets
+    * const gameAssets = await prisma.gameAssets.findMany()
+    * ```
+    */
+  get gameAssets(): Prisma.GameAssetsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.activeGamePlay`: Exposes CRUD operations for the **ActiveGamePlay** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ActiveGamePlays
+    * const activeGamePlays = await prisma.activeGamePlay.findMany()
+    * ```
+    */
+  get activeGamePlay(): Prisma.ActiveGamePlayDelegate<GlobalReject>;
+
+  /**
+   * `prisma.slotTransactions`: Exposes CRUD operations for the **SlotTransactions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SlotTransactions
+    * const slotTransactions = await prisma.slotTransactions.findMany()
+    * ```
+    */
+  get slotTransactions(): Prisma.SlotTransactionsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.gameTransactions`: Exposes CRUD operations for the **GameTransactions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameTransactions
+    * const gameTransactions = await prisma.gameTransactions.findMany()
+    * ```
+    */
+  get gameTransactions(): Prisma.GameTransactionsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.fishGameTransactions`: Exposes CRUD operations for the **FishGameTransactions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FishGameTransactions
+    * const fishGameTransactions = await prisma.fishGameTransactions.findMany()
+    * ```
+    */
+  get fishGameTransactions(): Prisma.FishGameTransactionsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.slotFreeBonus`: Exposes CRUD operations for the **SlotFreeBonus** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SlotFreeBonuses
+    * const slotFreeBonuses = await prisma.slotFreeBonus.findMany()
+    * ```
+    */
+  get slotFreeBonus(): Prisma.SlotFreeBonusDelegate<GlobalReject>;
+
+  /**
+   * `prisma.refreshToken`: Exposes CRUD operations for the **RefreshToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RefreshTokens
+    * const refreshTokens = await prisma.refreshToken.findMany()
+    * ```
+    */
+  get refreshToken(): Prisma.RefreshTokenDelegate<GlobalReject>;
+
+  /**
+   * `prisma.playerBalanceTransactions`: Exposes CRUD operations for the **PlayerBalanceTransactions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlayerBalanceTransactions
+    * const playerBalanceTransactions = await prisma.playerBalanceTransactions.findMany()
+    * ```
+    */
+  get playerBalanceTransactions(): Prisma.PlayerBalanceTransactionsDelegate<GlobalReject>;
+}
+
+export namespace Prisma {
+  export import DMMF = runtime.DMMF
+
+  export type PrismaPromise<T> = runtime.Types.Public.PrismaPromise<T>
+
+  /**
+   * Prisma Errors
+   */
+  export import PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError
+  export import PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError
+  export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
+  export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
+  export import PrismaClientValidationError = runtime.PrismaClientValidationError
+  export import NotFoundError = runtime.NotFoundError
+
+  /**
+   * Re-export of sql-template-tag
+   */
+  export import sql = runtime.sqltag
+  export import empty = runtime.empty
+  export import join = runtime.join
+  export import raw = runtime.raw
+  export import Sql = runtime.Sql
+
+  /**
+   * Decimal.js
+   */
+  export import Decimal = runtime.Decimal
+
+  export type DecimalJsLike = runtime.DecimalJsLike
+
+  /**
+   * Metrics 
+   */
+  export type Metrics = runtime.Metrics
+  export type Metric<T> = runtime.Metric<T>
+  export type MetricHistogram = runtime.MetricHistogram
+  export type MetricHistogramBucket = runtime.MetricHistogramBucket
+
+
+  /**
+   * Prisma Client JS version: 4.10.1
+   * Query Engine version: aead147aa326ccb985dcfed5b065b4fdabd44b19
+   */
+  export type PrismaVersion = {
+    client: string
+  }
+
+  export const prismaVersion: PrismaVersion 
+
+  /**
+   * Utility Types
+   */
+
+  /**
+   * From https://github.com/sindresorhus/type-fest/
+   * Matches a JSON object.
+   * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from. 
+   */
+  export type JsonObject = {[Key in string]?: JsonValue}
+
+  /**
+   * From https://github.com/sindresorhus/type-fest/
+   * Matches a JSON array.
+   */
+  export interface JsonArray extends Array<JsonValue> {}
+
+  /**
+   * From https://github.com/sindresorhus/type-fest/
+   * Matches any valid JSON value.
+   */
+  export type JsonValue = string | number | boolean | JsonObject | JsonArray | null
+
+  /**
+   * Matches a JSON object.
+   * Unlike `JsonObject`, this type allows undefined and read-only properties.
+   */
+  export type InputJsonObject = {readonly [Key in string]?: InputJsonValue | null}
+
+  /**
+   * Matches a JSON array.
+   * Unlike `JsonArray`, readonly arrays are assignable to this type.
+   */
+  export interface InputJsonArray extends ReadonlyArray<InputJsonValue | null> {}
+
+  /**
+   * Matches any valid value that can be used as an input for operations like
+   * create and update as the value of a JSON field. Unlike `JsonValue`, this
+   * type allows read-only arrays and read-only object properties and disallows
+   * `null` at the top level.
+   *
+   * `null` cannot be used as the value of a JSON field because its meaning
+   * would be ambiguous. Use `Prisma.JsonNull` to store the JSON null value or
+   * `Prisma.DbNull` to clear the JSON value and set the field to the database
+   * NULL value instead.
+   *
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
+   */
+  export type InputJsonValue = string | number | boolean | InputJsonObject | InputJsonArray
+
+  /**
+   * Types of the values used to represent different kinds of `null` values when working with JSON fields.
+   * 
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  namespace NullTypes {
+    /**
+    * Type of `Prisma.DbNull`.
+    * 
+    * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
+    * 
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class DbNull {
+      private DbNull: never
+      private constructor()
+    }
+
+    /**
+    * Type of `Prisma.JsonNull`.
+    * 
+    * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
+    * 
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class JsonNull {
+      private JsonNull: never
+      private constructor()
+    }
+
+    /**
+    * Type of `Prisma.AnyNull`.
+    * 
+    * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
+    * 
+    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+    */
+    class AnyNull {
+      private AnyNull: never
+      private constructor()
+    }
+  }
+
+  /**
+   * Helper for filtering JSON entries that have `null` on the database (empty on the db)
+   * 
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const DbNull: NullTypes.DbNull
+
+  /**
+   * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
+   * 
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const JsonNull: NullTypes.JsonNull
+
+  /**
+   * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
+   * 
+   * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+   */
+  export const AnyNull: NullTypes.AnyNull
+
+  type SelectAndInclude = {
+    select: any
+    include: any
+  }
+  type HasSelect = {
+    select: any
+  }
+  type HasInclude = {
+    include: any
+  }
+  type CheckSelect<T, S, U> = T extends SelectAndInclude
+    ? 'Please either choose `select` or `include`'
+    : T extends HasSelect
+    ? U
+    : T extends HasInclude
+    ? U
+    : S
+
+  /**
+   * Get the type of the value, that the Promise holds.
+   */
+  export type PromiseType<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U : T;
+
+  /**
+   * Get the return type of a function which returns a Promise.
+   */
+  export type PromiseReturnType<T extends (...args: any) => Promise<any>> = PromiseType<ReturnType<T>>
+
+  /**
+   * From T, pick a set of properties whose keys are in the union K
+   */
+  type Prisma__Pick<T, K extends keyof T> = {
+      [P in K]: T[P];
+  };
+
+
+  export type Enumerable<T> = T | Array<T>;
+
+  export type RequiredKeys<T> = {
+    [K in keyof T]-?: {} extends Prisma__Pick<T, K> ? never : K
+  }[keyof T]
+
+  export type TruthyKeys<T> = keyof {
+    [K in keyof T as T[K] extends false | undefined | null ? never : K]: K
+  }
+
+  export type TrueKeys<T> = TruthyKeys<Prisma__Pick<T, RequiredKeys<T>>>
+
+  /**
+   * Subset
+   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection
+   */
+  export type Subset<T, U> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never;
+  };
+
+  /**
+   * SelectSubset
+   * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
+   * Additionally, it validates, if both select and include are present. If the case, it errors.
+   */
+  export type SelectSubset<T, U> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never
+  } &
+    (T extends SelectAndInclude
+      ? 'Please either choose `select` or `include`.'
+      : {})
+
+  /**
+   * Subset + Intersection
+   * @desc From `T` pick properties that exist in `U` and intersect `K`
+   */
+  export type SubsetIntersection<T, U, K> = {
+    [key in keyof T]: key extends keyof U ? T[key] : never
+  } &
+    K
+
+  type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+
+  /**
+   * XOR is needed to have a real mutually exclusive union type
+   * https://stackoverflow.com/questions/42123407/does-typescript-support-mutually-exclusive-types
+   */
+  type XOR<T, U> =
+    T extends object ?
+    U extends object ?
+      (Without<T, U> & U) | (Without<U, T> & T)
+    : U : T
+
+
+  /**
+   * Is T a Record?
+   */
+  type IsObject<T extends any> = T extends Array<any>
+  ? False
+  : T extends Date
+  ? False
+  : T extends Uint8Array
+  ? False
+  : T extends BigInt
+  ? False
+  : T extends object
+  ? True
+  : False
+
+
+  /**
+   * If it's T[], return T
+   */
+  export type UnEnumerate<T extends unknown> = T extends Array<infer U> ? U : T
+
+  /**
+   * From ts-toolbelt
+   */
+
+  type __Either<O extends object, K extends Key> = Omit<O, K> &
+    {
+      // Merge all but K
+      [P in K]: Prisma__Pick<O, P & keyof O> // With K possibilities
+    }[K]
+
+  type EitherStrict<O extends object, K extends Key> = Strict<__Either<O, K>>
+
+  type EitherLoose<O extends object, K extends Key> = ComputeRaw<__Either<O, K>>
+
+  type _Either<
+    O extends object,
+    K extends Key,
+    strict extends Boolean
+  > = {
+    1: EitherStrict<O, K>
+    0: EitherLoose<O, K>
+  }[strict]
+
+  type Either<
+    O extends object,
+    K extends Key,
+    strict extends Boolean = 1
+  > = O extends unknown ? _Either<O, K, strict> : never
+
+  export type Union = any
+
+  type PatchUndefined<O extends object, O1 extends object> = {
+    [K in keyof O]: O[K] extends undefined ? At<O1, K> : O[K]
+  } & {}
+
+  /** Helper Types for "Merge" **/
+  export type IntersectOf<U extends Union> = (
+    U extends unknown ? (k: U) => void : never
+  ) extends (k: infer I) => void
+    ? I
+    : never
+
+  export type Overwrite<O extends object, O1 extends object> = {
+      [K in keyof O]: K extends keyof O1 ? O1[K] : O[K];
+  } & {};
+
+  type _Merge<U extends object> = IntersectOf<Overwrite<U, {
+      [K in keyof U]-?: At<U, K>;
+  }>>;
+
+  type Key = string | number | symbol;
+  type AtBasic<O extends object, K extends Key> = K extends keyof O ? O[K] : never;
+  type AtStrict<O extends object, K extends Key> = O[K & keyof O];
+  type AtLoose<O extends object, K extends Key> = O extends unknown ? AtStrict<O, K> : never;
+  export type At<O extends object, K extends Key, strict extends Boolean = 1> = {
+      1: AtStrict<O, K>;
+      0: AtLoose<O, K>;
+  }[strict];
+
+  export type ComputeRaw<A extends any> = A extends Function ? A : {
+    [K in keyof A]: A[K];
+  } & {};
+
+  export type OptionalFlat<O> = {
+    [K in keyof O]?: O[K];
+  } & {};
+
+  type _Record<K extends keyof any, T> = {
+    [P in K]: T;
+  };
+
+  // cause typescript not to expand types and preserve names
+  type NoExpand<T> = T extends unknown ? T : never;
+
+  // this type assumes the passed object is entirely optional
+  type AtLeast<O extends object, K extends string> = NoExpand<
+    O extends unknown
+    ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
+      | {[P in keyof O as P extends K ? K : never]-?: O[P]} & O
+    : never>;
+
+  type _Strict<U, _U = U> = U extends unknown ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>> : never;
+
+  export type Strict<U extends object> = ComputeRaw<_Strict<U>>;
+  /** End Helper Types for "Merge" **/
+
+  export type Merge<U extends object> = ComputeRaw<_Merge<Strict<U>>>;
+
+  /**
+  A [[Boolean]]
+  */
+  export type Boolean = True | False
+
+  // /**
+  // 1
+  // */
+  export type True = 1
+
+  /**
+  0
+  */
+  export type False = 0
+
+  export type Not<B extends Boolean> = {
+    0: 1
+    1: 0
+  }[B]
+
+  export type Extends<A1 extends any, A2 extends any> = [A1] extends [never]
+    ? 0 // anything `never` is false
+    : A1 extends A2
+    ? 1
+    : 0
+
+  export type Has<U extends Union, U1 extends Union> = Not<
+    Extends<Exclude<U1, U>, U1>
+  >
+
+  export type Or<B1 extends Boolean, B2 extends Boolean> = {
+    0: {
+      0: 0
+      1: 1
+    }
+    1: {
+      0: 1
+      1: 1
+    }
+  }[B1][B2]
+
+  export type Keys<U extends Union> = U extends unknown ? keyof U : never
+
+  type Cast<A, B> = A extends B ? A : B;
+
+  export const type: unique symbol;
+
+  export function validator<V>(): <S>(select: runtime.Types.Utils.LegacyExact<S, V>) => S;
+
+  /**
+   * Used by group by
+   */
+
+  export type GetScalarType<T, O> = O extends object ? {
+    [P in keyof T]: P extends keyof O
+      ? O[P]
+      : never
+  } : never
+
+  type FieldPaths<
+    T,
+    U = Omit<T, '_avg' | '_sum' | '_count' | '_min' | '_max'>
+  > = IsObject<T> extends True ? U : T
+
+  type GetHavingFields<T> = {
+    [K in keyof T]: Or<
+      Or<Extends<'OR', K>, Extends<'AND', K>>,
+      Extends<'NOT', K>
+    > extends True
+      ? // infer is only needed to not hit TS limit
+        // based on the brilliant idea of Pierre-Antoine Mills
+        // https://github.com/microsoft/TypeScript/issues/30188#issuecomment-478938437
+        T[K] extends infer TK
+        ? GetHavingFields<UnEnumerate<TK> extends object ? Merge<UnEnumerate<TK>> : never>
+        : never
+      : {} extends FieldPaths<T[K]>
+      ? never
+      : K
+  }[keyof T]
+
+  /**
+   * Convert tuple to union
+   */
+  type _TupleToUnion<T> = T extends (infer E)[] ? E : never
+  type TupleToUnion<K extends readonly any[]> = _TupleToUnion<K>
+  type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T
+
+  /**
+   * Like `Pick`, but with an array
+   */
+  type PickArray<T, K extends Array<keyof T>> = Prisma__Pick<T, TupleToUnion<K>>
+
+  /**
+   * Exclude all keys with underscores
+   */
+  type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}` ? never : T
+
+
+  export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>
+
+  type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>
+
+
+  export const ModelName: {
+    Admin: 'Admin',
+    AdminBalanceTransactions: 'AdminBalanceTransactions',
+    Settings: 'Settings',
+    Player: 'Player',
+    Games: 'Games',
+    GameAssets: 'GameAssets',
+    ActiveGamePlay: 'ActiveGamePlay',
+    SlotTransactions: 'SlotTransactions',
+    GameTransactions: 'GameTransactions',
+    FishGameTransactions: 'FishGameTransactions',
+    SlotFreeBonus: 'SlotFreeBonus',
+    RefreshToken: 'RefreshToken',
+    PlayerBalanceTransactions: 'PlayerBalanceTransactions'
+  };
+
+  export type ModelName = (typeof ModelName)[keyof typeof ModelName]
+
+
+  export type Datasources = {
+    db?: Datasource
+  }
+
+  export type DefaultPrismaClient = PrismaClient
+  export type RejectOnNotFound = boolean | ((error: Error) => Error)
+  export type RejectPerModel = { [P in ModelName]?: RejectOnNotFound }
+  export type RejectPerOperation =  { [P in "findUnique" | "findFirst"]?: RejectPerModel | RejectOnNotFound } 
+  type IsReject<T> = T extends true ? True : T extends (err: Error) => Error ? True : False
+  export type HasReject<
+    GlobalRejectSettings extends Prisma.PrismaClientOptions['rejectOnNotFound'],
+    LocalRejectSettings,
+    Action extends PrismaAction,
+    Model extends ModelName
+  > = LocalRejectSettings extends RejectOnNotFound
+    ? IsReject<LocalRejectSettings>
+    : GlobalRejectSettings extends RejectPerOperation
+    ? Action extends keyof GlobalRejectSettings
+      ? GlobalRejectSettings[Action] extends RejectOnNotFound
+        ? IsReject<GlobalRejectSettings[Action]>
+        : GlobalRejectSettings[Action] extends RejectPerModel
+        ? Model extends keyof GlobalRejectSettings[Action]
+          ? IsReject<GlobalRejectSettings[Action][Model]>
+          : False
+        : False
+      : False
+    : IsReject<GlobalRejectSettings>
+  export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
+
+  export interface PrismaClientOptions {
+    /**
+     * Configure findUnique/findFirst to throw an error if the query returns null. 
+     * @deprecated since 4.0.0. Use `findUniqueOrThrow`/`findFirstOrThrow` methods instead.
+     * @example
+     * ```
+     * // Reject on both findUnique/findFirst
+     * rejectOnNotFound: true
+     * // Reject only on findFirst with a custom error
+     * rejectOnNotFound: { findFirst: (err) => new Error("Custom Error")}
+     * // Reject on user.findUnique with a custom error
+     * rejectOnNotFound: { findUnique: {User: (err) => new Error("User not found")}}
+     * ```
+     */
+    rejectOnNotFound?: RejectOnNotFound | RejectPerOperation
+    /**
+     * Overwrites the datasource url from your schema.prisma file
+     */
+    datasources?: Datasources
+
+    /**
+     * @default "colorless"
+     */
+    errorFormat?: ErrorFormat
+
+    /**
+     * @example
+     * ```
+     * // Defaults to stdout
+     * log: ['query', 'info', 'warn', 'error']
+     * 
+     * // Emit as events
+     * log: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * ]
+     * ```
+     * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
+     */
+    log?: Array<LogLevel | LogDefinition>
+  }
+
+  /* Types for Logging */
+  export type LogLevel = 'info' | 'query' | 'warn' | 'error'
+  export type LogDefinition = {
+    level: LogLevel
+    emit: 'stdout' | 'event'
+  }
+
+  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
+  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
+    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
+    : never
+
+  export type QueryEvent = {
+    timestamp: Date
+    query: string
+    params: string
+    duration: number
+    target: string
+  }
+
+  export type LogEvent = {
+    timestamp: Date
+    message: string
+    target: string
+  }
+  /* End Types for Logging */
+
+
+  export type PrismaAction =
+    | 'findUnique'
+    | 'findMany'
+    | 'findFirst'
+    | 'create'
+    | 'createMany'
+    | 'update'
+    | 'updateMany'
+    | 'upsert'
+    | 'delete'
+    | 'deleteMany'
+    | 'executeRaw'
+    | 'queryRaw'
+    | 'aggregate'
+    | 'count'
+    | 'runCommandRaw'
+    | 'findRaw'
+
+  /**
+   * These options are being passed into the middleware as "params"
+   */
+  export type MiddlewareParams = {
+    model?: ModelName
+    action: PrismaAction
+    args: any
+    dataPath: string[]
+    runInTransaction: boolean
+  }
+
+  /**
+   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
+   */
+  export type Middleware<T = any> = (
+    params: MiddlewareParams,
+    next: (params: MiddlewareParams) => Promise<T>,
+  ) => Promise<T>
+
+  // tested in getLogLevel.test.ts
+  export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
+
+  /**
+   * `PrismaClient` proxy available in interactive transactions.
+   */
+  export type TransactionClient = Omit<Prisma.DefaultPrismaClient, '$connect' | '$disconnect' | '$on' | '$transaction' | '$use'>
+
+  export type Datasource = {
+    url?: string
+  }
+
+  /**
+   * Count Types
+   */
+
+
+  /**
+   * Count Type AdminCountOutputType
+   */
+
+
+  export type AdminCountOutputType = {
+    User: number
+    account: number
+    cashier: number
+    Player: number
+    PlayerBalanceTransactions: number
+    GameTransactions: number
+  }
+
+  export type AdminCountOutputTypeSelect = {
+    User?: boolean
+    account?: boolean
+    cashier?: boolean
+    Player?: boolean
+    PlayerBalanceTransactions?: boolean
+    GameTransactions?: boolean
+  }
+
+  export type AdminCountOutputTypeGetPayload<S extends boolean | null | undefined | AdminCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? AdminCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (AdminCountOutputTypeArgs)
+    ? AdminCountOutputType 
+    : S extends { select: any } & (AdminCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof AdminCountOutputType ? AdminCountOutputType[P] : never
+  } 
+      : AdminCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the AdminCountOutputType
+     */
+    select?: AdminCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type PlayerCountOutputType
+   */
+
+
+  export type PlayerCountOutputType = {
+    PlayerBalanceTransactions: number
+    GameTransactions: number
+    FishGameTransactions: number
+    SlotFreeBonus: number
+  }
+
+  export type PlayerCountOutputTypeSelect = {
+    PlayerBalanceTransactions?: boolean
+    GameTransactions?: boolean
+    FishGameTransactions?: boolean
+    SlotFreeBonus?: boolean
+  }
+
+  export type PlayerCountOutputTypeGetPayload<S extends boolean | null | undefined | PlayerCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? PlayerCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (PlayerCountOutputTypeArgs)
+    ? PlayerCountOutputType 
+    : S extends { select: any } & (PlayerCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof PlayerCountOutputType ? PlayerCountOutputType[P] : never
+  } 
+      : PlayerCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * PlayerCountOutputType without action
+   */
+  export type PlayerCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerCountOutputType
+     */
+    select?: PlayerCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type GamesCountOutputType
+   */
+
+
+  export type GamesCountOutputType = {
+    GameTransaction: number
+    ActiveGamePlay: number
+    GameAssets: number
+    FishGameTransactions: number
+    SlotFreeBonus: number
+  }
+
+  export type GamesCountOutputTypeSelect = {
+    GameTransaction?: boolean
+    ActiveGamePlay?: boolean
+    GameAssets?: boolean
+    FishGameTransactions?: boolean
+    SlotFreeBonus?: boolean
+  }
+
+  export type GamesCountOutputTypeGetPayload<S extends boolean | null | undefined | GamesCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? GamesCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (GamesCountOutputTypeArgs)
+    ? GamesCountOutputType 
+    : S extends { select: any } & (GamesCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof GamesCountOutputType ? GamesCountOutputType[P] : never
+  } 
+      : GamesCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * GamesCountOutputType without action
+   */
+  export type GamesCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the GamesCountOutputType
+     */
+    select?: GamesCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type GameTransactionsCountOutputType
+   */
+
+
+  export type GameTransactionsCountOutputType = {
+    SlotTransactions: number
+  }
+
+  export type GameTransactionsCountOutputTypeSelect = {
+    SlotTransactions?: boolean
+  }
+
+  export type GameTransactionsCountOutputTypeGetPayload<S extends boolean | null | undefined | GameTransactionsCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? GameTransactionsCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (GameTransactionsCountOutputTypeArgs)
+    ? GameTransactionsCountOutputType 
+    : S extends { select: any } & (GameTransactionsCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof GameTransactionsCountOutputType ? GameTransactionsCountOutputType[P] : never
+  } 
+      : GameTransactionsCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * GameTransactionsCountOutputType without action
+   */
+  export type GameTransactionsCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactionsCountOutputType
+     */
+    select?: GameTransactionsCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type FishGameTransactionsCountOutputType
+   */
+
+
+  export type FishGameTransactionsCountOutputType = {
+    GameTransactions: number
+  }
+
+  export type FishGameTransactionsCountOutputTypeSelect = {
+    GameTransactions?: boolean
+  }
+
+  export type FishGameTransactionsCountOutputTypeGetPayload<S extends boolean | null | undefined | FishGameTransactionsCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? FishGameTransactionsCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (FishGameTransactionsCountOutputTypeArgs)
+    ? FishGameTransactionsCountOutputType 
+    : S extends { select: any } & (FishGameTransactionsCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof FishGameTransactionsCountOutputType ? FishGameTransactionsCountOutputType[P] : never
+  } 
+      : FishGameTransactionsCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * FishGameTransactionsCountOutputType without action
+   */
+  export type FishGameTransactionsCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactionsCountOutputType
+     */
+    select?: FishGameTransactionsCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Models
+   */
+
+  /**
+   * Model Admin
+   */
+
+
+  export type AggregateAdmin = {
+    _count: AdminCountAggregateOutputType | null
+    _avg: AdminAvgAggregateOutputType | null
+    _sum: AdminSumAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
+  }
+
+  export type AdminAvgAggregateOutputType = {
+    balance: number | null
+    holding: number | null
+    totalSpent: number | null
+    totalRedeem: number | null
+    totalLost: number | null
+  }
+
+  export type AdminSumAggregateOutputType = {
+    balance: number | null
+    holding: number | null
+    totalSpent: number | null
+    totalRedeem: number | null
+    totalLost: number | null
+  }
+
+  export type AdminMinAggregateOutputType = {
+    id: string | null
+    email_id: string | null
+    username: string | null
+    password: string | null
+    balance: number | null
+    setting_id: string | null
+    status: AccountStatus | null
+    account_type: AccountType | null
+    timezone: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    created_by: string | null
+    holding: number | null
+    totalSpent: number | null
+    totalRedeem: number | null
+    totalLost: number | null
+  }
+
+  export type AdminMaxAggregateOutputType = {
+    id: string | null
+    email_id: string | null
+    username: string | null
+    password: string | null
+    balance: number | null
+    setting_id: string | null
+    status: AccountStatus | null
+    account_type: AccountType | null
+    timezone: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    created_by: string | null
+    holding: number | null
+    totalSpent: number | null
+    totalRedeem: number | null
+    totalLost: number | null
+  }
+
+  export type AdminCountAggregateOutputType = {
+    id: number
+    email_id: number
+    username: number
+    password: number
+    balance: number
+    setting_id: number
+    status: number
+    account_type: number
+    timezone: number
+    createdAt: number
+    updatedAt: number
+    created_by: number
+    holding: number
+    totalSpent: number
+    totalRedeem: number
+    totalLost: number
+    _all: number
+  }
+
+
+  export type AdminAvgAggregateInputType = {
+    balance?: true
+    holding?: true
+    totalSpent?: true
+    totalRedeem?: true
+    totalLost?: true
+  }
+
+  export type AdminSumAggregateInputType = {
+    balance?: true
+    holding?: true
+    totalSpent?: true
+    totalRedeem?: true
+    totalLost?: true
+  }
+
+  export type AdminMinAggregateInputType = {
+    id?: true
+    email_id?: true
+    username?: true
+    password?: true
+    balance?: true
+    setting_id?: true
+    status?: true
+    account_type?: true
+    timezone?: true
+    createdAt?: true
+    updatedAt?: true
+    created_by?: true
+    holding?: true
+    totalSpent?: true
+    totalRedeem?: true
+    totalLost?: true
+  }
+
+  export type AdminMaxAggregateInputType = {
+    id?: true
+    email_id?: true
+    username?: true
+    password?: true
+    balance?: true
+    setting_id?: true
+    status?: true
+    account_type?: true
+    timezone?: true
+    createdAt?: true
+    updatedAt?: true
+    created_by?: true
+    holding?: true
+    totalSpent?: true
+    totalRedeem?: true
+    totalLost?: true
+  }
+
+  export type AdminCountAggregateInputType = {
+    id?: true
+    email_id?: true
+    username?: true
+    password?: true
+    balance?: true
+    setting_id?: true
+    status?: true
+    account_type?: true
+    timezone?: true
+    createdAt?: true
+    updatedAt?: true
+    created_by?: true
+    holding?: true
+    totalSpent?: true
+    totalRedeem?: true
+    totalLost?: true
+    _all?: true
+  }
+
+  export type AdminAggregateArgs = {
+    /**
+     * Filter which Admin to aggregate.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: Enumerable<AdminOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Admins
+    **/
+    _count?: true | AdminCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AdminAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AdminSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AdminMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AdminMaxAggregateInputType
+  }
+
+  export type GetAdminAggregateType<T extends AdminAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdmin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdmin[P]>
+      : GetScalarType<T[P], AggregateAdmin[P]>
+  }
+
+
+
+
+  export type AdminGroupByArgs = {
+    where?: AdminWhereInput
+    orderBy?: Enumerable<AdminOrderByWithAggregationInput>
+    by: AdminScalarFieldEnum[]
+    having?: AdminScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AdminCountAggregateInputType | true
+    _avg?: AdminAvgAggregateInputType
+    _sum?: AdminSumAggregateInputType
+    _min?: AdminMinAggregateInputType
+    _max?: AdminMaxAggregateInputType
+  }
+
+
+  export type AdminGroupByOutputType = {
+    id: string
+    email_id: string | null
+    username: string
+    password: string
+    balance: number
+    setting_id: string | null
+    status: AccountStatus
+    account_type: AccountType | null
+    timezone: string | null
+    createdAt: Date
+    updatedAt: Date
+    created_by: string | null
+    holding: number
+    totalSpent: number
+    totalRedeem: number
+    totalLost: number
+    _count: AdminCountAggregateOutputType | null
+    _avg: AdminAvgAggregateOutputType | null
+    _sum: AdminSumAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
+  }
+
+  type GetAdminGroupByPayload<T extends AdminGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<AdminGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AdminGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AdminGroupByOutputType[P]>
+            : GetScalarType<T[P], AdminGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AdminSelect = {
+    id?: boolean
+    email_id?: boolean
+    username?: boolean
+    password?: boolean
+    balance?: boolean
+    setting_id?: boolean
+    status?: boolean
+    account_type?: boolean
+    Settings?: boolean | SettingsArgs
+    timezone?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    created_by?: boolean
+    CreatedBy?: boolean | AdminArgs
+    User?: boolean | Admin$UserArgs
+    account?: boolean | Admin$accountArgs
+    cashier?: boolean | Admin$cashierArgs
+    Player?: boolean | Admin$PlayerArgs
+    PlayerBalanceTransactions?: boolean | Admin$PlayerBalanceTransactionsArgs
+    GameTransactions?: boolean | Admin$GameTransactionsArgs
+    holding?: boolean
+    totalSpent?: boolean
+    totalRedeem?: boolean
+    totalLost?: boolean
+    _count?: boolean | AdminCountOutputTypeArgs
+  }
+
+
+  export type AdminInclude = {
+    Settings?: boolean | SettingsArgs
+    CreatedBy?: boolean | AdminArgs
+    User?: boolean | Admin$UserArgs
+    account?: boolean | Admin$accountArgs
+    cashier?: boolean | Admin$cashierArgs
+    Player?: boolean | Admin$PlayerArgs
+    PlayerBalanceTransactions?: boolean | Admin$PlayerBalanceTransactionsArgs
+    GameTransactions?: boolean | Admin$GameTransactionsArgs
+    _count?: boolean | AdminCountOutputTypeArgs
+  }
+
+  export type AdminGetPayload<S extends boolean | null | undefined | AdminArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Admin :
+    S extends undefined ? never :
+    S extends { include: any } & (AdminArgs | AdminFindManyArgs)
+    ? Admin  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Settings' ? SettingsGetPayload<S['include'][P]> | null :
+        P extends 'CreatedBy' ? AdminGetPayload<S['include'][P]> | null :
+        P extends 'User' ? Array < AdminGetPayload<S['include'][P]>>  :
+        P extends 'account' ? Array < AdminBalanceTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'cashier' ? Array < AdminBalanceTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'Player' ? Array < PlayerGetPayload<S['include'][P]>>  :
+        P extends 'PlayerBalanceTransactions' ? Array < PlayerBalanceTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['include'][P]>>  :
+        P extends '_count' ? AdminCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (AdminArgs | AdminFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Settings' ? SettingsGetPayload<S['select'][P]> | null :
+        P extends 'CreatedBy' ? AdminGetPayload<S['select'][P]> | null :
+        P extends 'User' ? Array < AdminGetPayload<S['select'][P]>>  :
+        P extends 'account' ? Array < AdminBalanceTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'cashier' ? Array < AdminBalanceTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'Player' ? Array < PlayerGetPayload<S['select'][P]>>  :
+        P extends 'PlayerBalanceTransactions' ? Array < PlayerBalanceTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['select'][P]>>  :
+        P extends '_count' ? AdminCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Admin ? Admin[P] : never
+  } 
+      : Admin
+
+
+  type AdminCountArgs = 
+    Omit<AdminFindManyArgs, 'select' | 'include'> & {
+      select?: AdminCountAggregateInputType | true
+    }
+
+  export interface AdminDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Admin that matches the filter.
+     * @param {AdminFindUniqueArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AdminFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, AdminFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Admin'> extends True ? Prisma__AdminClient<AdminGetPayload<T>> : Prisma__AdminClient<AdminGetPayload<T> | null, null>
+
+    /**
+     * Find one Admin that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AdminFindUniqueOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AdminFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, AdminFindUniqueOrThrowArgs>
+    ): Prisma__AdminClient<AdminGetPayload<T>>
+
+    /**
+     * Find the first Admin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AdminFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, AdminFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Admin'> extends True ? Prisma__AdminClient<AdminGetPayload<T>> : Prisma__AdminClient<AdminGetPayload<T> | null, null>
+
+    /**
+     * Find the first Admin that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AdminFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, AdminFindFirstOrThrowArgs>
+    ): Prisma__AdminClient<AdminGetPayload<T>>
+
+    /**
+     * Find zero or more Admins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Admins
+     * const admins = await prisma.admin.findMany()
+     * 
+     * // Get first 10 Admins
+     * const admins = await prisma.admin.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const adminWithIdOnly = await prisma.admin.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AdminFindManyArgs>(
+      args?: SelectSubset<T, AdminFindManyArgs>
+    ): Prisma.PrismaPromise<Array<AdminGetPayload<T>>>
+
+    /**
+     * Create a Admin.
+     * @param {AdminCreateArgs} args - Arguments to create a Admin.
+     * @example
+     * // Create one Admin
+     * const Admin = await prisma.admin.create({
+     *   data: {
+     *     // ... data to create a Admin
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AdminCreateArgs>(
+      args: SelectSubset<T, AdminCreateArgs>
+    ): Prisma__AdminClient<AdminGetPayload<T>>
+
+    /**
+     * Create many Admins.
+     *     @param {AdminCreateManyArgs} args - Arguments to create many Admins.
+     *     @example
+     *     // Create many Admins
+     *     const admin = await prisma.admin.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AdminCreateManyArgs>(
+      args?: SelectSubset<T, AdminCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Admin.
+     * @param {AdminDeleteArgs} args - Arguments to delete one Admin.
+     * @example
+     * // Delete one Admin
+     * const Admin = await prisma.admin.delete({
+     *   where: {
+     *     // ... filter to delete one Admin
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AdminDeleteArgs>(
+      args: SelectSubset<T, AdminDeleteArgs>
+    ): Prisma__AdminClient<AdminGetPayload<T>>
+
+    /**
+     * Update one Admin.
+     * @param {AdminUpdateArgs} args - Arguments to update one Admin.
+     * @example
+     * // Update one Admin
+     * const admin = await prisma.admin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AdminUpdateArgs>(
+      args: SelectSubset<T, AdminUpdateArgs>
+    ): Prisma__AdminClient<AdminGetPayload<T>>
+
+    /**
+     * Delete zero or more Admins.
+     * @param {AdminDeleteManyArgs} args - Arguments to filter Admins to delete.
+     * @example
+     * // Delete a few Admins
+     * const { count } = await prisma.admin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AdminDeleteManyArgs>(
+      args?: SelectSubset<T, AdminDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Admins
+     * const admin = await prisma.admin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AdminUpdateManyArgs>(
+      args: SelectSubset<T, AdminUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Admin.
+     * @param {AdminUpsertArgs} args - Arguments to update or create a Admin.
+     * @example
+     * // Update or create a Admin
+     * const admin = await prisma.admin.upsert({
+     *   create: {
+     *     // ... data to create a Admin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Admin we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AdminUpsertArgs>(
+      args: SelectSubset<T, AdminUpsertArgs>
+    ): Prisma__AdminClient<AdminGetPayload<T>>
+
+    /**
+     * Find zero or more Admins that matches the filter.
+     * @param {AdminFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const admin = await prisma.admin.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: AdminFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Admin.
+     * @param {AdminAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const admin = await prisma.admin.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: AdminAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminCountArgs} args - Arguments to filter Admins to count.
+     * @example
+     * // Count the number of Admins
+     * const count = await prisma.admin.count({
+     *   where: {
+     *     // ... the filter for the Admins we want to count
+     *   }
+     * })
+    **/
+    count<T extends AdminCountArgs>(
+      args?: Subset<T, AdminCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AdminCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AdminAggregateArgs>(args: Subset<T, AdminAggregateArgs>): Prisma.PrismaPromise<GetAdminAggregateType<T>>
+
+    /**
+     * Group by Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AdminGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AdminGroupByArgs['orderBy'] }
+        : { orderBy?: AdminGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AdminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Admin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__AdminClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Settings<T extends SettingsArgs= {}>(args?: Subset<T, SettingsArgs>): Prisma__SettingsClient<SettingsGetPayload<T> | Null>;
+
+    CreatedBy<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
+
+    User<T extends Admin$UserArgs= {}>(args?: Subset<T, Admin$UserArgs>): Prisma.PrismaPromise<Array<AdminGetPayload<T>>| Null>;
+
+    account<T extends Admin$accountArgs= {}>(args?: Subset<T, Admin$accountArgs>): Prisma.PrismaPromise<Array<AdminBalanceTransactionsGetPayload<T>>| Null>;
+
+    cashier<T extends Admin$cashierArgs= {}>(args?: Subset<T, Admin$cashierArgs>): Prisma.PrismaPromise<Array<AdminBalanceTransactionsGetPayload<T>>| Null>;
+
+    Player<T extends Admin$PlayerArgs= {}>(args?: Subset<T, Admin$PlayerArgs>): Prisma.PrismaPromise<Array<PlayerGetPayload<T>>| Null>;
+
+    PlayerBalanceTransactions<T extends Admin$PlayerBalanceTransactionsArgs= {}>(args?: Subset<T, Admin$PlayerBalanceTransactionsArgs>): Prisma.PrismaPromise<Array<PlayerBalanceTransactionsGetPayload<T>>| Null>;
+
+    GameTransactions<T extends Admin$GameTransactionsArgs= {}>(args?: Subset<T, Admin$GameTransactionsArgs>): Prisma.PrismaPromise<Array<GameTransactionsGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Admin base type for findUnique actions
+   */
+  export type AdminFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin findUnique
+   */
+  export interface AdminFindUniqueArgs extends AdminFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Admin findUniqueOrThrow
+   */
+  export type AdminFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+
+  /**
+   * Admin base type for findFirst actions
+   */
+  export type AdminFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: Enumerable<AdminOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: Enumerable<AdminScalarFieldEnum>
+  }
+
+  /**
+   * Admin findFirst
+   */
+  export interface AdminFindFirstArgs extends AdminFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Admin findFirstOrThrow
+   */
+  export type AdminFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: Enumerable<AdminOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: Enumerable<AdminScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin findMany
+   */
+  export type AdminFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    /**
+     * Filter, which Admins to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: Enumerable<AdminOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    distinct?: Enumerable<AdminScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin create
+   */
+  export type AdminCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    /**
+     * The data needed to create a Admin.
+     */
+    data: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+  }
+
+
+  /**
+   * Admin createMany
+   */
+  export type AdminCreateManyArgs = {
+    /**
+     * The data used to create many Admins.
+     */
+    data: Enumerable<AdminCreateManyInput>
+  }
+
+
+  /**
+   * Admin update
+   */
+  export type AdminUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    /**
+     * The data needed to update a Admin.
+     */
+    data: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+    /**
+     * Choose, which Admin to update.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+
+  /**
+   * Admin updateMany
+   */
+  export type AdminUpdateManyArgs = {
+    /**
+     * The data used to update Admins.
+     */
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyInput>
+    /**
+     * Filter which Admins to update
+     */
+    where?: AdminWhereInput
+  }
+
+
+  /**
+   * Admin upsert
+   */
+  export type AdminUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    /**
+     * The filter to search for the Admin to update in case it exists.
+     */
+    where: AdminWhereUniqueInput
+    /**
+     * In case the Admin found by the `where` argument doesn't exist, create a new Admin with this data.
+     */
+    create: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+    /**
+     * In case the Admin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Admin delete
+   */
+  export type AdminDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    /**
+     * Filter which Admin to delete.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+
+  /**
+   * Admin deleteMany
+   */
+  export type AdminDeleteManyArgs = {
+    /**
+     * Filter which Admins to delete
+     */
+    where?: AdminWhereInput
+  }
+
+
+  /**
+   * Admin findRaw
+   */
+  export type AdminFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Admin aggregateRaw
+   */
+  export type AdminAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Admin.User
+   */
+  export type Admin$UserArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    where?: AdminWhereInput
+    orderBy?: Enumerable<AdminOrderByWithRelationInput>
+    cursor?: AdminWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AdminScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin.account
+   */
+  export type Admin$accountArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    where?: AdminBalanceTransactionsWhereInput
+    orderBy?: Enumerable<AdminBalanceTransactionsOrderByWithRelationInput>
+    cursor?: AdminBalanceTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AdminBalanceTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin.cashier
+   */
+  export type Admin$cashierArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    where?: AdminBalanceTransactionsWhereInput
+    orderBy?: Enumerable<AdminBalanceTransactionsOrderByWithRelationInput>
+    cursor?: AdminBalanceTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AdminBalanceTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin.Player
+   */
+  export type Admin$PlayerArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    where?: PlayerWhereInput
+    orderBy?: Enumerable<PlayerOrderByWithRelationInput>
+    cursor?: PlayerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<PlayerScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin.PlayerBalanceTransactions
+   */
+  export type Admin$PlayerBalanceTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    where?: PlayerBalanceTransactionsWhereInput
+    orderBy?: Enumerable<PlayerBalanceTransactionsOrderByWithRelationInput>
+    cursor?: PlayerBalanceTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<PlayerBalanceTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin.GameTransactions
+   */
+  export type Admin$GameTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    where?: GameTransactionsWhereInput
+    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
+    cursor?: GameTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<GameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin without action
+   */
+  export type AdminArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+  }
+
+
+
+  /**
+   * Model AdminBalanceTransactions
+   */
+
+
+  export type AggregateAdminBalanceTransactions = {
+    _count: AdminBalanceTransactionsCountAggregateOutputType | null
+    _avg: AdminBalanceTransactionsAvgAggregateOutputType | null
+    _sum: AdminBalanceTransactionsSumAggregateOutputType | null
+    _min: AdminBalanceTransactionsMinAggregateOutputType | null
+    _max: AdminBalanceTransactionsMaxAggregateOutputType | null
+  }
+
+  export type AdminBalanceTransactionsAvgAggregateOutputType = {
+    beforeRecharge: number | null
+    recharged: number | null
+    redeemed: number | null
+    afterRecharge: number | null
+    balanceBefore: number | null
+    balanceAfter: number | null
+  }
+
+  export type AdminBalanceTransactionsSumAggregateOutputType = {
+    beforeRecharge: number | null
+    recharged: number | null
+    redeemed: number | null
+    afterRecharge: number | null
+    balanceBefore: number | null
+    balanceAfter: number | null
+  }
+
+  export type AdminBalanceTransactionsMinAggregateOutputType = {
+    id: string | null
+    account: string | null
+    beforeRecharge: number | null
+    recharged: number | null
+    redeemed: number | null
+    afterRecharge: number | null
+    cashier: string | null
+    balanceBefore: number | null
+    balanceAfter: number | null
+    remark: string | null
+    createdAt: Date | null
+  }
+
+  export type AdminBalanceTransactionsMaxAggregateOutputType = {
+    id: string | null
+    account: string | null
+    beforeRecharge: number | null
+    recharged: number | null
+    redeemed: number | null
+    afterRecharge: number | null
+    cashier: string | null
+    balanceBefore: number | null
+    balanceAfter: number | null
+    remark: string | null
+    createdAt: Date | null
+  }
+
+  export type AdminBalanceTransactionsCountAggregateOutputType = {
+    id: number
+    account: number
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    cashier: number
+    balanceBefore: number
+    balanceAfter: number
+    remark: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AdminBalanceTransactionsAvgAggregateInputType = {
+    beforeRecharge?: true
+    recharged?: true
+    redeemed?: true
+    afterRecharge?: true
+    balanceBefore?: true
+    balanceAfter?: true
+  }
+
+  export type AdminBalanceTransactionsSumAggregateInputType = {
+    beforeRecharge?: true
+    recharged?: true
+    redeemed?: true
+    afterRecharge?: true
+    balanceBefore?: true
+    balanceAfter?: true
+  }
+
+  export type AdminBalanceTransactionsMinAggregateInputType = {
+    id?: true
+    account?: true
+    beforeRecharge?: true
+    recharged?: true
+    redeemed?: true
+    afterRecharge?: true
+    cashier?: true
+    balanceBefore?: true
+    balanceAfter?: true
+    remark?: true
+    createdAt?: true
+  }
+
+  export type AdminBalanceTransactionsMaxAggregateInputType = {
+    id?: true
+    account?: true
+    beforeRecharge?: true
+    recharged?: true
+    redeemed?: true
+    afterRecharge?: true
+    cashier?: true
+    balanceBefore?: true
+    balanceAfter?: true
+    remark?: true
+    createdAt?: true
+  }
+
+  export type AdminBalanceTransactionsCountAggregateInputType = {
+    id?: true
+    account?: true
+    beforeRecharge?: true
+    recharged?: true
+    redeemed?: true
+    afterRecharge?: true
+    cashier?: true
+    balanceBefore?: true
+    balanceAfter?: true
+    remark?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AdminBalanceTransactionsAggregateArgs = {
+    /**
+     * Filter which AdminBalanceTransactions to aggregate.
+     */
+    where?: AdminBalanceTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdminBalanceTransactions to fetch.
+     */
+    orderBy?: Enumerable<AdminBalanceTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AdminBalanceTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdminBalanceTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdminBalanceTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AdminBalanceTransactions
+    **/
+    _count?: true | AdminBalanceTransactionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AdminBalanceTransactionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AdminBalanceTransactionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AdminBalanceTransactionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AdminBalanceTransactionsMaxAggregateInputType
+  }
+
+  export type GetAdminBalanceTransactionsAggregateType<T extends AdminBalanceTransactionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdminBalanceTransactions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdminBalanceTransactions[P]>
+      : GetScalarType<T[P], AggregateAdminBalanceTransactions[P]>
+  }
+
+
+
+
+  export type AdminBalanceTransactionsGroupByArgs = {
+    where?: AdminBalanceTransactionsWhereInput
+    orderBy?: Enumerable<AdminBalanceTransactionsOrderByWithAggregationInput>
+    by: AdminBalanceTransactionsScalarFieldEnum[]
+    having?: AdminBalanceTransactionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AdminBalanceTransactionsCountAggregateInputType | true
+    _avg?: AdminBalanceTransactionsAvgAggregateInputType
+    _sum?: AdminBalanceTransactionsSumAggregateInputType
+    _min?: AdminBalanceTransactionsMinAggregateInputType
+    _max?: AdminBalanceTransactionsMaxAggregateInputType
+  }
+
+
+  export type AdminBalanceTransactionsGroupByOutputType = {
+    id: string
+    account: string | null
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    cashier: string | null
+    balanceBefore: number
+    balanceAfter: number
+    remark: string | null
+    createdAt: Date
+    _count: AdminBalanceTransactionsCountAggregateOutputType | null
+    _avg: AdminBalanceTransactionsAvgAggregateOutputType | null
+    _sum: AdminBalanceTransactionsSumAggregateOutputType | null
+    _min: AdminBalanceTransactionsMinAggregateOutputType | null
+    _max: AdminBalanceTransactionsMaxAggregateOutputType | null
+  }
+
+  type GetAdminBalanceTransactionsGroupByPayload<T extends AdminBalanceTransactionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<AdminBalanceTransactionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AdminBalanceTransactionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AdminBalanceTransactionsGroupByOutputType[P]>
+            : GetScalarType<T[P], AdminBalanceTransactionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AdminBalanceTransactionsSelect = {
+    id?: boolean
+    account?: boolean
+    beforeRecharge?: boolean
+    recharged?: boolean
+    redeemed?: boolean
+    afterRecharge?: boolean
+    cashier?: boolean
+    balanceBefore?: boolean
+    balanceAfter?: boolean
+    remark?: boolean
+    createdAt?: boolean
+    Account_user?: boolean | AdminArgs
+    Cashier_user?: boolean | AdminArgs
+  }
+
+
+  export type AdminBalanceTransactionsInclude = {
+    Account_user?: boolean | AdminArgs
+    Cashier_user?: boolean | AdminArgs
+  }
+
+  export type AdminBalanceTransactionsGetPayload<S extends boolean | null | undefined | AdminBalanceTransactionsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? AdminBalanceTransactions :
+    S extends undefined ? never :
+    S extends { include: any } & (AdminBalanceTransactionsArgs | AdminBalanceTransactionsFindManyArgs)
+    ? AdminBalanceTransactions  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Account_user' ? AdminGetPayload<S['include'][P]> | null :
+        P extends 'Cashier_user' ? AdminGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (AdminBalanceTransactionsArgs | AdminBalanceTransactionsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Account_user' ? AdminGetPayload<S['select'][P]> | null :
+        P extends 'Cashier_user' ? AdminGetPayload<S['select'][P]> | null :  P extends keyof AdminBalanceTransactions ? AdminBalanceTransactions[P] : never
+  } 
+      : AdminBalanceTransactions
+
+
+  type AdminBalanceTransactionsCountArgs = 
+    Omit<AdminBalanceTransactionsFindManyArgs, 'select' | 'include'> & {
+      select?: AdminBalanceTransactionsCountAggregateInputType | true
+    }
+
+  export interface AdminBalanceTransactionsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one AdminBalanceTransactions that matches the filter.
+     * @param {AdminBalanceTransactionsFindUniqueArgs} args - Arguments to find a AdminBalanceTransactions
+     * @example
+     * // Get one AdminBalanceTransactions
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AdminBalanceTransactionsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, AdminBalanceTransactionsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'AdminBalanceTransactions'> extends True ? Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T>> : Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find one AdminBalanceTransactions that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AdminBalanceTransactionsFindUniqueOrThrowArgs} args - Arguments to find a AdminBalanceTransactions
+     * @example
+     * // Get one AdminBalanceTransactions
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AdminBalanceTransactionsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, AdminBalanceTransactionsFindUniqueOrThrowArgs>
+    ): Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Find the first AdminBalanceTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminBalanceTransactionsFindFirstArgs} args - Arguments to find a AdminBalanceTransactions
+     * @example
+     * // Get one AdminBalanceTransactions
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AdminBalanceTransactionsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, AdminBalanceTransactionsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'AdminBalanceTransactions'> extends True ? Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T>> : Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find the first AdminBalanceTransactions that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminBalanceTransactionsFindFirstOrThrowArgs} args - Arguments to find a AdminBalanceTransactions
+     * @example
+     * // Get one AdminBalanceTransactions
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AdminBalanceTransactionsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, AdminBalanceTransactionsFindFirstOrThrowArgs>
+    ): Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more AdminBalanceTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminBalanceTransactionsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AdminBalanceTransactions
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.findMany()
+     * 
+     * // Get first 10 AdminBalanceTransactions
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const adminBalanceTransactionsWithIdOnly = await prisma.adminBalanceTransactions.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AdminBalanceTransactionsFindManyArgs>(
+      args?: SelectSubset<T, AdminBalanceTransactionsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<AdminBalanceTransactionsGetPayload<T>>>
+
+    /**
+     * Create a AdminBalanceTransactions.
+     * @param {AdminBalanceTransactionsCreateArgs} args - Arguments to create a AdminBalanceTransactions.
+     * @example
+     * // Create one AdminBalanceTransactions
+     * const AdminBalanceTransactions = await prisma.adminBalanceTransactions.create({
+     *   data: {
+     *     // ... data to create a AdminBalanceTransactions
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AdminBalanceTransactionsCreateArgs>(
+      args: SelectSubset<T, AdminBalanceTransactionsCreateArgs>
+    ): Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Create many AdminBalanceTransactions.
+     *     @param {AdminBalanceTransactionsCreateManyArgs} args - Arguments to create many AdminBalanceTransactions.
+     *     @example
+     *     // Create many AdminBalanceTransactions
+     *     const adminBalanceTransactions = await prisma.adminBalanceTransactions.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AdminBalanceTransactionsCreateManyArgs>(
+      args?: SelectSubset<T, AdminBalanceTransactionsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a AdminBalanceTransactions.
+     * @param {AdminBalanceTransactionsDeleteArgs} args - Arguments to delete one AdminBalanceTransactions.
+     * @example
+     * // Delete one AdminBalanceTransactions
+     * const AdminBalanceTransactions = await prisma.adminBalanceTransactions.delete({
+     *   where: {
+     *     // ... filter to delete one AdminBalanceTransactions
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AdminBalanceTransactionsDeleteArgs>(
+      args: SelectSubset<T, AdminBalanceTransactionsDeleteArgs>
+    ): Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Update one AdminBalanceTransactions.
+     * @param {AdminBalanceTransactionsUpdateArgs} args - Arguments to update one AdminBalanceTransactions.
+     * @example
+     * // Update one AdminBalanceTransactions
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AdminBalanceTransactionsUpdateArgs>(
+      args: SelectSubset<T, AdminBalanceTransactionsUpdateArgs>
+    ): Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Delete zero or more AdminBalanceTransactions.
+     * @param {AdminBalanceTransactionsDeleteManyArgs} args - Arguments to filter AdminBalanceTransactions to delete.
+     * @example
+     * // Delete a few AdminBalanceTransactions
+     * const { count } = await prisma.adminBalanceTransactions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AdminBalanceTransactionsDeleteManyArgs>(
+      args?: SelectSubset<T, AdminBalanceTransactionsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AdminBalanceTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminBalanceTransactionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AdminBalanceTransactions
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AdminBalanceTransactionsUpdateManyArgs>(
+      args: SelectSubset<T, AdminBalanceTransactionsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AdminBalanceTransactions.
+     * @param {AdminBalanceTransactionsUpsertArgs} args - Arguments to update or create a AdminBalanceTransactions.
+     * @example
+     * // Update or create a AdminBalanceTransactions
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.upsert({
+     *   create: {
+     *     // ... data to create a AdminBalanceTransactions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AdminBalanceTransactions we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AdminBalanceTransactionsUpsertArgs>(
+      args: SelectSubset<T, AdminBalanceTransactionsUpsertArgs>
+    ): Prisma__AdminBalanceTransactionsClient<AdminBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more AdminBalanceTransactions that matches the filter.
+     * @param {AdminBalanceTransactionsFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: AdminBalanceTransactionsFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a AdminBalanceTransactions.
+     * @param {AdminBalanceTransactionsAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const adminBalanceTransactions = await prisma.adminBalanceTransactions.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: AdminBalanceTransactionsAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of AdminBalanceTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminBalanceTransactionsCountArgs} args - Arguments to filter AdminBalanceTransactions to count.
+     * @example
+     * // Count the number of AdminBalanceTransactions
+     * const count = await prisma.adminBalanceTransactions.count({
+     *   where: {
+     *     // ... the filter for the AdminBalanceTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends AdminBalanceTransactionsCountArgs>(
+      args?: Subset<T, AdminBalanceTransactionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AdminBalanceTransactionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AdminBalanceTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminBalanceTransactionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AdminBalanceTransactionsAggregateArgs>(args: Subset<T, AdminBalanceTransactionsAggregateArgs>): Prisma.PrismaPromise<GetAdminBalanceTransactionsAggregateType<T>>
+
+    /**
+     * Group by AdminBalanceTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminBalanceTransactionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AdminBalanceTransactionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AdminBalanceTransactionsGroupByArgs['orderBy'] }
+        : { orderBy?: AdminBalanceTransactionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AdminBalanceTransactionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdminBalanceTransactionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AdminBalanceTransactions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__AdminBalanceTransactionsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Account_user<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
+
+    Cashier_user<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * AdminBalanceTransactions base type for findUnique actions
+   */
+  export type AdminBalanceTransactionsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    /**
+     * Filter, which AdminBalanceTransactions to fetch.
+     */
+    where: AdminBalanceTransactionsWhereUniqueInput
+  }
+
+  /**
+   * AdminBalanceTransactions findUnique
+   */
+  export interface AdminBalanceTransactionsFindUniqueArgs extends AdminBalanceTransactionsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * AdminBalanceTransactions findUniqueOrThrow
+   */
+  export type AdminBalanceTransactionsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    /**
+     * Filter, which AdminBalanceTransactions to fetch.
+     */
+    where: AdminBalanceTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * AdminBalanceTransactions base type for findFirst actions
+   */
+  export type AdminBalanceTransactionsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    /**
+     * Filter, which AdminBalanceTransactions to fetch.
+     */
+    where?: AdminBalanceTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdminBalanceTransactions to fetch.
+     */
+    orderBy?: Enumerable<AdminBalanceTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AdminBalanceTransactions.
+     */
+    cursor?: AdminBalanceTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdminBalanceTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdminBalanceTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AdminBalanceTransactions.
+     */
+    distinct?: Enumerable<AdminBalanceTransactionsScalarFieldEnum>
+  }
+
+  /**
+   * AdminBalanceTransactions findFirst
+   */
+  export interface AdminBalanceTransactionsFindFirstArgs extends AdminBalanceTransactionsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * AdminBalanceTransactions findFirstOrThrow
+   */
+  export type AdminBalanceTransactionsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    /**
+     * Filter, which AdminBalanceTransactions to fetch.
+     */
+    where?: AdminBalanceTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdminBalanceTransactions to fetch.
+     */
+    orderBy?: Enumerable<AdminBalanceTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AdminBalanceTransactions.
+     */
+    cursor?: AdminBalanceTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdminBalanceTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdminBalanceTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AdminBalanceTransactions.
+     */
+    distinct?: Enumerable<AdminBalanceTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * AdminBalanceTransactions findMany
+   */
+  export type AdminBalanceTransactionsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    /**
+     * Filter, which AdminBalanceTransactions to fetch.
+     */
+    where?: AdminBalanceTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdminBalanceTransactions to fetch.
+     */
+    orderBy?: Enumerable<AdminBalanceTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AdminBalanceTransactions.
+     */
+    cursor?: AdminBalanceTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdminBalanceTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdminBalanceTransactions.
+     */
+    skip?: number
+    distinct?: Enumerable<AdminBalanceTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * AdminBalanceTransactions create
+   */
+  export type AdminBalanceTransactionsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    /**
+     * The data needed to create a AdminBalanceTransactions.
+     */
+    data: XOR<AdminBalanceTransactionsCreateInput, AdminBalanceTransactionsUncheckedCreateInput>
+  }
+
+
+  /**
+   * AdminBalanceTransactions createMany
+   */
+  export type AdminBalanceTransactionsCreateManyArgs = {
+    /**
+     * The data used to create many AdminBalanceTransactions.
+     */
+    data: Enumerable<AdminBalanceTransactionsCreateManyInput>
+  }
+
+
+  /**
+   * AdminBalanceTransactions update
+   */
+  export type AdminBalanceTransactionsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    /**
+     * The data needed to update a AdminBalanceTransactions.
+     */
+    data: XOR<AdminBalanceTransactionsUpdateInput, AdminBalanceTransactionsUncheckedUpdateInput>
+    /**
+     * Choose, which AdminBalanceTransactions to update.
+     */
+    where: AdminBalanceTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * AdminBalanceTransactions updateMany
+   */
+  export type AdminBalanceTransactionsUpdateManyArgs = {
+    /**
+     * The data used to update AdminBalanceTransactions.
+     */
+    data: XOR<AdminBalanceTransactionsUpdateManyMutationInput, AdminBalanceTransactionsUncheckedUpdateManyInput>
+    /**
+     * Filter which AdminBalanceTransactions to update
+     */
+    where?: AdminBalanceTransactionsWhereInput
+  }
+
+
+  /**
+   * AdminBalanceTransactions upsert
+   */
+  export type AdminBalanceTransactionsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    /**
+     * The filter to search for the AdminBalanceTransactions to update in case it exists.
+     */
+    where: AdminBalanceTransactionsWhereUniqueInput
+    /**
+     * In case the AdminBalanceTransactions found by the `where` argument doesn't exist, create a new AdminBalanceTransactions with this data.
+     */
+    create: XOR<AdminBalanceTransactionsCreateInput, AdminBalanceTransactionsUncheckedCreateInput>
+    /**
+     * In case the AdminBalanceTransactions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AdminBalanceTransactionsUpdateInput, AdminBalanceTransactionsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * AdminBalanceTransactions delete
+   */
+  export type AdminBalanceTransactionsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+    /**
+     * Filter which AdminBalanceTransactions to delete.
+     */
+    where: AdminBalanceTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * AdminBalanceTransactions deleteMany
+   */
+  export type AdminBalanceTransactionsDeleteManyArgs = {
+    /**
+     * Filter which AdminBalanceTransactions to delete
+     */
+    where?: AdminBalanceTransactionsWhereInput
+  }
+
+
+  /**
+   * AdminBalanceTransactions findRaw
+   */
+  export type AdminBalanceTransactionsFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * AdminBalanceTransactions aggregateRaw
+   */
+  export type AdminBalanceTransactionsAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * AdminBalanceTransactions without action
+   */
+  export type AdminBalanceTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the AdminBalanceTransactions
+     */
+    select?: AdminBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminBalanceTransactionsInclude | null
+  }
+
+
+
+  /**
+   * Model Settings
+   */
+
+
+  export type AggregateSettings = {
+    _count: SettingsCountAggregateOutputType | null
+    _avg: SettingsAvgAggregateOutputType | null
+    _sum: SettingsSumAggregateOutputType | null
+    _min: SettingsMinAggregateOutputType | null
+    _max: SettingsMaxAggregateOutputType | null
+  }
+
+  export type SettingsAvgAggregateOutputType = {
+    grandJP_limit: number | null
+    majorJP_limit: number | null
+    minorJP_limit: number | null
+    miniJP_limit: number | null
+    grandScore: number | null
+    majorScore: number | null
+    minorScore: number | null
+    miniScore: number | null
+    miniShareNum: number | null
+    maxShareNum: number | null
+  }
+
+  export type SettingsSumAggregateOutputType = {
+    grandJP_limit: number | null
+    majorJP_limit: number | null
+    minorJP_limit: number | null
+    miniJP_limit: number | null
+    grandScore: number | null
+    majorScore: number | null
+    minorScore: number | null
+    miniScore: number | null
+    miniShareNum: number | null
+    maxShareNum: number | null
+  }
+
+  export type SettingsMinAggregateOutputType = {
+    id: string | null
+    grandJP: boolean | null
+    grandJP_limit: number | null
+    majorJP: boolean | null
+    majorJP_limit: number | null
+    minorJP: boolean | null
+    minorJP_limit: number | null
+    miniJP: boolean | null
+    miniJP_limit: number | null
+    grandScore: number | null
+    majorScore: number | null
+    minorScore: number | null
+    miniScore: number | null
+    miniShareNum: number | null
+    maxShareNum: number | null
+    dollarStatus: boolean | null
+    account_type: AccountType | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SettingsMaxAggregateOutputType = {
+    id: string | null
+    grandJP: boolean | null
+    grandJP_limit: number | null
+    majorJP: boolean | null
+    majorJP_limit: number | null
+    minorJP: boolean | null
+    minorJP_limit: number | null
+    miniJP: boolean | null
+    miniJP_limit: number | null
+    grandScore: number | null
+    majorScore: number | null
+    minorScore: number | null
+    miniScore: number | null
+    miniShareNum: number | null
+    maxShareNum: number | null
+    dollarStatus: boolean | null
+    account_type: AccountType | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SettingsCountAggregateOutputType = {
+    id: number
+    grandJP: number
+    grandJP_limit: number
+    majorJP: number
+    majorJP_limit: number
+    minorJP: number
+    minorJP_limit: number
+    miniJP: number
+    miniJP_limit: number
+    grandScore: number
+    majorScore: number
+    minorScore: number
+    miniScore: number
+    miniShareNum: number
+    maxShareNum: number
+    dollarStatus: number
+    account_type: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SettingsAvgAggregateInputType = {
+    grandJP_limit?: true
+    majorJP_limit?: true
+    minorJP_limit?: true
+    miniJP_limit?: true
+    grandScore?: true
+    majorScore?: true
+    minorScore?: true
+    miniScore?: true
+    miniShareNum?: true
+    maxShareNum?: true
+  }
+
+  export type SettingsSumAggregateInputType = {
+    grandJP_limit?: true
+    majorJP_limit?: true
+    minorJP_limit?: true
+    miniJP_limit?: true
+    grandScore?: true
+    majorScore?: true
+    minorScore?: true
+    miniScore?: true
+    miniShareNum?: true
+    maxShareNum?: true
+  }
+
+  export type SettingsMinAggregateInputType = {
+    id?: true
+    grandJP?: true
+    grandJP_limit?: true
+    majorJP?: true
+    majorJP_limit?: true
+    minorJP?: true
+    minorJP_limit?: true
+    miniJP?: true
+    miniJP_limit?: true
+    grandScore?: true
+    majorScore?: true
+    minorScore?: true
+    miniScore?: true
+    miniShareNum?: true
+    maxShareNum?: true
+    dollarStatus?: true
+    account_type?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SettingsMaxAggregateInputType = {
+    id?: true
+    grandJP?: true
+    grandJP_limit?: true
+    majorJP?: true
+    majorJP_limit?: true
+    minorJP?: true
+    minorJP_limit?: true
+    miniJP?: true
+    miniJP_limit?: true
+    grandScore?: true
+    majorScore?: true
+    minorScore?: true
+    miniScore?: true
+    miniShareNum?: true
+    maxShareNum?: true
+    dollarStatus?: true
+    account_type?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SettingsCountAggregateInputType = {
+    id?: true
+    grandJP?: true
+    grandJP_limit?: true
+    majorJP?: true
+    majorJP_limit?: true
+    minorJP?: true
+    minorJP_limit?: true
+    miniJP?: true
+    miniJP_limit?: true
+    grandScore?: true
+    majorScore?: true
+    minorScore?: true
+    miniScore?: true
+    miniShareNum?: true
+    maxShareNum?: true
+    dollarStatus?: true
+    account_type?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SettingsAggregateArgs = {
+    /**
+     * Filter which Settings to aggregate.
+     */
+    where?: SettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Settings to fetch.
+     */
+    orderBy?: Enumerable<SettingsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Settings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Settings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Settings
+    **/
+    _count?: true | SettingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SettingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SettingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SettingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SettingsMaxAggregateInputType
+  }
+
+  export type GetSettingsAggregateType<T extends SettingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSettings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSettings[P]>
+      : GetScalarType<T[P], AggregateSettings[P]>
+  }
+
+
+
+
+  export type SettingsGroupByArgs = {
+    where?: SettingsWhereInput
+    orderBy?: Enumerable<SettingsOrderByWithAggregationInput>
+    by: SettingsScalarFieldEnum[]
+    having?: SettingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SettingsCountAggregateInputType | true
+    _avg?: SettingsAvgAggregateInputType
+    _sum?: SettingsSumAggregateInputType
+    _min?: SettingsMinAggregateInputType
+    _max?: SettingsMaxAggregateInputType
+  }
+
+
+  export type SettingsGroupByOutputType = {
+    id: string
+    grandJP: boolean
+    grandJP_limit: number
+    majorJP: boolean
+    majorJP_limit: number
+    minorJP: boolean
+    minorJP_limit: number
+    miniJP: boolean
+    miniJP_limit: number
+    grandScore: number
+    majorScore: number
+    minorScore: number
+    miniScore: number
+    miniShareNum: number
+    maxShareNum: number
+    dollarStatus: boolean
+    account_type: AccountType | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SettingsCountAggregateOutputType | null
+    _avg: SettingsAvgAggregateOutputType | null
+    _sum: SettingsSumAggregateOutputType | null
+    _min: SettingsMinAggregateOutputType | null
+    _max: SettingsMaxAggregateOutputType | null
+  }
+
+  type GetSettingsGroupByPayload<T extends SettingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<SettingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SettingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SettingsGroupByOutputType[P]>
+            : GetScalarType<T[P], SettingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SettingsSelect = {
+    id?: boolean
+    grandJP?: boolean
+    grandJP_limit?: boolean
+    majorJP?: boolean
+    majorJP_limit?: boolean
+    minorJP?: boolean
+    minorJP_limit?: boolean
+    miniJP?: boolean
+    miniJP_limit?: boolean
+    grandScore?: boolean
+    majorScore?: boolean
+    minorScore?: boolean
+    miniScore?: boolean
+    miniShareNum?: boolean
+    maxShareNum?: boolean
+    dollarStatus?: boolean
+    account_type?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    Admin?: boolean | AdminArgs
+    Player?: boolean | PlayerArgs
+  }
+
+
+  export type SettingsInclude = {
+    Admin?: boolean | AdminArgs
+    Player?: boolean | PlayerArgs
+  }
+
+  export type SettingsGetPayload<S extends boolean | null | undefined | SettingsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Settings :
+    S extends undefined ? never :
+    S extends { include: any } & (SettingsArgs | SettingsFindManyArgs)
+    ? Settings  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Admin' ? AdminGetPayload<S['include'][P]> | null :
+        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (SettingsArgs | SettingsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Admin' ? AdminGetPayload<S['select'][P]> | null :
+        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :  P extends keyof Settings ? Settings[P] : never
+  } 
+      : Settings
+
+
+  type SettingsCountArgs = 
+    Omit<SettingsFindManyArgs, 'select' | 'include'> & {
+      select?: SettingsCountAggregateInputType | true
+    }
+
+  export interface SettingsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Settings that matches the filter.
+     * @param {SettingsFindUniqueArgs} args - Arguments to find a Settings
+     * @example
+     * // Get one Settings
+     * const settings = await prisma.settings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends SettingsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, SettingsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Settings'> extends True ? Prisma__SettingsClient<SettingsGetPayload<T>> : Prisma__SettingsClient<SettingsGetPayload<T> | null, null>
+
+    /**
+     * Find one Settings that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {SettingsFindUniqueOrThrowArgs} args - Arguments to find a Settings
+     * @example
+     * // Get one Settings
+     * const settings = await prisma.settings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends SettingsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, SettingsFindUniqueOrThrowArgs>
+    ): Prisma__SettingsClient<SettingsGetPayload<T>>
+
+    /**
+     * Find the first Settings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingsFindFirstArgs} args - Arguments to find a Settings
+     * @example
+     * // Get one Settings
+     * const settings = await prisma.settings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends SettingsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, SettingsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Settings'> extends True ? Prisma__SettingsClient<SettingsGetPayload<T>> : Prisma__SettingsClient<SettingsGetPayload<T> | null, null>
+
+    /**
+     * Find the first Settings that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingsFindFirstOrThrowArgs} args - Arguments to find a Settings
+     * @example
+     * // Get one Settings
+     * const settings = await prisma.settings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends SettingsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, SettingsFindFirstOrThrowArgs>
+    ): Prisma__SettingsClient<SettingsGetPayload<T>>
+
+    /**
+     * Find zero or more Settings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Settings
+     * const settings = await prisma.settings.findMany()
+     * 
+     * // Get first 10 Settings
+     * const settings = await prisma.settings.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const settingsWithIdOnly = await prisma.settings.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends SettingsFindManyArgs>(
+      args?: SelectSubset<T, SettingsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<SettingsGetPayload<T>>>
+
+    /**
+     * Create a Settings.
+     * @param {SettingsCreateArgs} args - Arguments to create a Settings.
+     * @example
+     * // Create one Settings
+     * const Settings = await prisma.settings.create({
+     *   data: {
+     *     // ... data to create a Settings
+     *   }
+     * })
+     * 
+    **/
+    create<T extends SettingsCreateArgs>(
+      args: SelectSubset<T, SettingsCreateArgs>
+    ): Prisma__SettingsClient<SettingsGetPayload<T>>
+
+    /**
+     * Create many Settings.
+     *     @param {SettingsCreateManyArgs} args - Arguments to create many Settings.
+     *     @example
+     *     // Create many Settings
+     *     const settings = await prisma.settings.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends SettingsCreateManyArgs>(
+      args?: SelectSubset<T, SettingsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Settings.
+     * @param {SettingsDeleteArgs} args - Arguments to delete one Settings.
+     * @example
+     * // Delete one Settings
+     * const Settings = await prisma.settings.delete({
+     *   where: {
+     *     // ... filter to delete one Settings
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends SettingsDeleteArgs>(
+      args: SelectSubset<T, SettingsDeleteArgs>
+    ): Prisma__SettingsClient<SettingsGetPayload<T>>
+
+    /**
+     * Update one Settings.
+     * @param {SettingsUpdateArgs} args - Arguments to update one Settings.
+     * @example
+     * // Update one Settings
+     * const settings = await prisma.settings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends SettingsUpdateArgs>(
+      args: SelectSubset<T, SettingsUpdateArgs>
+    ): Prisma__SettingsClient<SettingsGetPayload<T>>
+
+    /**
+     * Delete zero or more Settings.
+     * @param {SettingsDeleteManyArgs} args - Arguments to filter Settings to delete.
+     * @example
+     * // Delete a few Settings
+     * const { count } = await prisma.settings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends SettingsDeleteManyArgs>(
+      args?: SelectSubset<T, SettingsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Settings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Settings
+     * const settings = await prisma.settings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends SettingsUpdateManyArgs>(
+      args: SelectSubset<T, SettingsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Settings.
+     * @param {SettingsUpsertArgs} args - Arguments to update or create a Settings.
+     * @example
+     * // Update or create a Settings
+     * const settings = await prisma.settings.upsert({
+     *   create: {
+     *     // ... data to create a Settings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Settings we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends SettingsUpsertArgs>(
+      args: SelectSubset<T, SettingsUpsertArgs>
+    ): Prisma__SettingsClient<SettingsGetPayload<T>>
+
+    /**
+     * Find zero or more Settings that matches the filter.
+     * @param {SettingsFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const settings = await prisma.settings.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: SettingsFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Settings.
+     * @param {SettingsAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const settings = await prisma.settings.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: SettingsAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of Settings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingsCountArgs} args - Arguments to filter Settings to count.
+     * @example
+     * // Count the number of Settings
+     * const count = await prisma.settings.count({
+     *   where: {
+     *     // ... the filter for the Settings we want to count
+     *   }
+     * })
+    **/
+    count<T extends SettingsCountArgs>(
+      args?: Subset<T, SettingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SettingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Settings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SettingsAggregateArgs>(args: Subset<T, SettingsAggregateArgs>): Prisma.PrismaPromise<GetSettingsAggregateType<T>>
+
+    /**
+     * Group by Settings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SettingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SettingsGroupByArgs['orderBy'] }
+        : { orderBy?: SettingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SettingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSettingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Settings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__SettingsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Admin<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
+
+    Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Settings base type for findUnique actions
+   */
+  export type SettingsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+    /**
+     * Filter, which Settings to fetch.
+     */
+    where: SettingsWhereUniqueInput
+  }
+
+  /**
+   * Settings findUnique
+   */
+  export interface SettingsFindUniqueArgs extends SettingsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Settings findUniqueOrThrow
+   */
+  export type SettingsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+    /**
+     * Filter, which Settings to fetch.
+     */
+    where: SettingsWhereUniqueInput
+  }
+
+
+  /**
+   * Settings base type for findFirst actions
+   */
+  export type SettingsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+    /**
+     * Filter, which Settings to fetch.
+     */
+    where?: SettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Settings to fetch.
+     */
+    orderBy?: Enumerable<SettingsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Settings.
+     */
+    cursor?: SettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Settings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Settings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Settings.
+     */
+    distinct?: Enumerable<SettingsScalarFieldEnum>
+  }
+
+  /**
+   * Settings findFirst
+   */
+  export interface SettingsFindFirstArgs extends SettingsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Settings findFirstOrThrow
+   */
+  export type SettingsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+    /**
+     * Filter, which Settings to fetch.
+     */
+    where?: SettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Settings to fetch.
+     */
+    orderBy?: Enumerable<SettingsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Settings.
+     */
+    cursor?: SettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Settings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Settings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Settings.
+     */
+    distinct?: Enumerable<SettingsScalarFieldEnum>
+  }
+
+
+  /**
+   * Settings findMany
+   */
+  export type SettingsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+    /**
+     * Filter, which Settings to fetch.
+     */
+    where?: SettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Settings to fetch.
+     */
+    orderBy?: Enumerable<SettingsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Settings.
+     */
+    cursor?: SettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Settings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Settings.
+     */
+    skip?: number
+    distinct?: Enumerable<SettingsScalarFieldEnum>
+  }
+
+
+  /**
+   * Settings create
+   */
+  export type SettingsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+    /**
+     * The data needed to create a Settings.
+     */
+    data: XOR<SettingsCreateInput, SettingsUncheckedCreateInput>
+  }
+
+
+  /**
+   * Settings createMany
+   */
+  export type SettingsCreateManyArgs = {
+    /**
+     * The data used to create many Settings.
+     */
+    data: Enumerable<SettingsCreateManyInput>
+  }
+
+
+  /**
+   * Settings update
+   */
+  export type SettingsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+    /**
+     * The data needed to update a Settings.
+     */
+    data: XOR<SettingsUpdateInput, SettingsUncheckedUpdateInput>
+    /**
+     * Choose, which Settings to update.
+     */
+    where: SettingsWhereUniqueInput
+  }
+
+
+  /**
+   * Settings updateMany
+   */
+  export type SettingsUpdateManyArgs = {
+    /**
+     * The data used to update Settings.
+     */
+    data: XOR<SettingsUpdateManyMutationInput, SettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which Settings to update
+     */
+    where?: SettingsWhereInput
+  }
+
+
+  /**
+   * Settings upsert
+   */
+  export type SettingsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+    /**
+     * The filter to search for the Settings to update in case it exists.
+     */
+    where: SettingsWhereUniqueInput
+    /**
+     * In case the Settings found by the `where` argument doesn't exist, create a new Settings with this data.
+     */
+    create: XOR<SettingsCreateInput, SettingsUncheckedCreateInput>
+    /**
+     * In case the Settings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SettingsUpdateInput, SettingsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Settings delete
+   */
+  export type SettingsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+    /**
+     * Filter which Settings to delete.
+     */
+    where: SettingsWhereUniqueInput
+  }
+
+
+  /**
+   * Settings deleteMany
+   */
+  export type SettingsDeleteManyArgs = {
+    /**
+     * Filter which Settings to delete
+     */
+    where?: SettingsWhereInput
+  }
+
+
+  /**
+   * Settings findRaw
+   */
+  export type SettingsFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Settings aggregateRaw
+   */
+  export type SettingsAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Settings without action
+   */
+  export type SettingsArgs = {
+    /**
+     * Select specific fields to fetch from the Settings
+     */
+    select?: SettingsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SettingsInclude | null
+  }
+
+
+
+  /**
+   * Model Player
+   */
+
+
+  export type AggregatePlayer = {
+    _count: PlayerCountAggregateOutputType | null
+    _avg: PlayerAvgAggregateOutputType | null
+    _sum: PlayerSumAggregateOutputType | null
+    _min: PlayerMinAggregateOutputType | null
+    _max: PlayerMaxAggregateOutputType | null
+  }
+
+  export type PlayerAvgAggregateOutputType = {
+    phone_number: number | null
+    balance: number | null
+    game_played: number | null
+    won: number | null
+    spent: number | null
+    won_total: number | null
+    spent_total: number | null
+    grandJP_won: number | null
+    grandJP_won_count: number | null
+    majorJP_won: number | null
+    majorJP_won_count: number | null
+    minorJP_won: number | null
+    minorJP_won_count: number | null
+    miniJP_won: number | null
+    miniJP_won_count: number | null
+    general_won: number | null
+    general_won_count: number | null
+  }
+
+  export type PlayerSumAggregateOutputType = {
+    phone_number: number | null
+    balance: number | null
+    game_played: number | null
+    won: number | null
+    spent: number | null
+    won_total: number | null
+    spent_total: number | null
+    grandJP_won: number | null
+    grandJP_won_count: number | null
+    majorJP_won: number | null
+    majorJP_won_count: number | null
+    minorJP_won: number | null
+    minorJP_won_count: number | null
+    miniJP_won: number | null
+    miniJP_won_count: number | null
+    general_won: number | null
+    general_won_count: number | null
+  }
+
+  export type PlayerMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    password: string | null
+    phone_number: number | null
+    country_code: string | null
+    status: AccountStatus | null
+    balance: number | null
+    game_played: number | null
+    won: number | null
+    spent: number | null
+    won_total: number | null
+    spent_total: number | null
+    grandJP_won: number | null
+    grandJP_won_count: number | null
+    majorJP_won: number | null
+    majorJP_won_count: number | null
+    minorJP_won: number | null
+    minorJP_won_count: number | null
+    miniJP_won: number | null
+    miniJP_won_count: number | null
+    general_won: number | null
+    general_won_count: number | null
+    setting_id: string | null
+    created_by: string | null
+  }
+
+  export type PlayerMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    username: string | null
+    password: string | null
+    phone_number: number | null
+    country_code: string | null
+    status: AccountStatus | null
+    balance: number | null
+    game_played: number | null
+    won: number | null
+    spent: number | null
+    won_total: number | null
+    spent_total: number | null
+    grandJP_won: number | null
+    grandJP_won_count: number | null
+    majorJP_won: number | null
+    majorJP_won_count: number | null
+    minorJP_won: number | null
+    minorJP_won_count: number | null
+    miniJP_won: number | null
+    miniJP_won_count: number | null
+    general_won: number | null
+    general_won_count: number | null
+    setting_id: string | null
+    created_by: string | null
+  }
+
+  export type PlayerCountAggregateOutputType = {
+    id: number
+    name: number
+    username: number
+    password: number
+    phone_number: number
+    country_code: number
+    status: number
+    balance: number
+    game_played: number
+    won: number
+    spent: number
+    won_total: number
+    spent_total: number
+    grandJP_won: number
+    grandJP_won_count: number
+    majorJP_won: number
+    majorJP_won_count: number
+    minorJP_won: number
+    minorJP_won_count: number
+    miniJP_won: number
+    miniJP_won_count: number
+    general_won: number
+    general_won_count: number
+    setting_id: number
+    created_by: number
+    _all: number
+  }
+
+
+  export type PlayerAvgAggregateInputType = {
+    phone_number?: true
+    balance?: true
+    game_played?: true
+    won?: true
+    spent?: true
+    won_total?: true
+    spent_total?: true
+    grandJP_won?: true
+    grandJP_won_count?: true
+    majorJP_won?: true
+    majorJP_won_count?: true
+    minorJP_won?: true
+    minorJP_won_count?: true
+    miniJP_won?: true
+    miniJP_won_count?: true
+    general_won?: true
+    general_won_count?: true
+  }
+
+  export type PlayerSumAggregateInputType = {
+    phone_number?: true
+    balance?: true
+    game_played?: true
+    won?: true
+    spent?: true
+    won_total?: true
+    spent_total?: true
+    grandJP_won?: true
+    grandJP_won_count?: true
+    majorJP_won?: true
+    majorJP_won_count?: true
+    minorJP_won?: true
+    minorJP_won_count?: true
+    miniJP_won?: true
+    miniJP_won_count?: true
+    general_won?: true
+    general_won_count?: true
+  }
+
+  export type PlayerMinAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    password?: true
+    phone_number?: true
+    country_code?: true
+    status?: true
+    balance?: true
+    game_played?: true
+    won?: true
+    spent?: true
+    won_total?: true
+    spent_total?: true
+    grandJP_won?: true
+    grandJP_won_count?: true
+    majorJP_won?: true
+    majorJP_won_count?: true
+    minorJP_won?: true
+    minorJP_won_count?: true
+    miniJP_won?: true
+    miniJP_won_count?: true
+    general_won?: true
+    general_won_count?: true
+    setting_id?: true
+    created_by?: true
+  }
+
+  export type PlayerMaxAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    password?: true
+    phone_number?: true
+    country_code?: true
+    status?: true
+    balance?: true
+    game_played?: true
+    won?: true
+    spent?: true
+    won_total?: true
+    spent_total?: true
+    grandJP_won?: true
+    grandJP_won_count?: true
+    majorJP_won?: true
+    majorJP_won_count?: true
+    minorJP_won?: true
+    minorJP_won_count?: true
+    miniJP_won?: true
+    miniJP_won_count?: true
+    general_won?: true
+    general_won_count?: true
+    setting_id?: true
+    created_by?: true
+  }
+
+  export type PlayerCountAggregateInputType = {
+    id?: true
+    name?: true
+    username?: true
+    password?: true
+    phone_number?: true
+    country_code?: true
+    status?: true
+    balance?: true
+    game_played?: true
+    won?: true
+    spent?: true
+    won_total?: true
+    spent_total?: true
+    grandJP_won?: true
+    grandJP_won_count?: true
+    majorJP_won?: true
+    majorJP_won_count?: true
+    minorJP_won?: true
+    minorJP_won_count?: true
+    miniJP_won?: true
+    miniJP_won_count?: true
+    general_won?: true
+    general_won_count?: true
+    setting_id?: true
+    created_by?: true
+    _all?: true
+  }
+
+  export type PlayerAggregateArgs = {
+    /**
+     * Filter which Player to aggregate.
+     */
+    where?: PlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Players to fetch.
+     */
+    orderBy?: Enumerable<PlayerOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Players from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Players.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Players
+    **/
+    _count?: true | PlayerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PlayerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlayerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlayerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlayerMaxAggregateInputType
+  }
+
+  export type GetPlayerAggregateType<T extends PlayerAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlayer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlayer[P]>
+      : GetScalarType<T[P], AggregatePlayer[P]>
+  }
+
+
+
+
+  export type PlayerGroupByArgs = {
+    where?: PlayerWhereInput
+    orderBy?: Enumerable<PlayerOrderByWithAggregationInput>
+    by: PlayerScalarFieldEnum[]
+    having?: PlayerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlayerCountAggregateInputType | true
+    _avg?: PlayerAvgAggregateInputType
+    _sum?: PlayerSumAggregateInputType
+    _min?: PlayerMinAggregateInputType
+    _max?: PlayerMaxAggregateInputType
+  }
+
+
+  export type PlayerGroupByOutputType = {
+    id: string
+    name: string | null
+    username: string
+    password: string
+    phone_number: number | null
+    country_code: string | null
+    status: AccountStatus
+    balance: number
+    game_played: number
+    won: number
+    spent: number
+    won_total: number
+    spent_total: number
+    grandJP_won: number
+    grandJP_won_count: number
+    majorJP_won: number
+    majorJP_won_count: number
+    minorJP_won: number
+    minorJP_won_count: number
+    miniJP_won: number
+    miniJP_won_count: number
+    general_won: number
+    general_won_count: number
+    setting_id: string | null
+    created_by: string
+    _count: PlayerCountAggregateOutputType | null
+    _avg: PlayerAvgAggregateOutputType | null
+    _sum: PlayerSumAggregateOutputType | null
+    _min: PlayerMinAggregateOutputType | null
+    _max: PlayerMaxAggregateOutputType | null
+  }
+
+  type GetPlayerGroupByPayload<T extends PlayerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<PlayerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlayerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlayerGroupByOutputType[P]>
+            : GetScalarType<T[P], PlayerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlayerSelect = {
+    id?: boolean
+    name?: boolean
+    username?: boolean
+    password?: boolean
+    phone_number?: boolean
+    country_code?: boolean
+    status?: boolean
+    balance?: boolean
+    game_played?: boolean
+    won?: boolean
+    spent?: boolean
+    won_total?: boolean
+    spent_total?: boolean
+    grandJP_won?: boolean
+    grandJP_won_count?: boolean
+    majorJP_won?: boolean
+    majorJP_won_count?: boolean
+    minorJP_won?: boolean
+    minorJP_won_count?: boolean
+    miniJP_won?: boolean
+    miniJP_won_count?: boolean
+    general_won?: boolean
+    general_won_count?: boolean
+    setting_id?: boolean
+    Settings?: boolean | SettingsArgs
+    created_by?: boolean
+    manager?: boolean | AdminArgs
+    PlayerBalanceTransactions?: boolean | Player$PlayerBalanceTransactionsArgs
+    ActiveGamePlay?: boolean | ActiveGamePlayArgs
+    GameTransactions?: boolean | Player$GameTransactionsArgs
+    FishGameTransactions?: boolean | Player$FishGameTransactionsArgs
+    SlotFreeBonus?: boolean | Player$SlotFreeBonusArgs
+    _count?: boolean | PlayerCountOutputTypeArgs
+  }
+
+
+  export type PlayerInclude = {
+    Settings?: boolean | SettingsArgs
+    manager?: boolean | AdminArgs
+    PlayerBalanceTransactions?: boolean | Player$PlayerBalanceTransactionsArgs
+    ActiveGamePlay?: boolean | ActiveGamePlayArgs
+    GameTransactions?: boolean | Player$GameTransactionsArgs
+    FishGameTransactions?: boolean | Player$FishGameTransactionsArgs
+    SlotFreeBonus?: boolean | Player$SlotFreeBonusArgs
+    _count?: boolean | PlayerCountOutputTypeArgs
+  }
+
+  export type PlayerGetPayload<S extends boolean | null | undefined | PlayerArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Player :
+    S extends undefined ? never :
+    S extends { include: any } & (PlayerArgs | PlayerFindManyArgs)
+    ? Player  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Settings' ? SettingsGetPayload<S['include'][P]> | null :
+        P extends 'manager' ? AdminGetPayload<S['include'][P]> :
+        P extends 'PlayerBalanceTransactions' ? Array < PlayerBalanceTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'ActiveGamePlay' ? ActiveGamePlayGetPayload<S['include'][P]> | null :
+        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'FishGameTransactions' ? Array < FishGameTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'SlotFreeBonus' ? Array < SlotFreeBonusGetPayload<S['include'][P]>>  :
+        P extends '_count' ? PlayerCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (PlayerArgs | PlayerFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Settings' ? SettingsGetPayload<S['select'][P]> | null :
+        P extends 'manager' ? AdminGetPayload<S['select'][P]> :
+        P extends 'PlayerBalanceTransactions' ? Array < PlayerBalanceTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'ActiveGamePlay' ? ActiveGamePlayGetPayload<S['select'][P]> | null :
+        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'FishGameTransactions' ? Array < FishGameTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'SlotFreeBonus' ? Array < SlotFreeBonusGetPayload<S['select'][P]>>  :
+        P extends '_count' ? PlayerCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Player ? Player[P] : never
+  } 
+      : Player
+
+
+  type PlayerCountArgs = 
+    Omit<PlayerFindManyArgs, 'select' | 'include'> & {
+      select?: PlayerCountAggregateInputType | true
+    }
+
+  export interface PlayerDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Player that matches the filter.
+     * @param {PlayerFindUniqueArgs} args - Arguments to find a Player
+     * @example
+     * // Get one Player
+     * const player = await prisma.player.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends PlayerFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, PlayerFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Player'> extends True ? Prisma__PlayerClient<PlayerGetPayload<T>> : Prisma__PlayerClient<PlayerGetPayload<T> | null, null>
+
+    /**
+     * Find one Player that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {PlayerFindUniqueOrThrowArgs} args - Arguments to find a Player
+     * @example
+     * // Get one Player
+     * const player = await prisma.player.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends PlayerFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, PlayerFindUniqueOrThrowArgs>
+    ): Prisma__PlayerClient<PlayerGetPayload<T>>
+
+    /**
+     * Find the first Player that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerFindFirstArgs} args - Arguments to find a Player
+     * @example
+     * // Get one Player
+     * const player = await prisma.player.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends PlayerFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, PlayerFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Player'> extends True ? Prisma__PlayerClient<PlayerGetPayload<T>> : Prisma__PlayerClient<PlayerGetPayload<T> | null, null>
+
+    /**
+     * Find the first Player that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerFindFirstOrThrowArgs} args - Arguments to find a Player
+     * @example
+     * // Get one Player
+     * const player = await prisma.player.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends PlayerFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, PlayerFindFirstOrThrowArgs>
+    ): Prisma__PlayerClient<PlayerGetPayload<T>>
+
+    /**
+     * Find zero or more Players that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Players
+     * const players = await prisma.player.findMany()
+     * 
+     * // Get first 10 Players
+     * const players = await prisma.player.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const playerWithIdOnly = await prisma.player.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends PlayerFindManyArgs>(
+      args?: SelectSubset<T, PlayerFindManyArgs>
+    ): Prisma.PrismaPromise<Array<PlayerGetPayload<T>>>
+
+    /**
+     * Create a Player.
+     * @param {PlayerCreateArgs} args - Arguments to create a Player.
+     * @example
+     * // Create one Player
+     * const Player = await prisma.player.create({
+     *   data: {
+     *     // ... data to create a Player
+     *   }
+     * })
+     * 
+    **/
+    create<T extends PlayerCreateArgs>(
+      args: SelectSubset<T, PlayerCreateArgs>
+    ): Prisma__PlayerClient<PlayerGetPayload<T>>
+
+    /**
+     * Create many Players.
+     *     @param {PlayerCreateManyArgs} args - Arguments to create many Players.
+     *     @example
+     *     // Create many Players
+     *     const player = await prisma.player.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends PlayerCreateManyArgs>(
+      args?: SelectSubset<T, PlayerCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Player.
+     * @param {PlayerDeleteArgs} args - Arguments to delete one Player.
+     * @example
+     * // Delete one Player
+     * const Player = await prisma.player.delete({
+     *   where: {
+     *     // ... filter to delete one Player
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends PlayerDeleteArgs>(
+      args: SelectSubset<T, PlayerDeleteArgs>
+    ): Prisma__PlayerClient<PlayerGetPayload<T>>
+
+    /**
+     * Update one Player.
+     * @param {PlayerUpdateArgs} args - Arguments to update one Player.
+     * @example
+     * // Update one Player
+     * const player = await prisma.player.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends PlayerUpdateArgs>(
+      args: SelectSubset<T, PlayerUpdateArgs>
+    ): Prisma__PlayerClient<PlayerGetPayload<T>>
+
+    /**
+     * Delete zero or more Players.
+     * @param {PlayerDeleteManyArgs} args - Arguments to filter Players to delete.
+     * @example
+     * // Delete a few Players
+     * const { count } = await prisma.player.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends PlayerDeleteManyArgs>(
+      args?: SelectSubset<T, PlayerDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Players.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Players
+     * const player = await prisma.player.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends PlayerUpdateManyArgs>(
+      args: SelectSubset<T, PlayerUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Player.
+     * @param {PlayerUpsertArgs} args - Arguments to update or create a Player.
+     * @example
+     * // Update or create a Player
+     * const player = await prisma.player.upsert({
+     *   create: {
+     *     // ... data to create a Player
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Player we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends PlayerUpsertArgs>(
+      args: SelectSubset<T, PlayerUpsertArgs>
+    ): Prisma__PlayerClient<PlayerGetPayload<T>>
+
+    /**
+     * Find zero or more Players that matches the filter.
+     * @param {PlayerFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const player = await prisma.player.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: PlayerFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Player.
+     * @param {PlayerAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const player = await prisma.player.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: PlayerAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of Players.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerCountArgs} args - Arguments to filter Players to count.
+     * @example
+     * // Count the number of Players
+     * const count = await prisma.player.count({
+     *   where: {
+     *     // ... the filter for the Players we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlayerCountArgs>(
+      args?: Subset<T, PlayerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlayerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Player.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlayerAggregateArgs>(args: Subset<T, PlayerAggregateArgs>): Prisma.PrismaPromise<GetPlayerAggregateType<T>>
+
+    /**
+     * Group by Player.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlayerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlayerGroupByArgs['orderBy'] }
+        : { orderBy?: PlayerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlayerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlayerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Player.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__PlayerClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Settings<T extends SettingsArgs= {}>(args?: Subset<T, SettingsArgs>): Prisma__SettingsClient<SettingsGetPayload<T> | Null>;
+
+    manager<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
+
+    PlayerBalanceTransactions<T extends Player$PlayerBalanceTransactionsArgs= {}>(args?: Subset<T, Player$PlayerBalanceTransactionsArgs>): Prisma.PrismaPromise<Array<PlayerBalanceTransactionsGetPayload<T>>| Null>;
+
+    ActiveGamePlay<T extends ActiveGamePlayArgs= {}>(args?: Subset<T, ActiveGamePlayArgs>): Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T> | Null>;
+
+    GameTransactions<T extends Player$GameTransactionsArgs= {}>(args?: Subset<T, Player$GameTransactionsArgs>): Prisma.PrismaPromise<Array<GameTransactionsGetPayload<T>>| Null>;
+
+    FishGameTransactions<T extends Player$FishGameTransactionsArgs= {}>(args?: Subset<T, Player$FishGameTransactionsArgs>): Prisma.PrismaPromise<Array<FishGameTransactionsGetPayload<T>>| Null>;
+
+    SlotFreeBonus<T extends Player$SlotFreeBonusArgs= {}>(args?: Subset<T, Player$SlotFreeBonusArgs>): Prisma.PrismaPromise<Array<SlotFreeBonusGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Player base type for findUnique actions
+   */
+  export type PlayerFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    /**
+     * Filter, which Player to fetch.
+     */
+    where: PlayerWhereUniqueInput
+  }
+
+  /**
+   * Player findUnique
+   */
+  export interface PlayerFindUniqueArgs extends PlayerFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Player findUniqueOrThrow
+   */
+  export type PlayerFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    /**
+     * Filter, which Player to fetch.
+     */
+    where: PlayerWhereUniqueInput
+  }
+
+
+  /**
+   * Player base type for findFirst actions
+   */
+  export type PlayerFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    /**
+     * Filter, which Player to fetch.
+     */
+    where?: PlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Players to fetch.
+     */
+    orderBy?: Enumerable<PlayerOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Players.
+     */
+    cursor?: PlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Players from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Players.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Players.
+     */
+    distinct?: Enumerable<PlayerScalarFieldEnum>
+  }
+
+  /**
+   * Player findFirst
+   */
+  export interface PlayerFindFirstArgs extends PlayerFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Player findFirstOrThrow
+   */
+  export type PlayerFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    /**
+     * Filter, which Player to fetch.
+     */
+    where?: PlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Players to fetch.
+     */
+    orderBy?: Enumerable<PlayerOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Players.
+     */
+    cursor?: PlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Players from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Players.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Players.
+     */
+    distinct?: Enumerable<PlayerScalarFieldEnum>
+  }
+
+
+  /**
+   * Player findMany
+   */
+  export type PlayerFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    /**
+     * Filter, which Players to fetch.
+     */
+    where?: PlayerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Players to fetch.
+     */
+    orderBy?: Enumerable<PlayerOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Players.
+     */
+    cursor?: PlayerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Players from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Players.
+     */
+    skip?: number
+    distinct?: Enumerable<PlayerScalarFieldEnum>
+  }
+
+
+  /**
+   * Player create
+   */
+  export type PlayerCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    /**
+     * The data needed to create a Player.
+     */
+    data: XOR<PlayerCreateInput, PlayerUncheckedCreateInput>
+  }
+
+
+  /**
+   * Player createMany
+   */
+  export type PlayerCreateManyArgs = {
+    /**
+     * The data used to create many Players.
+     */
+    data: Enumerable<PlayerCreateManyInput>
+  }
+
+
+  /**
+   * Player update
+   */
+  export type PlayerUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    /**
+     * The data needed to update a Player.
+     */
+    data: XOR<PlayerUpdateInput, PlayerUncheckedUpdateInput>
+    /**
+     * Choose, which Player to update.
+     */
+    where: PlayerWhereUniqueInput
+  }
+
+
+  /**
+   * Player updateMany
+   */
+  export type PlayerUpdateManyArgs = {
+    /**
+     * The data used to update Players.
+     */
+    data: XOR<PlayerUpdateManyMutationInput, PlayerUncheckedUpdateManyInput>
+    /**
+     * Filter which Players to update
+     */
+    where?: PlayerWhereInput
+  }
+
+
+  /**
+   * Player upsert
+   */
+  export type PlayerUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    /**
+     * The filter to search for the Player to update in case it exists.
+     */
+    where: PlayerWhereUniqueInput
+    /**
+     * In case the Player found by the `where` argument doesn't exist, create a new Player with this data.
+     */
+    create: XOR<PlayerCreateInput, PlayerUncheckedCreateInput>
+    /**
+     * In case the Player was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlayerUpdateInput, PlayerUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Player delete
+   */
+  export type PlayerDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    /**
+     * Filter which Player to delete.
+     */
+    where: PlayerWhereUniqueInput
+  }
+
+
+  /**
+   * Player deleteMany
+   */
+  export type PlayerDeleteManyArgs = {
+    /**
+     * Filter which Players to delete
+     */
+    where?: PlayerWhereInput
+  }
+
+
+  /**
+   * Player findRaw
+   */
+  export type PlayerFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Player aggregateRaw
+   */
+  export type PlayerAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Player.PlayerBalanceTransactions
+   */
+  export type Player$PlayerBalanceTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    where?: PlayerBalanceTransactionsWhereInput
+    orderBy?: Enumerable<PlayerBalanceTransactionsOrderByWithRelationInput>
+    cursor?: PlayerBalanceTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<PlayerBalanceTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Player.GameTransactions
+   */
+  export type Player$GameTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    where?: GameTransactionsWhereInput
+    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
+    cursor?: GameTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<GameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Player.FishGameTransactions
+   */
+  export type Player$FishGameTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    where?: FishGameTransactionsWhereInput
+    orderBy?: Enumerable<FishGameTransactionsOrderByWithRelationInput>
+    cursor?: FishGameTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<FishGameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Player.SlotFreeBonus
+   */
+  export type Player$SlotFreeBonusArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    where?: SlotFreeBonusWhereInput
+    orderBy?: Enumerable<SlotFreeBonusOrderByWithRelationInput>
+    cursor?: SlotFreeBonusWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<SlotFreeBonusScalarFieldEnum>
+  }
+
+
+  /**
+   * Player without action
+   */
+  export type PlayerArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+  }
+
+
+
+  /**
+   * Model Games
+   */
+
+
+  export type AggregateGames = {
+    _count: GamesCountAggregateOutputType | null
+    _avg: GamesAvgAggregateOutputType | null
+    _sum: GamesSumAggregateOutputType | null
+    _min: GamesMinAggregateOutputType | null
+    _max: GamesMaxAggregateOutputType | null
+  }
+
+  export type GamesAvgAggregateOutputType = {
+    played: number | null
+  }
+
+  export type GamesSumAggregateOutputType = {
+    played: number | null
+  }
+
+  export type GamesMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    played: number | null
+    status: AccountStatus | null
+  }
+
+  export type GamesMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    played: number | null
+    status: AccountStatus | null
+  }
+
+  export type GamesCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    played: number
+    status: number
+    _all: number
+  }
+
+
+  export type GamesAvgAggregateInputType = {
+    played?: true
+  }
+
+  export type GamesSumAggregateInputType = {
+    played?: true
+  }
+
+  export type GamesMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    played?: true
+    status?: true
+  }
+
+  export type GamesMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    played?: true
+    status?: true
+  }
+
+  export type GamesCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    played?: true
+    status?: true
+    _all?: true
+  }
+
+  export type GamesAggregateArgs = {
+    /**
+     * Filter which Games to aggregate.
+     */
+    where?: GamesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Games to fetch.
+     */
+    orderBy?: Enumerable<GamesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GamesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Games from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Games.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Games
+    **/
+    _count?: true | GamesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GamesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GamesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GamesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GamesMaxAggregateInputType
+  }
+
+  export type GetGamesAggregateType<T extends GamesAggregateArgs> = {
+        [P in keyof T & keyof AggregateGames]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGames[P]>
+      : GetScalarType<T[P], AggregateGames[P]>
+  }
+
+
+
+
+  export type GamesGroupByArgs = {
+    where?: GamesWhereInput
+    orderBy?: Enumerable<GamesOrderByWithAggregationInput>
+    by: GamesScalarFieldEnum[]
+    having?: GamesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GamesCountAggregateInputType | true
+    _avg?: GamesAvgAggregateInputType
+    _sum?: GamesSumAggregateInputType
+    _min?: GamesMinAggregateInputType
+    _max?: GamesMaxAggregateInputType
+  }
+
+
+  export type GamesGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    played: number
+    status: AccountStatus | null
+    _count: GamesCountAggregateOutputType | null
+    _avg: GamesAvgAggregateOutputType | null
+    _sum: GamesSumAggregateOutputType | null
+    _min: GamesMinAggregateOutputType | null
+    _max: GamesMaxAggregateOutputType | null
+  }
+
+  type GetGamesGroupByPayload<T extends GamesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<GamesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GamesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GamesGroupByOutputType[P]>
+            : GetScalarType<T[P], GamesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GamesSelect = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    played?: boolean
+    status?: boolean
+    GameTransaction?: boolean | Games$GameTransactionArgs
+    ActiveGamePlay?: boolean | Games$ActiveGamePlayArgs
+    GameAssets?: boolean | Games$GameAssetsArgs
+    FishGameTransactions?: boolean | Games$FishGameTransactionsArgs
+    SlotFreeBonus?: boolean | Games$SlotFreeBonusArgs
+    _count?: boolean | GamesCountOutputTypeArgs
+  }
+
+
+  export type GamesInclude = {
+    GameTransaction?: boolean | Games$GameTransactionArgs
+    ActiveGamePlay?: boolean | Games$ActiveGamePlayArgs
+    GameAssets?: boolean | Games$GameAssetsArgs
+    FishGameTransactions?: boolean | Games$FishGameTransactionsArgs
+    SlotFreeBonus?: boolean | Games$SlotFreeBonusArgs
+    _count?: boolean | GamesCountOutputTypeArgs
+  }
+
+  export type GamesGetPayload<S extends boolean | null | undefined | GamesArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Games :
+    S extends undefined ? never :
+    S extends { include: any } & (GamesArgs | GamesFindManyArgs)
+    ? Games  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'GameTransaction' ? Array < GameTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'ActiveGamePlay' ? Array < ActiveGamePlayGetPayload<S['include'][P]>>  :
+        P extends 'GameAssets' ? Array < GameAssetsGetPayload<S['include'][P]>>  :
+        P extends 'FishGameTransactions' ? Array < FishGameTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'SlotFreeBonus' ? Array < SlotFreeBonusGetPayload<S['include'][P]>>  :
+        P extends '_count' ? GamesCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (GamesArgs | GamesFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'GameTransaction' ? Array < GameTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'ActiveGamePlay' ? Array < ActiveGamePlayGetPayload<S['select'][P]>>  :
+        P extends 'GameAssets' ? Array < GameAssetsGetPayload<S['select'][P]>>  :
+        P extends 'FishGameTransactions' ? Array < FishGameTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'SlotFreeBonus' ? Array < SlotFreeBonusGetPayload<S['select'][P]>>  :
+        P extends '_count' ? GamesCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Games ? Games[P] : never
+  } 
+      : Games
+
+
+  type GamesCountArgs = 
+    Omit<GamesFindManyArgs, 'select' | 'include'> & {
+      select?: GamesCountAggregateInputType | true
+    }
+
+  export interface GamesDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Games that matches the filter.
+     * @param {GamesFindUniqueArgs} args - Arguments to find a Games
+     * @example
+     * // Get one Games
+     * const games = await prisma.games.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends GamesFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, GamesFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Games'> extends True ? Prisma__GamesClient<GamesGetPayload<T>> : Prisma__GamesClient<GamesGetPayload<T> | null, null>
+
+    /**
+     * Find one Games that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {GamesFindUniqueOrThrowArgs} args - Arguments to find a Games
+     * @example
+     * // Get one Games
+     * const games = await prisma.games.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends GamesFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, GamesFindUniqueOrThrowArgs>
+    ): Prisma__GamesClient<GamesGetPayload<T>>
+
+    /**
+     * Find the first Games that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamesFindFirstArgs} args - Arguments to find a Games
+     * @example
+     * // Get one Games
+     * const games = await prisma.games.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends GamesFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, GamesFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Games'> extends True ? Prisma__GamesClient<GamesGetPayload<T>> : Prisma__GamesClient<GamesGetPayload<T> | null, null>
+
+    /**
+     * Find the first Games that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamesFindFirstOrThrowArgs} args - Arguments to find a Games
+     * @example
+     * // Get one Games
+     * const games = await prisma.games.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends GamesFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, GamesFindFirstOrThrowArgs>
+    ): Prisma__GamesClient<GamesGetPayload<T>>
+
+    /**
+     * Find zero or more Games that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamesFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Games
+     * const games = await prisma.games.findMany()
+     * 
+     * // Get first 10 Games
+     * const games = await prisma.games.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gamesWithIdOnly = await prisma.games.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends GamesFindManyArgs>(
+      args?: SelectSubset<T, GamesFindManyArgs>
+    ): Prisma.PrismaPromise<Array<GamesGetPayload<T>>>
+
+    /**
+     * Create a Games.
+     * @param {GamesCreateArgs} args - Arguments to create a Games.
+     * @example
+     * // Create one Games
+     * const Games = await prisma.games.create({
+     *   data: {
+     *     // ... data to create a Games
+     *   }
+     * })
+     * 
+    **/
+    create<T extends GamesCreateArgs>(
+      args: SelectSubset<T, GamesCreateArgs>
+    ): Prisma__GamesClient<GamesGetPayload<T>>
+
+    /**
+     * Create many Games.
+     *     @param {GamesCreateManyArgs} args - Arguments to create many Games.
+     *     @example
+     *     // Create many Games
+     *     const games = await prisma.games.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends GamesCreateManyArgs>(
+      args?: SelectSubset<T, GamesCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Games.
+     * @param {GamesDeleteArgs} args - Arguments to delete one Games.
+     * @example
+     * // Delete one Games
+     * const Games = await prisma.games.delete({
+     *   where: {
+     *     // ... filter to delete one Games
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends GamesDeleteArgs>(
+      args: SelectSubset<T, GamesDeleteArgs>
+    ): Prisma__GamesClient<GamesGetPayload<T>>
+
+    /**
+     * Update one Games.
+     * @param {GamesUpdateArgs} args - Arguments to update one Games.
+     * @example
+     * // Update one Games
+     * const games = await prisma.games.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends GamesUpdateArgs>(
+      args: SelectSubset<T, GamesUpdateArgs>
+    ): Prisma__GamesClient<GamesGetPayload<T>>
+
+    /**
+     * Delete zero or more Games.
+     * @param {GamesDeleteManyArgs} args - Arguments to filter Games to delete.
+     * @example
+     * // Delete a few Games
+     * const { count } = await prisma.games.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends GamesDeleteManyArgs>(
+      args?: SelectSubset<T, GamesDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Games.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Games
+     * const games = await prisma.games.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends GamesUpdateManyArgs>(
+      args: SelectSubset<T, GamesUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Games.
+     * @param {GamesUpsertArgs} args - Arguments to update or create a Games.
+     * @example
+     * // Update or create a Games
+     * const games = await prisma.games.upsert({
+     *   create: {
+     *     // ... data to create a Games
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Games we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends GamesUpsertArgs>(
+      args: SelectSubset<T, GamesUpsertArgs>
+    ): Prisma__GamesClient<GamesGetPayload<T>>
+
+    /**
+     * Find zero or more Games that matches the filter.
+     * @param {GamesFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const games = await prisma.games.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: GamesFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Games.
+     * @param {GamesAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const games = await prisma.games.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: GamesAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of Games.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamesCountArgs} args - Arguments to filter Games to count.
+     * @example
+     * // Count the number of Games
+     * const count = await prisma.games.count({
+     *   where: {
+     *     // ... the filter for the Games we want to count
+     *   }
+     * })
+    **/
+    count<T extends GamesCountArgs>(
+      args?: Subset<T, GamesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GamesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Games.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GamesAggregateArgs>(args: Subset<T, GamesAggregateArgs>): Prisma.PrismaPromise<GetGamesAggregateType<T>>
+
+    /**
+     * Group by Games.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GamesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GamesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GamesGroupByArgs['orderBy'] }
+        : { orderBy?: GamesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GamesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGamesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Games.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__GamesClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    GameTransaction<T extends Games$GameTransactionArgs= {}>(args?: Subset<T, Games$GameTransactionArgs>): Prisma.PrismaPromise<Array<GameTransactionsGetPayload<T>>| Null>;
+
+    ActiveGamePlay<T extends Games$ActiveGamePlayArgs= {}>(args?: Subset<T, Games$ActiveGamePlayArgs>): Prisma.PrismaPromise<Array<ActiveGamePlayGetPayload<T>>| Null>;
+
+    GameAssets<T extends Games$GameAssetsArgs= {}>(args?: Subset<T, Games$GameAssetsArgs>): Prisma.PrismaPromise<Array<GameAssetsGetPayload<T>>| Null>;
+
+    FishGameTransactions<T extends Games$FishGameTransactionsArgs= {}>(args?: Subset<T, Games$FishGameTransactionsArgs>): Prisma.PrismaPromise<Array<FishGameTransactionsGetPayload<T>>| Null>;
+
+    SlotFreeBonus<T extends Games$SlotFreeBonusArgs= {}>(args?: Subset<T, Games$SlotFreeBonusArgs>): Prisma.PrismaPromise<Array<SlotFreeBonusGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Games base type for findUnique actions
+   */
+  export type GamesFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+    /**
+     * Filter, which Games to fetch.
+     */
+    where: GamesWhereUniqueInput
+  }
+
+  /**
+   * Games findUnique
+   */
+  export interface GamesFindUniqueArgs extends GamesFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Games findUniqueOrThrow
+   */
+  export type GamesFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+    /**
+     * Filter, which Games to fetch.
+     */
+    where: GamesWhereUniqueInput
+  }
+
+
+  /**
+   * Games base type for findFirst actions
+   */
+  export type GamesFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+    /**
+     * Filter, which Games to fetch.
+     */
+    where?: GamesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Games to fetch.
+     */
+    orderBy?: Enumerable<GamesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Games.
+     */
+    cursor?: GamesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Games from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Games.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Games.
+     */
+    distinct?: Enumerable<GamesScalarFieldEnum>
+  }
+
+  /**
+   * Games findFirst
+   */
+  export interface GamesFindFirstArgs extends GamesFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Games findFirstOrThrow
+   */
+  export type GamesFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+    /**
+     * Filter, which Games to fetch.
+     */
+    where?: GamesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Games to fetch.
+     */
+    orderBy?: Enumerable<GamesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Games.
+     */
+    cursor?: GamesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Games from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Games.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Games.
+     */
+    distinct?: Enumerable<GamesScalarFieldEnum>
+  }
+
+
+  /**
+   * Games findMany
+   */
+  export type GamesFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+    /**
+     * Filter, which Games to fetch.
+     */
+    where?: GamesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Games to fetch.
+     */
+    orderBy?: Enumerable<GamesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Games.
+     */
+    cursor?: GamesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Games from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Games.
+     */
+    skip?: number
+    distinct?: Enumerable<GamesScalarFieldEnum>
+  }
+
+
+  /**
+   * Games create
+   */
+  export type GamesCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+    /**
+     * The data needed to create a Games.
+     */
+    data: XOR<GamesCreateInput, GamesUncheckedCreateInput>
+  }
+
+
+  /**
+   * Games createMany
+   */
+  export type GamesCreateManyArgs = {
+    /**
+     * The data used to create many Games.
+     */
+    data: Enumerable<GamesCreateManyInput>
+  }
+
+
+  /**
+   * Games update
+   */
+  export type GamesUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+    /**
+     * The data needed to update a Games.
+     */
+    data: XOR<GamesUpdateInput, GamesUncheckedUpdateInput>
+    /**
+     * Choose, which Games to update.
+     */
+    where: GamesWhereUniqueInput
+  }
+
+
+  /**
+   * Games updateMany
+   */
+  export type GamesUpdateManyArgs = {
+    /**
+     * The data used to update Games.
+     */
+    data: XOR<GamesUpdateManyMutationInput, GamesUncheckedUpdateManyInput>
+    /**
+     * Filter which Games to update
+     */
+    where?: GamesWhereInput
+  }
+
+
+  /**
+   * Games upsert
+   */
+  export type GamesUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+    /**
+     * The filter to search for the Games to update in case it exists.
+     */
+    where: GamesWhereUniqueInput
+    /**
+     * In case the Games found by the `where` argument doesn't exist, create a new Games with this data.
+     */
+    create: XOR<GamesCreateInput, GamesUncheckedCreateInput>
+    /**
+     * In case the Games was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GamesUpdateInput, GamesUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Games delete
+   */
+  export type GamesDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+    /**
+     * Filter which Games to delete.
+     */
+    where: GamesWhereUniqueInput
+  }
+
+
+  /**
+   * Games deleteMany
+   */
+  export type GamesDeleteManyArgs = {
+    /**
+     * Filter which Games to delete
+     */
+    where?: GamesWhereInput
+  }
+
+
+  /**
+   * Games findRaw
+   */
+  export type GamesFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Games aggregateRaw
+   */
+  export type GamesAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Games.GameTransaction
+   */
+  export type Games$GameTransactionArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    where?: GameTransactionsWhereInput
+    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
+    cursor?: GameTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<GameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Games.ActiveGamePlay
+   */
+  export type Games$ActiveGamePlayArgs = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    where?: ActiveGamePlayWhereInput
+    orderBy?: Enumerable<ActiveGamePlayOrderByWithRelationInput>
+    cursor?: ActiveGamePlayWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<ActiveGamePlayScalarFieldEnum>
+  }
+
+
+  /**
+   * Games.GameAssets
+   */
+  export type Games$GameAssetsArgs = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    where?: GameAssetsWhereInput
+    orderBy?: Enumerable<GameAssetsOrderByWithRelationInput>
+    cursor?: GameAssetsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<GameAssetsScalarFieldEnum>
+  }
+
+
+  /**
+   * Games.FishGameTransactions
+   */
+  export type Games$FishGameTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    where?: FishGameTransactionsWhereInput
+    orderBy?: Enumerable<FishGameTransactionsOrderByWithRelationInput>
+    cursor?: FishGameTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<FishGameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Games.SlotFreeBonus
+   */
+  export type Games$SlotFreeBonusArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    where?: SlotFreeBonusWhereInput
+    orderBy?: Enumerable<SlotFreeBonusOrderByWithRelationInput>
+    cursor?: SlotFreeBonusWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<SlotFreeBonusScalarFieldEnum>
+  }
+
+
+  /**
+   * Games without action
+   */
+  export type GamesArgs = {
+    /**
+     * Select specific fields to fetch from the Games
+     */
+    select?: GamesSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GamesInclude | null
+  }
+
+
+
+  /**
+   * Model GameAssets
+   */
+
+
+  export type AggregateGameAssets = {
+    _count: GameAssetsCountAggregateOutputType | null
+    _avg: GameAssetsAvgAggregateOutputType | null
+    _sum: GameAssetsSumAggregateOutputType | null
+    _min: GameAssetsMinAggregateOutputType | null
+    _max: GameAssetsMaxAggregateOutputType | null
+  }
+
+  export type GameAssetsAvgAggregateOutputType = {
+    version: number | null
+  }
+
+  export type GameAssetsSumAggregateOutputType = {
+    version: number | null
+  }
+
+  export type GameAssetsMinAggregateOutputType = {
+    id: string | null
+    game_id: string | null
+    platform: string | null
+    path: string | null
+    version: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GameAssetsMaxAggregateOutputType = {
+    id: string | null
+    game_id: string | null
+    platform: string | null
+    path: string | null
+    version: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GameAssetsCountAggregateOutputType = {
+    id: number
+    game_id: number
+    platform: number
+    path: number
+    version: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type GameAssetsAvgAggregateInputType = {
+    version?: true
+  }
+
+  export type GameAssetsSumAggregateInputType = {
+    version?: true
+  }
+
+  export type GameAssetsMinAggregateInputType = {
+    id?: true
+    game_id?: true
+    platform?: true
+    path?: true
+    version?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GameAssetsMaxAggregateInputType = {
+    id?: true
+    game_id?: true
+    platform?: true
+    path?: true
+    version?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GameAssetsCountAggregateInputType = {
+    id?: true
+    game_id?: true
+    platform?: true
+    path?: true
+    version?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type GameAssetsAggregateArgs = {
+    /**
+     * Filter which GameAssets to aggregate.
+     */
+    where?: GameAssetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameAssets to fetch.
+     */
+    orderBy?: Enumerable<GameAssetsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameAssetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameAssets
+    **/
+    _count?: true | GameAssetsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameAssetsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameAssetsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameAssetsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameAssetsMaxAggregateInputType
+  }
+
+  export type GetGameAssetsAggregateType<T extends GameAssetsAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameAssets]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameAssets[P]>
+      : GetScalarType<T[P], AggregateGameAssets[P]>
+  }
+
+
+
+
+  export type GameAssetsGroupByArgs = {
+    where?: GameAssetsWhereInput
+    orderBy?: Enumerable<GameAssetsOrderByWithAggregationInput>
+    by: GameAssetsScalarFieldEnum[]
+    having?: GameAssetsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameAssetsCountAggregateInputType | true
+    _avg?: GameAssetsAvgAggregateInputType
+    _sum?: GameAssetsSumAggregateInputType
+    _min?: GameAssetsMinAggregateInputType
+    _max?: GameAssetsMaxAggregateInputType
+  }
+
+
+  export type GameAssetsGroupByOutputType = {
+    id: string
+    game_id: string | null
+    platform: string
+    path: string | null
+    version: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: GameAssetsCountAggregateOutputType | null
+    _avg: GameAssetsAvgAggregateOutputType | null
+    _sum: GameAssetsSumAggregateOutputType | null
+    _min: GameAssetsMinAggregateOutputType | null
+    _max: GameAssetsMaxAggregateOutputType | null
+  }
+
+  type GetGameAssetsGroupByPayload<T extends GameAssetsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<GameAssetsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameAssetsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameAssetsGroupByOutputType[P]>
+            : GetScalarType<T[P], GameAssetsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameAssetsSelect = {
+    id?: boolean
+    game_id?: boolean
+    platform?: boolean
+    path?: boolean
+    version?: boolean
+    Game?: boolean | GamesArgs
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type GameAssetsInclude = {
+    Game?: boolean | GamesArgs
+  }
+
+  export type GameAssetsGetPayload<S extends boolean | null | undefined | GameAssetsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? GameAssets :
+    S extends undefined ? never :
+    S extends { include: any } & (GameAssetsArgs | GameAssetsFindManyArgs)
+    ? GameAssets  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Game' ? GamesGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (GameAssetsArgs | GameAssetsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Game' ? GamesGetPayload<S['select'][P]> | null :  P extends keyof GameAssets ? GameAssets[P] : never
+  } 
+      : GameAssets
+
+
+  type GameAssetsCountArgs = 
+    Omit<GameAssetsFindManyArgs, 'select' | 'include'> & {
+      select?: GameAssetsCountAggregateInputType | true
+    }
+
+  export interface GameAssetsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one GameAssets that matches the filter.
+     * @param {GameAssetsFindUniqueArgs} args - Arguments to find a GameAssets
+     * @example
+     * // Get one GameAssets
+     * const gameAssets = await prisma.gameAssets.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends GameAssetsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, GameAssetsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'GameAssets'> extends True ? Prisma__GameAssetsClient<GameAssetsGetPayload<T>> : Prisma__GameAssetsClient<GameAssetsGetPayload<T> | null, null>
+
+    /**
+     * Find one GameAssets that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {GameAssetsFindUniqueOrThrowArgs} args - Arguments to find a GameAssets
+     * @example
+     * // Get one GameAssets
+     * const gameAssets = await prisma.gameAssets.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends GameAssetsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, GameAssetsFindUniqueOrThrowArgs>
+    ): Prisma__GameAssetsClient<GameAssetsGetPayload<T>>
+
+    /**
+     * Find the first GameAssets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameAssetsFindFirstArgs} args - Arguments to find a GameAssets
+     * @example
+     * // Get one GameAssets
+     * const gameAssets = await prisma.gameAssets.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends GameAssetsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, GameAssetsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'GameAssets'> extends True ? Prisma__GameAssetsClient<GameAssetsGetPayload<T>> : Prisma__GameAssetsClient<GameAssetsGetPayload<T> | null, null>
+
+    /**
+     * Find the first GameAssets that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameAssetsFindFirstOrThrowArgs} args - Arguments to find a GameAssets
+     * @example
+     * // Get one GameAssets
+     * const gameAssets = await prisma.gameAssets.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends GameAssetsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, GameAssetsFindFirstOrThrowArgs>
+    ): Prisma__GameAssetsClient<GameAssetsGetPayload<T>>
+
+    /**
+     * Find zero or more GameAssets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameAssetsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameAssets
+     * const gameAssets = await prisma.gameAssets.findMany()
+     * 
+     * // Get first 10 GameAssets
+     * const gameAssets = await prisma.gameAssets.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameAssetsWithIdOnly = await prisma.gameAssets.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends GameAssetsFindManyArgs>(
+      args?: SelectSubset<T, GameAssetsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<GameAssetsGetPayload<T>>>
+
+    /**
+     * Create a GameAssets.
+     * @param {GameAssetsCreateArgs} args - Arguments to create a GameAssets.
+     * @example
+     * // Create one GameAssets
+     * const GameAssets = await prisma.gameAssets.create({
+     *   data: {
+     *     // ... data to create a GameAssets
+     *   }
+     * })
+     * 
+    **/
+    create<T extends GameAssetsCreateArgs>(
+      args: SelectSubset<T, GameAssetsCreateArgs>
+    ): Prisma__GameAssetsClient<GameAssetsGetPayload<T>>
+
+    /**
+     * Create many GameAssets.
+     *     @param {GameAssetsCreateManyArgs} args - Arguments to create many GameAssets.
+     *     @example
+     *     // Create many GameAssets
+     *     const gameAssets = await prisma.gameAssets.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends GameAssetsCreateManyArgs>(
+      args?: SelectSubset<T, GameAssetsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a GameAssets.
+     * @param {GameAssetsDeleteArgs} args - Arguments to delete one GameAssets.
+     * @example
+     * // Delete one GameAssets
+     * const GameAssets = await prisma.gameAssets.delete({
+     *   where: {
+     *     // ... filter to delete one GameAssets
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends GameAssetsDeleteArgs>(
+      args: SelectSubset<T, GameAssetsDeleteArgs>
+    ): Prisma__GameAssetsClient<GameAssetsGetPayload<T>>
+
+    /**
+     * Update one GameAssets.
+     * @param {GameAssetsUpdateArgs} args - Arguments to update one GameAssets.
+     * @example
+     * // Update one GameAssets
+     * const gameAssets = await prisma.gameAssets.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends GameAssetsUpdateArgs>(
+      args: SelectSubset<T, GameAssetsUpdateArgs>
+    ): Prisma__GameAssetsClient<GameAssetsGetPayload<T>>
+
+    /**
+     * Delete zero or more GameAssets.
+     * @param {GameAssetsDeleteManyArgs} args - Arguments to filter GameAssets to delete.
+     * @example
+     * // Delete a few GameAssets
+     * const { count } = await prisma.gameAssets.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends GameAssetsDeleteManyArgs>(
+      args?: SelectSubset<T, GameAssetsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameAssetsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameAssets
+     * const gameAssets = await prisma.gameAssets.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends GameAssetsUpdateManyArgs>(
+      args: SelectSubset<T, GameAssetsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one GameAssets.
+     * @param {GameAssetsUpsertArgs} args - Arguments to update or create a GameAssets.
+     * @example
+     * // Update or create a GameAssets
+     * const gameAssets = await prisma.gameAssets.upsert({
+     *   create: {
+     *     // ... data to create a GameAssets
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameAssets we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends GameAssetsUpsertArgs>(
+      args: SelectSubset<T, GameAssetsUpsertArgs>
+    ): Prisma__GameAssetsClient<GameAssetsGetPayload<T>>
+
+    /**
+     * Find zero or more GameAssets that matches the filter.
+     * @param {GameAssetsFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const gameAssets = await prisma.gameAssets.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: GameAssetsFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a GameAssets.
+     * @param {GameAssetsAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const gameAssets = await prisma.gameAssets.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: GameAssetsAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of GameAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameAssetsCountArgs} args - Arguments to filter GameAssets to count.
+     * @example
+     * // Count the number of GameAssets
+     * const count = await prisma.gameAssets.count({
+     *   where: {
+     *     // ... the filter for the GameAssets we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameAssetsCountArgs>(
+      args?: Subset<T, GameAssetsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameAssetsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameAssetsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameAssetsAggregateArgs>(args: Subset<T, GameAssetsAggregateArgs>): Prisma.PrismaPromise<GetGameAssetsAggregateType<T>>
+
+    /**
+     * Group by GameAssets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameAssetsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameAssetsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameAssetsGroupByArgs['orderBy'] }
+        : { orderBy?: GameAssetsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameAssetsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameAssetsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameAssets.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__GameAssetsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Game<T extends GamesArgs= {}>(args?: Subset<T, GamesArgs>): Prisma__GamesClient<GamesGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * GameAssets base type for findUnique actions
+   */
+  export type GameAssetsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    /**
+     * Filter, which GameAssets to fetch.
+     */
+    where: GameAssetsWhereUniqueInput
+  }
+
+  /**
+   * GameAssets findUnique
+   */
+  export interface GameAssetsFindUniqueArgs extends GameAssetsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * GameAssets findUniqueOrThrow
+   */
+  export type GameAssetsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    /**
+     * Filter, which GameAssets to fetch.
+     */
+    where: GameAssetsWhereUniqueInput
+  }
+
+
+  /**
+   * GameAssets base type for findFirst actions
+   */
+  export type GameAssetsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    /**
+     * Filter, which GameAssets to fetch.
+     */
+    where?: GameAssetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameAssets to fetch.
+     */
+    orderBy?: Enumerable<GameAssetsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameAssets.
+     */
+    cursor?: GameAssetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameAssets.
+     */
+    distinct?: Enumerable<GameAssetsScalarFieldEnum>
+  }
+
+  /**
+   * GameAssets findFirst
+   */
+  export interface GameAssetsFindFirstArgs extends GameAssetsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * GameAssets findFirstOrThrow
+   */
+  export type GameAssetsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    /**
+     * Filter, which GameAssets to fetch.
+     */
+    where?: GameAssetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameAssets to fetch.
+     */
+    orderBy?: Enumerable<GameAssetsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameAssets.
+     */
+    cursor?: GameAssetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameAssets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameAssets.
+     */
+    distinct?: Enumerable<GameAssetsScalarFieldEnum>
+  }
+
+
+  /**
+   * GameAssets findMany
+   */
+  export type GameAssetsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    /**
+     * Filter, which GameAssets to fetch.
+     */
+    where?: GameAssetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameAssets to fetch.
+     */
+    orderBy?: Enumerable<GameAssetsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameAssets.
+     */
+    cursor?: GameAssetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameAssets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameAssets.
+     */
+    skip?: number
+    distinct?: Enumerable<GameAssetsScalarFieldEnum>
+  }
+
+
+  /**
+   * GameAssets create
+   */
+  export type GameAssetsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    /**
+     * The data needed to create a GameAssets.
+     */
+    data: XOR<GameAssetsCreateInput, GameAssetsUncheckedCreateInput>
+  }
+
+
+  /**
+   * GameAssets createMany
+   */
+  export type GameAssetsCreateManyArgs = {
+    /**
+     * The data used to create many GameAssets.
+     */
+    data: Enumerable<GameAssetsCreateManyInput>
+  }
+
+
+  /**
+   * GameAssets update
+   */
+  export type GameAssetsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    /**
+     * The data needed to update a GameAssets.
+     */
+    data: XOR<GameAssetsUpdateInput, GameAssetsUncheckedUpdateInput>
+    /**
+     * Choose, which GameAssets to update.
+     */
+    where: GameAssetsWhereUniqueInput
+  }
+
+
+  /**
+   * GameAssets updateMany
+   */
+  export type GameAssetsUpdateManyArgs = {
+    /**
+     * The data used to update GameAssets.
+     */
+    data: XOR<GameAssetsUpdateManyMutationInput, GameAssetsUncheckedUpdateManyInput>
+    /**
+     * Filter which GameAssets to update
+     */
+    where?: GameAssetsWhereInput
+  }
+
+
+  /**
+   * GameAssets upsert
+   */
+  export type GameAssetsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    /**
+     * The filter to search for the GameAssets to update in case it exists.
+     */
+    where: GameAssetsWhereUniqueInput
+    /**
+     * In case the GameAssets found by the `where` argument doesn't exist, create a new GameAssets with this data.
+     */
+    create: XOR<GameAssetsCreateInput, GameAssetsUncheckedCreateInput>
+    /**
+     * In case the GameAssets was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameAssetsUpdateInput, GameAssetsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * GameAssets delete
+   */
+  export type GameAssetsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+    /**
+     * Filter which GameAssets to delete.
+     */
+    where: GameAssetsWhereUniqueInput
+  }
+
+
+  /**
+   * GameAssets deleteMany
+   */
+  export type GameAssetsDeleteManyArgs = {
+    /**
+     * Filter which GameAssets to delete
+     */
+    where?: GameAssetsWhereInput
+  }
+
+
+  /**
+   * GameAssets findRaw
+   */
+  export type GameAssetsFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * GameAssets aggregateRaw
+   */
+  export type GameAssetsAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * GameAssets without action
+   */
+  export type GameAssetsArgs = {
+    /**
+     * Select specific fields to fetch from the GameAssets
+     */
+    select?: GameAssetsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameAssetsInclude | null
+  }
+
+
+
+  /**
+   * Model ActiveGamePlay
+   */
+
+
+  export type AggregateActiveGamePlay = {
+    _count: ActiveGamePlayCountAggregateOutputType | null
+    _avg: ActiveGamePlayAvgAggregateOutputType | null
+    _sum: ActiveGamePlaySumAggregateOutputType | null
+    _min: ActiveGamePlayMinAggregateOutputType | null
+    _max: ActiveGamePlayMaxAggregateOutputType | null
+  }
+
+  export type ActiveGamePlayAvgAggregateOutputType = {
+    maxWin: number | null
+  }
+
+  export type ActiveGamePlaySumAggregateOutputType = {
+    maxWin: number | null
+  }
+
+  export type ActiveGamePlayMinAggregateOutputType = {
+    id: string | null
+    player_id: string | null
+    game_id: string | null
+    maxWin: number | null
+    startedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ActiveGamePlayMaxAggregateOutputType = {
+    id: string | null
+    player_id: string | null
+    game_id: string | null
+    maxWin: number | null
+    startedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ActiveGamePlayCountAggregateOutputType = {
+    id: number
+    player_id: number
+    game_id: number
+    maxWin: number
+    startedAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ActiveGamePlayAvgAggregateInputType = {
+    maxWin?: true
+  }
+
+  export type ActiveGamePlaySumAggregateInputType = {
+    maxWin?: true
+  }
+
+  export type ActiveGamePlayMinAggregateInputType = {
+    id?: true
+    player_id?: true
+    game_id?: true
+    maxWin?: true
+    startedAt?: true
+    updatedAt?: true
+  }
+
+  export type ActiveGamePlayMaxAggregateInputType = {
+    id?: true
+    player_id?: true
+    game_id?: true
+    maxWin?: true
+    startedAt?: true
+    updatedAt?: true
+  }
+
+  export type ActiveGamePlayCountAggregateInputType = {
+    id?: true
+    player_id?: true
+    game_id?: true
+    maxWin?: true
+    startedAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ActiveGamePlayAggregateArgs = {
+    /**
+     * Filter which ActiveGamePlay to aggregate.
+     */
+    where?: ActiveGamePlayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ActiveGamePlays to fetch.
+     */
+    orderBy?: Enumerable<ActiveGamePlayOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ActiveGamePlayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ActiveGamePlays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ActiveGamePlays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ActiveGamePlays
+    **/
+    _count?: true | ActiveGamePlayCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ActiveGamePlayAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ActiveGamePlaySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ActiveGamePlayMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ActiveGamePlayMaxAggregateInputType
+  }
+
+  export type GetActiveGamePlayAggregateType<T extends ActiveGamePlayAggregateArgs> = {
+        [P in keyof T & keyof AggregateActiveGamePlay]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateActiveGamePlay[P]>
+      : GetScalarType<T[P], AggregateActiveGamePlay[P]>
+  }
+
+
+
+
+  export type ActiveGamePlayGroupByArgs = {
+    where?: ActiveGamePlayWhereInput
+    orderBy?: Enumerable<ActiveGamePlayOrderByWithAggregationInput>
+    by: ActiveGamePlayScalarFieldEnum[]
+    having?: ActiveGamePlayScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ActiveGamePlayCountAggregateInputType | true
+    _avg?: ActiveGamePlayAvgAggregateInputType
+    _sum?: ActiveGamePlaySumAggregateInputType
+    _min?: ActiveGamePlayMinAggregateInputType
+    _max?: ActiveGamePlayMaxAggregateInputType
+  }
+
+
+  export type ActiveGamePlayGroupByOutputType = {
+    id: string
+    player_id: string
+    game_id: string
+    maxWin: number
+    startedAt: Date
+    updatedAt: Date
+    _count: ActiveGamePlayCountAggregateOutputType | null
+    _avg: ActiveGamePlayAvgAggregateOutputType | null
+    _sum: ActiveGamePlaySumAggregateOutputType | null
+    _min: ActiveGamePlayMinAggregateOutputType | null
+    _max: ActiveGamePlayMaxAggregateOutputType | null
+  }
+
+  type GetActiveGamePlayGroupByPayload<T extends ActiveGamePlayGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<ActiveGamePlayGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ActiveGamePlayGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ActiveGamePlayGroupByOutputType[P]>
+            : GetScalarType<T[P], ActiveGamePlayGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ActiveGamePlaySelect = {
+    id?: boolean
+    player_id?: boolean
+    game_id?: boolean
+    Player?: boolean | PlayerArgs
+    Game?: boolean | GamesArgs
+    maxWin?: boolean
+    startedAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type ActiveGamePlayInclude = {
+    Player?: boolean | PlayerArgs
+    Game?: boolean | GamesArgs
+  }
+
+  export type ActiveGamePlayGetPayload<S extends boolean | null | undefined | ActiveGamePlayArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? ActiveGamePlay :
+    S extends undefined ? never :
+    S extends { include: any } & (ActiveGamePlayArgs | ActiveGamePlayFindManyArgs)
+    ? ActiveGamePlay  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :
+        P extends 'Game' ? GamesGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (ActiveGamePlayArgs | ActiveGamePlayFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :
+        P extends 'Game' ? GamesGetPayload<S['select'][P]> | null :  P extends keyof ActiveGamePlay ? ActiveGamePlay[P] : never
+  } 
+      : ActiveGamePlay
+
+
+  type ActiveGamePlayCountArgs = 
+    Omit<ActiveGamePlayFindManyArgs, 'select' | 'include'> & {
+      select?: ActiveGamePlayCountAggregateInputType | true
+    }
+
+  export interface ActiveGamePlayDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one ActiveGamePlay that matches the filter.
+     * @param {ActiveGamePlayFindUniqueArgs} args - Arguments to find a ActiveGamePlay
+     * @example
+     * // Get one ActiveGamePlay
+     * const activeGamePlay = await prisma.activeGamePlay.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ActiveGamePlayFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, ActiveGamePlayFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ActiveGamePlay'> extends True ? Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T>> : Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T> | null, null>
+
+    /**
+     * Find one ActiveGamePlay that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ActiveGamePlayFindUniqueOrThrowArgs} args - Arguments to find a ActiveGamePlay
+     * @example
+     * // Get one ActiveGamePlay
+     * const activeGamePlay = await prisma.activeGamePlay.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ActiveGamePlayFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, ActiveGamePlayFindUniqueOrThrowArgs>
+    ): Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T>>
+
+    /**
+     * Find the first ActiveGamePlay that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActiveGamePlayFindFirstArgs} args - Arguments to find a ActiveGamePlay
+     * @example
+     * // Get one ActiveGamePlay
+     * const activeGamePlay = await prisma.activeGamePlay.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ActiveGamePlayFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, ActiveGamePlayFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ActiveGamePlay'> extends True ? Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T>> : Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T> | null, null>
+
+    /**
+     * Find the first ActiveGamePlay that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActiveGamePlayFindFirstOrThrowArgs} args - Arguments to find a ActiveGamePlay
+     * @example
+     * // Get one ActiveGamePlay
+     * const activeGamePlay = await prisma.activeGamePlay.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ActiveGamePlayFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, ActiveGamePlayFindFirstOrThrowArgs>
+    ): Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T>>
+
+    /**
+     * Find zero or more ActiveGamePlays that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActiveGamePlayFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ActiveGamePlays
+     * const activeGamePlays = await prisma.activeGamePlay.findMany()
+     * 
+     * // Get first 10 ActiveGamePlays
+     * const activeGamePlays = await prisma.activeGamePlay.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const activeGamePlayWithIdOnly = await prisma.activeGamePlay.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ActiveGamePlayFindManyArgs>(
+      args?: SelectSubset<T, ActiveGamePlayFindManyArgs>
+    ): Prisma.PrismaPromise<Array<ActiveGamePlayGetPayload<T>>>
+
+    /**
+     * Create a ActiveGamePlay.
+     * @param {ActiveGamePlayCreateArgs} args - Arguments to create a ActiveGamePlay.
+     * @example
+     * // Create one ActiveGamePlay
+     * const ActiveGamePlay = await prisma.activeGamePlay.create({
+     *   data: {
+     *     // ... data to create a ActiveGamePlay
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ActiveGamePlayCreateArgs>(
+      args: SelectSubset<T, ActiveGamePlayCreateArgs>
+    ): Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T>>
+
+    /**
+     * Create many ActiveGamePlays.
+     *     @param {ActiveGamePlayCreateManyArgs} args - Arguments to create many ActiveGamePlays.
+     *     @example
+     *     // Create many ActiveGamePlays
+     *     const activeGamePlay = await prisma.activeGamePlay.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ActiveGamePlayCreateManyArgs>(
+      args?: SelectSubset<T, ActiveGamePlayCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ActiveGamePlay.
+     * @param {ActiveGamePlayDeleteArgs} args - Arguments to delete one ActiveGamePlay.
+     * @example
+     * // Delete one ActiveGamePlay
+     * const ActiveGamePlay = await prisma.activeGamePlay.delete({
+     *   where: {
+     *     // ... filter to delete one ActiveGamePlay
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ActiveGamePlayDeleteArgs>(
+      args: SelectSubset<T, ActiveGamePlayDeleteArgs>
+    ): Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T>>
+
+    /**
+     * Update one ActiveGamePlay.
+     * @param {ActiveGamePlayUpdateArgs} args - Arguments to update one ActiveGamePlay.
+     * @example
+     * // Update one ActiveGamePlay
+     * const activeGamePlay = await prisma.activeGamePlay.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ActiveGamePlayUpdateArgs>(
+      args: SelectSubset<T, ActiveGamePlayUpdateArgs>
+    ): Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T>>
+
+    /**
+     * Delete zero or more ActiveGamePlays.
+     * @param {ActiveGamePlayDeleteManyArgs} args - Arguments to filter ActiveGamePlays to delete.
+     * @example
+     * // Delete a few ActiveGamePlays
+     * const { count } = await prisma.activeGamePlay.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ActiveGamePlayDeleteManyArgs>(
+      args?: SelectSubset<T, ActiveGamePlayDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ActiveGamePlays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActiveGamePlayUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ActiveGamePlays
+     * const activeGamePlay = await prisma.activeGamePlay.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ActiveGamePlayUpdateManyArgs>(
+      args: SelectSubset<T, ActiveGamePlayUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ActiveGamePlay.
+     * @param {ActiveGamePlayUpsertArgs} args - Arguments to update or create a ActiveGamePlay.
+     * @example
+     * // Update or create a ActiveGamePlay
+     * const activeGamePlay = await prisma.activeGamePlay.upsert({
+     *   create: {
+     *     // ... data to create a ActiveGamePlay
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ActiveGamePlay we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ActiveGamePlayUpsertArgs>(
+      args: SelectSubset<T, ActiveGamePlayUpsertArgs>
+    ): Prisma__ActiveGamePlayClient<ActiveGamePlayGetPayload<T>>
+
+    /**
+     * Find zero or more ActiveGamePlays that matches the filter.
+     * @param {ActiveGamePlayFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const activeGamePlay = await prisma.activeGamePlay.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: ActiveGamePlayFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ActiveGamePlay.
+     * @param {ActiveGamePlayAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const activeGamePlay = await prisma.activeGamePlay.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: ActiveGamePlayAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of ActiveGamePlays.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActiveGamePlayCountArgs} args - Arguments to filter ActiveGamePlays to count.
+     * @example
+     * // Count the number of ActiveGamePlays
+     * const count = await prisma.activeGamePlay.count({
+     *   where: {
+     *     // ... the filter for the ActiveGamePlays we want to count
+     *   }
+     * })
+    **/
+    count<T extends ActiveGamePlayCountArgs>(
+      args?: Subset<T, ActiveGamePlayCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ActiveGamePlayCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ActiveGamePlay.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActiveGamePlayAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ActiveGamePlayAggregateArgs>(args: Subset<T, ActiveGamePlayAggregateArgs>): Prisma.PrismaPromise<GetActiveGamePlayAggregateType<T>>
+
+    /**
+     * Group by ActiveGamePlay.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActiveGamePlayGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ActiveGamePlayGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ActiveGamePlayGroupByArgs['orderBy'] }
+        : { orderBy?: ActiveGamePlayGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ActiveGamePlayGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetActiveGamePlayGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ActiveGamePlay.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__ActiveGamePlayClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+
+    Game<T extends GamesArgs= {}>(args?: Subset<T, GamesArgs>): Prisma__GamesClient<GamesGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * ActiveGamePlay base type for findUnique actions
+   */
+  export type ActiveGamePlayFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    /**
+     * Filter, which ActiveGamePlay to fetch.
+     */
+    where: ActiveGamePlayWhereUniqueInput
+  }
+
+  /**
+   * ActiveGamePlay findUnique
+   */
+  export interface ActiveGamePlayFindUniqueArgs extends ActiveGamePlayFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * ActiveGamePlay findUniqueOrThrow
+   */
+  export type ActiveGamePlayFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    /**
+     * Filter, which ActiveGamePlay to fetch.
+     */
+    where: ActiveGamePlayWhereUniqueInput
+  }
+
+
+  /**
+   * ActiveGamePlay base type for findFirst actions
+   */
+  export type ActiveGamePlayFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    /**
+     * Filter, which ActiveGamePlay to fetch.
+     */
+    where?: ActiveGamePlayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ActiveGamePlays to fetch.
+     */
+    orderBy?: Enumerable<ActiveGamePlayOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ActiveGamePlays.
+     */
+    cursor?: ActiveGamePlayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ActiveGamePlays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ActiveGamePlays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ActiveGamePlays.
+     */
+    distinct?: Enumerable<ActiveGamePlayScalarFieldEnum>
+  }
+
+  /**
+   * ActiveGamePlay findFirst
+   */
+  export interface ActiveGamePlayFindFirstArgs extends ActiveGamePlayFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * ActiveGamePlay findFirstOrThrow
+   */
+  export type ActiveGamePlayFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    /**
+     * Filter, which ActiveGamePlay to fetch.
+     */
+    where?: ActiveGamePlayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ActiveGamePlays to fetch.
+     */
+    orderBy?: Enumerable<ActiveGamePlayOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ActiveGamePlays.
+     */
+    cursor?: ActiveGamePlayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ActiveGamePlays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ActiveGamePlays.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ActiveGamePlays.
+     */
+    distinct?: Enumerable<ActiveGamePlayScalarFieldEnum>
+  }
+
+
+  /**
+   * ActiveGamePlay findMany
+   */
+  export type ActiveGamePlayFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    /**
+     * Filter, which ActiveGamePlays to fetch.
+     */
+    where?: ActiveGamePlayWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ActiveGamePlays to fetch.
+     */
+    orderBy?: Enumerable<ActiveGamePlayOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ActiveGamePlays.
+     */
+    cursor?: ActiveGamePlayWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ActiveGamePlays from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ActiveGamePlays.
+     */
+    skip?: number
+    distinct?: Enumerable<ActiveGamePlayScalarFieldEnum>
+  }
+
+
+  /**
+   * ActiveGamePlay create
+   */
+  export type ActiveGamePlayCreateArgs = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    /**
+     * The data needed to create a ActiveGamePlay.
+     */
+    data: XOR<ActiveGamePlayCreateInput, ActiveGamePlayUncheckedCreateInput>
+  }
+
+
+  /**
+   * ActiveGamePlay createMany
+   */
+  export type ActiveGamePlayCreateManyArgs = {
+    /**
+     * The data used to create many ActiveGamePlays.
+     */
+    data: Enumerable<ActiveGamePlayCreateManyInput>
+  }
+
+
+  /**
+   * ActiveGamePlay update
+   */
+  export type ActiveGamePlayUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    /**
+     * The data needed to update a ActiveGamePlay.
+     */
+    data: XOR<ActiveGamePlayUpdateInput, ActiveGamePlayUncheckedUpdateInput>
+    /**
+     * Choose, which ActiveGamePlay to update.
+     */
+    where: ActiveGamePlayWhereUniqueInput
+  }
+
+
+  /**
+   * ActiveGamePlay updateMany
+   */
+  export type ActiveGamePlayUpdateManyArgs = {
+    /**
+     * The data used to update ActiveGamePlays.
+     */
+    data: XOR<ActiveGamePlayUpdateManyMutationInput, ActiveGamePlayUncheckedUpdateManyInput>
+    /**
+     * Filter which ActiveGamePlays to update
+     */
+    where?: ActiveGamePlayWhereInput
+  }
+
+
+  /**
+   * ActiveGamePlay upsert
+   */
+  export type ActiveGamePlayUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    /**
+     * The filter to search for the ActiveGamePlay to update in case it exists.
+     */
+    where: ActiveGamePlayWhereUniqueInput
+    /**
+     * In case the ActiveGamePlay found by the `where` argument doesn't exist, create a new ActiveGamePlay with this data.
+     */
+    create: XOR<ActiveGamePlayCreateInput, ActiveGamePlayUncheckedCreateInput>
+    /**
+     * In case the ActiveGamePlay was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ActiveGamePlayUpdateInput, ActiveGamePlayUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ActiveGamePlay delete
+   */
+  export type ActiveGamePlayDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+    /**
+     * Filter which ActiveGamePlay to delete.
+     */
+    where: ActiveGamePlayWhereUniqueInput
+  }
+
+
+  /**
+   * ActiveGamePlay deleteMany
+   */
+  export type ActiveGamePlayDeleteManyArgs = {
+    /**
+     * Filter which ActiveGamePlays to delete
+     */
+    where?: ActiveGamePlayWhereInput
+  }
+
+
+  /**
+   * ActiveGamePlay findRaw
+   */
+  export type ActiveGamePlayFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * ActiveGamePlay aggregateRaw
+   */
+  export type ActiveGamePlayAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * ActiveGamePlay without action
+   */
+  export type ActiveGamePlayArgs = {
+    /**
+     * Select specific fields to fetch from the ActiveGamePlay
+     */
+    select?: ActiveGamePlaySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ActiveGamePlayInclude | null
+  }
+
+
+
+  /**
+   * Model SlotTransactions
+   */
+
+
+  export type AggregateSlotTransactions = {
+    _count: SlotTransactionsCountAggregateOutputType | null
+    _min: SlotTransactionsMinAggregateOutputType | null
+    _max: SlotTransactionsMaxAggregateOutputType | null
+  }
+
+  export type SlotTransactionsMinAggregateOutputType = {
+    id: string | null
+    transaction_id: string | null
+    status: SlotStatus | null
+    createdAt: Date | null
+  }
+
+  export type SlotTransactionsMaxAggregateOutputType = {
+    id: string | null
+    transaction_id: string | null
+    status: SlotStatus | null
+    createdAt: Date | null
+  }
+
+  export type SlotTransactionsCountAggregateOutputType = {
+    id: number
+    transaction_id: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SlotTransactionsMinAggregateInputType = {
+    id?: true
+    transaction_id?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type SlotTransactionsMaxAggregateInputType = {
+    id?: true
+    transaction_id?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type SlotTransactionsCountAggregateInputType = {
+    id?: true
+    transaction_id?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SlotTransactionsAggregateArgs = {
+    /**
+     * Filter which SlotTransactions to aggregate.
+     */
+    where?: SlotTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlotTransactions to fetch.
+     */
+    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SlotTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlotTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlotTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SlotTransactions
+    **/
+    _count?: true | SlotTransactionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SlotTransactionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SlotTransactionsMaxAggregateInputType
+  }
+
+  export type GetSlotTransactionsAggregateType<T extends SlotTransactionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSlotTransactions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSlotTransactions[P]>
+      : GetScalarType<T[P], AggregateSlotTransactions[P]>
+  }
+
+
+
+
+  export type SlotTransactionsGroupByArgs = {
+    where?: SlotTransactionsWhereInput
+    orderBy?: Enumerable<SlotTransactionsOrderByWithAggregationInput>
+    by: SlotTransactionsScalarFieldEnum[]
+    having?: SlotTransactionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SlotTransactionsCountAggregateInputType | true
+    _min?: SlotTransactionsMinAggregateInputType
+    _max?: SlotTransactionsMaxAggregateInputType
+  }
+
+
+  export type SlotTransactionsGroupByOutputType = {
+    id: string
+    transaction_id: string | null
+    status: SlotStatus | null
+    createdAt: Date
+    _count: SlotTransactionsCountAggregateOutputType | null
+    _min: SlotTransactionsMinAggregateOutputType | null
+    _max: SlotTransactionsMaxAggregateOutputType | null
+  }
+
+  type GetSlotTransactionsGroupByPayload<T extends SlotTransactionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<SlotTransactionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SlotTransactionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SlotTransactionsGroupByOutputType[P]>
+            : GetScalarType<T[P], SlotTransactionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SlotTransactionsSelect = {
+    id?: boolean
+    transaction_id?: boolean
+    status?: boolean
+    Transaction?: boolean | GameTransactionsArgs
+    createdAt?: boolean
+  }
+
+
+  export type SlotTransactionsInclude = {
+    Transaction?: boolean | GameTransactionsArgs
+  }
+
+  export type SlotTransactionsGetPayload<S extends boolean | null | undefined | SlotTransactionsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? SlotTransactions :
+    S extends undefined ? never :
+    S extends { include: any } & (SlotTransactionsArgs | SlotTransactionsFindManyArgs)
+    ? SlotTransactions  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Transaction' ? GameTransactionsGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (SlotTransactionsArgs | SlotTransactionsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Transaction' ? GameTransactionsGetPayload<S['select'][P]> | null :  P extends keyof SlotTransactions ? SlotTransactions[P] : never
+  } 
+      : SlotTransactions
+
+
+  type SlotTransactionsCountArgs = 
+    Omit<SlotTransactionsFindManyArgs, 'select' | 'include'> & {
+      select?: SlotTransactionsCountAggregateInputType | true
+    }
+
+  export interface SlotTransactionsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one SlotTransactions that matches the filter.
+     * @param {SlotTransactionsFindUniqueArgs} args - Arguments to find a SlotTransactions
+     * @example
+     * // Get one SlotTransactions
+     * const slotTransactions = await prisma.slotTransactions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends SlotTransactionsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, SlotTransactionsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'SlotTransactions'> extends True ? Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>> : Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find one SlotTransactions that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {SlotTransactionsFindUniqueOrThrowArgs} args - Arguments to find a SlotTransactions
+     * @example
+     * // Get one SlotTransactions
+     * const slotTransactions = await prisma.slotTransactions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends SlotTransactionsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, SlotTransactionsFindUniqueOrThrowArgs>
+    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
+
+    /**
+     * Find the first SlotTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotTransactionsFindFirstArgs} args - Arguments to find a SlotTransactions
+     * @example
+     * // Get one SlotTransactions
+     * const slotTransactions = await prisma.slotTransactions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends SlotTransactionsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, SlotTransactionsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'SlotTransactions'> extends True ? Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>> : Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find the first SlotTransactions that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotTransactionsFindFirstOrThrowArgs} args - Arguments to find a SlotTransactions
+     * @example
+     * // Get one SlotTransactions
+     * const slotTransactions = await prisma.slotTransactions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends SlotTransactionsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, SlotTransactionsFindFirstOrThrowArgs>
+    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more SlotTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotTransactionsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SlotTransactions
+     * const slotTransactions = await prisma.slotTransactions.findMany()
+     * 
+     * // Get first 10 SlotTransactions
+     * const slotTransactions = await prisma.slotTransactions.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const slotTransactionsWithIdOnly = await prisma.slotTransactions.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends SlotTransactionsFindManyArgs>(
+      args?: SelectSubset<T, SlotTransactionsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<SlotTransactionsGetPayload<T>>>
+
+    /**
+     * Create a SlotTransactions.
+     * @param {SlotTransactionsCreateArgs} args - Arguments to create a SlotTransactions.
+     * @example
+     * // Create one SlotTransactions
+     * const SlotTransactions = await prisma.slotTransactions.create({
+     *   data: {
+     *     // ... data to create a SlotTransactions
+     *   }
+     * })
+     * 
+    **/
+    create<T extends SlotTransactionsCreateArgs>(
+      args: SelectSubset<T, SlotTransactionsCreateArgs>
+    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
+
+    /**
+     * Create many SlotTransactions.
+     *     @param {SlotTransactionsCreateManyArgs} args - Arguments to create many SlotTransactions.
+     *     @example
+     *     // Create many SlotTransactions
+     *     const slotTransactions = await prisma.slotTransactions.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends SlotTransactionsCreateManyArgs>(
+      args?: SelectSubset<T, SlotTransactionsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a SlotTransactions.
+     * @param {SlotTransactionsDeleteArgs} args - Arguments to delete one SlotTransactions.
+     * @example
+     * // Delete one SlotTransactions
+     * const SlotTransactions = await prisma.slotTransactions.delete({
+     *   where: {
+     *     // ... filter to delete one SlotTransactions
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends SlotTransactionsDeleteArgs>(
+      args: SelectSubset<T, SlotTransactionsDeleteArgs>
+    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
+
+    /**
+     * Update one SlotTransactions.
+     * @param {SlotTransactionsUpdateArgs} args - Arguments to update one SlotTransactions.
+     * @example
+     * // Update one SlotTransactions
+     * const slotTransactions = await prisma.slotTransactions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends SlotTransactionsUpdateArgs>(
+      args: SelectSubset<T, SlotTransactionsUpdateArgs>
+    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
+
+    /**
+     * Delete zero or more SlotTransactions.
+     * @param {SlotTransactionsDeleteManyArgs} args - Arguments to filter SlotTransactions to delete.
+     * @example
+     * // Delete a few SlotTransactions
+     * const { count } = await prisma.slotTransactions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends SlotTransactionsDeleteManyArgs>(
+      args?: SelectSubset<T, SlotTransactionsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SlotTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotTransactionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SlotTransactions
+     * const slotTransactions = await prisma.slotTransactions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends SlotTransactionsUpdateManyArgs>(
+      args: SelectSubset<T, SlotTransactionsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SlotTransactions.
+     * @param {SlotTransactionsUpsertArgs} args - Arguments to update or create a SlotTransactions.
+     * @example
+     * // Update or create a SlotTransactions
+     * const slotTransactions = await prisma.slotTransactions.upsert({
+     *   create: {
+     *     // ... data to create a SlotTransactions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SlotTransactions we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends SlotTransactionsUpsertArgs>(
+      args: SelectSubset<T, SlotTransactionsUpsertArgs>
+    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more SlotTransactions that matches the filter.
+     * @param {SlotTransactionsFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const slotTransactions = await prisma.slotTransactions.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: SlotTransactionsFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a SlotTransactions.
+     * @param {SlotTransactionsAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const slotTransactions = await prisma.slotTransactions.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: SlotTransactionsAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of SlotTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotTransactionsCountArgs} args - Arguments to filter SlotTransactions to count.
+     * @example
+     * // Count the number of SlotTransactions
+     * const count = await prisma.slotTransactions.count({
+     *   where: {
+     *     // ... the filter for the SlotTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SlotTransactionsCountArgs>(
+      args?: Subset<T, SlotTransactionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SlotTransactionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SlotTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotTransactionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SlotTransactionsAggregateArgs>(args: Subset<T, SlotTransactionsAggregateArgs>): Prisma.PrismaPromise<GetSlotTransactionsAggregateType<T>>
+
+    /**
+     * Group by SlotTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotTransactionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SlotTransactionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SlotTransactionsGroupByArgs['orderBy'] }
+        : { orderBy?: SlotTransactionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SlotTransactionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSlotTransactionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SlotTransactions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__SlotTransactionsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Transaction<T extends GameTransactionsArgs= {}>(args?: Subset<T, GameTransactionsArgs>): Prisma__GameTransactionsClient<GameTransactionsGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * SlotTransactions base type for findUnique actions
+   */
+  export type SlotTransactionsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    /**
+     * Filter, which SlotTransactions to fetch.
+     */
+    where: SlotTransactionsWhereUniqueInput
+  }
+
+  /**
+   * SlotTransactions findUnique
+   */
+  export interface SlotTransactionsFindUniqueArgs extends SlotTransactionsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * SlotTransactions findUniqueOrThrow
+   */
+  export type SlotTransactionsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    /**
+     * Filter, which SlotTransactions to fetch.
+     */
+    where: SlotTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * SlotTransactions base type for findFirst actions
+   */
+  export type SlotTransactionsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    /**
+     * Filter, which SlotTransactions to fetch.
+     */
+    where?: SlotTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlotTransactions to fetch.
+     */
+    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SlotTransactions.
+     */
+    cursor?: SlotTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlotTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlotTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SlotTransactions.
+     */
+    distinct?: Enumerable<SlotTransactionsScalarFieldEnum>
+  }
+
+  /**
+   * SlotTransactions findFirst
+   */
+  export interface SlotTransactionsFindFirstArgs extends SlotTransactionsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * SlotTransactions findFirstOrThrow
+   */
+  export type SlotTransactionsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    /**
+     * Filter, which SlotTransactions to fetch.
+     */
+    where?: SlotTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlotTransactions to fetch.
+     */
+    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SlotTransactions.
+     */
+    cursor?: SlotTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlotTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlotTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SlotTransactions.
+     */
+    distinct?: Enumerable<SlotTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * SlotTransactions findMany
+   */
+  export type SlotTransactionsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    /**
+     * Filter, which SlotTransactions to fetch.
+     */
+    where?: SlotTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlotTransactions to fetch.
+     */
+    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SlotTransactions.
+     */
+    cursor?: SlotTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlotTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlotTransactions.
+     */
+    skip?: number
+    distinct?: Enumerable<SlotTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * SlotTransactions create
+   */
+  export type SlotTransactionsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    /**
+     * The data needed to create a SlotTransactions.
+     */
+    data: XOR<SlotTransactionsCreateInput, SlotTransactionsUncheckedCreateInput>
+  }
+
+
+  /**
+   * SlotTransactions createMany
+   */
+  export type SlotTransactionsCreateManyArgs = {
+    /**
+     * The data used to create many SlotTransactions.
+     */
+    data: Enumerable<SlotTransactionsCreateManyInput>
+  }
+
+
+  /**
+   * SlotTransactions update
+   */
+  export type SlotTransactionsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    /**
+     * The data needed to update a SlotTransactions.
+     */
+    data: XOR<SlotTransactionsUpdateInput, SlotTransactionsUncheckedUpdateInput>
+    /**
+     * Choose, which SlotTransactions to update.
+     */
+    where: SlotTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * SlotTransactions updateMany
+   */
+  export type SlotTransactionsUpdateManyArgs = {
+    /**
+     * The data used to update SlotTransactions.
+     */
+    data: XOR<SlotTransactionsUpdateManyMutationInput, SlotTransactionsUncheckedUpdateManyInput>
+    /**
+     * Filter which SlotTransactions to update
+     */
+    where?: SlotTransactionsWhereInput
+  }
+
+
+  /**
+   * SlotTransactions upsert
+   */
+  export type SlotTransactionsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    /**
+     * The filter to search for the SlotTransactions to update in case it exists.
+     */
+    where: SlotTransactionsWhereUniqueInput
+    /**
+     * In case the SlotTransactions found by the `where` argument doesn't exist, create a new SlotTransactions with this data.
+     */
+    create: XOR<SlotTransactionsCreateInput, SlotTransactionsUncheckedCreateInput>
+    /**
+     * In case the SlotTransactions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SlotTransactionsUpdateInput, SlotTransactionsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * SlotTransactions delete
+   */
+  export type SlotTransactionsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    /**
+     * Filter which SlotTransactions to delete.
+     */
+    where: SlotTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * SlotTransactions deleteMany
+   */
+  export type SlotTransactionsDeleteManyArgs = {
+    /**
+     * Filter which SlotTransactions to delete
+     */
+    where?: SlotTransactionsWhereInput
+  }
+
+
+  /**
+   * SlotTransactions findRaw
+   */
+  export type SlotTransactionsFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * SlotTransactions aggregateRaw
+   */
+  export type SlotTransactionsAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * SlotTransactions without action
+   */
+  export type SlotTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+  }
+
+
+
+  /**
+   * Model GameTransactions
+   */
+
+
+  export type AggregateGameTransactions = {
+    _count: GameTransactionsCountAggregateOutputType | null
+    _avg: GameTransactionsAvgAggregateOutputType | null
+    _sum: GameTransactionsSumAggregateOutputType | null
+    _min: GameTransactionsMinAggregateOutputType | null
+    _max: GameTransactionsMaxAggregateOutputType | null
+  }
+
+  export type GameTransactionsAvgAggregateOutputType = {
+    spent: number | null
+    won: number | null
+  }
+
+  export type GameTransactionsSumAggregateOutputType = {
+    spent: number | null
+    won: number | null
+  }
+
+  export type GameTransactionsMinAggregateOutputType = {
+    id: string | null
+    date: string | null
+    player: string | null
+    game: string | null
+    spent: number | null
+    won: number | null
+    winType: string | null
+    game_id: string | null
+    player_id: string | null
+    user_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    room_id: string | null
+    fish_transaction_id: string | null
+  }
+
+  export type GameTransactionsMaxAggregateOutputType = {
+    id: string | null
+    date: string | null
+    player: string | null
+    game: string | null
+    spent: number | null
+    won: number | null
+    winType: string | null
+    game_id: string | null
+    player_id: string | null
+    user_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    room_id: string | null
+    fish_transaction_id: string | null
+  }
+
+  export type GameTransactionsCountAggregateOutputType = {
+    id: number
+    date: number
+    player: number
+    game: number
+    spent: number
+    won: number
+    winType: number
+    game_id: number
+    player_id: number
+    user_id: number
+    createdAt: number
+    updatedAt: number
+    room_id: number
+    fish_transaction_id: number
+    _all: number
+  }
+
+
+  export type GameTransactionsAvgAggregateInputType = {
+    spent?: true
+    won?: true
+  }
+
+  export type GameTransactionsSumAggregateInputType = {
+    spent?: true
+    won?: true
+  }
+
+  export type GameTransactionsMinAggregateInputType = {
+    id?: true
+    date?: true
+    player?: true
+    game?: true
+    spent?: true
+    won?: true
+    winType?: true
+    game_id?: true
+    player_id?: true
+    user_id?: true
+    createdAt?: true
+    updatedAt?: true
+    room_id?: true
+    fish_transaction_id?: true
+  }
+
+  export type GameTransactionsMaxAggregateInputType = {
+    id?: true
+    date?: true
+    player?: true
+    game?: true
+    spent?: true
+    won?: true
+    winType?: true
+    game_id?: true
+    player_id?: true
+    user_id?: true
+    createdAt?: true
+    updatedAt?: true
+    room_id?: true
+    fish_transaction_id?: true
+  }
+
+  export type GameTransactionsCountAggregateInputType = {
+    id?: true
+    date?: true
+    player?: true
+    game?: true
+    spent?: true
+    won?: true
+    winType?: true
+    game_id?: true
+    player_id?: true
+    user_id?: true
+    createdAt?: true
+    updatedAt?: true
+    room_id?: true
+    fish_transaction_id?: true
+    _all?: true
+  }
+
+  export type GameTransactionsAggregateArgs = {
+    /**
+     * Filter which GameTransactions to aggregate.
+     */
+    where?: GameTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameTransactions to fetch.
+     */
+    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameTransactions
+    **/
+    _count?: true | GameTransactionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameTransactionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameTransactionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameTransactionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameTransactionsMaxAggregateInputType
+  }
+
+  export type GetGameTransactionsAggregateType<T extends GameTransactionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameTransactions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameTransactions[P]>
+      : GetScalarType<T[P], AggregateGameTransactions[P]>
+  }
+
+
+
+
+  export type GameTransactionsGroupByArgs = {
+    where?: GameTransactionsWhereInput
+    orderBy?: Enumerable<GameTransactionsOrderByWithAggregationInput>
+    by: GameTransactionsScalarFieldEnum[]
+    having?: GameTransactionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameTransactionsCountAggregateInputType | true
+    _avg?: GameTransactionsAvgAggregateInputType
+    _sum?: GameTransactionsSumAggregateInputType
+    _min?: GameTransactionsMinAggregateInputType
+    _max?: GameTransactionsMaxAggregateInputType
+  }
+
+
+  export type GameTransactionsGroupByOutputType = {
+    id: string
+    date: string | null
+    player: string
+    game: string
+    spent: number | null
+    won: number | null
+    winType: string | null
+    game_id: string | null
+    player_id: string | null
+    user_id: string | null
+    createdAt: Date
+    updatedAt: Date | null
+    room_id: string | null
+    fish_transaction_id: string | null
+    _count: GameTransactionsCountAggregateOutputType | null
+    _avg: GameTransactionsAvgAggregateOutputType | null
+    _sum: GameTransactionsSumAggregateOutputType | null
+    _min: GameTransactionsMinAggregateOutputType | null
+    _max: GameTransactionsMaxAggregateOutputType | null
+  }
+
+  type GetGameTransactionsGroupByPayload<T extends GameTransactionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<GameTransactionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameTransactionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameTransactionsGroupByOutputType[P]>
+            : GetScalarType<T[P], GameTransactionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameTransactionsSelect = {
+    id?: boolean
+    date?: boolean
+    player?: boolean
+    game?: boolean
+    spent?: boolean
+    won?: boolean
+    winType?: boolean
+    game_id?: boolean
+    player_id?: boolean
+    user_id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    Game?: boolean | GamesArgs
+    Player?: boolean | PlayerArgs
+    Admin?: boolean | AdminArgs
+    SlotTransactions?: boolean | GameTransactions$SlotTransactionsArgs
+    room_id?: boolean
+    fish_transaction_id?: boolean
+    FishGameTransactions?: boolean | FishGameTransactionsArgs
+    _count?: boolean | GameTransactionsCountOutputTypeArgs
+  }
+
+
+  export type GameTransactionsInclude = {
+    Game?: boolean | GamesArgs
+    Player?: boolean | PlayerArgs
+    Admin?: boolean | AdminArgs
+    SlotTransactions?: boolean | GameTransactions$SlotTransactionsArgs
+    FishGameTransactions?: boolean | FishGameTransactionsArgs
+    _count?: boolean | GameTransactionsCountOutputTypeArgs
+  }
+
+  export type GameTransactionsGetPayload<S extends boolean | null | undefined | GameTransactionsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? GameTransactions :
+    S extends undefined ? never :
+    S extends { include: any } & (GameTransactionsArgs | GameTransactionsFindManyArgs)
+    ? GameTransactions  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Game' ? GamesGetPayload<S['include'][P]> | null :
+        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :
+        P extends 'Admin' ? AdminGetPayload<S['include'][P]> | null :
+        P extends 'SlotTransactions' ? Array < SlotTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'FishGameTransactions' ? FishGameTransactionsGetPayload<S['include'][P]> | null :
+        P extends '_count' ? GameTransactionsCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (GameTransactionsArgs | GameTransactionsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Game' ? GamesGetPayload<S['select'][P]> | null :
+        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :
+        P extends 'Admin' ? AdminGetPayload<S['select'][P]> | null :
+        P extends 'SlotTransactions' ? Array < SlotTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'FishGameTransactions' ? FishGameTransactionsGetPayload<S['select'][P]> | null :
+        P extends '_count' ? GameTransactionsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof GameTransactions ? GameTransactions[P] : never
+  } 
+      : GameTransactions
+
+
+  type GameTransactionsCountArgs = 
+    Omit<GameTransactionsFindManyArgs, 'select' | 'include'> & {
+      select?: GameTransactionsCountAggregateInputType | true
+    }
+
+  export interface GameTransactionsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one GameTransactions that matches the filter.
+     * @param {GameTransactionsFindUniqueArgs} args - Arguments to find a GameTransactions
+     * @example
+     * // Get one GameTransactions
+     * const gameTransactions = await prisma.gameTransactions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends GameTransactionsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, GameTransactionsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'GameTransactions'> extends True ? Prisma__GameTransactionsClient<GameTransactionsGetPayload<T>> : Prisma__GameTransactionsClient<GameTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find one GameTransactions that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {GameTransactionsFindUniqueOrThrowArgs} args - Arguments to find a GameTransactions
+     * @example
+     * // Get one GameTransactions
+     * const gameTransactions = await prisma.gameTransactions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends GameTransactionsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, GameTransactionsFindUniqueOrThrowArgs>
+    ): Prisma__GameTransactionsClient<GameTransactionsGetPayload<T>>
+
+    /**
+     * Find the first GameTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionsFindFirstArgs} args - Arguments to find a GameTransactions
+     * @example
+     * // Get one GameTransactions
+     * const gameTransactions = await prisma.gameTransactions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends GameTransactionsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, GameTransactionsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'GameTransactions'> extends True ? Prisma__GameTransactionsClient<GameTransactionsGetPayload<T>> : Prisma__GameTransactionsClient<GameTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find the first GameTransactions that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionsFindFirstOrThrowArgs} args - Arguments to find a GameTransactions
+     * @example
+     * // Get one GameTransactions
+     * const gameTransactions = await prisma.gameTransactions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends GameTransactionsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, GameTransactionsFindFirstOrThrowArgs>
+    ): Prisma__GameTransactionsClient<GameTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more GameTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameTransactions
+     * const gameTransactions = await prisma.gameTransactions.findMany()
+     * 
+     * // Get first 10 GameTransactions
+     * const gameTransactions = await prisma.gameTransactions.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameTransactionsWithIdOnly = await prisma.gameTransactions.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends GameTransactionsFindManyArgs>(
+      args?: SelectSubset<T, GameTransactionsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<GameTransactionsGetPayload<T>>>
+
+    /**
+     * Create a GameTransactions.
+     * @param {GameTransactionsCreateArgs} args - Arguments to create a GameTransactions.
+     * @example
+     * // Create one GameTransactions
+     * const GameTransactions = await prisma.gameTransactions.create({
+     *   data: {
+     *     // ... data to create a GameTransactions
+     *   }
+     * })
+     * 
+    **/
+    create<T extends GameTransactionsCreateArgs>(
+      args: SelectSubset<T, GameTransactionsCreateArgs>
+    ): Prisma__GameTransactionsClient<GameTransactionsGetPayload<T>>
+
+    /**
+     * Create many GameTransactions.
+     *     @param {GameTransactionsCreateManyArgs} args - Arguments to create many GameTransactions.
+     *     @example
+     *     // Create many GameTransactions
+     *     const gameTransactions = await prisma.gameTransactions.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends GameTransactionsCreateManyArgs>(
+      args?: SelectSubset<T, GameTransactionsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a GameTransactions.
+     * @param {GameTransactionsDeleteArgs} args - Arguments to delete one GameTransactions.
+     * @example
+     * // Delete one GameTransactions
+     * const GameTransactions = await prisma.gameTransactions.delete({
+     *   where: {
+     *     // ... filter to delete one GameTransactions
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends GameTransactionsDeleteArgs>(
+      args: SelectSubset<T, GameTransactionsDeleteArgs>
+    ): Prisma__GameTransactionsClient<GameTransactionsGetPayload<T>>
+
+    /**
+     * Update one GameTransactions.
+     * @param {GameTransactionsUpdateArgs} args - Arguments to update one GameTransactions.
+     * @example
+     * // Update one GameTransactions
+     * const gameTransactions = await prisma.gameTransactions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends GameTransactionsUpdateArgs>(
+      args: SelectSubset<T, GameTransactionsUpdateArgs>
+    ): Prisma__GameTransactionsClient<GameTransactionsGetPayload<T>>
+
+    /**
+     * Delete zero or more GameTransactions.
+     * @param {GameTransactionsDeleteManyArgs} args - Arguments to filter GameTransactions to delete.
+     * @example
+     * // Delete a few GameTransactions
+     * const { count } = await prisma.gameTransactions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends GameTransactionsDeleteManyArgs>(
+      args?: SelectSubset<T, GameTransactionsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameTransactions
+     * const gameTransactions = await prisma.gameTransactions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends GameTransactionsUpdateManyArgs>(
+      args: SelectSubset<T, GameTransactionsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one GameTransactions.
+     * @param {GameTransactionsUpsertArgs} args - Arguments to update or create a GameTransactions.
+     * @example
+     * // Update or create a GameTransactions
+     * const gameTransactions = await prisma.gameTransactions.upsert({
+     *   create: {
+     *     // ... data to create a GameTransactions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameTransactions we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends GameTransactionsUpsertArgs>(
+      args: SelectSubset<T, GameTransactionsUpsertArgs>
+    ): Prisma__GameTransactionsClient<GameTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more GameTransactions that matches the filter.
+     * @param {GameTransactionsFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const gameTransactions = await prisma.gameTransactions.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: GameTransactionsFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a GameTransactions.
+     * @param {GameTransactionsAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const gameTransactions = await prisma.gameTransactions.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: GameTransactionsAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of GameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionsCountArgs} args - Arguments to filter GameTransactions to count.
+     * @example
+     * // Count the number of GameTransactions
+     * const count = await prisma.gameTransactions.count({
+     *   where: {
+     *     // ... the filter for the GameTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameTransactionsCountArgs>(
+      args?: Subset<T, GameTransactionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameTransactionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameTransactionsAggregateArgs>(args: Subset<T, GameTransactionsAggregateArgs>): Prisma.PrismaPromise<GetGameTransactionsAggregateType<T>>
+
+    /**
+     * Group by GameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameTransactionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameTransactionsGroupByArgs['orderBy'] }
+        : { orderBy?: GameTransactionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameTransactionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameTransactionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameTransactions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__GameTransactionsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Game<T extends GamesArgs= {}>(args?: Subset<T, GamesArgs>): Prisma__GamesClient<GamesGetPayload<T> | Null>;
+
+    Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+
+    Admin<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
+
+    SlotTransactions<T extends GameTransactions$SlotTransactionsArgs= {}>(args?: Subset<T, GameTransactions$SlotTransactionsArgs>): Prisma.PrismaPromise<Array<SlotTransactionsGetPayload<T>>| Null>;
+
+    FishGameTransactions<T extends FishGameTransactionsArgs= {}>(args?: Subset<T, FishGameTransactionsArgs>): Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * GameTransactions base type for findUnique actions
+   */
+  export type GameTransactionsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    /**
+     * Filter, which GameTransactions to fetch.
+     */
+    where: GameTransactionsWhereUniqueInput
+  }
+
+  /**
+   * GameTransactions findUnique
+   */
+  export interface GameTransactionsFindUniqueArgs extends GameTransactionsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * GameTransactions findUniqueOrThrow
+   */
+  export type GameTransactionsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    /**
+     * Filter, which GameTransactions to fetch.
+     */
+    where: GameTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * GameTransactions base type for findFirst actions
+   */
+  export type GameTransactionsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    /**
+     * Filter, which GameTransactions to fetch.
+     */
+    where?: GameTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameTransactions to fetch.
+     */
+    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameTransactions.
+     */
+    cursor?: GameTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameTransactions.
+     */
+    distinct?: Enumerable<GameTransactionsScalarFieldEnum>
+  }
+
+  /**
+   * GameTransactions findFirst
+   */
+  export interface GameTransactionsFindFirstArgs extends GameTransactionsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * GameTransactions findFirstOrThrow
+   */
+  export type GameTransactionsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    /**
+     * Filter, which GameTransactions to fetch.
+     */
+    where?: GameTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameTransactions to fetch.
+     */
+    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameTransactions.
+     */
+    cursor?: GameTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameTransactions.
+     */
+    distinct?: Enumerable<GameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * GameTransactions findMany
+   */
+  export type GameTransactionsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    /**
+     * Filter, which GameTransactions to fetch.
+     */
+    where?: GameTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameTransactions to fetch.
+     */
+    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameTransactions.
+     */
+    cursor?: GameTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameTransactions.
+     */
+    skip?: number
+    distinct?: Enumerable<GameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * GameTransactions create
+   */
+  export type GameTransactionsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    /**
+     * The data needed to create a GameTransactions.
+     */
+    data: XOR<GameTransactionsCreateInput, GameTransactionsUncheckedCreateInput>
+  }
+
+
+  /**
+   * GameTransactions createMany
+   */
+  export type GameTransactionsCreateManyArgs = {
+    /**
+     * The data used to create many GameTransactions.
+     */
+    data: Enumerable<GameTransactionsCreateManyInput>
+  }
+
+
+  /**
+   * GameTransactions update
+   */
+  export type GameTransactionsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    /**
+     * The data needed to update a GameTransactions.
+     */
+    data: XOR<GameTransactionsUpdateInput, GameTransactionsUncheckedUpdateInput>
+    /**
+     * Choose, which GameTransactions to update.
+     */
+    where: GameTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * GameTransactions updateMany
+   */
+  export type GameTransactionsUpdateManyArgs = {
+    /**
+     * The data used to update GameTransactions.
+     */
+    data: XOR<GameTransactionsUpdateManyMutationInput, GameTransactionsUncheckedUpdateManyInput>
+    /**
+     * Filter which GameTransactions to update
+     */
+    where?: GameTransactionsWhereInput
+  }
+
+
+  /**
+   * GameTransactions upsert
+   */
+  export type GameTransactionsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    /**
+     * The filter to search for the GameTransactions to update in case it exists.
+     */
+    where: GameTransactionsWhereUniqueInput
+    /**
+     * In case the GameTransactions found by the `where` argument doesn't exist, create a new GameTransactions with this data.
+     */
+    create: XOR<GameTransactionsCreateInput, GameTransactionsUncheckedCreateInput>
+    /**
+     * In case the GameTransactions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameTransactionsUpdateInput, GameTransactionsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * GameTransactions delete
+   */
+  export type GameTransactionsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    /**
+     * Filter which GameTransactions to delete.
+     */
+    where: GameTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * GameTransactions deleteMany
+   */
+  export type GameTransactionsDeleteManyArgs = {
+    /**
+     * Filter which GameTransactions to delete
+     */
+    where?: GameTransactionsWhereInput
+  }
+
+
+  /**
+   * GameTransactions findRaw
+   */
+  export type GameTransactionsFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * GameTransactions aggregateRaw
+   */
+  export type GameTransactionsAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * GameTransactions.SlotTransactions
+   */
+  export type GameTransactions$SlotTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the SlotTransactions
+     */
+    select?: SlotTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotTransactionsInclude | null
+    where?: SlotTransactionsWhereInput
+    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
+    cursor?: SlotTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<SlotTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * GameTransactions without action
+   */
+  export type GameTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+  }
+
+
+
+  /**
+   * Model FishGameTransactions
+   */
+
+
+  export type AggregateFishGameTransactions = {
+    _count: FishGameTransactionsCountAggregateOutputType | null
+    _min: FishGameTransactionsMinAggregateOutputType | null
+    _max: FishGameTransactionsMaxAggregateOutputType | null
+  }
+
+  export type FishGameTransactionsMinAggregateOutputType = {
+    id: string | null
+    room_id: string | null
+    player_id: string | null
+    game_id: string | null
+    started: Date | null
+    ended: Date | null
+  }
+
+  export type FishGameTransactionsMaxAggregateOutputType = {
+    id: string | null
+    room_id: string | null
+    player_id: string | null
+    game_id: string | null
+    started: Date | null
+    ended: Date | null
+  }
+
+  export type FishGameTransactionsCountAggregateOutputType = {
+    id: number
+    room_id: number
+    player_id: number
+    game_id: number
+    started: number
+    ended: number
+    _all: number
+  }
+
+
+  export type FishGameTransactionsMinAggregateInputType = {
+    id?: true
+    room_id?: true
+    player_id?: true
+    game_id?: true
+    started?: true
+    ended?: true
+  }
+
+  export type FishGameTransactionsMaxAggregateInputType = {
+    id?: true
+    room_id?: true
+    player_id?: true
+    game_id?: true
+    started?: true
+    ended?: true
+  }
+
+  export type FishGameTransactionsCountAggregateInputType = {
+    id?: true
+    room_id?: true
+    player_id?: true
+    game_id?: true
+    started?: true
+    ended?: true
+    _all?: true
+  }
+
+  export type FishGameTransactionsAggregateArgs = {
+    /**
+     * Filter which FishGameTransactions to aggregate.
+     */
+    where?: FishGameTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FishGameTransactions to fetch.
+     */
+    orderBy?: Enumerable<FishGameTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FishGameTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FishGameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FishGameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FishGameTransactions
+    **/
+    _count?: true | FishGameTransactionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FishGameTransactionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FishGameTransactionsMaxAggregateInputType
+  }
+
+  export type GetFishGameTransactionsAggregateType<T extends FishGameTransactionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateFishGameTransactions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFishGameTransactions[P]>
+      : GetScalarType<T[P], AggregateFishGameTransactions[P]>
+  }
+
+
+
+
+  export type FishGameTransactionsGroupByArgs = {
+    where?: FishGameTransactionsWhereInput
+    orderBy?: Enumerable<FishGameTransactionsOrderByWithAggregationInput>
+    by: FishGameTransactionsScalarFieldEnum[]
+    having?: FishGameTransactionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FishGameTransactionsCountAggregateInputType | true
+    _min?: FishGameTransactionsMinAggregateInputType
+    _max?: FishGameTransactionsMaxAggregateInputType
+  }
+
+
+  export type FishGameTransactionsGroupByOutputType = {
+    id: string
+    room_id: string | null
+    player_id: string | null
+    game_id: string | null
+    started: Date
+    ended: Date | null
+    _count: FishGameTransactionsCountAggregateOutputType | null
+    _min: FishGameTransactionsMinAggregateOutputType | null
+    _max: FishGameTransactionsMaxAggregateOutputType | null
+  }
+
+  type GetFishGameTransactionsGroupByPayload<T extends FishGameTransactionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<FishGameTransactionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FishGameTransactionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FishGameTransactionsGroupByOutputType[P]>
+            : GetScalarType<T[P], FishGameTransactionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FishGameTransactionsSelect = {
+    id?: boolean
+    room_id?: boolean
+    player_id?: boolean
+    game_id?: boolean
+    started?: boolean
+    ended?: boolean
+    Game?: boolean | GamesArgs
+    Player?: boolean | PlayerArgs
+    GameTransactions?: boolean | FishGameTransactions$GameTransactionsArgs
+    _count?: boolean | FishGameTransactionsCountOutputTypeArgs
+  }
+
+
+  export type FishGameTransactionsInclude = {
+    Game?: boolean | GamesArgs
+    Player?: boolean | PlayerArgs
+    GameTransactions?: boolean | FishGameTransactions$GameTransactionsArgs
+    _count?: boolean | FishGameTransactionsCountOutputTypeArgs
+  }
+
+  export type FishGameTransactionsGetPayload<S extends boolean | null | undefined | FishGameTransactionsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? FishGameTransactions :
+    S extends undefined ? never :
+    S extends { include: any } & (FishGameTransactionsArgs | FishGameTransactionsFindManyArgs)
+    ? FishGameTransactions  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Game' ? GamesGetPayload<S['include'][P]> | null :
+        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :
+        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['include'][P]>>  :
+        P extends '_count' ? FishGameTransactionsCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (FishGameTransactionsArgs | FishGameTransactionsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Game' ? GamesGetPayload<S['select'][P]> | null :
+        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :
+        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['select'][P]>>  :
+        P extends '_count' ? FishGameTransactionsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof FishGameTransactions ? FishGameTransactions[P] : never
+  } 
+      : FishGameTransactions
+
+
+  type FishGameTransactionsCountArgs = 
+    Omit<FishGameTransactionsFindManyArgs, 'select' | 'include'> & {
+      select?: FishGameTransactionsCountAggregateInputType | true
+    }
+
+  export interface FishGameTransactionsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one FishGameTransactions that matches the filter.
+     * @param {FishGameTransactionsFindUniqueArgs} args - Arguments to find a FishGameTransactions
+     * @example
+     * // Get one FishGameTransactions
+     * const fishGameTransactions = await prisma.fishGameTransactions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends FishGameTransactionsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, FishGameTransactionsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'FishGameTransactions'> extends True ? Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T>> : Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find one FishGameTransactions that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {FishGameTransactionsFindUniqueOrThrowArgs} args - Arguments to find a FishGameTransactions
+     * @example
+     * // Get one FishGameTransactions
+     * const fishGameTransactions = await prisma.fishGameTransactions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends FishGameTransactionsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, FishGameTransactionsFindUniqueOrThrowArgs>
+    ): Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T>>
+
+    /**
+     * Find the first FishGameTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FishGameTransactionsFindFirstArgs} args - Arguments to find a FishGameTransactions
+     * @example
+     * // Get one FishGameTransactions
+     * const fishGameTransactions = await prisma.fishGameTransactions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends FishGameTransactionsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, FishGameTransactionsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'FishGameTransactions'> extends True ? Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T>> : Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find the first FishGameTransactions that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FishGameTransactionsFindFirstOrThrowArgs} args - Arguments to find a FishGameTransactions
+     * @example
+     * // Get one FishGameTransactions
+     * const fishGameTransactions = await prisma.fishGameTransactions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends FishGameTransactionsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, FishGameTransactionsFindFirstOrThrowArgs>
+    ): Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more FishGameTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FishGameTransactionsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FishGameTransactions
+     * const fishGameTransactions = await prisma.fishGameTransactions.findMany()
+     * 
+     * // Get first 10 FishGameTransactions
+     * const fishGameTransactions = await prisma.fishGameTransactions.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fishGameTransactionsWithIdOnly = await prisma.fishGameTransactions.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends FishGameTransactionsFindManyArgs>(
+      args?: SelectSubset<T, FishGameTransactionsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<FishGameTransactionsGetPayload<T>>>
+
+    /**
+     * Create a FishGameTransactions.
+     * @param {FishGameTransactionsCreateArgs} args - Arguments to create a FishGameTransactions.
+     * @example
+     * // Create one FishGameTransactions
+     * const FishGameTransactions = await prisma.fishGameTransactions.create({
+     *   data: {
+     *     // ... data to create a FishGameTransactions
+     *   }
+     * })
+     * 
+    **/
+    create<T extends FishGameTransactionsCreateArgs>(
+      args: SelectSubset<T, FishGameTransactionsCreateArgs>
+    ): Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T>>
+
+    /**
+     * Create many FishGameTransactions.
+     *     @param {FishGameTransactionsCreateManyArgs} args - Arguments to create many FishGameTransactions.
+     *     @example
+     *     // Create many FishGameTransactions
+     *     const fishGameTransactions = await prisma.fishGameTransactions.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends FishGameTransactionsCreateManyArgs>(
+      args?: SelectSubset<T, FishGameTransactionsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a FishGameTransactions.
+     * @param {FishGameTransactionsDeleteArgs} args - Arguments to delete one FishGameTransactions.
+     * @example
+     * // Delete one FishGameTransactions
+     * const FishGameTransactions = await prisma.fishGameTransactions.delete({
+     *   where: {
+     *     // ... filter to delete one FishGameTransactions
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends FishGameTransactionsDeleteArgs>(
+      args: SelectSubset<T, FishGameTransactionsDeleteArgs>
+    ): Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T>>
+
+    /**
+     * Update one FishGameTransactions.
+     * @param {FishGameTransactionsUpdateArgs} args - Arguments to update one FishGameTransactions.
+     * @example
+     * // Update one FishGameTransactions
+     * const fishGameTransactions = await prisma.fishGameTransactions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends FishGameTransactionsUpdateArgs>(
+      args: SelectSubset<T, FishGameTransactionsUpdateArgs>
+    ): Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T>>
+
+    /**
+     * Delete zero or more FishGameTransactions.
+     * @param {FishGameTransactionsDeleteManyArgs} args - Arguments to filter FishGameTransactions to delete.
+     * @example
+     * // Delete a few FishGameTransactions
+     * const { count } = await prisma.fishGameTransactions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends FishGameTransactionsDeleteManyArgs>(
+      args?: SelectSubset<T, FishGameTransactionsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FishGameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FishGameTransactionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FishGameTransactions
+     * const fishGameTransactions = await prisma.fishGameTransactions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends FishGameTransactionsUpdateManyArgs>(
+      args: SelectSubset<T, FishGameTransactionsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FishGameTransactions.
+     * @param {FishGameTransactionsUpsertArgs} args - Arguments to update or create a FishGameTransactions.
+     * @example
+     * // Update or create a FishGameTransactions
+     * const fishGameTransactions = await prisma.fishGameTransactions.upsert({
+     *   create: {
+     *     // ... data to create a FishGameTransactions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FishGameTransactions we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends FishGameTransactionsUpsertArgs>(
+      args: SelectSubset<T, FishGameTransactionsUpsertArgs>
+    ): Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more FishGameTransactions that matches the filter.
+     * @param {FishGameTransactionsFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const fishGameTransactions = await prisma.fishGameTransactions.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: FishGameTransactionsFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a FishGameTransactions.
+     * @param {FishGameTransactionsAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const fishGameTransactions = await prisma.fishGameTransactions.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: FishGameTransactionsAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of FishGameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FishGameTransactionsCountArgs} args - Arguments to filter FishGameTransactions to count.
+     * @example
+     * // Count the number of FishGameTransactions
+     * const count = await prisma.fishGameTransactions.count({
+     *   where: {
+     *     // ... the filter for the FishGameTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends FishGameTransactionsCountArgs>(
+      args?: Subset<T, FishGameTransactionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FishGameTransactionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FishGameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FishGameTransactionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FishGameTransactionsAggregateArgs>(args: Subset<T, FishGameTransactionsAggregateArgs>): Prisma.PrismaPromise<GetFishGameTransactionsAggregateType<T>>
+
+    /**
+     * Group by FishGameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FishGameTransactionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FishGameTransactionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FishGameTransactionsGroupByArgs['orderBy'] }
+        : { orderBy?: FishGameTransactionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FishGameTransactionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFishGameTransactionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FishGameTransactions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__FishGameTransactionsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Game<T extends GamesArgs= {}>(args?: Subset<T, GamesArgs>): Prisma__GamesClient<GamesGetPayload<T> | Null>;
+
+    Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+
+    GameTransactions<T extends FishGameTransactions$GameTransactionsArgs= {}>(args?: Subset<T, FishGameTransactions$GameTransactionsArgs>): Prisma.PrismaPromise<Array<GameTransactionsGetPayload<T>>| Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * FishGameTransactions base type for findUnique actions
+   */
+  export type FishGameTransactionsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    /**
+     * Filter, which FishGameTransactions to fetch.
+     */
+    where: FishGameTransactionsWhereUniqueInput
+  }
+
+  /**
+   * FishGameTransactions findUnique
+   */
+  export interface FishGameTransactionsFindUniqueArgs extends FishGameTransactionsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * FishGameTransactions findUniqueOrThrow
+   */
+  export type FishGameTransactionsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    /**
+     * Filter, which FishGameTransactions to fetch.
+     */
+    where: FishGameTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * FishGameTransactions base type for findFirst actions
+   */
+  export type FishGameTransactionsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    /**
+     * Filter, which FishGameTransactions to fetch.
+     */
+    where?: FishGameTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FishGameTransactions to fetch.
+     */
+    orderBy?: Enumerable<FishGameTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FishGameTransactions.
+     */
+    cursor?: FishGameTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FishGameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FishGameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FishGameTransactions.
+     */
+    distinct?: Enumerable<FishGameTransactionsScalarFieldEnum>
+  }
+
+  /**
+   * FishGameTransactions findFirst
+   */
+  export interface FishGameTransactionsFindFirstArgs extends FishGameTransactionsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * FishGameTransactions findFirstOrThrow
+   */
+  export type FishGameTransactionsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    /**
+     * Filter, which FishGameTransactions to fetch.
+     */
+    where?: FishGameTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FishGameTransactions to fetch.
+     */
+    orderBy?: Enumerable<FishGameTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FishGameTransactions.
+     */
+    cursor?: FishGameTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FishGameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FishGameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FishGameTransactions.
+     */
+    distinct?: Enumerable<FishGameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * FishGameTransactions findMany
+   */
+  export type FishGameTransactionsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    /**
+     * Filter, which FishGameTransactions to fetch.
+     */
+    where?: FishGameTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FishGameTransactions to fetch.
+     */
+    orderBy?: Enumerable<FishGameTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FishGameTransactions.
+     */
+    cursor?: FishGameTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FishGameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FishGameTransactions.
+     */
+    skip?: number
+    distinct?: Enumerable<FishGameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * FishGameTransactions create
+   */
+  export type FishGameTransactionsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    /**
+     * The data needed to create a FishGameTransactions.
+     */
+    data: XOR<FishGameTransactionsCreateInput, FishGameTransactionsUncheckedCreateInput>
+  }
+
+
+  /**
+   * FishGameTransactions createMany
+   */
+  export type FishGameTransactionsCreateManyArgs = {
+    /**
+     * The data used to create many FishGameTransactions.
+     */
+    data: Enumerable<FishGameTransactionsCreateManyInput>
+  }
+
+
+  /**
+   * FishGameTransactions update
+   */
+  export type FishGameTransactionsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    /**
+     * The data needed to update a FishGameTransactions.
+     */
+    data: XOR<FishGameTransactionsUpdateInput, FishGameTransactionsUncheckedUpdateInput>
+    /**
+     * Choose, which FishGameTransactions to update.
+     */
+    where: FishGameTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * FishGameTransactions updateMany
+   */
+  export type FishGameTransactionsUpdateManyArgs = {
+    /**
+     * The data used to update FishGameTransactions.
+     */
+    data: XOR<FishGameTransactionsUpdateManyMutationInput, FishGameTransactionsUncheckedUpdateManyInput>
+    /**
+     * Filter which FishGameTransactions to update
+     */
+    where?: FishGameTransactionsWhereInput
+  }
+
+
+  /**
+   * FishGameTransactions upsert
+   */
+  export type FishGameTransactionsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    /**
+     * The filter to search for the FishGameTransactions to update in case it exists.
+     */
+    where: FishGameTransactionsWhereUniqueInput
+    /**
+     * In case the FishGameTransactions found by the `where` argument doesn't exist, create a new FishGameTransactions with this data.
+     */
+    create: XOR<FishGameTransactionsCreateInput, FishGameTransactionsUncheckedCreateInput>
+    /**
+     * In case the FishGameTransactions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FishGameTransactionsUpdateInput, FishGameTransactionsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * FishGameTransactions delete
+   */
+  export type FishGameTransactionsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+    /**
+     * Filter which FishGameTransactions to delete.
+     */
+    where: FishGameTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * FishGameTransactions deleteMany
+   */
+  export type FishGameTransactionsDeleteManyArgs = {
+    /**
+     * Filter which FishGameTransactions to delete
+     */
+    where?: FishGameTransactionsWhereInput
+  }
+
+
+  /**
+   * FishGameTransactions findRaw
+   */
+  export type FishGameTransactionsFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * FishGameTransactions aggregateRaw
+   */
+  export type FishGameTransactionsAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * FishGameTransactions.GameTransactions
+   */
+  export type FishGameTransactions$GameTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the GameTransactions
+     */
+    select?: GameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: GameTransactionsInclude | null
+    where?: GameTransactionsWhereInput
+    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
+    cursor?: GameTransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<GameTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * FishGameTransactions without action
+   */
+  export type FishGameTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the FishGameTransactions
+     */
+    select?: FishGameTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FishGameTransactionsInclude | null
+  }
+
+
+
+  /**
+   * Model SlotFreeBonus
+   */
+
+
+  export type AggregateSlotFreeBonus = {
+    _count: SlotFreeBonusCountAggregateOutputType | null
+    _avg: SlotFreeBonusAvgAggregateOutputType | null
+    _sum: SlotFreeBonusSumAggregateOutputType | null
+    _min: SlotFreeBonusMinAggregateOutputType | null
+    _max: SlotFreeBonusMaxAggregateOutputType | null
+  }
+
+  export type SlotFreeBonusAvgAggregateOutputType = {
+    total_spin: number | null
+    remaining_spin: number | null
+    start_balance: number | null
+    won_amount: number | null
+    price_used: number | null
+    max_win_amount: number | null
+    no_of_win_round: number | null
+    multiplier: number | null
+  }
+
+  export type SlotFreeBonusSumAggregateOutputType = {
+    total_spin: number | null
+    remaining_spin: number | null
+    start_balance: number | null
+    won_amount: number | null
+    price_used: number | null
+    max_win_amount: number | null
+    no_of_win_round: number | null
+    multiplier: number | null
+  }
+
+  export type SlotFreeBonusMinAggregateOutputType = {
+    id: string | null
+    bonus: boolean | null
+    free_game: boolean | null
+    player_id: string | null
+    game_id: string | null
+    total_spin: number | null
+    remaining_spin: number | null
+    start_balance: number | null
+    won_amount: number | null
+    price_used: number | null
+    max_win_amount: number | null
+    no_of_win_round: number | null
+    multiplier: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SlotFreeBonusMaxAggregateOutputType = {
+    id: string | null
+    bonus: boolean | null
+    free_game: boolean | null
+    player_id: string | null
+    game_id: string | null
+    total_spin: number | null
+    remaining_spin: number | null
+    start_balance: number | null
+    won_amount: number | null
+    price_used: number | null
+    max_win_amount: number | null
+    no_of_win_round: number | null
+    multiplier: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SlotFreeBonusCountAggregateOutputType = {
+    id: number
+    bonus: number
+    free_game: number
+    player_id: number
+    game_id: number
+    matrix: number
+    bonus_pos_matrix: number
+    total_spin: number
+    remaining_spin: number
+    unlocked: number
+    start_balance: number
+    won_amount: number
+    price_used: number
+    max_win_amount: number
+    no_of_win_round: number
+    multiplier: number
+    free_round_win: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SlotFreeBonusAvgAggregateInputType = {
+    total_spin?: true
+    remaining_spin?: true
+    start_balance?: true
+    won_amount?: true
+    price_used?: true
+    max_win_amount?: true
+    no_of_win_round?: true
+    multiplier?: true
+  }
+
+  export type SlotFreeBonusSumAggregateInputType = {
+    total_spin?: true
+    remaining_spin?: true
+    start_balance?: true
+    won_amount?: true
+    price_used?: true
+    max_win_amount?: true
+    no_of_win_round?: true
+    multiplier?: true
+  }
+
+  export type SlotFreeBonusMinAggregateInputType = {
+    id?: true
+    bonus?: true
+    free_game?: true
+    player_id?: true
+    game_id?: true
+    total_spin?: true
+    remaining_spin?: true
+    start_balance?: true
+    won_amount?: true
+    price_used?: true
+    max_win_amount?: true
+    no_of_win_round?: true
+    multiplier?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SlotFreeBonusMaxAggregateInputType = {
+    id?: true
+    bonus?: true
+    free_game?: true
+    player_id?: true
+    game_id?: true
+    total_spin?: true
+    remaining_spin?: true
+    start_balance?: true
+    won_amount?: true
+    price_used?: true
+    max_win_amount?: true
+    no_of_win_round?: true
+    multiplier?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SlotFreeBonusCountAggregateInputType = {
+    id?: true
+    bonus?: true
+    free_game?: true
+    player_id?: true
+    game_id?: true
+    matrix?: true
+    bonus_pos_matrix?: true
+    total_spin?: true
+    remaining_spin?: true
+    unlocked?: true
+    start_balance?: true
+    won_amount?: true
+    price_used?: true
+    max_win_amount?: true
+    no_of_win_round?: true
+    multiplier?: true
+    free_round_win?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SlotFreeBonusAggregateArgs = {
+    /**
+     * Filter which SlotFreeBonus to aggregate.
+     */
+    where?: SlotFreeBonusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlotFreeBonuses to fetch.
+     */
+    orderBy?: Enumerable<SlotFreeBonusOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SlotFreeBonusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlotFreeBonuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlotFreeBonuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SlotFreeBonuses
+    **/
+    _count?: true | SlotFreeBonusCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SlotFreeBonusAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SlotFreeBonusSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SlotFreeBonusMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SlotFreeBonusMaxAggregateInputType
+  }
+
+  export type GetSlotFreeBonusAggregateType<T extends SlotFreeBonusAggregateArgs> = {
+        [P in keyof T & keyof AggregateSlotFreeBonus]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSlotFreeBonus[P]>
+      : GetScalarType<T[P], AggregateSlotFreeBonus[P]>
+  }
+
+
+
+
+  export type SlotFreeBonusGroupByArgs = {
+    where?: SlotFreeBonusWhereInput
+    orderBy?: Enumerable<SlotFreeBonusOrderByWithAggregationInput>
+    by: SlotFreeBonusScalarFieldEnum[]
+    having?: SlotFreeBonusScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SlotFreeBonusCountAggregateInputType | true
+    _avg?: SlotFreeBonusAvgAggregateInputType
+    _sum?: SlotFreeBonusSumAggregateInputType
+    _min?: SlotFreeBonusMinAggregateInputType
+    _max?: SlotFreeBonusMaxAggregateInputType
+  }
+
+
+  export type SlotFreeBonusGroupByOutputType = {
+    id: string
+    bonus: boolean
+    free_game: boolean
+    player_id: string
+    game_id: string
+    matrix: JsonValue[]
+    bonus_pos_matrix: JsonValue[]
+    total_spin: number | null
+    remaining_spin: number | null
+    unlocked: JsonValue[]
+    start_balance: number
+    won_amount: number | null
+    price_used: number | null
+    max_win_amount: number | null
+    no_of_win_round: number | null
+    multiplier: number | null
+    free_round_win: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SlotFreeBonusCountAggregateOutputType | null
+    _avg: SlotFreeBonusAvgAggregateOutputType | null
+    _sum: SlotFreeBonusSumAggregateOutputType | null
+    _min: SlotFreeBonusMinAggregateOutputType | null
+    _max: SlotFreeBonusMaxAggregateOutputType | null
+  }
+
+  type GetSlotFreeBonusGroupByPayload<T extends SlotFreeBonusGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<SlotFreeBonusGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SlotFreeBonusGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SlotFreeBonusGroupByOutputType[P]>
+            : GetScalarType<T[P], SlotFreeBonusGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SlotFreeBonusSelect = {
+    id?: boolean
+    bonus?: boolean
+    free_game?: boolean
+    player_id?: boolean
+    game_id?: boolean
+    matrix?: boolean
+    bonus_pos_matrix?: boolean
+    total_spin?: boolean
+    remaining_spin?: boolean
+    unlocked?: boolean
+    start_balance?: boolean
+    won_amount?: boolean
+    price_used?: boolean
+    max_win_amount?: boolean
+    no_of_win_round?: boolean
+    multiplier?: boolean
+    free_round_win?: boolean
+    Player?: boolean | PlayerArgs
+    Game?: boolean | GamesArgs
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type SlotFreeBonusInclude = {
+    Player?: boolean | PlayerArgs
+    Game?: boolean | GamesArgs
+  }
+
+  export type SlotFreeBonusGetPayload<S extends boolean | null | undefined | SlotFreeBonusArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? SlotFreeBonus :
+    S extends undefined ? never :
+    S extends { include: any } & (SlotFreeBonusArgs | SlotFreeBonusFindManyArgs)
+    ? SlotFreeBonus  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :
+        P extends 'Game' ? GamesGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (SlotFreeBonusArgs | SlotFreeBonusFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :
+        P extends 'Game' ? GamesGetPayload<S['select'][P]> | null :  P extends keyof SlotFreeBonus ? SlotFreeBonus[P] : never
+  } 
+      : SlotFreeBonus
+
+
+  type SlotFreeBonusCountArgs = 
+    Omit<SlotFreeBonusFindManyArgs, 'select' | 'include'> & {
+      select?: SlotFreeBonusCountAggregateInputType | true
+    }
+
+  export interface SlotFreeBonusDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one SlotFreeBonus that matches the filter.
+     * @param {SlotFreeBonusFindUniqueArgs} args - Arguments to find a SlotFreeBonus
+     * @example
+     * // Get one SlotFreeBonus
+     * const slotFreeBonus = await prisma.slotFreeBonus.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends SlotFreeBonusFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, SlotFreeBonusFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'SlotFreeBonus'> extends True ? Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T>> : Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T> | null, null>
+
+    /**
+     * Find one SlotFreeBonus that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {SlotFreeBonusFindUniqueOrThrowArgs} args - Arguments to find a SlotFreeBonus
+     * @example
+     * // Get one SlotFreeBonus
+     * const slotFreeBonus = await prisma.slotFreeBonus.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends SlotFreeBonusFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, SlotFreeBonusFindUniqueOrThrowArgs>
+    ): Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T>>
+
+    /**
+     * Find the first SlotFreeBonus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotFreeBonusFindFirstArgs} args - Arguments to find a SlotFreeBonus
+     * @example
+     * // Get one SlotFreeBonus
+     * const slotFreeBonus = await prisma.slotFreeBonus.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends SlotFreeBonusFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, SlotFreeBonusFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'SlotFreeBonus'> extends True ? Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T>> : Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T> | null, null>
+
+    /**
+     * Find the first SlotFreeBonus that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotFreeBonusFindFirstOrThrowArgs} args - Arguments to find a SlotFreeBonus
+     * @example
+     * // Get one SlotFreeBonus
+     * const slotFreeBonus = await prisma.slotFreeBonus.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends SlotFreeBonusFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, SlotFreeBonusFindFirstOrThrowArgs>
+    ): Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T>>
+
+    /**
+     * Find zero or more SlotFreeBonuses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotFreeBonusFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SlotFreeBonuses
+     * const slotFreeBonuses = await prisma.slotFreeBonus.findMany()
+     * 
+     * // Get first 10 SlotFreeBonuses
+     * const slotFreeBonuses = await prisma.slotFreeBonus.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const slotFreeBonusWithIdOnly = await prisma.slotFreeBonus.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends SlotFreeBonusFindManyArgs>(
+      args?: SelectSubset<T, SlotFreeBonusFindManyArgs>
+    ): Prisma.PrismaPromise<Array<SlotFreeBonusGetPayload<T>>>
+
+    /**
+     * Create a SlotFreeBonus.
+     * @param {SlotFreeBonusCreateArgs} args - Arguments to create a SlotFreeBonus.
+     * @example
+     * // Create one SlotFreeBonus
+     * const SlotFreeBonus = await prisma.slotFreeBonus.create({
+     *   data: {
+     *     // ... data to create a SlotFreeBonus
+     *   }
+     * })
+     * 
+    **/
+    create<T extends SlotFreeBonusCreateArgs>(
+      args: SelectSubset<T, SlotFreeBonusCreateArgs>
+    ): Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T>>
+
+    /**
+     * Create many SlotFreeBonuses.
+     *     @param {SlotFreeBonusCreateManyArgs} args - Arguments to create many SlotFreeBonuses.
+     *     @example
+     *     // Create many SlotFreeBonuses
+     *     const slotFreeBonus = await prisma.slotFreeBonus.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends SlotFreeBonusCreateManyArgs>(
+      args?: SelectSubset<T, SlotFreeBonusCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a SlotFreeBonus.
+     * @param {SlotFreeBonusDeleteArgs} args - Arguments to delete one SlotFreeBonus.
+     * @example
+     * // Delete one SlotFreeBonus
+     * const SlotFreeBonus = await prisma.slotFreeBonus.delete({
+     *   where: {
+     *     // ... filter to delete one SlotFreeBonus
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends SlotFreeBonusDeleteArgs>(
+      args: SelectSubset<T, SlotFreeBonusDeleteArgs>
+    ): Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T>>
+
+    /**
+     * Update one SlotFreeBonus.
+     * @param {SlotFreeBonusUpdateArgs} args - Arguments to update one SlotFreeBonus.
+     * @example
+     * // Update one SlotFreeBonus
+     * const slotFreeBonus = await prisma.slotFreeBonus.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends SlotFreeBonusUpdateArgs>(
+      args: SelectSubset<T, SlotFreeBonusUpdateArgs>
+    ): Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T>>
+
+    /**
+     * Delete zero or more SlotFreeBonuses.
+     * @param {SlotFreeBonusDeleteManyArgs} args - Arguments to filter SlotFreeBonuses to delete.
+     * @example
+     * // Delete a few SlotFreeBonuses
+     * const { count } = await prisma.slotFreeBonus.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends SlotFreeBonusDeleteManyArgs>(
+      args?: SelectSubset<T, SlotFreeBonusDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SlotFreeBonuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotFreeBonusUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SlotFreeBonuses
+     * const slotFreeBonus = await prisma.slotFreeBonus.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends SlotFreeBonusUpdateManyArgs>(
+      args: SelectSubset<T, SlotFreeBonusUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SlotFreeBonus.
+     * @param {SlotFreeBonusUpsertArgs} args - Arguments to update or create a SlotFreeBonus.
+     * @example
+     * // Update or create a SlotFreeBonus
+     * const slotFreeBonus = await prisma.slotFreeBonus.upsert({
+     *   create: {
+     *     // ... data to create a SlotFreeBonus
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SlotFreeBonus we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends SlotFreeBonusUpsertArgs>(
+      args: SelectSubset<T, SlotFreeBonusUpsertArgs>
+    ): Prisma__SlotFreeBonusClient<SlotFreeBonusGetPayload<T>>
+
+    /**
+     * Find zero or more SlotFreeBonuses that matches the filter.
+     * @param {SlotFreeBonusFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const slotFreeBonus = await prisma.slotFreeBonus.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: SlotFreeBonusFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a SlotFreeBonus.
+     * @param {SlotFreeBonusAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const slotFreeBonus = await prisma.slotFreeBonus.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: SlotFreeBonusAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of SlotFreeBonuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotFreeBonusCountArgs} args - Arguments to filter SlotFreeBonuses to count.
+     * @example
+     * // Count the number of SlotFreeBonuses
+     * const count = await prisma.slotFreeBonus.count({
+     *   where: {
+     *     // ... the filter for the SlotFreeBonuses we want to count
+     *   }
+     * })
+    **/
+    count<T extends SlotFreeBonusCountArgs>(
+      args?: Subset<T, SlotFreeBonusCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SlotFreeBonusCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SlotFreeBonus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotFreeBonusAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SlotFreeBonusAggregateArgs>(args: Subset<T, SlotFreeBonusAggregateArgs>): Prisma.PrismaPromise<GetSlotFreeBonusAggregateType<T>>
+
+    /**
+     * Group by SlotFreeBonus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SlotFreeBonusGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SlotFreeBonusGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SlotFreeBonusGroupByArgs['orderBy'] }
+        : { orderBy?: SlotFreeBonusGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SlotFreeBonusGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSlotFreeBonusGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SlotFreeBonus.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__SlotFreeBonusClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+
+    Game<T extends GamesArgs= {}>(args?: Subset<T, GamesArgs>): Prisma__GamesClient<GamesGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * SlotFreeBonus base type for findUnique actions
+   */
+  export type SlotFreeBonusFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    /**
+     * Filter, which SlotFreeBonus to fetch.
+     */
+    where: SlotFreeBonusWhereUniqueInput
+  }
+
+  /**
+   * SlotFreeBonus findUnique
+   */
+  export interface SlotFreeBonusFindUniqueArgs extends SlotFreeBonusFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * SlotFreeBonus findUniqueOrThrow
+   */
+  export type SlotFreeBonusFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    /**
+     * Filter, which SlotFreeBonus to fetch.
+     */
+    where: SlotFreeBonusWhereUniqueInput
+  }
+
+
+  /**
+   * SlotFreeBonus base type for findFirst actions
+   */
+  export type SlotFreeBonusFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    /**
+     * Filter, which SlotFreeBonus to fetch.
+     */
+    where?: SlotFreeBonusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlotFreeBonuses to fetch.
+     */
+    orderBy?: Enumerable<SlotFreeBonusOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SlotFreeBonuses.
+     */
+    cursor?: SlotFreeBonusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlotFreeBonuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlotFreeBonuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SlotFreeBonuses.
+     */
+    distinct?: Enumerable<SlotFreeBonusScalarFieldEnum>
+  }
+
+  /**
+   * SlotFreeBonus findFirst
+   */
+  export interface SlotFreeBonusFindFirstArgs extends SlotFreeBonusFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * SlotFreeBonus findFirstOrThrow
+   */
+  export type SlotFreeBonusFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    /**
+     * Filter, which SlotFreeBonus to fetch.
+     */
+    where?: SlotFreeBonusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlotFreeBonuses to fetch.
+     */
+    orderBy?: Enumerable<SlotFreeBonusOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SlotFreeBonuses.
+     */
+    cursor?: SlotFreeBonusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlotFreeBonuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlotFreeBonuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SlotFreeBonuses.
+     */
+    distinct?: Enumerable<SlotFreeBonusScalarFieldEnum>
+  }
+
+
+  /**
+   * SlotFreeBonus findMany
+   */
+  export type SlotFreeBonusFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    /**
+     * Filter, which SlotFreeBonuses to fetch.
+     */
+    where?: SlotFreeBonusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SlotFreeBonuses to fetch.
+     */
+    orderBy?: Enumerable<SlotFreeBonusOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SlotFreeBonuses.
+     */
+    cursor?: SlotFreeBonusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SlotFreeBonuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SlotFreeBonuses.
+     */
+    skip?: number
+    distinct?: Enumerable<SlotFreeBonusScalarFieldEnum>
+  }
+
+
+  /**
+   * SlotFreeBonus create
+   */
+  export type SlotFreeBonusCreateArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    /**
+     * The data needed to create a SlotFreeBonus.
+     */
+    data: XOR<SlotFreeBonusCreateInput, SlotFreeBonusUncheckedCreateInput>
+  }
+
+
+  /**
+   * SlotFreeBonus createMany
+   */
+  export type SlotFreeBonusCreateManyArgs = {
+    /**
+     * The data used to create many SlotFreeBonuses.
+     */
+    data: Enumerable<SlotFreeBonusCreateManyInput>
+  }
+
+
+  /**
+   * SlotFreeBonus update
+   */
+  export type SlotFreeBonusUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    /**
+     * The data needed to update a SlotFreeBonus.
+     */
+    data: XOR<SlotFreeBonusUpdateInput, SlotFreeBonusUncheckedUpdateInput>
+    /**
+     * Choose, which SlotFreeBonus to update.
+     */
+    where: SlotFreeBonusWhereUniqueInput
+  }
+
+
+  /**
+   * SlotFreeBonus updateMany
+   */
+  export type SlotFreeBonusUpdateManyArgs = {
+    /**
+     * The data used to update SlotFreeBonuses.
+     */
+    data: XOR<SlotFreeBonusUpdateManyMutationInput, SlotFreeBonusUncheckedUpdateManyInput>
+    /**
+     * Filter which SlotFreeBonuses to update
+     */
+    where?: SlotFreeBonusWhereInput
+  }
+
+
+  /**
+   * SlotFreeBonus upsert
+   */
+  export type SlotFreeBonusUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    /**
+     * The filter to search for the SlotFreeBonus to update in case it exists.
+     */
+    where: SlotFreeBonusWhereUniqueInput
+    /**
+     * In case the SlotFreeBonus found by the `where` argument doesn't exist, create a new SlotFreeBonus with this data.
+     */
+    create: XOR<SlotFreeBonusCreateInput, SlotFreeBonusUncheckedCreateInput>
+    /**
+     * In case the SlotFreeBonus was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SlotFreeBonusUpdateInput, SlotFreeBonusUncheckedUpdateInput>
+  }
+
+
+  /**
+   * SlotFreeBonus delete
+   */
+  export type SlotFreeBonusDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+    /**
+     * Filter which SlotFreeBonus to delete.
+     */
+    where: SlotFreeBonusWhereUniqueInput
+  }
+
+
+  /**
+   * SlotFreeBonus deleteMany
+   */
+  export type SlotFreeBonusDeleteManyArgs = {
+    /**
+     * Filter which SlotFreeBonuses to delete
+     */
+    where?: SlotFreeBonusWhereInput
+  }
+
+
+  /**
+   * SlotFreeBonus findRaw
+   */
+  export type SlotFreeBonusFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * SlotFreeBonus aggregateRaw
+   */
+  export type SlotFreeBonusAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * SlotFreeBonus without action
+   */
+  export type SlotFreeBonusArgs = {
+    /**
+     * Select specific fields to fetch from the SlotFreeBonus
+     */
+    select?: SlotFreeBonusSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SlotFreeBonusInclude | null
+  }
+
+
+
+  /**
+   * Model RefreshToken
+   */
+
+
+  export type AggregateRefreshToken = {
+    _count: RefreshTokenCountAggregateOutputType | null
+    _min: RefreshTokenMinAggregateOutputType | null
+    _max: RefreshTokenMaxAggregateOutputType | null
+  }
+
+  export type RefreshTokenMinAggregateOutputType = {
+    id: string | null
+    token: string | null
+    blacklisted: boolean | null
+  }
+
+  export type RefreshTokenMaxAggregateOutputType = {
+    id: string | null
+    token: string | null
+    blacklisted: boolean | null
+  }
+
+  export type RefreshTokenCountAggregateOutputType = {
+    id: number
+    token: number
+    blacklisted: number
+    _all: number
+  }
+
+
+  export type RefreshTokenMinAggregateInputType = {
+    id?: true
+    token?: true
+    blacklisted?: true
+  }
+
+  export type RefreshTokenMaxAggregateInputType = {
+    id?: true
+    token?: true
+    blacklisted?: true
+  }
+
+  export type RefreshTokenCountAggregateInputType = {
+    id?: true
+    token?: true
+    blacklisted?: true
+    _all?: true
+  }
+
+  export type RefreshTokenAggregateArgs = {
+    /**
+     * Filter which RefreshToken to aggregate.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: Enumerable<RefreshTokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RefreshTokens
+    **/
+    _count?: true | RefreshTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RefreshTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RefreshTokenMaxAggregateInputType
+  }
+
+  export type GetRefreshTokenAggregateType<T extends RefreshTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateRefreshToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRefreshToken[P]>
+      : GetScalarType<T[P], AggregateRefreshToken[P]>
+  }
+
+
+
+
+  export type RefreshTokenGroupByArgs = {
+    where?: RefreshTokenWhereInput
+    orderBy?: Enumerable<RefreshTokenOrderByWithAggregationInput>
+    by: RefreshTokenScalarFieldEnum[]
+    having?: RefreshTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RefreshTokenCountAggregateInputType | true
+    _min?: RefreshTokenMinAggregateInputType
+    _max?: RefreshTokenMaxAggregateInputType
+  }
+
+
+  export type RefreshTokenGroupByOutputType = {
+    id: string
+    token: string
+    blacklisted: boolean
+    _count: RefreshTokenCountAggregateOutputType | null
+    _min: RefreshTokenMinAggregateOutputType | null
+    _max: RefreshTokenMaxAggregateOutputType | null
+  }
+
+  type GetRefreshTokenGroupByPayload<T extends RefreshTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<RefreshTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RefreshTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RefreshTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], RefreshTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RefreshTokenSelect = {
+    id?: boolean
+    token?: boolean
+    blacklisted?: boolean
+  }
+
+
+  export type RefreshTokenGetPayload<S extends boolean | null | undefined | RefreshTokenArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? RefreshToken :
+    S extends undefined ? never :
+    S extends { include: any } & (RefreshTokenArgs | RefreshTokenFindManyArgs)
+    ? RefreshToken 
+    : S extends { select: any } & (RefreshTokenArgs | RefreshTokenFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof RefreshToken ? RefreshToken[P] : never
+  } 
+      : RefreshToken
+
+
+  type RefreshTokenCountArgs = 
+    Omit<RefreshTokenFindManyArgs, 'select' | 'include'> & {
+      select?: RefreshTokenCountAggregateInputType | true
+    }
+
+  export interface RefreshTokenDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one RefreshToken that matches the filter.
+     * @param {RefreshTokenFindUniqueArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends RefreshTokenFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, RefreshTokenFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'RefreshToken'> extends True ? Prisma__RefreshTokenClient<RefreshTokenGetPayload<T>> : Prisma__RefreshTokenClient<RefreshTokenGetPayload<T> | null, null>
+
+    /**
+     * Find one RefreshToken that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {RefreshTokenFindUniqueOrThrowArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends RefreshTokenFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, RefreshTokenFindUniqueOrThrowArgs>
+    ): Prisma__RefreshTokenClient<RefreshTokenGetPayload<T>>
+
+    /**
+     * Find the first RefreshToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenFindFirstArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends RefreshTokenFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, RefreshTokenFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'RefreshToken'> extends True ? Prisma__RefreshTokenClient<RefreshTokenGetPayload<T>> : Prisma__RefreshTokenClient<RefreshTokenGetPayload<T> | null, null>
+
+    /**
+     * Find the first RefreshToken that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenFindFirstOrThrowArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends RefreshTokenFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, RefreshTokenFindFirstOrThrowArgs>
+    ): Prisma__RefreshTokenClient<RefreshTokenGetPayload<T>>
+
+    /**
+     * Find zero or more RefreshTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RefreshTokens
+     * const refreshTokens = await prisma.refreshToken.findMany()
+     * 
+     * // Get first 10 RefreshTokens
+     * const refreshTokens = await prisma.refreshToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const refreshTokenWithIdOnly = await prisma.refreshToken.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends RefreshTokenFindManyArgs>(
+      args?: SelectSubset<T, RefreshTokenFindManyArgs>
+    ): Prisma.PrismaPromise<Array<RefreshTokenGetPayload<T>>>
+
+    /**
+     * Create a RefreshToken.
+     * @param {RefreshTokenCreateArgs} args - Arguments to create a RefreshToken.
+     * @example
+     * // Create one RefreshToken
+     * const RefreshToken = await prisma.refreshToken.create({
+     *   data: {
+     *     // ... data to create a RefreshToken
+     *   }
+     * })
+     * 
+    **/
+    create<T extends RefreshTokenCreateArgs>(
+      args: SelectSubset<T, RefreshTokenCreateArgs>
+    ): Prisma__RefreshTokenClient<RefreshTokenGetPayload<T>>
+
+    /**
+     * Create many RefreshTokens.
+     *     @param {RefreshTokenCreateManyArgs} args - Arguments to create many RefreshTokens.
+     *     @example
+     *     // Create many RefreshTokens
+     *     const refreshToken = await prisma.refreshToken.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends RefreshTokenCreateManyArgs>(
+      args?: SelectSubset<T, RefreshTokenCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a RefreshToken.
+     * @param {RefreshTokenDeleteArgs} args - Arguments to delete one RefreshToken.
+     * @example
+     * // Delete one RefreshToken
+     * const RefreshToken = await prisma.refreshToken.delete({
+     *   where: {
+     *     // ... filter to delete one RefreshToken
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends RefreshTokenDeleteArgs>(
+      args: SelectSubset<T, RefreshTokenDeleteArgs>
+    ): Prisma__RefreshTokenClient<RefreshTokenGetPayload<T>>
+
+    /**
+     * Update one RefreshToken.
+     * @param {RefreshTokenUpdateArgs} args - Arguments to update one RefreshToken.
+     * @example
+     * // Update one RefreshToken
+     * const refreshToken = await prisma.refreshToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends RefreshTokenUpdateArgs>(
+      args: SelectSubset<T, RefreshTokenUpdateArgs>
+    ): Prisma__RefreshTokenClient<RefreshTokenGetPayload<T>>
+
+    /**
+     * Delete zero or more RefreshTokens.
+     * @param {RefreshTokenDeleteManyArgs} args - Arguments to filter RefreshTokens to delete.
+     * @example
+     * // Delete a few RefreshTokens
+     * const { count } = await prisma.refreshToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends RefreshTokenDeleteManyArgs>(
+      args?: SelectSubset<T, RefreshTokenDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RefreshTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RefreshTokens
+     * const refreshToken = await prisma.refreshToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends RefreshTokenUpdateManyArgs>(
+      args: SelectSubset<T, RefreshTokenUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one RefreshToken.
+     * @param {RefreshTokenUpsertArgs} args - Arguments to update or create a RefreshToken.
+     * @example
+     * // Update or create a RefreshToken
+     * const refreshToken = await prisma.refreshToken.upsert({
+     *   create: {
+     *     // ... data to create a RefreshToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RefreshToken we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends RefreshTokenUpsertArgs>(
+      args: SelectSubset<T, RefreshTokenUpsertArgs>
+    ): Prisma__RefreshTokenClient<RefreshTokenGetPayload<T>>
+
+    /**
+     * Find zero or more RefreshTokens that matches the filter.
+     * @param {RefreshTokenFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const refreshToken = await prisma.refreshToken.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: RefreshTokenFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a RefreshToken.
+     * @param {RefreshTokenAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const refreshToken = await prisma.refreshToken.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: RefreshTokenAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of RefreshTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenCountArgs} args - Arguments to filter RefreshTokens to count.
+     * @example
+     * // Count the number of RefreshTokens
+     * const count = await prisma.refreshToken.count({
+     *   where: {
+     *     // ... the filter for the RefreshTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends RefreshTokenCountArgs>(
+      args?: Subset<T, RefreshTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RefreshTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RefreshToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RefreshTokenAggregateArgs>(args: Subset<T, RefreshTokenAggregateArgs>): Prisma.PrismaPromise<GetRefreshTokenAggregateType<T>>
+
+    /**
+     * Group by RefreshToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RefreshTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RefreshTokenGroupByArgs['orderBy'] }
+        : { orderBy?: RefreshTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RefreshTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRefreshTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RefreshToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__RefreshTokenClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * RefreshToken base type for findUnique actions
+   */
+  export type RefreshTokenFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+  /**
+   * RefreshToken findUnique
+   */
+  export interface RefreshTokenFindUniqueArgs extends RefreshTokenFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * RefreshToken findUniqueOrThrow
+   */
+  export type RefreshTokenFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+
+  /**
+   * RefreshToken base type for findFirst actions
+   */
+  export type RefreshTokenFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: Enumerable<RefreshTokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RefreshTokens.
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefreshTokens.
+     */
+    distinct?: Enumerable<RefreshTokenScalarFieldEnum>
+  }
+
+  /**
+   * RefreshToken findFirst
+   */
+  export interface RefreshTokenFindFirstArgs extends RefreshTokenFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * RefreshToken findFirstOrThrow
+   */
+  export type RefreshTokenFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: Enumerable<RefreshTokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RefreshTokens.
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefreshTokens.
+     */
+    distinct?: Enumerable<RefreshTokenScalarFieldEnum>
+  }
+
+
+  /**
+   * RefreshToken findMany
+   */
+  export type RefreshTokenFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+    /**
+     * Filter, which RefreshTokens to fetch.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: Enumerable<RefreshTokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RefreshTokens.
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    distinct?: Enumerable<RefreshTokenScalarFieldEnum>
+  }
+
+
+  /**
+   * RefreshToken create
+   */
+  export type RefreshTokenCreateArgs = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+    /**
+     * The data needed to create a RefreshToken.
+     */
+    data: XOR<RefreshTokenCreateInput, RefreshTokenUncheckedCreateInput>
+  }
+
+
+  /**
+   * RefreshToken createMany
+   */
+  export type RefreshTokenCreateManyArgs = {
+    /**
+     * The data used to create many RefreshTokens.
+     */
+    data: Enumerable<RefreshTokenCreateManyInput>
+  }
+
+
+  /**
+   * RefreshToken update
+   */
+  export type RefreshTokenUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+    /**
+     * The data needed to update a RefreshToken.
+     */
+    data: XOR<RefreshTokenUpdateInput, RefreshTokenUncheckedUpdateInput>
+    /**
+     * Choose, which RefreshToken to update.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+
+  /**
+   * RefreshToken updateMany
+   */
+  export type RefreshTokenUpdateManyArgs = {
+    /**
+     * The data used to update RefreshTokens.
+     */
+    data: XOR<RefreshTokenUpdateManyMutationInput, RefreshTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which RefreshTokens to update
+     */
+    where?: RefreshTokenWhereInput
+  }
+
+
+  /**
+   * RefreshToken upsert
+   */
+  export type RefreshTokenUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+    /**
+     * The filter to search for the RefreshToken to update in case it exists.
+     */
+    where: RefreshTokenWhereUniqueInput
+    /**
+     * In case the RefreshToken found by the `where` argument doesn't exist, create a new RefreshToken with this data.
+     */
+    create: XOR<RefreshTokenCreateInput, RefreshTokenUncheckedCreateInput>
+    /**
+     * In case the RefreshToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RefreshTokenUpdateInput, RefreshTokenUncheckedUpdateInput>
+  }
+
+
+  /**
+   * RefreshToken delete
+   */
+  export type RefreshTokenDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+    /**
+     * Filter which RefreshToken to delete.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+
+  /**
+   * RefreshToken deleteMany
+   */
+  export type RefreshTokenDeleteManyArgs = {
+    /**
+     * Filter which RefreshTokens to delete
+     */
+    where?: RefreshTokenWhereInput
+  }
+
+
+  /**
+   * RefreshToken findRaw
+   */
+  export type RefreshTokenFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * RefreshToken aggregateRaw
+   */
+  export type RefreshTokenAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * RefreshToken without action
+   */
+  export type RefreshTokenArgs = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect | null
+  }
+
+
+
+  /**
+   * Model PlayerBalanceTransactions
+   */
+
+
+  export type AggregatePlayerBalanceTransactions = {
+    _count: PlayerBalanceTransactionsCountAggregateOutputType | null
+    _avg: PlayerBalanceTransactionsAvgAggregateOutputType | null
+    _sum: PlayerBalanceTransactionsSumAggregateOutputType | null
+    _min: PlayerBalanceTransactionsMinAggregateOutputType | null
+    _max: PlayerBalanceTransactionsMaxAggregateOutputType | null
+  }
+
+  export type PlayerBalanceTransactionsAvgAggregateOutputType = {
+    beforeRecharge: number | null
+    recharged: number | null
+    redeem: number | null
+    afterRecharge: number | null
+    income: number | null
+  }
+
+  export type PlayerBalanceTransactionsSumAggregateOutputType = {
+    beforeRecharge: number | null
+    recharged: number | null
+    redeem: number | null
+    afterRecharge: number | null
+    income: number | null
+  }
+
+  export type PlayerBalanceTransactionsMinAggregateOutputType = {
+    id: string | null
+    admin: string | null
+    player: string | null
+    beforeRecharge: number | null
+    recharged: number | null
+    redeem: number | null
+    afterRecharge: number | null
+    ip_address: string | null
+    income: number | null
+    remark: string | null
+    createdAt: Date | null
+  }
+
+  export type PlayerBalanceTransactionsMaxAggregateOutputType = {
+    id: string | null
+    admin: string | null
+    player: string | null
+    beforeRecharge: number | null
+    recharged: number | null
+    redeem: number | null
+    afterRecharge: number | null
+    ip_address: string | null
+    income: number | null
+    remark: string | null
+    createdAt: Date | null
+  }
+
+  export type PlayerBalanceTransactionsCountAggregateOutputType = {
+    id: number
+    admin: number
+    player: number
+    beforeRecharge: number
+    recharged: number
+    redeem: number
+    afterRecharge: number
+    ip_address: number
+    income: number
+    remark: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PlayerBalanceTransactionsAvgAggregateInputType = {
+    beforeRecharge?: true
+    recharged?: true
+    redeem?: true
+    afterRecharge?: true
+    income?: true
+  }
+
+  export type PlayerBalanceTransactionsSumAggregateInputType = {
+    beforeRecharge?: true
+    recharged?: true
+    redeem?: true
+    afterRecharge?: true
+    income?: true
+  }
+
+  export type PlayerBalanceTransactionsMinAggregateInputType = {
+    id?: true
+    admin?: true
+    player?: true
+    beforeRecharge?: true
+    recharged?: true
+    redeem?: true
+    afterRecharge?: true
+    ip_address?: true
+    income?: true
+    remark?: true
+    createdAt?: true
+  }
+
+  export type PlayerBalanceTransactionsMaxAggregateInputType = {
+    id?: true
+    admin?: true
+    player?: true
+    beforeRecharge?: true
+    recharged?: true
+    redeem?: true
+    afterRecharge?: true
+    ip_address?: true
+    income?: true
+    remark?: true
+    createdAt?: true
+  }
+
+  export type PlayerBalanceTransactionsCountAggregateInputType = {
+    id?: true
+    admin?: true
+    player?: true
+    beforeRecharge?: true
+    recharged?: true
+    redeem?: true
+    afterRecharge?: true
+    ip_address?: true
+    income?: true
+    remark?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PlayerBalanceTransactionsAggregateArgs = {
+    /**
+     * Filter which PlayerBalanceTransactions to aggregate.
+     */
+    where?: PlayerBalanceTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerBalanceTransactions to fetch.
+     */
+    orderBy?: Enumerable<PlayerBalanceTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlayerBalanceTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerBalanceTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerBalanceTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlayerBalanceTransactions
+    **/
+    _count?: true | PlayerBalanceTransactionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PlayerBalanceTransactionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlayerBalanceTransactionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlayerBalanceTransactionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlayerBalanceTransactionsMaxAggregateInputType
+  }
+
+  export type GetPlayerBalanceTransactionsAggregateType<T extends PlayerBalanceTransactionsAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlayerBalanceTransactions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlayerBalanceTransactions[P]>
+      : GetScalarType<T[P], AggregatePlayerBalanceTransactions[P]>
+  }
+
+
+
+
+  export type PlayerBalanceTransactionsGroupByArgs = {
+    where?: PlayerBalanceTransactionsWhereInput
+    orderBy?: Enumerable<PlayerBalanceTransactionsOrderByWithAggregationInput>
+    by: PlayerBalanceTransactionsScalarFieldEnum[]
+    having?: PlayerBalanceTransactionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlayerBalanceTransactionsCountAggregateInputType | true
+    _avg?: PlayerBalanceTransactionsAvgAggregateInputType
+    _sum?: PlayerBalanceTransactionsSumAggregateInputType
+    _min?: PlayerBalanceTransactionsMinAggregateInputType
+    _max?: PlayerBalanceTransactionsMaxAggregateInputType
+  }
+
+
+  export type PlayerBalanceTransactionsGroupByOutputType = {
+    id: string
+    admin: string | null
+    player: string | null
+    beforeRecharge: number
+    recharged: number
+    redeem: number
+    afterRecharge: number
+    ip_address: string | null
+    income: number
+    remark: string | null
+    createdAt: Date
+    _count: PlayerBalanceTransactionsCountAggregateOutputType | null
+    _avg: PlayerBalanceTransactionsAvgAggregateOutputType | null
+    _sum: PlayerBalanceTransactionsSumAggregateOutputType | null
+    _min: PlayerBalanceTransactionsMinAggregateOutputType | null
+    _max: PlayerBalanceTransactionsMaxAggregateOutputType | null
+  }
+
+  type GetPlayerBalanceTransactionsGroupByPayload<T extends PlayerBalanceTransactionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<PlayerBalanceTransactionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlayerBalanceTransactionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlayerBalanceTransactionsGroupByOutputType[P]>
+            : GetScalarType<T[P], PlayerBalanceTransactionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlayerBalanceTransactionsSelect = {
+    id?: boolean
+    admin?: boolean
+    player?: boolean
+    beforeRecharge?: boolean
+    recharged?: boolean
+    redeem?: boolean
+    afterRecharge?: boolean
+    ip_address?: boolean
+    income?: boolean
+    remark?: boolean
+    createdAt?: boolean
+    Player?: boolean | PlayerArgs
+    Admin?: boolean | AdminArgs
+  }
+
+
+  export type PlayerBalanceTransactionsInclude = {
+    Player?: boolean | PlayerArgs
+    Admin?: boolean | AdminArgs
+  }
+
+  export type PlayerBalanceTransactionsGetPayload<S extends boolean | null | undefined | PlayerBalanceTransactionsArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? PlayerBalanceTransactions :
+    S extends undefined ? never :
+    S extends { include: any } & (PlayerBalanceTransactionsArgs | PlayerBalanceTransactionsFindManyArgs)
+    ? PlayerBalanceTransactions  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :
+        P extends 'Admin' ? AdminGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (PlayerBalanceTransactionsArgs | PlayerBalanceTransactionsFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :
+        P extends 'Admin' ? AdminGetPayload<S['select'][P]> | null :  P extends keyof PlayerBalanceTransactions ? PlayerBalanceTransactions[P] : never
+  } 
+      : PlayerBalanceTransactions
+
+
+  type PlayerBalanceTransactionsCountArgs = 
+    Omit<PlayerBalanceTransactionsFindManyArgs, 'select' | 'include'> & {
+      select?: PlayerBalanceTransactionsCountAggregateInputType | true
+    }
+
+  export interface PlayerBalanceTransactionsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one PlayerBalanceTransactions that matches the filter.
+     * @param {PlayerBalanceTransactionsFindUniqueArgs} args - Arguments to find a PlayerBalanceTransactions
+     * @example
+     * // Get one PlayerBalanceTransactions
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends PlayerBalanceTransactionsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, PlayerBalanceTransactionsFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'PlayerBalanceTransactions'> extends True ? Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T>> : Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find one PlayerBalanceTransactions that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {PlayerBalanceTransactionsFindUniqueOrThrowArgs} args - Arguments to find a PlayerBalanceTransactions
+     * @example
+     * // Get one PlayerBalanceTransactions
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends PlayerBalanceTransactionsFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, PlayerBalanceTransactionsFindUniqueOrThrowArgs>
+    ): Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Find the first PlayerBalanceTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerBalanceTransactionsFindFirstArgs} args - Arguments to find a PlayerBalanceTransactions
+     * @example
+     * // Get one PlayerBalanceTransactions
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends PlayerBalanceTransactionsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, PlayerBalanceTransactionsFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'PlayerBalanceTransactions'> extends True ? Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T>> : Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T> | null, null>
+
+    /**
+     * Find the first PlayerBalanceTransactions that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerBalanceTransactionsFindFirstOrThrowArgs} args - Arguments to find a PlayerBalanceTransactions
+     * @example
+     * // Get one PlayerBalanceTransactions
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends PlayerBalanceTransactionsFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, PlayerBalanceTransactionsFindFirstOrThrowArgs>
+    ): Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more PlayerBalanceTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerBalanceTransactionsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlayerBalanceTransactions
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.findMany()
+     * 
+     * // Get first 10 PlayerBalanceTransactions
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const playerBalanceTransactionsWithIdOnly = await prisma.playerBalanceTransactions.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends PlayerBalanceTransactionsFindManyArgs>(
+      args?: SelectSubset<T, PlayerBalanceTransactionsFindManyArgs>
+    ): Prisma.PrismaPromise<Array<PlayerBalanceTransactionsGetPayload<T>>>
+
+    /**
+     * Create a PlayerBalanceTransactions.
+     * @param {PlayerBalanceTransactionsCreateArgs} args - Arguments to create a PlayerBalanceTransactions.
+     * @example
+     * // Create one PlayerBalanceTransactions
+     * const PlayerBalanceTransactions = await prisma.playerBalanceTransactions.create({
+     *   data: {
+     *     // ... data to create a PlayerBalanceTransactions
+     *   }
+     * })
+     * 
+    **/
+    create<T extends PlayerBalanceTransactionsCreateArgs>(
+      args: SelectSubset<T, PlayerBalanceTransactionsCreateArgs>
+    ): Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Create many PlayerBalanceTransactions.
+     *     @param {PlayerBalanceTransactionsCreateManyArgs} args - Arguments to create many PlayerBalanceTransactions.
+     *     @example
+     *     // Create many PlayerBalanceTransactions
+     *     const playerBalanceTransactions = await prisma.playerBalanceTransactions.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends PlayerBalanceTransactionsCreateManyArgs>(
+      args?: SelectSubset<T, PlayerBalanceTransactionsCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PlayerBalanceTransactions.
+     * @param {PlayerBalanceTransactionsDeleteArgs} args - Arguments to delete one PlayerBalanceTransactions.
+     * @example
+     * // Delete one PlayerBalanceTransactions
+     * const PlayerBalanceTransactions = await prisma.playerBalanceTransactions.delete({
+     *   where: {
+     *     // ... filter to delete one PlayerBalanceTransactions
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends PlayerBalanceTransactionsDeleteArgs>(
+      args: SelectSubset<T, PlayerBalanceTransactionsDeleteArgs>
+    ): Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Update one PlayerBalanceTransactions.
+     * @param {PlayerBalanceTransactionsUpdateArgs} args - Arguments to update one PlayerBalanceTransactions.
+     * @example
+     * // Update one PlayerBalanceTransactions
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends PlayerBalanceTransactionsUpdateArgs>(
+      args: SelectSubset<T, PlayerBalanceTransactionsUpdateArgs>
+    ): Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Delete zero or more PlayerBalanceTransactions.
+     * @param {PlayerBalanceTransactionsDeleteManyArgs} args - Arguments to filter PlayerBalanceTransactions to delete.
+     * @example
+     * // Delete a few PlayerBalanceTransactions
+     * const { count } = await prisma.playerBalanceTransactions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends PlayerBalanceTransactionsDeleteManyArgs>(
+      args?: SelectSubset<T, PlayerBalanceTransactionsDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlayerBalanceTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerBalanceTransactionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlayerBalanceTransactions
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends PlayerBalanceTransactionsUpdateManyArgs>(
+      args: SelectSubset<T, PlayerBalanceTransactionsUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PlayerBalanceTransactions.
+     * @param {PlayerBalanceTransactionsUpsertArgs} args - Arguments to update or create a PlayerBalanceTransactions.
+     * @example
+     * // Update or create a PlayerBalanceTransactions
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.upsert({
+     *   create: {
+     *     // ... data to create a PlayerBalanceTransactions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlayerBalanceTransactions we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends PlayerBalanceTransactionsUpsertArgs>(
+      args: SelectSubset<T, PlayerBalanceTransactionsUpsertArgs>
+    ): Prisma__PlayerBalanceTransactionsClient<PlayerBalanceTransactionsGetPayload<T>>
+
+    /**
+     * Find zero or more PlayerBalanceTransactions that matches the filter.
+     * @param {PlayerBalanceTransactionsFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: PlayerBalanceTransactionsFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a PlayerBalanceTransactions.
+     * @param {PlayerBalanceTransactionsAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const playerBalanceTransactions = await prisma.playerBalanceTransactions.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: PlayerBalanceTransactionsAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of PlayerBalanceTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerBalanceTransactionsCountArgs} args - Arguments to filter PlayerBalanceTransactions to count.
+     * @example
+     * // Count the number of PlayerBalanceTransactions
+     * const count = await prisma.playerBalanceTransactions.count({
+     *   where: {
+     *     // ... the filter for the PlayerBalanceTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlayerBalanceTransactionsCountArgs>(
+      args?: Subset<T, PlayerBalanceTransactionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlayerBalanceTransactionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlayerBalanceTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerBalanceTransactionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlayerBalanceTransactionsAggregateArgs>(args: Subset<T, PlayerBalanceTransactionsAggregateArgs>): Prisma.PrismaPromise<GetPlayerBalanceTransactionsAggregateType<T>>
+
+    /**
+     * Group by PlayerBalanceTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerBalanceTransactionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlayerBalanceTransactionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlayerBalanceTransactionsGroupByArgs['orderBy'] }
+        : { orderBy?: PlayerBalanceTransactionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlayerBalanceTransactionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlayerBalanceTransactionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlayerBalanceTransactions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__PlayerBalanceTransactionsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+
+    Admin<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * PlayerBalanceTransactions base type for findUnique actions
+   */
+  export type PlayerBalanceTransactionsFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    /**
+     * Filter, which PlayerBalanceTransactions to fetch.
+     */
+    where: PlayerBalanceTransactionsWhereUniqueInput
+  }
+
+  /**
+   * PlayerBalanceTransactions findUnique
+   */
+  export interface PlayerBalanceTransactionsFindUniqueArgs extends PlayerBalanceTransactionsFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * PlayerBalanceTransactions findUniqueOrThrow
+   */
+  export type PlayerBalanceTransactionsFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    /**
+     * Filter, which PlayerBalanceTransactions to fetch.
+     */
+    where: PlayerBalanceTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * PlayerBalanceTransactions base type for findFirst actions
+   */
+  export type PlayerBalanceTransactionsFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    /**
+     * Filter, which PlayerBalanceTransactions to fetch.
+     */
+    where?: PlayerBalanceTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerBalanceTransactions to fetch.
+     */
+    orderBy?: Enumerable<PlayerBalanceTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayerBalanceTransactions.
+     */
+    cursor?: PlayerBalanceTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerBalanceTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerBalanceTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayerBalanceTransactions.
+     */
+    distinct?: Enumerable<PlayerBalanceTransactionsScalarFieldEnum>
+  }
+
+  /**
+   * PlayerBalanceTransactions findFirst
+   */
+  export interface PlayerBalanceTransactionsFindFirstArgs extends PlayerBalanceTransactionsFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * PlayerBalanceTransactions findFirstOrThrow
+   */
+  export type PlayerBalanceTransactionsFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    /**
+     * Filter, which PlayerBalanceTransactions to fetch.
+     */
+    where?: PlayerBalanceTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerBalanceTransactions to fetch.
+     */
+    orderBy?: Enumerable<PlayerBalanceTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayerBalanceTransactions.
+     */
+    cursor?: PlayerBalanceTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerBalanceTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerBalanceTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayerBalanceTransactions.
+     */
+    distinct?: Enumerable<PlayerBalanceTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * PlayerBalanceTransactions findMany
+   */
+  export type PlayerBalanceTransactionsFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    /**
+     * Filter, which PlayerBalanceTransactions to fetch.
+     */
+    where?: PlayerBalanceTransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerBalanceTransactions to fetch.
+     */
+    orderBy?: Enumerable<PlayerBalanceTransactionsOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlayerBalanceTransactions.
+     */
+    cursor?: PlayerBalanceTransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerBalanceTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerBalanceTransactions.
+     */
+    skip?: number
+    distinct?: Enumerable<PlayerBalanceTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * PlayerBalanceTransactions create
+   */
+  export type PlayerBalanceTransactionsCreateArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    /**
+     * The data needed to create a PlayerBalanceTransactions.
+     */
+    data: XOR<PlayerBalanceTransactionsCreateInput, PlayerBalanceTransactionsUncheckedCreateInput>
+  }
+
+
+  /**
+   * PlayerBalanceTransactions createMany
+   */
+  export type PlayerBalanceTransactionsCreateManyArgs = {
+    /**
+     * The data used to create many PlayerBalanceTransactions.
+     */
+    data: Enumerable<PlayerBalanceTransactionsCreateManyInput>
+  }
+
+
+  /**
+   * PlayerBalanceTransactions update
+   */
+  export type PlayerBalanceTransactionsUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    /**
+     * The data needed to update a PlayerBalanceTransactions.
+     */
+    data: XOR<PlayerBalanceTransactionsUpdateInput, PlayerBalanceTransactionsUncheckedUpdateInput>
+    /**
+     * Choose, which PlayerBalanceTransactions to update.
+     */
+    where: PlayerBalanceTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * PlayerBalanceTransactions updateMany
+   */
+  export type PlayerBalanceTransactionsUpdateManyArgs = {
+    /**
+     * The data used to update PlayerBalanceTransactions.
+     */
+    data: XOR<PlayerBalanceTransactionsUpdateManyMutationInput, PlayerBalanceTransactionsUncheckedUpdateManyInput>
+    /**
+     * Filter which PlayerBalanceTransactions to update
+     */
+    where?: PlayerBalanceTransactionsWhereInput
+  }
+
+
+  /**
+   * PlayerBalanceTransactions upsert
+   */
+  export type PlayerBalanceTransactionsUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    /**
+     * The filter to search for the PlayerBalanceTransactions to update in case it exists.
+     */
+    where: PlayerBalanceTransactionsWhereUniqueInput
+    /**
+     * In case the PlayerBalanceTransactions found by the `where` argument doesn't exist, create a new PlayerBalanceTransactions with this data.
+     */
+    create: XOR<PlayerBalanceTransactionsCreateInput, PlayerBalanceTransactionsUncheckedCreateInput>
+    /**
+     * In case the PlayerBalanceTransactions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlayerBalanceTransactionsUpdateInput, PlayerBalanceTransactionsUncheckedUpdateInput>
+  }
+
+
+  /**
+   * PlayerBalanceTransactions delete
+   */
+  export type PlayerBalanceTransactionsDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+    /**
+     * Filter which PlayerBalanceTransactions to delete.
+     */
+    where: PlayerBalanceTransactionsWhereUniqueInput
+  }
+
+
+  /**
+   * PlayerBalanceTransactions deleteMany
+   */
+  export type PlayerBalanceTransactionsDeleteManyArgs = {
+    /**
+     * Filter which PlayerBalanceTransactions to delete
+     */
+    where?: PlayerBalanceTransactionsWhereInput
+  }
+
+
+  /**
+   * PlayerBalanceTransactions findRaw
+   */
+  export type PlayerBalanceTransactionsFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * PlayerBalanceTransactions aggregateRaw
+   */
+  export type PlayerBalanceTransactionsAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * PlayerBalanceTransactions without action
+   */
+  export type PlayerBalanceTransactionsArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerBalanceTransactions
+     */
+    select?: PlayerBalanceTransactionsSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerBalanceTransactionsInclude | null
+  }
+
+
+
+  /**
+   * Enums
+   */
+
+  // Based on
+  // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
+
+  export const ActiveGamePlayScalarFieldEnum: {
+    id: 'id',
+    player_id: 'player_id',
+    game_id: 'game_id',
+    maxWin: 'maxWin',
+    startedAt: 'startedAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ActiveGamePlayScalarFieldEnum = (typeof ActiveGamePlayScalarFieldEnum)[keyof typeof ActiveGamePlayScalarFieldEnum]
+
+
+  export const AdminBalanceTransactionsScalarFieldEnum: {
+    id: 'id',
+    account: 'account',
+    beforeRecharge: 'beforeRecharge',
+    recharged: 'recharged',
+    redeemed: 'redeemed',
+    afterRecharge: 'afterRecharge',
+    cashier: 'cashier',
+    balanceBefore: 'balanceBefore',
+    balanceAfter: 'balanceAfter',
+    remark: 'remark',
+    createdAt: 'createdAt'
+  };
+
+  export type AdminBalanceTransactionsScalarFieldEnum = (typeof AdminBalanceTransactionsScalarFieldEnum)[keyof typeof AdminBalanceTransactionsScalarFieldEnum]
+
+
+  export const AdminScalarFieldEnum: {
+    id: 'id',
+    email_id: 'email_id',
+    username: 'username',
+    password: 'password',
+    balance: 'balance',
+    setting_id: 'setting_id',
+    status: 'status',
+    account_type: 'account_type',
+    timezone: 'timezone',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    created_by: 'created_by',
+    holding: 'holding',
+    totalSpent: 'totalSpent',
+    totalRedeem: 'totalRedeem',
+    totalLost: 'totalLost'
+  };
+
+  export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
+
+
+  export const FishGameTransactionsScalarFieldEnum: {
+    id: 'id',
+    room_id: 'room_id',
+    player_id: 'player_id',
+    game_id: 'game_id',
+    started: 'started',
+    ended: 'ended'
+  };
+
+  export type FishGameTransactionsScalarFieldEnum = (typeof FishGameTransactionsScalarFieldEnum)[keyof typeof FishGameTransactionsScalarFieldEnum]
+
+
+  export const GameAssetsScalarFieldEnum: {
+    id: 'id',
+    game_id: 'game_id',
+    platform: 'platform',
+    path: 'path',
+    version: 'version',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type GameAssetsScalarFieldEnum = (typeof GameAssetsScalarFieldEnum)[keyof typeof GameAssetsScalarFieldEnum]
+
+
+  export const GameTransactionsScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    player: 'player',
+    game: 'game',
+    spent: 'spent',
+    won: 'won',
+    winType: 'winType',
+    game_id: 'game_id',
+    player_id: 'player_id',
+    user_id: 'user_id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    room_id: 'room_id',
+    fish_transaction_id: 'fish_transaction_id'
+  };
+
+  export type GameTransactionsScalarFieldEnum = (typeof GameTransactionsScalarFieldEnum)[keyof typeof GameTransactionsScalarFieldEnum]
+
+
+  export const GamesScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    played: 'played',
+    status: 'status'
+  };
+
+  export type GamesScalarFieldEnum = (typeof GamesScalarFieldEnum)[keyof typeof GamesScalarFieldEnum]
+
+
+  export const PlayerBalanceTransactionsScalarFieldEnum: {
+    id: 'id',
+    admin: 'admin',
+    player: 'player',
+    beforeRecharge: 'beforeRecharge',
+    recharged: 'recharged',
+    redeem: 'redeem',
+    afterRecharge: 'afterRecharge',
+    ip_address: 'ip_address',
+    income: 'income',
+    remark: 'remark',
+    createdAt: 'createdAt'
+  };
+
+  export type PlayerBalanceTransactionsScalarFieldEnum = (typeof PlayerBalanceTransactionsScalarFieldEnum)[keyof typeof PlayerBalanceTransactionsScalarFieldEnum]
+
+
+  export const PlayerScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    username: 'username',
+    password: 'password',
+    phone_number: 'phone_number',
+    country_code: 'country_code',
+    status: 'status',
+    balance: 'balance',
+    game_played: 'game_played',
+    won: 'won',
+    spent: 'spent',
+    won_total: 'won_total',
+    spent_total: 'spent_total',
+    grandJP_won: 'grandJP_won',
+    grandJP_won_count: 'grandJP_won_count',
+    majorJP_won: 'majorJP_won',
+    majorJP_won_count: 'majorJP_won_count',
+    minorJP_won: 'minorJP_won',
+    minorJP_won_count: 'minorJP_won_count',
+    miniJP_won: 'miniJP_won',
+    miniJP_won_count: 'miniJP_won_count',
+    general_won: 'general_won',
+    general_won_count: 'general_won_count',
+    setting_id: 'setting_id',
+    created_by: 'created_by'
+  };
+
+  export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const RefreshTokenScalarFieldEnum: {
+    id: 'id',
+    token: 'token',
+    blacklisted: 'blacklisted'
+  };
+
+  export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+  export const SettingsScalarFieldEnum: {
+    id: 'id',
+    grandJP: 'grandJP',
+    grandJP_limit: 'grandJP_limit',
+    majorJP: 'majorJP',
+    majorJP_limit: 'majorJP_limit',
+    minorJP: 'minorJP',
+    minorJP_limit: 'minorJP_limit',
+    miniJP: 'miniJP',
+    miniJP_limit: 'miniJP_limit',
+    grandScore: 'grandScore',
+    majorScore: 'majorScore',
+    minorScore: 'minorScore',
+    miniScore: 'miniScore',
+    miniShareNum: 'miniShareNum',
+    maxShareNum: 'maxShareNum',
+    dollarStatus: 'dollarStatus',
+    account_type: 'account_type',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]
+
+
+  export const SlotFreeBonusScalarFieldEnum: {
+    id: 'id',
+    bonus: 'bonus',
+    free_game: 'free_game',
+    player_id: 'player_id',
+    game_id: 'game_id',
+    matrix: 'matrix',
+    bonus_pos_matrix: 'bonus_pos_matrix',
+    total_spin: 'total_spin',
+    remaining_spin: 'remaining_spin',
+    unlocked: 'unlocked',
+    start_balance: 'start_balance',
+    won_amount: 'won_amount',
+    price_used: 'price_used',
+    max_win_amount: 'max_win_amount',
+    no_of_win_round: 'no_of_win_round',
+    multiplier: 'multiplier',
+    free_round_win: 'free_round_win',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SlotFreeBonusScalarFieldEnum = (typeof SlotFreeBonusScalarFieldEnum)[keyof typeof SlotFreeBonusScalarFieldEnum]
+
+
+  export const SlotTransactionsScalarFieldEnum: {
+    id: 'id',
+    transaction_id: 'transaction_id',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type SlotTransactionsScalarFieldEnum = (typeof SlotTransactionsScalarFieldEnum)[keyof typeof SlotTransactionsScalarFieldEnum]
+
+
+  export const SortOrder: {
+    asc: 'asc',
+    desc: 'desc'
+  };
+
+  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  /**
+   * Deep Input Types
+   */
+
+
+  export type AdminWhereInput = {
+    AND?: Enumerable<AdminWhereInput>
+    OR?: Enumerable<AdminWhereInput>
+    NOT?: Enumerable<AdminWhereInput>
+    id?: StringFilter | string
+    email_id?: StringNullableFilter | string | null
+    username?: StringFilter | string
+    password?: StringFilter | string
+    balance?: FloatFilter | number
+    setting_id?: StringNullableFilter | string | null
+    status?: EnumAccountStatusFilter | AccountStatus
+    account_type?: EnumAccountTypeNullableFilter | AccountType | null
+    Settings?: XOR<SettingsRelationFilter, SettingsWhereInput> | null
+    timezone?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    created_by?: StringNullableFilter | string | null
+    CreatedBy?: XOR<AdminRelationFilter, AdminWhereInput> | null
+    User?: AdminListRelationFilter
+    account?: AdminBalanceTransactionsListRelationFilter
+    cashier?: AdminBalanceTransactionsListRelationFilter
+    Player?: PlayerListRelationFilter
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsListRelationFilter
+    GameTransactions?: GameTransactionsListRelationFilter
+    holding?: IntFilter | number
+    totalSpent?: FloatFilter | number
+    totalRedeem?: FloatFilter | number
+    totalLost?: FloatFilter | number
+  }
+
+  export type AdminOrderByWithRelationInput = {
+    id?: SortOrder
+    email_id?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    balance?: SortOrder
+    setting_id?: SortOrder
+    status?: SortOrder
+    account_type?: SortOrder
+    Settings?: SettingsOrderByWithRelationInput
+    timezone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    created_by?: SortOrder
+    CreatedBy?: AdminOrderByWithRelationInput
+    User?: AdminOrderByRelationAggregateInput
+    account?: AdminBalanceTransactionsOrderByRelationAggregateInput
+    cashier?: AdminBalanceTransactionsOrderByRelationAggregateInput
+    Player?: PlayerOrderByRelationAggregateInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsOrderByRelationAggregateInput
+    GameTransactions?: GameTransactionsOrderByRelationAggregateInput
+    holding?: SortOrder
+    totalSpent?: SortOrder
+    totalRedeem?: SortOrder
+    totalLost?: SortOrder
+  }
+
+  export type AdminWhereUniqueInput = {
+    id?: string
+    email_id?: string
+    username?: string
+    setting_id?: string
+  }
+
+  export type AdminOrderByWithAggregationInput = {
+    id?: SortOrder
+    email_id?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    balance?: SortOrder
+    setting_id?: SortOrder
+    status?: SortOrder
+    account_type?: SortOrder
+    timezone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    created_by?: SortOrder
+    holding?: SortOrder
+    totalSpent?: SortOrder
+    totalRedeem?: SortOrder
+    totalLost?: SortOrder
+    _count?: AdminCountOrderByAggregateInput
+    _avg?: AdminAvgOrderByAggregateInput
+    _max?: AdminMaxOrderByAggregateInput
+    _min?: AdminMinOrderByAggregateInput
+    _sum?: AdminSumOrderByAggregateInput
+  }
+
+  export type AdminScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<AdminScalarWhereWithAggregatesInput>
+    OR?: Enumerable<AdminScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<AdminScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    email_id?: StringNullableWithAggregatesFilter | string | null
+    username?: StringWithAggregatesFilter | string
+    password?: StringWithAggregatesFilter | string
+    balance?: FloatWithAggregatesFilter | number
+    setting_id?: StringNullableWithAggregatesFilter | string | null
+    status?: EnumAccountStatusWithAggregatesFilter | AccountStatus
+    account_type?: EnumAccountTypeNullableWithAggregatesFilter | AccountType | null
+    timezone?: StringNullableWithAggregatesFilter | string | null
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+    created_by?: StringNullableWithAggregatesFilter | string | null
+    holding?: IntWithAggregatesFilter | number
+    totalSpent?: FloatWithAggregatesFilter | number
+    totalRedeem?: FloatWithAggregatesFilter | number
+    totalLost?: FloatWithAggregatesFilter | number
+  }
+
+  export type AdminBalanceTransactionsWhereInput = {
+    AND?: Enumerable<AdminBalanceTransactionsWhereInput>
+    OR?: Enumerable<AdminBalanceTransactionsWhereInput>
+    NOT?: Enumerable<AdminBalanceTransactionsWhereInput>
+    id?: StringFilter | string
+    account?: StringNullableFilter | string | null
+    beforeRecharge?: FloatFilter | number
+    recharged?: FloatFilter | number
+    redeemed?: FloatFilter | number
+    afterRecharge?: FloatFilter | number
+    cashier?: StringNullableFilter | string | null
+    balanceBefore?: FloatFilter | number
+    balanceAfter?: FloatFilter | number
+    remark?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    Account_user?: XOR<AdminRelationFilter, AdminWhereInput> | null
+    Cashier_user?: XOR<AdminRelationFilter, AdminWhereInput> | null
+  }
+
+  export type AdminBalanceTransactionsOrderByWithRelationInput = {
+    id?: SortOrder
+    account?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeemed?: SortOrder
+    afterRecharge?: SortOrder
+    cashier?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+    Account_user?: AdminOrderByWithRelationInput
+    Cashier_user?: AdminOrderByWithRelationInput
+  }
+
+  export type AdminBalanceTransactionsWhereUniqueInput = {
+    id?: string
+  }
+
+  export type AdminBalanceTransactionsOrderByWithAggregationInput = {
+    id?: SortOrder
+    account?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeemed?: SortOrder
+    afterRecharge?: SortOrder
+    cashier?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+    _count?: AdminBalanceTransactionsCountOrderByAggregateInput
+    _avg?: AdminBalanceTransactionsAvgOrderByAggregateInput
+    _max?: AdminBalanceTransactionsMaxOrderByAggregateInput
+    _min?: AdminBalanceTransactionsMinOrderByAggregateInput
+    _sum?: AdminBalanceTransactionsSumOrderByAggregateInput
+  }
+
+  export type AdminBalanceTransactionsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<AdminBalanceTransactionsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<AdminBalanceTransactionsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<AdminBalanceTransactionsScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    account?: StringNullableWithAggregatesFilter | string | null
+    beforeRecharge?: FloatWithAggregatesFilter | number
+    recharged?: FloatWithAggregatesFilter | number
+    redeemed?: FloatWithAggregatesFilter | number
+    afterRecharge?: FloatWithAggregatesFilter | number
+    cashier?: StringNullableWithAggregatesFilter | string | null
+    balanceBefore?: FloatWithAggregatesFilter | number
+    balanceAfter?: FloatWithAggregatesFilter | number
+    remark?: StringNullableWithAggregatesFilter | string | null
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type SettingsWhereInput = {
+    AND?: Enumerable<SettingsWhereInput>
+    OR?: Enumerable<SettingsWhereInput>
+    NOT?: Enumerable<SettingsWhereInput>
+    id?: StringFilter | string
+    grandJP?: BoolFilter | boolean
+    grandJP_limit?: FloatFilter | number
+    majorJP?: BoolFilter | boolean
+    majorJP_limit?: FloatFilter | number
+    minorJP?: BoolFilter | boolean
+    minorJP_limit?: FloatFilter | number
+    miniJP?: BoolFilter | boolean
+    miniJP_limit?: FloatFilter | number
+    grandScore?: FloatFilter | number
+    majorScore?: FloatFilter | number
+    minorScore?: FloatFilter | number
+    miniScore?: FloatFilter | number
+    miniShareNum?: FloatFilter | number
+    maxShareNum?: FloatFilter | number
+    dollarStatus?: BoolFilter | boolean
+    account_type?: EnumAccountTypeNullableFilter | AccountType | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    Admin?: XOR<AdminRelationFilter, AdminWhereInput> | null
+    Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
+  }
+
+  export type SettingsOrderByWithRelationInput = {
+    id?: SortOrder
+    grandJP?: SortOrder
+    grandJP_limit?: SortOrder
+    majorJP?: SortOrder
+    majorJP_limit?: SortOrder
+    minorJP?: SortOrder
+    minorJP_limit?: SortOrder
+    miniJP?: SortOrder
+    miniJP_limit?: SortOrder
+    grandScore?: SortOrder
+    majorScore?: SortOrder
+    minorScore?: SortOrder
+    miniScore?: SortOrder
+    miniShareNum?: SortOrder
+    maxShareNum?: SortOrder
+    dollarStatus?: SortOrder
+    account_type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    Admin?: AdminOrderByWithRelationInput
+    Player?: PlayerOrderByWithRelationInput
+  }
+
+  export type SettingsWhereUniqueInput = {
+    id?: string
+  }
+
+  export type SettingsOrderByWithAggregationInput = {
+    id?: SortOrder
+    grandJP?: SortOrder
+    grandJP_limit?: SortOrder
+    majorJP?: SortOrder
+    majorJP_limit?: SortOrder
+    minorJP?: SortOrder
+    minorJP_limit?: SortOrder
+    miniJP?: SortOrder
+    miniJP_limit?: SortOrder
+    grandScore?: SortOrder
+    majorScore?: SortOrder
+    minorScore?: SortOrder
+    miniScore?: SortOrder
+    miniShareNum?: SortOrder
+    maxShareNum?: SortOrder
+    dollarStatus?: SortOrder
+    account_type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SettingsCountOrderByAggregateInput
+    _avg?: SettingsAvgOrderByAggregateInput
+    _max?: SettingsMaxOrderByAggregateInput
+    _min?: SettingsMinOrderByAggregateInput
+    _sum?: SettingsSumOrderByAggregateInput
+  }
+
+  export type SettingsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<SettingsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<SettingsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<SettingsScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    grandJP?: BoolWithAggregatesFilter | boolean
+    grandJP_limit?: FloatWithAggregatesFilter | number
+    majorJP?: BoolWithAggregatesFilter | boolean
+    majorJP_limit?: FloatWithAggregatesFilter | number
+    minorJP?: BoolWithAggregatesFilter | boolean
+    minorJP_limit?: FloatWithAggregatesFilter | number
+    miniJP?: BoolWithAggregatesFilter | boolean
+    miniJP_limit?: FloatWithAggregatesFilter | number
+    grandScore?: FloatWithAggregatesFilter | number
+    majorScore?: FloatWithAggregatesFilter | number
+    minorScore?: FloatWithAggregatesFilter | number
+    miniScore?: FloatWithAggregatesFilter | number
+    miniShareNum?: FloatWithAggregatesFilter | number
+    maxShareNum?: FloatWithAggregatesFilter | number
+    dollarStatus?: BoolWithAggregatesFilter | boolean
+    account_type?: EnumAccountTypeNullableWithAggregatesFilter | AccountType | null
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type PlayerWhereInput = {
+    AND?: Enumerable<PlayerWhereInput>
+    OR?: Enumerable<PlayerWhereInput>
+    NOT?: Enumerable<PlayerWhereInput>
+    id?: StringFilter | string
+    name?: StringNullableFilter | string | null
+    username?: StringFilter | string
+    password?: StringFilter | string
+    phone_number?: IntNullableFilter | number | null
+    country_code?: StringNullableFilter | string | null
+    status?: EnumAccountStatusFilter | AccountStatus
+    balance?: FloatFilter | number
+    game_played?: IntFilter | number
+    won?: FloatFilter | number
+    spent?: FloatFilter | number
+    won_total?: FloatFilter | number
+    spent_total?: FloatFilter | number
+    grandJP_won?: FloatFilter | number
+    grandJP_won_count?: IntFilter | number
+    majorJP_won?: FloatFilter | number
+    majorJP_won_count?: IntFilter | number
+    minorJP_won?: FloatFilter | number
+    minorJP_won_count?: IntFilter | number
+    miniJP_won?: FloatFilter | number
+    miniJP_won_count?: IntFilter | number
+    general_won?: FloatFilter | number
+    general_won_count?: IntFilter | number
+    setting_id?: StringNullableFilter | string | null
+    Settings?: XOR<SettingsRelationFilter, SettingsWhereInput> | null
+    created_by?: StringFilter | string
+    manager?: XOR<AdminRelationFilter, AdminWhereInput>
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsListRelationFilter
+    ActiveGamePlay?: XOR<ActiveGamePlayRelationFilter, ActiveGamePlayWhereInput> | null
+    GameTransactions?: GameTransactionsListRelationFilter
+    FishGameTransactions?: FishGameTransactionsListRelationFilter
+    SlotFreeBonus?: SlotFreeBonusListRelationFilter
+  }
+
+  export type PlayerOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    phone_number?: SortOrder
+    country_code?: SortOrder
+    status?: SortOrder
+    balance?: SortOrder
+    game_played?: SortOrder
+    won?: SortOrder
+    spent?: SortOrder
+    won_total?: SortOrder
+    spent_total?: SortOrder
+    grandJP_won?: SortOrder
+    grandJP_won_count?: SortOrder
+    majorJP_won?: SortOrder
+    majorJP_won_count?: SortOrder
+    minorJP_won?: SortOrder
+    minorJP_won_count?: SortOrder
+    miniJP_won?: SortOrder
+    miniJP_won_count?: SortOrder
+    general_won?: SortOrder
+    general_won_count?: SortOrder
+    setting_id?: SortOrder
+    Settings?: SettingsOrderByWithRelationInput
+    created_by?: SortOrder
+    manager?: AdminOrderByWithRelationInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsOrderByRelationAggregateInput
+    ActiveGamePlay?: ActiveGamePlayOrderByWithRelationInput
+    GameTransactions?: GameTransactionsOrderByRelationAggregateInput
+    FishGameTransactions?: FishGameTransactionsOrderByRelationAggregateInput
+    SlotFreeBonus?: SlotFreeBonusOrderByRelationAggregateInput
+  }
+
+  export type PlayerWhereUniqueInput = {
+    id?: string
+    username?: string
+    setting_id?: string
+  }
+
+  export type PlayerOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    phone_number?: SortOrder
+    country_code?: SortOrder
+    status?: SortOrder
+    balance?: SortOrder
+    game_played?: SortOrder
+    won?: SortOrder
+    spent?: SortOrder
+    won_total?: SortOrder
+    spent_total?: SortOrder
+    grandJP_won?: SortOrder
+    grandJP_won_count?: SortOrder
+    majorJP_won?: SortOrder
+    majorJP_won_count?: SortOrder
+    minorJP_won?: SortOrder
+    minorJP_won_count?: SortOrder
+    miniJP_won?: SortOrder
+    miniJP_won_count?: SortOrder
+    general_won?: SortOrder
+    general_won_count?: SortOrder
+    setting_id?: SortOrder
+    created_by?: SortOrder
+    _count?: PlayerCountOrderByAggregateInput
+    _avg?: PlayerAvgOrderByAggregateInput
+    _max?: PlayerMaxOrderByAggregateInput
+    _min?: PlayerMinOrderByAggregateInput
+    _sum?: PlayerSumOrderByAggregateInput
+  }
+
+  export type PlayerScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<PlayerScalarWhereWithAggregatesInput>
+    OR?: Enumerable<PlayerScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<PlayerScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    name?: StringNullableWithAggregatesFilter | string | null
+    username?: StringWithAggregatesFilter | string
+    password?: StringWithAggregatesFilter | string
+    phone_number?: IntNullableWithAggregatesFilter | number | null
+    country_code?: StringNullableWithAggregatesFilter | string | null
+    status?: EnumAccountStatusWithAggregatesFilter | AccountStatus
+    balance?: FloatWithAggregatesFilter | number
+    game_played?: IntWithAggregatesFilter | number
+    won?: FloatWithAggregatesFilter | number
+    spent?: FloatWithAggregatesFilter | number
+    won_total?: FloatWithAggregatesFilter | number
+    spent_total?: FloatWithAggregatesFilter | number
+    grandJP_won?: FloatWithAggregatesFilter | number
+    grandJP_won_count?: IntWithAggregatesFilter | number
+    majorJP_won?: FloatWithAggregatesFilter | number
+    majorJP_won_count?: IntWithAggregatesFilter | number
+    minorJP_won?: FloatWithAggregatesFilter | number
+    minorJP_won_count?: IntWithAggregatesFilter | number
+    miniJP_won?: FloatWithAggregatesFilter | number
+    miniJP_won_count?: IntWithAggregatesFilter | number
+    general_won?: FloatWithAggregatesFilter | number
+    general_won_count?: IntWithAggregatesFilter | number
+    setting_id?: StringNullableWithAggregatesFilter | string | null
+    created_by?: StringWithAggregatesFilter | string
+  }
+
+  export type GamesWhereInput = {
+    AND?: Enumerable<GamesWhereInput>
+    OR?: Enumerable<GamesWhereInput>
+    NOT?: Enumerable<GamesWhereInput>
+    id?: StringFilter | string
+    name?: StringFilter | string
+    description?: StringNullableFilter | string | null
+    played?: IntFilter | number
+    status?: EnumAccountStatusNullableFilter | AccountStatus | null
+    GameTransaction?: GameTransactionsListRelationFilter
+    ActiveGamePlay?: ActiveGamePlayListRelationFilter
+    GameAssets?: GameAssetsListRelationFilter
+    FishGameTransactions?: FishGameTransactionsListRelationFilter
+    SlotFreeBonus?: SlotFreeBonusListRelationFilter
+  }
+
+  export type GamesOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    played?: SortOrder
+    status?: SortOrder
+    GameTransaction?: GameTransactionsOrderByRelationAggregateInput
+    ActiveGamePlay?: ActiveGamePlayOrderByRelationAggregateInput
+    GameAssets?: GameAssetsOrderByRelationAggregateInput
+    FishGameTransactions?: FishGameTransactionsOrderByRelationAggregateInput
+    SlotFreeBonus?: SlotFreeBonusOrderByRelationAggregateInput
+  }
+
+  export type GamesWhereUniqueInput = {
+    id?: string
+  }
+
+  export type GamesOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    played?: SortOrder
+    status?: SortOrder
+    _count?: GamesCountOrderByAggregateInput
+    _avg?: GamesAvgOrderByAggregateInput
+    _max?: GamesMaxOrderByAggregateInput
+    _min?: GamesMinOrderByAggregateInput
+    _sum?: GamesSumOrderByAggregateInput
+  }
+
+  export type GamesScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<GamesScalarWhereWithAggregatesInput>
+    OR?: Enumerable<GamesScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<GamesScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    name?: StringWithAggregatesFilter | string
+    description?: StringNullableWithAggregatesFilter | string | null
+    played?: IntWithAggregatesFilter | number
+    status?: EnumAccountStatusNullableWithAggregatesFilter | AccountStatus | null
+  }
+
+  export type GameAssetsWhereInput = {
+    AND?: Enumerable<GameAssetsWhereInput>
+    OR?: Enumerable<GameAssetsWhereInput>
+    NOT?: Enumerable<GameAssetsWhereInput>
+    id?: StringFilter | string
+    game_id?: StringNullableFilter | string | null
+    platform?: StringFilter | string
+    path?: StringNullableFilter | string | null
+    version?: IntNullableFilter | number | null
+    Game?: XOR<GamesRelationFilter, GamesWhereInput> | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+  }
+
+  export type GameAssetsOrderByWithRelationInput = {
+    id?: SortOrder
+    game_id?: SortOrder
+    platform?: SortOrder
+    path?: SortOrder
+    version?: SortOrder
+    Game?: GamesOrderByWithRelationInput
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GameAssetsWhereUniqueInput = {
+    id?: string
+  }
+
+  export type GameAssetsOrderByWithAggregationInput = {
+    id?: SortOrder
+    game_id?: SortOrder
+    platform?: SortOrder
+    path?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: GameAssetsCountOrderByAggregateInput
+    _avg?: GameAssetsAvgOrderByAggregateInput
+    _max?: GameAssetsMaxOrderByAggregateInput
+    _min?: GameAssetsMinOrderByAggregateInput
+    _sum?: GameAssetsSumOrderByAggregateInput
+  }
+
+  export type GameAssetsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<GameAssetsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<GameAssetsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<GameAssetsScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    game_id?: StringNullableWithAggregatesFilter | string | null
+    platform?: StringWithAggregatesFilter | string
+    path?: StringNullableWithAggregatesFilter | string | null
+    version?: IntNullableWithAggregatesFilter | number | null
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type ActiveGamePlayWhereInput = {
+    AND?: Enumerable<ActiveGamePlayWhereInput>
+    OR?: Enumerable<ActiveGamePlayWhereInput>
+    NOT?: Enumerable<ActiveGamePlayWhereInput>
+    id?: StringFilter | string
+    player_id?: StringFilter | string
+    game_id?: StringFilter | string
+    Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
+    Game?: XOR<GamesRelationFilter, GamesWhereInput> | null
+    maxWin?: FloatFilter | number
+    startedAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+  }
+
+  export type ActiveGamePlayOrderByWithRelationInput = {
+    id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    Player?: PlayerOrderByWithRelationInput
+    Game?: GamesOrderByWithRelationInput
+    maxWin?: SortOrder
+    startedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ActiveGamePlayWhereUniqueInput = {
+    id?: string
+    player_id?: string
+  }
+
+  export type ActiveGamePlayOrderByWithAggregationInput = {
+    id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    maxWin?: SortOrder
+    startedAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ActiveGamePlayCountOrderByAggregateInput
+    _avg?: ActiveGamePlayAvgOrderByAggregateInput
+    _max?: ActiveGamePlayMaxOrderByAggregateInput
+    _min?: ActiveGamePlayMinOrderByAggregateInput
+    _sum?: ActiveGamePlaySumOrderByAggregateInput
+  }
+
+  export type ActiveGamePlayScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<ActiveGamePlayScalarWhereWithAggregatesInput>
+    OR?: Enumerable<ActiveGamePlayScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<ActiveGamePlayScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    player_id?: StringWithAggregatesFilter | string
+    game_id?: StringWithAggregatesFilter | string
+    maxWin?: FloatWithAggregatesFilter | number
+    startedAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type SlotTransactionsWhereInput = {
+    AND?: Enumerable<SlotTransactionsWhereInput>
+    OR?: Enumerable<SlotTransactionsWhereInput>
+    NOT?: Enumerable<SlotTransactionsWhereInput>
+    id?: StringFilter | string
+    transaction_id?: StringNullableFilter | string | null
+    status?: EnumSlotStatusNullableFilter | SlotStatus | null
+    Transaction?: XOR<GameTransactionsRelationFilter, GameTransactionsWhereInput> | null
+    createdAt?: DateTimeFilter | Date | string
+  }
+
+  export type SlotTransactionsOrderByWithRelationInput = {
+    id?: SortOrder
+    transaction_id?: SortOrder
+    status?: SortOrder
+    Transaction?: GameTransactionsOrderByWithRelationInput
+    createdAt?: SortOrder
+  }
+
+  export type SlotTransactionsWhereUniqueInput = {
+    id?: string
+  }
+
+  export type SlotTransactionsOrderByWithAggregationInput = {
+    id?: SortOrder
+    transaction_id?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: SlotTransactionsCountOrderByAggregateInput
+    _max?: SlotTransactionsMaxOrderByAggregateInput
+    _min?: SlotTransactionsMinOrderByAggregateInput
+  }
+
+  export type SlotTransactionsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<SlotTransactionsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<SlotTransactionsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<SlotTransactionsScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    transaction_id?: StringNullableWithAggregatesFilter | string | null
+    status?: EnumSlotStatusNullableWithAggregatesFilter | SlotStatus | null
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type GameTransactionsWhereInput = {
+    AND?: Enumerable<GameTransactionsWhereInput>
+    OR?: Enumerable<GameTransactionsWhereInput>
+    NOT?: Enumerable<GameTransactionsWhereInput>
+    id?: StringFilter | string
+    date?: StringNullableFilter | string | null
+    player?: StringFilter | string
+    game?: StringFilter | string
+    spent?: FloatNullableFilter | number | null
+    won?: FloatNullableFilter | number | null
+    winType?: StringNullableFilter | string | null
+    game_id?: StringNullableFilter | string | null
+    player_id?: StringNullableFilter | string | null
+    user_id?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeNullableFilter | Date | string | null
+    Game?: XOR<GamesRelationFilter, GamesWhereInput> | null
+    Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
+    Admin?: XOR<AdminRelationFilter, AdminWhereInput> | null
+    SlotTransactions?: SlotTransactionsListRelationFilter
+    room_id?: StringNullableFilter | string | null
+    fish_transaction_id?: StringNullableFilter | string | null
+    FishGameTransactions?: XOR<FishGameTransactionsRelationFilter, FishGameTransactionsWhereInput> | null
+  }
+
+  export type GameTransactionsOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    player?: SortOrder
+    game?: SortOrder
+    spent?: SortOrder
+    won?: SortOrder
+    winType?: SortOrder
+    game_id?: SortOrder
+    player_id?: SortOrder
+    user_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    Game?: GamesOrderByWithRelationInput
+    Player?: PlayerOrderByWithRelationInput
+    Admin?: AdminOrderByWithRelationInput
+    SlotTransactions?: SlotTransactionsOrderByRelationAggregateInput
+    room_id?: SortOrder
+    fish_transaction_id?: SortOrder
+    FishGameTransactions?: FishGameTransactionsOrderByWithRelationInput
+  }
+
+  export type GameTransactionsWhereUniqueInput = {
+    id?: string
+  }
+
+  export type GameTransactionsOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    player?: SortOrder
+    game?: SortOrder
+    spent?: SortOrder
+    won?: SortOrder
+    winType?: SortOrder
+    game_id?: SortOrder
+    player_id?: SortOrder
+    user_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    room_id?: SortOrder
+    fish_transaction_id?: SortOrder
+    _count?: GameTransactionsCountOrderByAggregateInput
+    _avg?: GameTransactionsAvgOrderByAggregateInput
+    _max?: GameTransactionsMaxOrderByAggregateInput
+    _min?: GameTransactionsMinOrderByAggregateInput
+    _sum?: GameTransactionsSumOrderByAggregateInput
+  }
+
+  export type GameTransactionsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<GameTransactionsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<GameTransactionsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<GameTransactionsScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    date?: StringNullableWithAggregatesFilter | string | null
+    player?: StringWithAggregatesFilter | string
+    game?: StringWithAggregatesFilter | string
+    spent?: FloatNullableWithAggregatesFilter | number | null
+    won?: FloatNullableWithAggregatesFilter | number | null
+    winType?: StringNullableWithAggregatesFilter | string | null
+    game_id?: StringNullableWithAggregatesFilter | string | null
+    player_id?: StringNullableWithAggregatesFilter | string | null
+    user_id?: StringNullableWithAggregatesFilter | string | null
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    room_id?: StringNullableWithAggregatesFilter | string | null
+    fish_transaction_id?: StringNullableWithAggregatesFilter | string | null
+  }
+
+  export type FishGameTransactionsWhereInput = {
+    AND?: Enumerable<FishGameTransactionsWhereInput>
+    OR?: Enumerable<FishGameTransactionsWhereInput>
+    NOT?: Enumerable<FishGameTransactionsWhereInput>
+    id?: StringFilter | string
+    room_id?: StringNullableFilter | string | null
+    player_id?: StringNullableFilter | string | null
+    game_id?: StringNullableFilter | string | null
+    started?: DateTimeFilter | Date | string
+    ended?: DateTimeNullableFilter | Date | string | null
+    Game?: XOR<GamesRelationFilter, GamesWhereInput> | null
+    Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
+    GameTransactions?: GameTransactionsListRelationFilter
+  }
+
+  export type FishGameTransactionsOrderByWithRelationInput = {
+    id?: SortOrder
+    room_id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    started?: SortOrder
+    ended?: SortOrder
+    Game?: GamesOrderByWithRelationInput
+    Player?: PlayerOrderByWithRelationInput
+    GameTransactions?: GameTransactionsOrderByRelationAggregateInput
+  }
+
+  export type FishGameTransactionsWhereUniqueInput = {
+    id?: string
+  }
+
+  export type FishGameTransactionsOrderByWithAggregationInput = {
+    id?: SortOrder
+    room_id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    started?: SortOrder
+    ended?: SortOrder
+    _count?: FishGameTransactionsCountOrderByAggregateInput
+    _max?: FishGameTransactionsMaxOrderByAggregateInput
+    _min?: FishGameTransactionsMinOrderByAggregateInput
+  }
+
+  export type FishGameTransactionsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<FishGameTransactionsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<FishGameTransactionsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<FishGameTransactionsScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    room_id?: StringNullableWithAggregatesFilter | string | null
+    player_id?: StringNullableWithAggregatesFilter | string | null
+    game_id?: StringNullableWithAggregatesFilter | string | null
+    started?: DateTimeWithAggregatesFilter | Date | string
+    ended?: DateTimeNullableWithAggregatesFilter | Date | string | null
+  }
+
+  export type SlotFreeBonusWhereInput = {
+    AND?: Enumerable<SlotFreeBonusWhereInput>
+    OR?: Enumerable<SlotFreeBonusWhereInput>
+    NOT?: Enumerable<SlotFreeBonusWhereInput>
+    id?: StringFilter | string
+    bonus?: BoolFilter | boolean
+    free_game?: BoolFilter | boolean
+    player_id?: StringFilter | string
+    game_id?: StringFilter | string
+    matrix?: JsonNullableListFilter
+    bonus_pos_matrix?: JsonNullableListFilter
+    total_spin?: IntNullableFilter | number | null
+    remaining_spin?: IntNullableFilter | number | null
+    unlocked?: JsonNullableListFilter
+    start_balance?: FloatFilter | number
+    won_amount?: FloatNullableFilter | number | null
+    price_used?: FloatNullableFilter | number | null
+    max_win_amount?: FloatNullableFilter | number | null
+    no_of_win_round?: IntNullableFilter | number | null
+    multiplier?: IntNullableFilter | number | null
+    free_round_win?: JsonNullableFilter
+    Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
+    Game?: XOR<GamesRelationFilter, GamesWhereInput> | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+  }
+
+  export type SlotFreeBonusOrderByWithRelationInput = {
+    id?: SortOrder
+    bonus?: SortOrder
+    free_game?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    matrix?: SortOrder
+    bonus_pos_matrix?: SortOrder
+    total_spin?: SortOrder
+    remaining_spin?: SortOrder
+    unlocked?: SortOrder
+    start_balance?: SortOrder
+    won_amount?: SortOrder
+    price_used?: SortOrder
+    max_win_amount?: SortOrder
+    no_of_win_round?: SortOrder
+    multiplier?: SortOrder
+    free_round_win?: SortOrder
+    Player?: PlayerOrderByWithRelationInput
+    Game?: GamesOrderByWithRelationInput
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SlotFreeBonusWhereUniqueInput = {
+    id?: string
+  }
+
+  export type SlotFreeBonusOrderByWithAggregationInput = {
+    id?: SortOrder
+    bonus?: SortOrder
+    free_game?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    matrix?: SortOrder
+    bonus_pos_matrix?: SortOrder
+    total_spin?: SortOrder
+    remaining_spin?: SortOrder
+    unlocked?: SortOrder
+    start_balance?: SortOrder
+    won_amount?: SortOrder
+    price_used?: SortOrder
+    max_win_amount?: SortOrder
+    no_of_win_round?: SortOrder
+    multiplier?: SortOrder
+    free_round_win?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SlotFreeBonusCountOrderByAggregateInput
+    _avg?: SlotFreeBonusAvgOrderByAggregateInput
+    _max?: SlotFreeBonusMaxOrderByAggregateInput
+    _min?: SlotFreeBonusMinOrderByAggregateInput
+    _sum?: SlotFreeBonusSumOrderByAggregateInput
+  }
+
+  export type SlotFreeBonusScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<SlotFreeBonusScalarWhereWithAggregatesInput>
+    OR?: Enumerable<SlotFreeBonusScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<SlotFreeBonusScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    bonus?: BoolWithAggregatesFilter | boolean
+    free_game?: BoolWithAggregatesFilter | boolean
+    player_id?: StringWithAggregatesFilter | string
+    game_id?: StringWithAggregatesFilter | string
+    matrix?: JsonNullableListFilter
+    bonus_pos_matrix?: JsonNullableListFilter
+    total_spin?: IntNullableWithAggregatesFilter | number | null
+    remaining_spin?: IntNullableWithAggregatesFilter | number | null
+    unlocked?: JsonNullableListFilter
+    start_balance?: FloatWithAggregatesFilter | number
+    won_amount?: FloatNullableWithAggregatesFilter | number | null
+    price_used?: FloatNullableWithAggregatesFilter | number | null
+    max_win_amount?: FloatNullableWithAggregatesFilter | number | null
+    no_of_win_round?: IntNullableWithAggregatesFilter | number | null
+    multiplier?: IntNullableWithAggregatesFilter | number | null
+    free_round_win?: JsonNullableWithAggregatesFilter
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type RefreshTokenWhereInput = {
+    AND?: Enumerable<RefreshTokenWhereInput>
+    OR?: Enumerable<RefreshTokenWhereInput>
+    NOT?: Enumerable<RefreshTokenWhereInput>
+    id?: StringFilter | string
+    token?: StringFilter | string
+    blacklisted?: BoolFilter | boolean
+  }
+
+  export type RefreshTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    blacklisted?: SortOrder
+  }
+
+  export type RefreshTokenWhereUniqueInput = {
+    id?: string
+    token?: string
+  }
+
+  export type RefreshTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    blacklisted?: SortOrder
+    _count?: RefreshTokenCountOrderByAggregateInput
+    _max?: RefreshTokenMaxOrderByAggregateInput
+    _min?: RefreshTokenMinOrderByAggregateInput
+  }
+
+  export type RefreshTokenScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<RefreshTokenScalarWhereWithAggregatesInput>
+    OR?: Enumerable<RefreshTokenScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<RefreshTokenScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    token?: StringWithAggregatesFilter | string
+    blacklisted?: BoolWithAggregatesFilter | boolean
+  }
+
+  export type PlayerBalanceTransactionsWhereInput = {
+    AND?: Enumerable<PlayerBalanceTransactionsWhereInput>
+    OR?: Enumerable<PlayerBalanceTransactionsWhereInput>
+    NOT?: Enumerable<PlayerBalanceTransactionsWhereInput>
+    id?: StringFilter | string
+    admin?: StringNullableFilter | string | null
+    player?: StringNullableFilter | string | null
+    beforeRecharge?: FloatFilter | number
+    recharged?: FloatFilter | number
+    redeem?: FloatFilter | number
+    afterRecharge?: FloatFilter | number
+    ip_address?: StringNullableFilter | string | null
+    income?: FloatFilter | number
+    remark?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
+    Admin?: XOR<AdminRelationFilter, AdminWhereInput> | null
+  }
+
+  export type PlayerBalanceTransactionsOrderByWithRelationInput = {
+    id?: SortOrder
+    admin?: SortOrder
+    player?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeem?: SortOrder
+    afterRecharge?: SortOrder
+    ip_address?: SortOrder
+    income?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+    Player?: PlayerOrderByWithRelationInput
+    Admin?: AdminOrderByWithRelationInput
+  }
+
+  export type PlayerBalanceTransactionsWhereUniqueInput = {
+    id?: string
+  }
+
+  export type PlayerBalanceTransactionsOrderByWithAggregationInput = {
+    id?: SortOrder
+    admin?: SortOrder
+    player?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeem?: SortOrder
+    afterRecharge?: SortOrder
+    ip_address?: SortOrder
+    income?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+    _count?: PlayerBalanceTransactionsCountOrderByAggregateInput
+    _avg?: PlayerBalanceTransactionsAvgOrderByAggregateInput
+    _max?: PlayerBalanceTransactionsMaxOrderByAggregateInput
+    _min?: PlayerBalanceTransactionsMinOrderByAggregateInput
+    _sum?: PlayerBalanceTransactionsSumOrderByAggregateInput
+  }
+
+  export type PlayerBalanceTransactionsScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<PlayerBalanceTransactionsScalarWhereWithAggregatesInput>
+    OR?: Enumerable<PlayerBalanceTransactionsScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<PlayerBalanceTransactionsScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    admin?: StringNullableWithAggregatesFilter | string | null
+    player?: StringNullableWithAggregatesFilter | string | null
+    beforeRecharge?: FloatWithAggregatesFilter | number
+    recharged?: FloatWithAggregatesFilter | number
+    redeem?: FloatWithAggregatesFilter | number
+    afterRecharge?: FloatWithAggregatesFilter | number
+    ip_address?: StringNullableWithAggregatesFilter | string | null
+    income?: FloatWithAggregatesFilter | number
+    remark?: StringNullableWithAggregatesFilter | string | null
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type AdminCreateInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreatedBy?: AdminCreateNestedOneWithoutUserInput
+    User?: AdminCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUpdateInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminCreateManyInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUpdateManyMutationInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateManyInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminBalanceTransactionsCreateInput = {
+    id?: string
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    balanceBefore: number
+    balanceAfter: number
+    remark?: string | null
+    createdAt?: Date | string
+    Account_user?: AdminCreateNestedOneWithoutAccountInput
+    Cashier_user?: AdminCreateNestedOneWithoutCashierInput
+  }
+
+  export type AdminBalanceTransactionsUncheckedCreateInput = {
+    id?: string
+    account?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    cashier?: string | null
+    balanceBefore: number
+    balanceAfter: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AdminBalanceTransactionsUpdateInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Account_user?: AdminUpdateOneWithoutAccountNestedInput
+    Cashier_user?: AdminUpdateOneWithoutCashierNestedInput
+  }
+
+  export type AdminBalanceTransactionsUncheckedUpdateInput = {
+    account?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    cashier?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminBalanceTransactionsCreateManyInput = {
+    id?: string
+    account?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    cashier?: string | null
+    balanceBefore: number
+    balanceAfter: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AdminBalanceTransactionsUpdateManyMutationInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminBalanceTransactionsUncheckedUpdateManyInput = {
+    account?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    cashier?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SettingsCreateInput = {
+    id?: string
+    grandJP?: boolean
+    grandJP_limit?: number
+    majorJP?: boolean
+    majorJP_limit?: number
+    minorJP?: boolean
+    minorJP_limit?: number
+    miniJP?: boolean
+    miniJP_limit?: number
+    grandScore?: number
+    majorScore?: number
+    minorScore?: number
+    miniScore?: number
+    miniShareNum?: number
+    maxShareNum?: number
+    dollarStatus?: boolean
+    account_type?: AccountType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Admin?: AdminCreateNestedOneWithoutSettingsInput
+    Player?: PlayerCreateNestedOneWithoutSettingsInput
+  }
+
+  export type SettingsUncheckedCreateInput = {
+    id?: string
+    grandJP?: boolean
+    grandJP_limit?: number
+    majorJP?: boolean
+    majorJP_limit?: number
+    minorJP?: boolean
+    minorJP_limit?: number
+    miniJP?: boolean
+    miniJP_limit?: number
+    grandScore?: number
+    majorScore?: number
+    minorScore?: number
+    miniScore?: number
+    miniShareNum?: number
+    maxShareNum?: number
+    dollarStatus?: boolean
+    account_type?: AccountType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Admin?: AdminUncheckedCreateNestedOneWithoutSettingsInput
+    Player?: PlayerUncheckedCreateNestedOneWithoutSettingsInput
+  }
+
+  export type SettingsUpdateInput = {
+    grandJP?: BoolFieldUpdateOperationsInput | boolean
+    grandJP_limit?: FloatFieldUpdateOperationsInput | number
+    majorJP?: BoolFieldUpdateOperationsInput | boolean
+    majorJP_limit?: FloatFieldUpdateOperationsInput | number
+    minorJP?: BoolFieldUpdateOperationsInput | boolean
+    minorJP_limit?: FloatFieldUpdateOperationsInput | number
+    miniJP?: BoolFieldUpdateOperationsInput | boolean
+    miniJP_limit?: FloatFieldUpdateOperationsInput | number
+    grandScore?: FloatFieldUpdateOperationsInput | number
+    majorScore?: FloatFieldUpdateOperationsInput | number
+    minorScore?: FloatFieldUpdateOperationsInput | number
+    miniScore?: FloatFieldUpdateOperationsInput | number
+    miniShareNum?: FloatFieldUpdateOperationsInput | number
+    maxShareNum?: FloatFieldUpdateOperationsInput | number
+    dollarStatus?: BoolFieldUpdateOperationsInput | boolean
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Admin?: AdminUpdateOneWithoutSettingsNestedInput
+    Player?: PlayerUpdateOneWithoutSettingsNestedInput
+  }
+
+  export type SettingsUncheckedUpdateInput = {
+    grandJP?: BoolFieldUpdateOperationsInput | boolean
+    grandJP_limit?: FloatFieldUpdateOperationsInput | number
+    majorJP?: BoolFieldUpdateOperationsInput | boolean
+    majorJP_limit?: FloatFieldUpdateOperationsInput | number
+    minorJP?: BoolFieldUpdateOperationsInput | boolean
+    minorJP_limit?: FloatFieldUpdateOperationsInput | number
+    miniJP?: BoolFieldUpdateOperationsInput | boolean
+    miniJP_limit?: FloatFieldUpdateOperationsInput | number
+    grandScore?: FloatFieldUpdateOperationsInput | number
+    majorScore?: FloatFieldUpdateOperationsInput | number
+    minorScore?: FloatFieldUpdateOperationsInput | number
+    miniScore?: FloatFieldUpdateOperationsInput | number
+    miniShareNum?: FloatFieldUpdateOperationsInput | number
+    maxShareNum?: FloatFieldUpdateOperationsInput | number
+    dollarStatus?: BoolFieldUpdateOperationsInput | boolean
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Admin?: AdminUncheckedUpdateOneWithoutSettingsNestedInput
+    Player?: PlayerUncheckedUpdateOneWithoutSettingsNestedInput
+  }
+
+  export type SettingsCreateManyInput = {
+    id?: string
+    grandJP?: boolean
+    grandJP_limit?: number
+    majorJP?: boolean
+    majorJP_limit?: number
+    minorJP?: boolean
+    minorJP_limit?: number
+    miniJP?: boolean
+    miniJP_limit?: number
+    grandScore?: number
+    majorScore?: number
+    minorScore?: number
+    miniScore?: number
+    miniShareNum?: number
+    maxShareNum?: number
+    dollarStatus?: boolean
+    account_type?: AccountType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SettingsUpdateManyMutationInput = {
+    grandJP?: BoolFieldUpdateOperationsInput | boolean
+    grandJP_limit?: FloatFieldUpdateOperationsInput | number
+    majorJP?: BoolFieldUpdateOperationsInput | boolean
+    majorJP_limit?: FloatFieldUpdateOperationsInput | number
+    minorJP?: BoolFieldUpdateOperationsInput | boolean
+    minorJP_limit?: FloatFieldUpdateOperationsInput | number
+    miniJP?: BoolFieldUpdateOperationsInput | boolean
+    miniJP_limit?: FloatFieldUpdateOperationsInput | number
+    grandScore?: FloatFieldUpdateOperationsInput | number
+    majorScore?: FloatFieldUpdateOperationsInput | number
+    minorScore?: FloatFieldUpdateOperationsInput | number
+    miniScore?: FloatFieldUpdateOperationsInput | number
+    miniShareNum?: FloatFieldUpdateOperationsInput | number
+    maxShareNum?: FloatFieldUpdateOperationsInput | number
+    dollarStatus?: BoolFieldUpdateOperationsInput | boolean
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SettingsUncheckedUpdateManyInput = {
+    grandJP?: BoolFieldUpdateOperationsInput | boolean
+    grandJP_limit?: FloatFieldUpdateOperationsInput | number
+    majorJP?: BoolFieldUpdateOperationsInput | boolean
+    majorJP_limit?: FloatFieldUpdateOperationsInput | number
+    minorJP?: BoolFieldUpdateOperationsInput | boolean
+    minorJP_limit?: FloatFieldUpdateOperationsInput | number
+    miniJP?: BoolFieldUpdateOperationsInput | boolean
+    miniJP_limit?: FloatFieldUpdateOperationsInput | number
+    grandScore?: FloatFieldUpdateOperationsInput | number
+    majorScore?: FloatFieldUpdateOperationsInput | number
+    minorScore?: FloatFieldUpdateOperationsInput | number
+    miniScore?: FloatFieldUpdateOperationsInput | number
+    miniShareNum?: FloatFieldUpdateOperationsInput | number
+    maxShareNum?: FloatFieldUpdateOperationsInput | number
+    dollarStatus?: BoolFieldUpdateOperationsInput | boolean
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayerCreateInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUpdateInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerCreateManyInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+  }
+
+  export type PlayerUpdateManyMutationInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlayerUncheckedUpdateManyInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GamesCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+  }
+
+  export type GamesUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+  }
+
+  export type GamesCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+  }
+
+  export type GamesUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+  }
+
+  export type GamesUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+  }
+
+  export type GameAssetsCreateInput = {
+    id?: string
+    platform: string
+    path?: string | null
+    version?: number | null
+    Game?: GamesCreateNestedOneWithoutGameAssetsInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GameAssetsUncheckedCreateInput = {
+    id?: string
+    game_id?: string | null
+    platform: string
+    path?: string | null
+    version?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GameAssetsUpdateInput = {
+    platform?: StringFieldUpdateOperationsInput | string
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    Game?: GamesUpdateOneWithoutGameAssetsNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameAssetsUncheckedUpdateInput = {
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    platform?: StringFieldUpdateOperationsInput | string
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameAssetsCreateManyInput = {
+    id?: string
+    game_id?: string | null
+    platform: string
+    path?: string | null
+    version?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GameAssetsUpdateManyMutationInput = {
+    platform?: StringFieldUpdateOperationsInput | string
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameAssetsUncheckedUpdateManyInput = {
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    platform?: StringFieldUpdateOperationsInput | string
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActiveGamePlayCreateInput = {
+    id?: string
+    Player?: PlayerCreateNestedOneWithoutActiveGamePlayInput
+    Game?: GamesCreateNestedOneWithoutActiveGamePlayInput
+    maxWin?: number
+    startedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ActiveGamePlayUncheckedCreateInput = {
+    id?: string
+    player_id: string
+    game_id: string
+    maxWin?: number
+    startedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ActiveGamePlayUpdateInput = {
+    Player?: PlayerUpdateOneWithoutActiveGamePlayNestedInput
+    Game?: GamesUpdateOneWithoutActiveGamePlayNestedInput
+    maxWin?: FloatFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActiveGamePlayUncheckedUpdateInput = {
+    player_id?: StringFieldUpdateOperationsInput | string
+    game_id?: StringFieldUpdateOperationsInput | string
+    maxWin?: FloatFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActiveGamePlayCreateManyInput = {
+    id?: string
+    player_id: string
+    game_id: string
+    maxWin?: number
+    startedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ActiveGamePlayUpdateManyMutationInput = {
+    maxWin?: FloatFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActiveGamePlayUncheckedUpdateManyInput = {
+    player_id?: StringFieldUpdateOperationsInput | string
+    game_id?: StringFieldUpdateOperationsInput | string
+    maxWin?: FloatFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotTransactionsCreateInput = {
+    id?: string
+    status?: SlotStatus | null
+    Transaction?: GameTransactionsCreateNestedOneWithoutSlotTransactionsInput
+    createdAt?: Date | string
+  }
+
+  export type SlotTransactionsUncheckedCreateInput = {
+    id?: string
+    transaction_id?: string | null
+    status?: SlotStatus | null
+    createdAt?: Date | string
+  }
+
+  export type SlotTransactionsUpdateInput = {
+    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
+    Transaction?: GameTransactionsUpdateOneWithoutSlotTransactionsNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotTransactionsUncheckedUpdateInput = {
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotTransactionsCreateManyInput = {
+    id?: string
+    transaction_id?: string | null
+    status?: SlotStatus | null
+    createdAt?: Date | string
+  }
+
+  export type SlotTransactionsUpdateManyMutationInput = {
+    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotTransactionsUncheckedUpdateManyInput = {
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionsCreateInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    Game?: GamesCreateNestedOneWithoutGameTransactionInput
+    Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
+    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
+    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
+  }
+
+  export type GameTransactionsUncheckedCreateInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    game_id?: string | null
+    player_id?: string | null
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+    fish_transaction_id?: string | null
+  }
+
+  export type GameTransactionsUpdateInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Game?: GamesUpdateOneWithoutGameTransactionNestedInput
+    Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
+    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
+    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
+  }
+
+  export type GameTransactionsUncheckedUpdateInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GameTransactionsCreateManyInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    game_id?: string | null
+    player_id?: string | null
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    room_id?: string | null
+    fish_transaction_id?: string | null
+  }
+
+  export type GameTransactionsUpdateManyMutationInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GameTransactionsUncheckedUpdateManyInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FishGameTransactionsCreateInput = {
+    id?: string
+    room_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+    Game?: GamesCreateNestedOneWithoutFishGameTransactionsInput
+    Player?: PlayerCreateNestedOneWithoutFishGameTransactionsInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutFishGameTransactionsInput
+  }
+
+  export type FishGameTransactionsUncheckedCreateInput = {
+    id?: string
+    room_id?: string | null
+    player_id?: string | null
+    game_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutFishGameTransactionsInput
+  }
+
+  export type FishGameTransactionsUpdateInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Game?: GamesUpdateOneWithoutFishGameTransactionsNestedInput
+    Player?: PlayerUpdateOneWithoutFishGameTransactionsNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutFishGameTransactionsNestedInput
+  }
+
+  export type FishGameTransactionsUncheckedUpdateInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsNestedInput
+  }
+
+  export type FishGameTransactionsCreateManyInput = {
+    id?: string
+    room_id?: string | null
+    player_id?: string | null
+    game_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+  }
+
+  export type FishGameTransactionsUpdateManyMutationInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type FishGameTransactionsUncheckedUpdateManyInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SlotFreeBonusCreateInput = {
+    id?: string
+    bonus?: boolean
+    free_game?: boolean
+    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: number | null
+    remaining_spin?: number | null
+    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
+    start_balance: number
+    won_amount?: number | null
+    price_used?: number | null
+    max_win_amount?: number | null
+    no_of_win_round?: number | null
+    multiplier?: number | null
+    free_round_win?: InputJsonValue | null
+    Player?: PlayerCreateNestedOneWithoutSlotFreeBonusInput
+    Game?: GamesCreateNestedOneWithoutSlotFreeBonusInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlotFreeBonusUncheckedCreateInput = {
+    id?: string
+    bonus?: boolean
+    free_game?: boolean
+    player_id: string
+    game_id: string
+    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: number | null
+    remaining_spin?: number | null
+    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
+    start_balance: number
+    won_amount?: number | null
+    price_used?: number | null
+    max_win_amount?: number | null
+    no_of_win_round?: number | null
+    multiplier?: number | null
+    free_round_win?: InputJsonValue | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlotFreeBonusUpdateInput = {
+    bonus?: BoolFieldUpdateOperationsInput | boolean
+    free_game?: BoolFieldUpdateOperationsInput | boolean
+    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
+    start_balance?: FloatFieldUpdateOperationsInput | number
+    won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_used?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_win_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    no_of_win_round?: NullableIntFieldUpdateOperationsInput | number | null
+    multiplier?: NullableIntFieldUpdateOperationsInput | number | null
+    free_round_win?: InputJsonValue | InputJsonValue | null
+    Player?: PlayerUpdateOneWithoutSlotFreeBonusNestedInput
+    Game?: GamesUpdateOneWithoutSlotFreeBonusNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotFreeBonusUncheckedUpdateInput = {
+    bonus?: BoolFieldUpdateOperationsInput | boolean
+    free_game?: BoolFieldUpdateOperationsInput | boolean
+    player_id?: StringFieldUpdateOperationsInput | string
+    game_id?: StringFieldUpdateOperationsInput | string
+    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
+    start_balance?: FloatFieldUpdateOperationsInput | number
+    won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_used?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_win_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    no_of_win_round?: NullableIntFieldUpdateOperationsInput | number | null
+    multiplier?: NullableIntFieldUpdateOperationsInput | number | null
+    free_round_win?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotFreeBonusCreateManyInput = {
+    id?: string
+    bonus?: boolean
+    free_game?: boolean
+    player_id: string
+    game_id: string
+    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: number | null
+    remaining_spin?: number | null
+    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
+    start_balance: number
+    won_amount?: number | null
+    price_used?: number | null
+    max_win_amount?: number | null
+    no_of_win_round?: number | null
+    multiplier?: number | null
+    free_round_win?: InputJsonValue | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlotFreeBonusUpdateManyMutationInput = {
+    bonus?: BoolFieldUpdateOperationsInput | boolean
+    free_game?: BoolFieldUpdateOperationsInput | boolean
+    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
+    start_balance?: FloatFieldUpdateOperationsInput | number
+    won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_used?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_win_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    no_of_win_round?: NullableIntFieldUpdateOperationsInput | number | null
+    multiplier?: NullableIntFieldUpdateOperationsInput | number | null
+    free_round_win?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotFreeBonusUncheckedUpdateManyInput = {
+    bonus?: BoolFieldUpdateOperationsInput | boolean
+    free_game?: BoolFieldUpdateOperationsInput | boolean
+    player_id?: StringFieldUpdateOperationsInput | string
+    game_id?: StringFieldUpdateOperationsInput | string
+    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
+    start_balance?: FloatFieldUpdateOperationsInput | number
+    won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_used?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_win_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    no_of_win_round?: NullableIntFieldUpdateOperationsInput | number | null
+    multiplier?: NullableIntFieldUpdateOperationsInput | number | null
+    free_round_win?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenCreateInput = {
+    id?: string
+    token: string
+    blacklisted?: boolean
+  }
+
+  export type RefreshTokenUncheckedCreateInput = {
+    id?: string
+    token: string
+    blacklisted?: boolean
+  }
+
+  export type RefreshTokenUpdateInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    blacklisted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RefreshTokenUncheckedUpdateInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    blacklisted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RefreshTokenCreateManyInput = {
+    id?: string
+    token: string
+    blacklisted?: boolean
+  }
+
+  export type RefreshTokenUpdateManyMutationInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    blacklisted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RefreshTokenUncheckedUpdateManyInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    blacklisted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PlayerBalanceTransactionsCreateInput = {
+    id?: string
+    beforeRecharge: number
+    recharged: number
+    redeem?: number
+    afterRecharge: number
+    ip_address?: string | null
+    income?: number
+    remark?: string | null
+    createdAt?: Date | string
+    Player?: PlayerCreateNestedOneWithoutPlayerBalanceTransactionsInput
+    Admin?: AdminCreateNestedOneWithoutPlayerBalanceTransactionsInput
+  }
+
+  export type PlayerBalanceTransactionsUncheckedCreateInput = {
+    id?: string
+    admin?: string | null
+    player?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeem?: number
+    afterRecharge: number
+    ip_address?: string | null
+    income?: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PlayerBalanceTransactionsUpdateInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeem?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    income?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Player?: PlayerUpdateOneWithoutPlayerBalanceTransactionsNestedInput
+    Admin?: AdminUpdateOneWithoutPlayerBalanceTransactionsNestedInput
+  }
+
+  export type PlayerBalanceTransactionsUncheckedUpdateInput = {
+    admin?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeem?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    income?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayerBalanceTransactionsCreateManyInput = {
+    id?: string
+    admin?: string | null
+    player?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeem?: number
+    afterRecharge: number
+    ip_address?: string | null
+    income?: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PlayerBalanceTransactionsUpdateManyMutationInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeem?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    income?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayerBalanceTransactionsUncheckedUpdateManyInput = {
+    admin?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeem?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    income?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StringFilter = {
+    equals?: string
+    in?: Enumerable<string>
+    notIn?: Enumerable<string>
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringFilter | string
+  }
+
+  export type StringNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringNullableFilter | string | null
+    isSet?: boolean
+  }
+
+  export type FloatFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatFilter | number
+  }
+
+  export type EnumAccountStatusFilter = {
+    equals?: AccountStatus
+    in?: Enumerable<AccountStatus>
+    notIn?: Enumerable<AccountStatus>
+    not?: NestedEnumAccountStatusFilter | AccountStatus
+  }
+
+  export type EnumAccountTypeNullableFilter = {
+    equals?: AccountType | null
+    in?: Enumerable<AccountType> | null
+    notIn?: Enumerable<AccountType> | null
+    not?: NestedEnumAccountTypeNullableFilter | AccountType | null
+    isSet?: boolean
+  }
+
+  export type SettingsRelationFilter = {
+    is?: SettingsWhereInput | null
+    isNot?: SettingsWhereInput | null
+  }
+
+  export type DateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
+  }
+
+  export type AdminRelationFilter = {
+    is?: AdminWhereInput | null
+    isNot?: AdminWhereInput | null
+  }
+
+  export type AdminListRelationFilter = {
+    every?: AdminWhereInput
+    some?: AdminWhereInput
+    none?: AdminWhereInput
+  }
+
+  export type AdminBalanceTransactionsListRelationFilter = {
+    every?: AdminBalanceTransactionsWhereInput
+    some?: AdminBalanceTransactionsWhereInput
+    none?: AdminBalanceTransactionsWhereInput
+  }
+
+  export type PlayerListRelationFilter = {
+    every?: PlayerWhereInput
+    some?: PlayerWhereInput
+    none?: PlayerWhereInput
+  }
+
+  export type PlayerBalanceTransactionsListRelationFilter = {
+    every?: PlayerBalanceTransactionsWhereInput
+    some?: PlayerBalanceTransactionsWhereInput
+    none?: PlayerBalanceTransactionsWhereInput
+  }
+
+  export type GameTransactionsListRelationFilter = {
+    every?: GameTransactionsWhereInput
+    some?: GameTransactionsWhereInput
+    none?: GameTransactionsWhereInput
+  }
+
+  export type IntFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntFilter | number
+  }
+
+  export type AdminOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AdminBalanceTransactionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlayerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlayerBalanceTransactionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameTransactionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AdminCountOrderByAggregateInput = {
+    id?: SortOrder
+    email_id?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    balance?: SortOrder
+    setting_id?: SortOrder
+    status?: SortOrder
+    account_type?: SortOrder
+    timezone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    created_by?: SortOrder
+    holding?: SortOrder
+    totalSpent?: SortOrder
+    totalRedeem?: SortOrder
+    totalLost?: SortOrder
+  }
+
+  export type AdminAvgOrderByAggregateInput = {
+    balance?: SortOrder
+    holding?: SortOrder
+    totalSpent?: SortOrder
+    totalRedeem?: SortOrder
+    totalLost?: SortOrder
+  }
+
+  export type AdminMaxOrderByAggregateInput = {
+    id?: SortOrder
+    email_id?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    balance?: SortOrder
+    setting_id?: SortOrder
+    status?: SortOrder
+    account_type?: SortOrder
+    timezone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    created_by?: SortOrder
+    holding?: SortOrder
+    totalSpent?: SortOrder
+    totalRedeem?: SortOrder
+    totalLost?: SortOrder
+  }
+
+  export type AdminMinOrderByAggregateInput = {
+    id?: SortOrder
+    email_id?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    balance?: SortOrder
+    setting_id?: SortOrder
+    status?: SortOrder
+    account_type?: SortOrder
+    timezone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    created_by?: SortOrder
+    holding?: SortOrder
+    totalSpent?: SortOrder
+    totalRedeem?: SortOrder
+    totalLost?: SortOrder
+  }
+
+  export type AdminSumOrderByAggregateInput = {
+    balance?: SortOrder
+    holding?: SortOrder
+    totalSpent?: SortOrder
+    totalRedeem?: SortOrder
+    totalLost?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter = {
+    equals?: string
+    in?: Enumerable<string>
+    notIn?: Enumerable<string>
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter | string
+    _count?: NestedIntFilter
+    _min?: NestedStringFilter
+    _max?: NestedStringFilter
+  }
+
+  export type StringNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
+    isSet?: boolean
+  }
+
+  export type FloatWithAggregatesFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatWithAggregatesFilter | number
+    _count?: NestedIntFilter
+    _avg?: NestedFloatFilter
+    _sum?: NestedFloatFilter
+    _min?: NestedFloatFilter
+    _max?: NestedFloatFilter
+  }
+
+  export type EnumAccountStatusWithAggregatesFilter = {
+    equals?: AccountStatus
+    in?: Enumerable<AccountStatus>
+    notIn?: Enumerable<AccountStatus>
+    not?: NestedEnumAccountStatusWithAggregatesFilter | AccountStatus
+    _count?: NestedIntFilter
+    _min?: NestedEnumAccountStatusFilter
+    _max?: NestedEnumAccountStatusFilter
+  }
+
+  export type EnumAccountTypeNullableWithAggregatesFilter = {
+    equals?: AccountType | null
+    in?: Enumerable<AccountType> | null
+    notIn?: Enumerable<AccountType> | null
+    not?: NestedEnumAccountTypeNullableWithAggregatesFilter | AccountType | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedEnumAccountTypeNullableFilter
+    _max?: NestedEnumAccountTypeNullableFilter
+    isSet?: boolean
+  }
+
+  export type DateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
+  }
+
+  export type IntWithAggregatesFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntWithAggregatesFilter | number
+    _count?: NestedIntFilter
+    _avg?: NestedFloatFilter
+    _sum?: NestedIntFilter
+    _min?: NestedIntFilter
+    _max?: NestedIntFilter
+  }
+
+  export type AdminBalanceTransactionsCountOrderByAggregateInput = {
+    id?: SortOrder
+    account?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeemed?: SortOrder
+    afterRecharge?: SortOrder
+    cashier?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AdminBalanceTransactionsAvgOrderByAggregateInput = {
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeemed?: SortOrder
+    afterRecharge?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+  }
+
+  export type AdminBalanceTransactionsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    account?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeemed?: SortOrder
+    afterRecharge?: SortOrder
+    cashier?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AdminBalanceTransactionsMinOrderByAggregateInput = {
+    id?: SortOrder
+    account?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeemed?: SortOrder
+    afterRecharge?: SortOrder
+    cashier?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AdminBalanceTransactionsSumOrderByAggregateInput = {
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeemed?: SortOrder
+    afterRecharge?: SortOrder
+    balanceBefore?: SortOrder
+    balanceAfter?: SortOrder
+  }
+
+  export type BoolFilter = {
+    equals?: boolean
+    not?: NestedBoolFilter | boolean
+  }
+
+  export type PlayerRelationFilter = {
+    is?: PlayerWhereInput | null
+    isNot?: PlayerWhereInput | null
+  }
+
+  export type SettingsCountOrderByAggregateInput = {
+    id?: SortOrder
+    grandJP?: SortOrder
+    grandJP_limit?: SortOrder
+    majorJP?: SortOrder
+    majorJP_limit?: SortOrder
+    minorJP?: SortOrder
+    minorJP_limit?: SortOrder
+    miniJP?: SortOrder
+    miniJP_limit?: SortOrder
+    grandScore?: SortOrder
+    majorScore?: SortOrder
+    minorScore?: SortOrder
+    miniScore?: SortOrder
+    miniShareNum?: SortOrder
+    maxShareNum?: SortOrder
+    dollarStatus?: SortOrder
+    account_type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SettingsAvgOrderByAggregateInput = {
+    grandJP_limit?: SortOrder
+    majorJP_limit?: SortOrder
+    minorJP_limit?: SortOrder
+    miniJP_limit?: SortOrder
+    grandScore?: SortOrder
+    majorScore?: SortOrder
+    minorScore?: SortOrder
+    miniScore?: SortOrder
+    miniShareNum?: SortOrder
+    maxShareNum?: SortOrder
+  }
+
+  export type SettingsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    grandJP?: SortOrder
+    grandJP_limit?: SortOrder
+    majorJP?: SortOrder
+    majorJP_limit?: SortOrder
+    minorJP?: SortOrder
+    minorJP_limit?: SortOrder
+    miniJP?: SortOrder
+    miniJP_limit?: SortOrder
+    grandScore?: SortOrder
+    majorScore?: SortOrder
+    minorScore?: SortOrder
+    miniScore?: SortOrder
+    miniShareNum?: SortOrder
+    maxShareNum?: SortOrder
+    dollarStatus?: SortOrder
+    account_type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SettingsMinOrderByAggregateInput = {
+    id?: SortOrder
+    grandJP?: SortOrder
+    grandJP_limit?: SortOrder
+    majorJP?: SortOrder
+    majorJP_limit?: SortOrder
+    minorJP?: SortOrder
+    minorJP_limit?: SortOrder
+    miniJP?: SortOrder
+    miniJP_limit?: SortOrder
+    grandScore?: SortOrder
+    majorScore?: SortOrder
+    minorScore?: SortOrder
+    miniScore?: SortOrder
+    miniShareNum?: SortOrder
+    maxShareNum?: SortOrder
+    dollarStatus?: SortOrder
+    account_type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SettingsSumOrderByAggregateInput = {
+    grandJP_limit?: SortOrder
+    majorJP_limit?: SortOrder
+    minorJP_limit?: SortOrder
+    miniJP_limit?: SortOrder
+    grandScore?: SortOrder
+    majorScore?: SortOrder
+    minorScore?: SortOrder
+    miniScore?: SortOrder
+    miniShareNum?: SortOrder
+    maxShareNum?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter = {
+    equals?: boolean
+    not?: NestedBoolWithAggregatesFilter | boolean
+    _count?: NestedIntFilter
+    _min?: NestedBoolFilter
+    _max?: NestedBoolFilter
+  }
+
+  export type IntNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableFilter | number | null
+    isSet?: boolean
+  }
+
+  export type ActiveGamePlayRelationFilter = {
+    is?: ActiveGamePlayWhereInput | null
+    isNot?: ActiveGamePlayWhereInput | null
+  }
+
+  export type FishGameTransactionsListRelationFilter = {
+    every?: FishGameTransactionsWhereInput
+    some?: FishGameTransactionsWhereInput
+    none?: FishGameTransactionsWhereInput
+  }
+
+  export type SlotFreeBonusListRelationFilter = {
+    every?: SlotFreeBonusWhereInput
+    some?: SlotFreeBonusWhereInput
+    none?: SlotFreeBonusWhereInput
+  }
+
+  export type FishGameTransactionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SlotFreeBonusOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlayerCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    phone_number?: SortOrder
+    country_code?: SortOrder
+    status?: SortOrder
+    balance?: SortOrder
+    game_played?: SortOrder
+    won?: SortOrder
+    spent?: SortOrder
+    won_total?: SortOrder
+    spent_total?: SortOrder
+    grandJP_won?: SortOrder
+    grandJP_won_count?: SortOrder
+    majorJP_won?: SortOrder
+    majorJP_won_count?: SortOrder
+    minorJP_won?: SortOrder
+    minorJP_won_count?: SortOrder
+    miniJP_won?: SortOrder
+    miniJP_won_count?: SortOrder
+    general_won?: SortOrder
+    general_won_count?: SortOrder
+    setting_id?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type PlayerAvgOrderByAggregateInput = {
+    phone_number?: SortOrder
+    balance?: SortOrder
+    game_played?: SortOrder
+    won?: SortOrder
+    spent?: SortOrder
+    won_total?: SortOrder
+    spent_total?: SortOrder
+    grandJP_won?: SortOrder
+    grandJP_won_count?: SortOrder
+    majorJP_won?: SortOrder
+    majorJP_won_count?: SortOrder
+    minorJP_won?: SortOrder
+    minorJP_won_count?: SortOrder
+    miniJP_won?: SortOrder
+    miniJP_won_count?: SortOrder
+    general_won?: SortOrder
+    general_won_count?: SortOrder
+  }
+
+  export type PlayerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    phone_number?: SortOrder
+    country_code?: SortOrder
+    status?: SortOrder
+    balance?: SortOrder
+    game_played?: SortOrder
+    won?: SortOrder
+    spent?: SortOrder
+    won_total?: SortOrder
+    spent_total?: SortOrder
+    grandJP_won?: SortOrder
+    grandJP_won_count?: SortOrder
+    majorJP_won?: SortOrder
+    majorJP_won_count?: SortOrder
+    minorJP_won?: SortOrder
+    minorJP_won_count?: SortOrder
+    miniJP_won?: SortOrder
+    miniJP_won_count?: SortOrder
+    general_won?: SortOrder
+    general_won_count?: SortOrder
+    setting_id?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type PlayerMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    username?: SortOrder
+    password?: SortOrder
+    phone_number?: SortOrder
+    country_code?: SortOrder
+    status?: SortOrder
+    balance?: SortOrder
+    game_played?: SortOrder
+    won?: SortOrder
+    spent?: SortOrder
+    won_total?: SortOrder
+    spent_total?: SortOrder
+    grandJP_won?: SortOrder
+    grandJP_won_count?: SortOrder
+    majorJP_won?: SortOrder
+    majorJP_won_count?: SortOrder
+    minorJP_won?: SortOrder
+    minorJP_won_count?: SortOrder
+    miniJP_won?: SortOrder
+    miniJP_won_count?: SortOrder
+    general_won?: SortOrder
+    general_won_count?: SortOrder
+    setting_id?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type PlayerSumOrderByAggregateInput = {
+    phone_number?: SortOrder
+    balance?: SortOrder
+    game_played?: SortOrder
+    won?: SortOrder
+    spent?: SortOrder
+    won_total?: SortOrder
+    spent_total?: SortOrder
+    grandJP_won?: SortOrder
+    grandJP_won_count?: SortOrder
+    majorJP_won?: SortOrder
+    majorJP_won_count?: SortOrder
+    minorJP_won?: SortOrder
+    minorJP_won_count?: SortOrder
+    miniJP_won?: SortOrder
+    miniJP_won_count?: SortOrder
+    general_won?: SortOrder
+    general_won_count?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableWithAggregatesFilter | number | null
+    _count?: NestedIntNullableFilter
+    _avg?: NestedFloatNullableFilter
+    _sum?: NestedIntNullableFilter
+    _min?: NestedIntNullableFilter
+    _max?: NestedIntNullableFilter
+    isSet?: boolean
+  }
+
+  export type EnumAccountStatusNullableFilter = {
+    equals?: AccountStatus | null
+    in?: Enumerable<AccountStatus> | null
+    notIn?: Enumerable<AccountStatus> | null
+    not?: NestedEnumAccountStatusNullableFilter | AccountStatus | null
+    isSet?: boolean
+  }
+
+  export type ActiveGamePlayListRelationFilter = {
+    every?: ActiveGamePlayWhereInput
+    some?: ActiveGamePlayWhereInput
+    none?: ActiveGamePlayWhereInput
+  }
+
+  export type GameAssetsListRelationFilter = {
+    every?: GameAssetsWhereInput
+    some?: GameAssetsWhereInput
+    none?: GameAssetsWhereInput
+  }
+
+  export type ActiveGamePlayOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameAssetsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GamesCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    played?: SortOrder
+    status?: SortOrder
+  }
+
+  export type GamesAvgOrderByAggregateInput = {
+    played?: SortOrder
+  }
+
+  export type GamesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    played?: SortOrder
+    status?: SortOrder
+  }
+
+  export type GamesMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    played?: SortOrder
+    status?: SortOrder
+  }
+
+  export type GamesSumOrderByAggregateInput = {
+    played?: SortOrder
+  }
+
+  export type EnumAccountStatusNullableWithAggregatesFilter = {
+    equals?: AccountStatus | null
+    in?: Enumerable<AccountStatus> | null
+    notIn?: Enumerable<AccountStatus> | null
+    not?: NestedEnumAccountStatusNullableWithAggregatesFilter | AccountStatus | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedEnumAccountStatusNullableFilter
+    _max?: NestedEnumAccountStatusNullableFilter
+    isSet?: boolean
+  }
+
+  export type GamesRelationFilter = {
+    is?: GamesWhereInput | null
+    isNot?: GamesWhereInput | null
+  }
+
+  export type GameAssetsCountOrderByAggregateInput = {
+    id?: SortOrder
+    game_id?: SortOrder
+    platform?: SortOrder
+    path?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GameAssetsAvgOrderByAggregateInput = {
+    version?: SortOrder
+  }
+
+  export type GameAssetsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    game_id?: SortOrder
+    platform?: SortOrder
+    path?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GameAssetsMinOrderByAggregateInput = {
+    id?: SortOrder
+    game_id?: SortOrder
+    platform?: SortOrder
+    path?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GameAssetsSumOrderByAggregateInput = {
+    version?: SortOrder
+  }
+
+  export type ActiveGamePlayCountOrderByAggregateInput = {
+    id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    maxWin?: SortOrder
+    startedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ActiveGamePlayAvgOrderByAggregateInput = {
+    maxWin?: SortOrder
+  }
+
+  export type ActiveGamePlayMaxOrderByAggregateInput = {
+    id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    maxWin?: SortOrder
+    startedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ActiveGamePlayMinOrderByAggregateInput = {
+    id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    maxWin?: SortOrder
+    startedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ActiveGamePlaySumOrderByAggregateInput = {
+    maxWin?: SortOrder
+  }
+
+  export type EnumSlotStatusNullableFilter = {
+    equals?: SlotStatus | null
+    in?: Enumerable<SlotStatus> | null
+    notIn?: Enumerable<SlotStatus> | null
+    not?: NestedEnumSlotStatusNullableFilter | SlotStatus | null
+    isSet?: boolean
+  }
+
+  export type GameTransactionsRelationFilter = {
+    is?: GameTransactionsWhereInput | null
+    isNot?: GameTransactionsWhereInput | null
+  }
+
+  export type SlotTransactionsCountOrderByAggregateInput = {
+    id?: SortOrder
+    transaction_id?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SlotTransactionsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    transaction_id?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SlotTransactionsMinOrderByAggregateInput = {
+    id?: SortOrder
+    transaction_id?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumSlotStatusNullableWithAggregatesFilter = {
+    equals?: SlotStatus | null
+    in?: Enumerable<SlotStatus> | null
+    notIn?: Enumerable<SlotStatus> | null
+    not?: NestedEnumSlotStatusNullableWithAggregatesFilter | SlotStatus | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedEnumSlotStatusNullableFilter
+    _max?: NestedEnumSlotStatusNullableFilter
+    isSet?: boolean
+  }
+
+  export type FloatNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatNullableFilter | number | null
+    isSet?: boolean
+  }
+
+  export type DateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+    isSet?: boolean
+  }
+
+  export type SlotTransactionsListRelationFilter = {
+    every?: SlotTransactionsWhereInput
+    some?: SlotTransactionsWhereInput
+    none?: SlotTransactionsWhereInput
+  }
+
+  export type FishGameTransactionsRelationFilter = {
+    is?: FishGameTransactionsWhereInput | null
+    isNot?: FishGameTransactionsWhereInput | null
+  }
+
+  export type SlotTransactionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameTransactionsCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    player?: SortOrder
+    game?: SortOrder
+    spent?: SortOrder
+    won?: SortOrder
+    winType?: SortOrder
+    game_id?: SortOrder
+    player_id?: SortOrder
+    user_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    room_id?: SortOrder
+    fish_transaction_id?: SortOrder
+  }
+
+  export type GameTransactionsAvgOrderByAggregateInput = {
+    spent?: SortOrder
+    won?: SortOrder
+  }
+
+  export type GameTransactionsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    player?: SortOrder
+    game?: SortOrder
+    spent?: SortOrder
+    won?: SortOrder
+    winType?: SortOrder
+    game_id?: SortOrder
+    player_id?: SortOrder
+    user_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    room_id?: SortOrder
+    fish_transaction_id?: SortOrder
+  }
+
+  export type GameTransactionsMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    player?: SortOrder
+    game?: SortOrder
+    spent?: SortOrder
+    won?: SortOrder
+    winType?: SortOrder
+    game_id?: SortOrder
+    player_id?: SortOrder
+    user_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    room_id?: SortOrder
+    fish_transaction_id?: SortOrder
+  }
+
+  export type GameTransactionsSumOrderByAggregateInput = {
+    spent?: SortOrder
+    won?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatNullableWithAggregatesFilter | number | null
+    _count?: NestedIntNullableFilter
+    _avg?: NestedFloatNullableFilter
+    _sum?: NestedFloatNullableFilter
+    _min?: NestedFloatNullableFilter
+    _max?: NestedFloatNullableFilter
+    isSet?: boolean
+  }
+
+  export type DateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
+    isSet?: boolean
+  }
+
+  export type FishGameTransactionsCountOrderByAggregateInput = {
+    id?: SortOrder
+    room_id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    started?: SortOrder
+    ended?: SortOrder
+  }
+
+  export type FishGameTransactionsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    room_id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    started?: SortOrder
+    ended?: SortOrder
+  }
+
+  export type FishGameTransactionsMinOrderByAggregateInput = {
+    id?: SortOrder
+    room_id?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    started?: SortOrder
+    ended?: SortOrder
+  }
+  export type JsonNullableListFilter = 
+    | PatchUndefined<
+        Either<Required<JsonNullableListFilterBase>, Exclude<keyof Required<JsonNullableListFilterBase>, 'path'>>,
+        Required<JsonNullableListFilterBase>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableListFilterBase>, 'path'>>
+
+  export type JsonNullableListFilterBase = {
+    equals?: Enumerable<InputJsonValue> | null
+    has?: InputJsonValue | null
+    hasEvery?: Enumerable<InputJsonValue>
+    hasSome?: Enumerable<InputJsonValue>
+    isEmpty?: boolean
+  }
+  export type JsonNullableFilter = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase>, Exclude<keyof Required<JsonNullableFilterBase>, 'path'>>,
+        Required<JsonNullableFilterBase>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase>, 'path'>>
+
+  export type JsonNullableFilterBase = {
+    equals?: InputJsonValue | null
+    not?: InputJsonValue | null
+    isSet?: boolean
+  }
+
+  export type SlotFreeBonusCountOrderByAggregateInput = {
+    id?: SortOrder
+    bonus?: SortOrder
+    free_game?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    matrix?: SortOrder
+    bonus_pos_matrix?: SortOrder
+    total_spin?: SortOrder
+    remaining_spin?: SortOrder
+    unlocked?: SortOrder
+    start_balance?: SortOrder
+    won_amount?: SortOrder
+    price_used?: SortOrder
+    max_win_amount?: SortOrder
+    no_of_win_round?: SortOrder
+    multiplier?: SortOrder
+    free_round_win?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SlotFreeBonusAvgOrderByAggregateInput = {
+    total_spin?: SortOrder
+    remaining_spin?: SortOrder
+    start_balance?: SortOrder
+    won_amount?: SortOrder
+    price_used?: SortOrder
+    max_win_amount?: SortOrder
+    no_of_win_round?: SortOrder
+    multiplier?: SortOrder
+  }
+
+  export type SlotFreeBonusMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bonus?: SortOrder
+    free_game?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    total_spin?: SortOrder
+    remaining_spin?: SortOrder
+    start_balance?: SortOrder
+    won_amount?: SortOrder
+    price_used?: SortOrder
+    max_win_amount?: SortOrder
+    no_of_win_round?: SortOrder
+    multiplier?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SlotFreeBonusMinOrderByAggregateInput = {
+    id?: SortOrder
+    bonus?: SortOrder
+    free_game?: SortOrder
+    player_id?: SortOrder
+    game_id?: SortOrder
+    total_spin?: SortOrder
+    remaining_spin?: SortOrder
+    start_balance?: SortOrder
+    won_amount?: SortOrder
+    price_used?: SortOrder
+    max_win_amount?: SortOrder
+    no_of_win_round?: SortOrder
+    multiplier?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SlotFreeBonusSumOrderByAggregateInput = {
+    total_spin?: SortOrder
+    remaining_spin?: SortOrder
+    start_balance?: SortOrder
+    won_amount?: SortOrder
+    price_used?: SortOrder
+    max_win_amount?: SortOrder
+    no_of_win_round?: SortOrder
+    multiplier?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase = {
+    equals?: InputJsonValue | null
+    not?: InputJsonValue | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedJsonNullableFilter
+    _max?: NestedJsonNullableFilter
+    isSet?: boolean
+  }
+
+  export type RefreshTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    blacklisted?: SortOrder
+  }
+
+  export type RefreshTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    blacklisted?: SortOrder
+  }
+
+  export type RefreshTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    blacklisted?: SortOrder
+  }
+
+  export type PlayerBalanceTransactionsCountOrderByAggregateInput = {
+    id?: SortOrder
+    admin?: SortOrder
+    player?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeem?: SortOrder
+    afterRecharge?: SortOrder
+    ip_address?: SortOrder
+    income?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PlayerBalanceTransactionsAvgOrderByAggregateInput = {
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeem?: SortOrder
+    afterRecharge?: SortOrder
+    income?: SortOrder
+  }
+
+  export type PlayerBalanceTransactionsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    admin?: SortOrder
+    player?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeem?: SortOrder
+    afterRecharge?: SortOrder
+    ip_address?: SortOrder
+    income?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PlayerBalanceTransactionsMinOrderByAggregateInput = {
+    id?: SortOrder
+    admin?: SortOrder
+    player?: SortOrder
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeem?: SortOrder
+    afterRecharge?: SortOrder
+    ip_address?: SortOrder
+    income?: SortOrder
+    remark?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PlayerBalanceTransactionsSumOrderByAggregateInput = {
+    beforeRecharge?: SortOrder
+    recharged?: SortOrder
+    redeem?: SortOrder
+    afterRecharge?: SortOrder
+    income?: SortOrder
+  }
+
+  export type SettingsCreateNestedOneWithoutAdminInput = {
+    create?: XOR<SettingsCreateWithoutAdminInput, SettingsUncheckedCreateWithoutAdminInput>
+    connectOrCreate?: SettingsCreateOrConnectWithoutAdminInput
+    connect?: SettingsWhereUniqueInput
+  }
+
+  export type AdminCreateNestedOneWithoutUserInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type AdminCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
+    connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
+    createMany?: AdminCreateManyCreatedByInputEnvelope
+    connect?: Enumerable<AdminWhereUniqueInput>
+  }
+
+  export type AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput = {
+    create?: XOR<Enumerable<AdminBalanceTransactionsCreateWithoutAccount_userInput>, Enumerable<AdminBalanceTransactionsUncheckedCreateWithoutAccount_userInput>>
+    connectOrCreate?: Enumerable<AdminBalanceTransactionsCreateOrConnectWithoutAccount_userInput>
+    createMany?: AdminBalanceTransactionsCreateManyAccount_userInputEnvelope
+    connect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+  }
+
+  export type AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput = {
+    create?: XOR<Enumerable<AdminBalanceTransactionsCreateWithoutCashier_userInput>, Enumerable<AdminBalanceTransactionsUncheckedCreateWithoutCashier_userInput>>
+    connectOrCreate?: Enumerable<AdminBalanceTransactionsCreateOrConnectWithoutCashier_userInput>
+    createMany?: AdminBalanceTransactionsCreateManyCashier_userInputEnvelope
+    connect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+  }
+
+  export type PlayerCreateNestedManyWithoutManagerInput = {
+    create?: XOR<Enumerable<PlayerCreateWithoutManagerInput>, Enumerable<PlayerUncheckedCreateWithoutManagerInput>>
+    connectOrCreate?: Enumerable<PlayerCreateOrConnectWithoutManagerInput>
+    createMany?: PlayerCreateManyManagerInputEnvelope
+    connect?: Enumerable<PlayerWhereUniqueInput>
+  }
+
+  export type PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput = {
+    create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutAdminInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutAdminInput>
+    createMany?: PlayerBalanceTransactionsCreateManyAdminInputEnvelope
+    connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+  }
+
+  export type GameTransactionsCreateNestedManyWithoutAdminInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutAdminInput>, Enumerable<GameTransactionsUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutAdminInput>
+    createMany?: GameTransactionsCreateManyAdminInputEnvelope
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+  }
+
+  export type AdminUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
+    connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
+    createMany?: AdminCreateManyCreatedByInputEnvelope
+    connect?: Enumerable<AdminWhereUniqueInput>
+  }
+
+  export type AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput = {
+    create?: XOR<Enumerable<AdminBalanceTransactionsCreateWithoutAccount_userInput>, Enumerable<AdminBalanceTransactionsUncheckedCreateWithoutAccount_userInput>>
+    connectOrCreate?: Enumerable<AdminBalanceTransactionsCreateOrConnectWithoutAccount_userInput>
+    createMany?: AdminBalanceTransactionsCreateManyAccount_userInputEnvelope
+    connect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+  }
+
+  export type AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput = {
+    create?: XOR<Enumerable<AdminBalanceTransactionsCreateWithoutCashier_userInput>, Enumerable<AdminBalanceTransactionsUncheckedCreateWithoutCashier_userInput>>
+    connectOrCreate?: Enumerable<AdminBalanceTransactionsCreateOrConnectWithoutCashier_userInput>
+    createMany?: AdminBalanceTransactionsCreateManyCashier_userInputEnvelope
+    connect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+  }
+
+  export type PlayerUncheckedCreateNestedManyWithoutManagerInput = {
+    create?: XOR<Enumerable<PlayerCreateWithoutManagerInput>, Enumerable<PlayerUncheckedCreateWithoutManagerInput>>
+    connectOrCreate?: Enumerable<PlayerCreateOrConnectWithoutManagerInput>
+    createMany?: PlayerCreateManyManagerInputEnvelope
+    connect?: Enumerable<PlayerWhereUniqueInput>
+  }
+
+  export type PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutAdminInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutAdminInput>
+    createMany?: PlayerBalanceTransactionsCreateManyAdminInputEnvelope
+    connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+  }
+
+  export type GameTransactionsUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutAdminInput>, Enumerable<GameTransactionsUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutAdminInput>
+    createMany?: GameTransactionsCreateManyAdminInputEnvelope
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+    unset?: boolean
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumAccountStatusFieldUpdateOperationsInput = {
+    set?: AccountStatus
+  }
+
+  export type NullableEnumAccountTypeFieldUpdateOperationsInput = {
+    set?: AccountType | null
+    unset?: boolean
+  }
+
+  export type SettingsUpdateOneWithoutAdminNestedInput = {
+    create?: XOR<SettingsCreateWithoutAdminInput, SettingsUncheckedCreateWithoutAdminInput>
+    connectOrCreate?: SettingsCreateOrConnectWithoutAdminInput
+    upsert?: SettingsUpsertWithoutAdminInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: SettingsWhereUniqueInput
+    update?: XOR<SettingsUpdateWithoutAdminInput, SettingsUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type AdminUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    upsert?: AdminUpsertWithoutUserInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutUserInput, AdminUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AdminUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
+    connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
+    upsert?: Enumerable<AdminUpsertWithWhereUniqueWithoutCreatedByInput>
+    createMany?: AdminCreateManyCreatedByInputEnvelope
+    set?: Enumerable<AdminWhereUniqueInput>
+    disconnect?: Enumerable<AdminWhereUniqueInput>
+    delete?: Enumerable<AdminWhereUniqueInput>
+    connect?: Enumerable<AdminWhereUniqueInput>
+    update?: Enumerable<AdminUpdateWithWhereUniqueWithoutCreatedByInput>
+    updateMany?: Enumerable<AdminUpdateManyWithWhereWithoutCreatedByInput>
+    deleteMany?: Enumerable<AdminScalarWhereInput>
+  }
+
+  export type AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput = {
+    create?: XOR<Enumerable<AdminBalanceTransactionsCreateWithoutAccount_userInput>, Enumerable<AdminBalanceTransactionsUncheckedCreateWithoutAccount_userInput>>
+    connectOrCreate?: Enumerable<AdminBalanceTransactionsCreateOrConnectWithoutAccount_userInput>
+    upsert?: Enumerable<AdminBalanceTransactionsUpsertWithWhereUniqueWithoutAccount_userInput>
+    createMany?: AdminBalanceTransactionsCreateManyAccount_userInputEnvelope
+    set?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    delete?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    connect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    update?: Enumerable<AdminBalanceTransactionsUpdateWithWhereUniqueWithoutAccount_userInput>
+    updateMany?: Enumerable<AdminBalanceTransactionsUpdateManyWithWhereWithoutAccount_userInput>
+    deleteMany?: Enumerable<AdminBalanceTransactionsScalarWhereInput>
+  }
+
+  export type AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput = {
+    create?: XOR<Enumerable<AdminBalanceTransactionsCreateWithoutCashier_userInput>, Enumerable<AdminBalanceTransactionsUncheckedCreateWithoutCashier_userInput>>
+    connectOrCreate?: Enumerable<AdminBalanceTransactionsCreateOrConnectWithoutCashier_userInput>
+    upsert?: Enumerable<AdminBalanceTransactionsUpsertWithWhereUniqueWithoutCashier_userInput>
+    createMany?: AdminBalanceTransactionsCreateManyCashier_userInputEnvelope
+    set?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    delete?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    connect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    update?: Enumerable<AdminBalanceTransactionsUpdateWithWhereUniqueWithoutCashier_userInput>
+    updateMany?: Enumerable<AdminBalanceTransactionsUpdateManyWithWhereWithoutCashier_userInput>
+    deleteMany?: Enumerable<AdminBalanceTransactionsScalarWhereInput>
+  }
+
+  export type PlayerUpdateManyWithoutManagerNestedInput = {
+    create?: XOR<Enumerable<PlayerCreateWithoutManagerInput>, Enumerable<PlayerUncheckedCreateWithoutManagerInput>>
+    connectOrCreate?: Enumerable<PlayerCreateOrConnectWithoutManagerInput>
+    upsert?: Enumerable<PlayerUpsertWithWhereUniqueWithoutManagerInput>
+    createMany?: PlayerCreateManyManagerInputEnvelope
+    set?: Enumerable<PlayerWhereUniqueInput>
+    disconnect?: Enumerable<PlayerWhereUniqueInput>
+    delete?: Enumerable<PlayerWhereUniqueInput>
+    connect?: Enumerable<PlayerWhereUniqueInput>
+    update?: Enumerable<PlayerUpdateWithWhereUniqueWithoutManagerInput>
+    updateMany?: Enumerable<PlayerUpdateManyWithWhereWithoutManagerInput>
+    deleteMany?: Enumerable<PlayerScalarWhereInput>
+  }
+
+  export type PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutAdminInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutAdminInput>
+    upsert?: Enumerable<PlayerBalanceTransactionsUpsertWithWhereUniqueWithoutAdminInput>
+    createMany?: PlayerBalanceTransactionsCreateManyAdminInputEnvelope
+    set?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    delete?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    update?: Enumerable<PlayerBalanceTransactionsUpdateWithWhereUniqueWithoutAdminInput>
+    updateMany?: Enumerable<PlayerBalanceTransactionsUpdateManyWithWhereWithoutAdminInput>
+    deleteMany?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
+  }
+
+  export type GameTransactionsUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutAdminInput>, Enumerable<GameTransactionsUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutAdminInput>
+    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutAdminInput>
+    createMany?: GameTransactionsCreateManyAdminInputEnvelope
+    set?: Enumerable<GameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
+    delete?: Enumerable<GameTransactionsWhereUniqueInput>
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutAdminInput>
+    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutAdminInput>
+    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type AdminUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
+    connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
+    upsert?: Enumerable<AdminUpsertWithWhereUniqueWithoutCreatedByInput>
+    createMany?: AdminCreateManyCreatedByInputEnvelope
+    set?: Enumerable<AdminWhereUniqueInput>
+    disconnect?: Enumerable<AdminWhereUniqueInput>
+    delete?: Enumerable<AdminWhereUniqueInput>
+    connect?: Enumerable<AdminWhereUniqueInput>
+    update?: Enumerable<AdminUpdateWithWhereUniqueWithoutCreatedByInput>
+    updateMany?: Enumerable<AdminUpdateManyWithWhereWithoutCreatedByInput>
+    deleteMany?: Enumerable<AdminScalarWhereInput>
+  }
+
+  export type AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput = {
+    create?: XOR<Enumerable<AdminBalanceTransactionsCreateWithoutAccount_userInput>, Enumerable<AdminBalanceTransactionsUncheckedCreateWithoutAccount_userInput>>
+    connectOrCreate?: Enumerable<AdminBalanceTransactionsCreateOrConnectWithoutAccount_userInput>
+    upsert?: Enumerable<AdminBalanceTransactionsUpsertWithWhereUniqueWithoutAccount_userInput>
+    createMany?: AdminBalanceTransactionsCreateManyAccount_userInputEnvelope
+    set?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    delete?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    connect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    update?: Enumerable<AdminBalanceTransactionsUpdateWithWhereUniqueWithoutAccount_userInput>
+    updateMany?: Enumerable<AdminBalanceTransactionsUpdateManyWithWhereWithoutAccount_userInput>
+    deleteMany?: Enumerable<AdminBalanceTransactionsScalarWhereInput>
+  }
+
+  export type AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput = {
+    create?: XOR<Enumerable<AdminBalanceTransactionsCreateWithoutCashier_userInput>, Enumerable<AdminBalanceTransactionsUncheckedCreateWithoutCashier_userInput>>
+    connectOrCreate?: Enumerable<AdminBalanceTransactionsCreateOrConnectWithoutCashier_userInput>
+    upsert?: Enumerable<AdminBalanceTransactionsUpsertWithWhereUniqueWithoutCashier_userInput>
+    createMany?: AdminBalanceTransactionsCreateManyCashier_userInputEnvelope
+    set?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    delete?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    connect?: Enumerable<AdminBalanceTransactionsWhereUniqueInput>
+    update?: Enumerable<AdminBalanceTransactionsUpdateWithWhereUniqueWithoutCashier_userInput>
+    updateMany?: Enumerable<AdminBalanceTransactionsUpdateManyWithWhereWithoutCashier_userInput>
+    deleteMany?: Enumerable<AdminBalanceTransactionsScalarWhereInput>
+  }
+
+  export type PlayerUncheckedUpdateManyWithoutManagerNestedInput = {
+    create?: XOR<Enumerable<PlayerCreateWithoutManagerInput>, Enumerable<PlayerUncheckedCreateWithoutManagerInput>>
+    connectOrCreate?: Enumerable<PlayerCreateOrConnectWithoutManagerInput>
+    upsert?: Enumerable<PlayerUpsertWithWhereUniqueWithoutManagerInput>
+    createMany?: PlayerCreateManyManagerInputEnvelope
+    set?: Enumerable<PlayerWhereUniqueInput>
+    disconnect?: Enumerable<PlayerWhereUniqueInput>
+    delete?: Enumerable<PlayerWhereUniqueInput>
+    connect?: Enumerable<PlayerWhereUniqueInput>
+    update?: Enumerable<PlayerUpdateWithWhereUniqueWithoutManagerInput>
+    updateMany?: Enumerable<PlayerUpdateManyWithWhereWithoutManagerInput>
+    deleteMany?: Enumerable<PlayerScalarWhereInput>
+  }
+
+  export type PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutAdminInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutAdminInput>
+    upsert?: Enumerable<PlayerBalanceTransactionsUpsertWithWhereUniqueWithoutAdminInput>
+    createMany?: PlayerBalanceTransactionsCreateManyAdminInputEnvelope
+    set?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    delete?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    update?: Enumerable<PlayerBalanceTransactionsUpdateWithWhereUniqueWithoutAdminInput>
+    updateMany?: Enumerable<PlayerBalanceTransactionsUpdateManyWithWhereWithoutAdminInput>
+    deleteMany?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
+  }
+
+  export type GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutAdminInput>, Enumerable<GameTransactionsUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutAdminInput>
+    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutAdminInput>
+    createMany?: GameTransactionsCreateManyAdminInputEnvelope
+    set?: Enumerable<GameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
+    delete?: Enumerable<GameTransactionsWhereUniqueInput>
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutAdminInput>
+    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutAdminInput>
+    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
+  }
+
+  export type AdminCreateNestedOneWithoutAccountInput = {
+    create?: XOR<AdminCreateWithoutAccountInput, AdminUncheckedCreateWithoutAccountInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutAccountInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type AdminCreateNestedOneWithoutCashierInput = {
+    create?: XOR<AdminCreateWithoutCashierInput, AdminUncheckedCreateWithoutCashierInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutCashierInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type AdminUpdateOneWithoutAccountNestedInput = {
+    create?: XOR<AdminCreateWithoutAccountInput, AdminUncheckedCreateWithoutAccountInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutAccountInput
+    upsert?: AdminUpsertWithoutAccountInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutAccountInput, AdminUncheckedUpdateWithoutAccountInput>
+  }
+
+  export type AdminUpdateOneWithoutCashierNestedInput = {
+    create?: XOR<AdminCreateWithoutCashierInput, AdminUncheckedCreateWithoutCashierInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutCashierInput
+    upsert?: AdminUpsertWithoutCashierInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutCashierInput, AdminUncheckedUpdateWithoutCashierInput>
+  }
+
+  export type AdminCreateNestedOneWithoutSettingsInput = {
+    create?: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutSettingsInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type PlayerCreateNestedOneWithoutSettingsInput = {
+    create?: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutSettingsInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type AdminUncheckedCreateNestedOneWithoutSettingsInput = {
+    create?: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutSettingsInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type PlayerUncheckedCreateNestedOneWithoutSettingsInput = {
+    create?: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutSettingsInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type AdminUpdateOneWithoutSettingsNestedInput = {
+    create?: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutSettingsInput
+    upsert?: AdminUpsertWithoutSettingsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutSettingsInput, AdminUncheckedUpdateWithoutSettingsInput>
+  }
+
+  export type PlayerUpdateOneWithoutSettingsNestedInput = {
+    create?: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutSettingsInput
+    upsert?: PlayerUpsertWithoutSettingsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutSettingsInput, PlayerUncheckedUpdateWithoutSettingsInput>
+  }
+
+  export type AdminUncheckedUpdateOneWithoutSettingsNestedInput = {
+    create?: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutSettingsInput
+    upsert?: AdminUpsertWithoutSettingsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutSettingsInput, AdminUncheckedUpdateWithoutSettingsInput>
+  }
+
+  export type PlayerUncheckedUpdateOneWithoutSettingsNestedInput = {
+    create?: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutSettingsInput
+    upsert?: PlayerUpsertWithoutSettingsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutSettingsInput, PlayerUncheckedUpdateWithoutSettingsInput>
+  }
+
+  export type SettingsCreateNestedOneWithoutPlayerInput = {
+    create?: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
+    connectOrCreate?: SettingsCreateOrConnectWithoutPlayerInput
+    connect?: SettingsWhereUniqueInput
+  }
+
+  export type AdminCreateNestedOneWithoutPlayerInput = {
+    create?: XOR<AdminCreateWithoutPlayerInput, AdminUncheckedCreateWithoutPlayerInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutPlayerInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutPlayerInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutPlayerInput>
+    createMany?: PlayerBalanceTransactionsCreateManyPlayerInputEnvelope
+    connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+  }
+
+  export type ActiveGamePlayCreateNestedOneWithoutPlayerInput = {
+    create?: XOR<ActiveGamePlayCreateWithoutPlayerInput, ActiveGamePlayUncheckedCreateWithoutPlayerInput>
+    connectOrCreate?: ActiveGamePlayCreateOrConnectWithoutPlayerInput
+    connect?: ActiveGamePlayWhereUniqueInput
+  }
+
+  export type GameTransactionsCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutPlayerInput>, Enumerable<GameTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutPlayerInput>
+    createMany?: GameTransactionsCreateManyPlayerInputEnvelope
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+  }
+
+  export type FishGameTransactionsCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<FishGameTransactionsCreateWithoutPlayerInput>, Enumerable<FishGameTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<FishGameTransactionsCreateOrConnectWithoutPlayerInput>
+    createMany?: FishGameTransactionsCreateManyPlayerInputEnvelope
+    connect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+  }
+
+  export type SlotFreeBonusCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<SlotFreeBonusCreateWithoutPlayerInput>, Enumerable<SlotFreeBonusUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutPlayerInput>
+    createMany?: SlotFreeBonusCreateManyPlayerInputEnvelope
+    connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+  }
+
+  export type PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutPlayerInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutPlayerInput>
+    createMany?: PlayerBalanceTransactionsCreateManyPlayerInputEnvelope
+    connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+  }
+
+  export type ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput = {
+    create?: XOR<ActiveGamePlayCreateWithoutPlayerInput, ActiveGamePlayUncheckedCreateWithoutPlayerInput>
+    connectOrCreate?: ActiveGamePlayCreateOrConnectWithoutPlayerInput
+    connect?: ActiveGamePlayWhereUniqueInput
+  }
+
+  export type GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutPlayerInput>, Enumerable<GameTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutPlayerInput>
+    createMany?: GameTransactionsCreateManyPlayerInputEnvelope
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+  }
+
+  export type FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<FishGameTransactionsCreateWithoutPlayerInput>, Enumerable<FishGameTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<FishGameTransactionsCreateOrConnectWithoutPlayerInput>
+    createMany?: FishGameTransactionsCreateManyPlayerInputEnvelope
+    connect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+  }
+
+  export type SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<SlotFreeBonusCreateWithoutPlayerInput>, Enumerable<SlotFreeBonusUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutPlayerInput>
+    createMany?: SlotFreeBonusCreateManyPlayerInputEnvelope
+    connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type SettingsUpdateOneWithoutPlayerNestedInput = {
+    create?: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
+    connectOrCreate?: SettingsCreateOrConnectWithoutPlayerInput
+    upsert?: SettingsUpsertWithoutPlayerInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: SettingsWhereUniqueInput
+    update?: XOR<SettingsUpdateWithoutPlayerInput, SettingsUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type AdminUpdateOneRequiredWithoutPlayerNestedInput = {
+    create?: XOR<AdminCreateWithoutPlayerInput, AdminUncheckedCreateWithoutPlayerInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutPlayerInput
+    upsert?: AdminUpsertWithoutPlayerInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutPlayerInput, AdminUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutPlayerInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<PlayerBalanceTransactionsUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: PlayerBalanceTransactionsCreateManyPlayerInputEnvelope
+    set?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    delete?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    update?: Enumerable<PlayerBalanceTransactionsUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<PlayerBalanceTransactionsUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
+  }
+
+  export type ActiveGamePlayUpdateOneWithoutPlayerNestedInput = {
+    create?: XOR<ActiveGamePlayCreateWithoutPlayerInput, ActiveGamePlayUncheckedCreateWithoutPlayerInput>
+    connectOrCreate?: ActiveGamePlayCreateOrConnectWithoutPlayerInput
+    upsert?: ActiveGamePlayUpsertWithoutPlayerInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: ActiveGamePlayWhereUniqueInput
+    update?: XOR<ActiveGamePlayUpdateWithoutPlayerInput, ActiveGamePlayUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type GameTransactionsUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutPlayerInput>, Enumerable<GameTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: GameTransactionsCreateManyPlayerInputEnvelope
+    set?: Enumerable<GameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
+    delete?: Enumerable<GameTransactionsWhereUniqueInput>
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
+  }
+
+  export type FishGameTransactionsUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<FishGameTransactionsCreateWithoutPlayerInput>, Enumerable<FishGameTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<FishGameTransactionsCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<FishGameTransactionsUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: FishGameTransactionsCreateManyPlayerInputEnvelope
+    set?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    delete?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    connect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    update?: Enumerable<FishGameTransactionsUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<FishGameTransactionsUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<FishGameTransactionsScalarWhereInput>
+  }
+
+  export type SlotFreeBonusUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<SlotFreeBonusCreateWithoutPlayerInput>, Enumerable<SlotFreeBonusUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<SlotFreeBonusUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: SlotFreeBonusCreateManyPlayerInputEnvelope
+    set?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    disconnect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    delete?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    update?: Enumerable<SlotFreeBonusUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<SlotFreeBonusUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<SlotFreeBonusScalarWhereInput>
+  }
+
+  export type PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutPlayerInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<PlayerBalanceTransactionsUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: PlayerBalanceTransactionsCreateManyPlayerInputEnvelope
+    set?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    delete?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+    update?: Enumerable<PlayerBalanceTransactionsUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<PlayerBalanceTransactionsUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
+  }
+
+  export type ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput = {
+    create?: XOR<ActiveGamePlayCreateWithoutPlayerInput, ActiveGamePlayUncheckedCreateWithoutPlayerInput>
+    connectOrCreate?: ActiveGamePlayCreateOrConnectWithoutPlayerInput
+    upsert?: ActiveGamePlayUpsertWithoutPlayerInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: ActiveGamePlayWhereUniqueInput
+    update?: XOR<ActiveGamePlayUpdateWithoutPlayerInput, ActiveGamePlayUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutPlayerInput>, Enumerable<GameTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: GameTransactionsCreateManyPlayerInputEnvelope
+    set?: Enumerable<GameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
+    delete?: Enumerable<GameTransactionsWhereUniqueInput>
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
+  }
+
+  export type FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<FishGameTransactionsCreateWithoutPlayerInput>, Enumerable<FishGameTransactionsUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<FishGameTransactionsCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<FishGameTransactionsUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: FishGameTransactionsCreateManyPlayerInputEnvelope
+    set?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    delete?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    connect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    update?: Enumerable<FishGameTransactionsUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<FishGameTransactionsUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<FishGameTransactionsScalarWhereInput>
+  }
+
+  export type SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<SlotFreeBonusCreateWithoutPlayerInput>, Enumerable<SlotFreeBonusUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<SlotFreeBonusUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: SlotFreeBonusCreateManyPlayerInputEnvelope
+    set?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    disconnect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    delete?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    update?: Enumerable<SlotFreeBonusUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<SlotFreeBonusUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<SlotFreeBonusScalarWhereInput>
+  }
+
+  export type GameTransactionsCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutGameInput>, Enumerable<GameTransactionsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutGameInput>
+    createMany?: GameTransactionsCreateManyGameInputEnvelope
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+  }
+
+  export type ActiveGamePlayCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<ActiveGamePlayCreateWithoutGameInput>, Enumerable<ActiveGamePlayUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<ActiveGamePlayCreateOrConnectWithoutGameInput>
+    createMany?: ActiveGamePlayCreateManyGameInputEnvelope
+    connect?: Enumerable<ActiveGamePlayWhereUniqueInput>
+  }
+
+  export type GameAssetsCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<GameAssetsCreateWithoutGameInput>, Enumerable<GameAssetsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<GameAssetsCreateOrConnectWithoutGameInput>
+    createMany?: GameAssetsCreateManyGameInputEnvelope
+    connect?: Enumerable<GameAssetsWhereUniqueInput>
+  }
+
+  export type FishGameTransactionsCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<FishGameTransactionsCreateWithoutGameInput>, Enumerable<FishGameTransactionsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<FishGameTransactionsCreateOrConnectWithoutGameInput>
+    createMany?: FishGameTransactionsCreateManyGameInputEnvelope
+    connect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+  }
+
+  export type SlotFreeBonusCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<SlotFreeBonusCreateWithoutGameInput>, Enumerable<SlotFreeBonusUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutGameInput>
+    createMany?: SlotFreeBonusCreateManyGameInputEnvelope
+    connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+  }
+
+  export type GameTransactionsUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutGameInput>, Enumerable<GameTransactionsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutGameInput>
+    createMany?: GameTransactionsCreateManyGameInputEnvelope
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+  }
+
+  export type ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<ActiveGamePlayCreateWithoutGameInput>, Enumerable<ActiveGamePlayUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<ActiveGamePlayCreateOrConnectWithoutGameInput>
+    createMany?: ActiveGamePlayCreateManyGameInputEnvelope
+    connect?: Enumerable<ActiveGamePlayWhereUniqueInput>
+  }
+
+  export type GameAssetsUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<GameAssetsCreateWithoutGameInput>, Enumerable<GameAssetsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<GameAssetsCreateOrConnectWithoutGameInput>
+    createMany?: GameAssetsCreateManyGameInputEnvelope
+    connect?: Enumerable<GameAssetsWhereUniqueInput>
+  }
+
+  export type FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<FishGameTransactionsCreateWithoutGameInput>, Enumerable<FishGameTransactionsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<FishGameTransactionsCreateOrConnectWithoutGameInput>
+    createMany?: FishGameTransactionsCreateManyGameInputEnvelope
+    connect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+  }
+
+  export type SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<SlotFreeBonusCreateWithoutGameInput>, Enumerable<SlotFreeBonusUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutGameInput>
+    createMany?: SlotFreeBonusCreateManyGameInputEnvelope
+    connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+  }
+
+  export type NullableEnumAccountStatusFieldUpdateOperationsInput = {
+    set?: AccountStatus | null
+    unset?: boolean
+  }
+
+  export type GameTransactionsUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutGameInput>, Enumerable<GameTransactionsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: GameTransactionsCreateManyGameInputEnvelope
+    set?: Enumerable<GameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
+    delete?: Enumerable<GameTransactionsWhereUniqueInput>
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
+  }
+
+  export type ActiveGamePlayUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<ActiveGamePlayCreateWithoutGameInput>, Enumerable<ActiveGamePlayUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<ActiveGamePlayCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<ActiveGamePlayUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: ActiveGamePlayCreateManyGameInputEnvelope
+    set?: Enumerable<ActiveGamePlayWhereUniqueInput>
+    disconnect?: Enumerable<ActiveGamePlayWhereUniqueInput>
+    delete?: Enumerable<ActiveGamePlayWhereUniqueInput>
+    connect?: Enumerable<ActiveGamePlayWhereUniqueInput>
+    update?: Enumerable<ActiveGamePlayUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<ActiveGamePlayUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<ActiveGamePlayScalarWhereInput>
+  }
+
+  export type GameAssetsUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<GameAssetsCreateWithoutGameInput>, Enumerable<GameAssetsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<GameAssetsCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<GameAssetsUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: GameAssetsCreateManyGameInputEnvelope
+    set?: Enumerable<GameAssetsWhereUniqueInput>
+    disconnect?: Enumerable<GameAssetsWhereUniqueInput>
+    delete?: Enumerable<GameAssetsWhereUniqueInput>
+    connect?: Enumerable<GameAssetsWhereUniqueInput>
+    update?: Enumerable<GameAssetsUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<GameAssetsUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<GameAssetsScalarWhereInput>
+  }
+
+  export type FishGameTransactionsUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<FishGameTransactionsCreateWithoutGameInput>, Enumerable<FishGameTransactionsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<FishGameTransactionsCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<FishGameTransactionsUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: FishGameTransactionsCreateManyGameInputEnvelope
+    set?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    delete?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    connect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    update?: Enumerable<FishGameTransactionsUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<FishGameTransactionsUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<FishGameTransactionsScalarWhereInput>
+  }
+
+  export type SlotFreeBonusUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<SlotFreeBonusCreateWithoutGameInput>, Enumerable<SlotFreeBonusUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<SlotFreeBonusUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: SlotFreeBonusCreateManyGameInputEnvelope
+    set?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    disconnect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    delete?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    update?: Enumerable<SlotFreeBonusUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<SlotFreeBonusUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<SlotFreeBonusScalarWhereInput>
+  }
+
+  export type GameTransactionsUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutGameInput>, Enumerable<GameTransactionsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: GameTransactionsCreateManyGameInputEnvelope
+    set?: Enumerable<GameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
+    delete?: Enumerable<GameTransactionsWhereUniqueInput>
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
+  }
+
+  export type ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<ActiveGamePlayCreateWithoutGameInput>, Enumerable<ActiveGamePlayUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<ActiveGamePlayCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<ActiveGamePlayUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: ActiveGamePlayCreateManyGameInputEnvelope
+    set?: Enumerable<ActiveGamePlayWhereUniqueInput>
+    disconnect?: Enumerable<ActiveGamePlayWhereUniqueInput>
+    delete?: Enumerable<ActiveGamePlayWhereUniqueInput>
+    connect?: Enumerable<ActiveGamePlayWhereUniqueInput>
+    update?: Enumerable<ActiveGamePlayUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<ActiveGamePlayUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<ActiveGamePlayScalarWhereInput>
+  }
+
+  export type GameAssetsUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<GameAssetsCreateWithoutGameInput>, Enumerable<GameAssetsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<GameAssetsCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<GameAssetsUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: GameAssetsCreateManyGameInputEnvelope
+    set?: Enumerable<GameAssetsWhereUniqueInput>
+    disconnect?: Enumerable<GameAssetsWhereUniqueInput>
+    delete?: Enumerable<GameAssetsWhereUniqueInput>
+    connect?: Enumerable<GameAssetsWhereUniqueInput>
+    update?: Enumerable<GameAssetsUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<GameAssetsUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<GameAssetsScalarWhereInput>
+  }
+
+  export type FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<FishGameTransactionsCreateWithoutGameInput>, Enumerable<FishGameTransactionsUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<FishGameTransactionsCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<FishGameTransactionsUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: FishGameTransactionsCreateManyGameInputEnvelope
+    set?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    delete?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    connect?: Enumerable<FishGameTransactionsWhereUniqueInput>
+    update?: Enumerable<FishGameTransactionsUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<FishGameTransactionsUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<FishGameTransactionsScalarWhereInput>
+  }
+
+  export type SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<SlotFreeBonusCreateWithoutGameInput>, Enumerable<SlotFreeBonusUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<SlotFreeBonusUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: SlotFreeBonusCreateManyGameInputEnvelope
+    set?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    disconnect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    delete?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+    update?: Enumerable<SlotFreeBonusUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<SlotFreeBonusUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<SlotFreeBonusScalarWhereInput>
+  }
+
+  export type GamesCreateNestedOneWithoutGameAssetsInput = {
+    create?: XOR<GamesCreateWithoutGameAssetsInput, GamesUncheckedCreateWithoutGameAssetsInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutGameAssetsInput
+    connect?: GamesWhereUniqueInput
+  }
+
+  export type GamesUpdateOneWithoutGameAssetsNestedInput = {
+    create?: XOR<GamesCreateWithoutGameAssetsInput, GamesUncheckedCreateWithoutGameAssetsInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutGameAssetsInput
+    upsert?: GamesUpsertWithoutGameAssetsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: GamesWhereUniqueInput
+    update?: XOR<GamesUpdateWithoutGameAssetsInput, GamesUncheckedUpdateWithoutGameAssetsInput>
+  }
+
+  export type PlayerCreateNestedOneWithoutActiveGamePlayInput = {
+    create?: XOR<PlayerCreateWithoutActiveGamePlayInput, PlayerUncheckedCreateWithoutActiveGamePlayInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutActiveGamePlayInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type GamesCreateNestedOneWithoutActiveGamePlayInput = {
+    create?: XOR<GamesCreateWithoutActiveGamePlayInput, GamesUncheckedCreateWithoutActiveGamePlayInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutActiveGamePlayInput
+    connect?: GamesWhereUniqueInput
+  }
+
+  export type PlayerUpdateOneWithoutActiveGamePlayNestedInput = {
+    create?: XOR<PlayerCreateWithoutActiveGamePlayInput, PlayerUncheckedCreateWithoutActiveGamePlayInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutActiveGamePlayInput
+    upsert?: PlayerUpsertWithoutActiveGamePlayInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutActiveGamePlayInput, PlayerUncheckedUpdateWithoutActiveGamePlayInput>
+  }
+
+  export type GamesUpdateOneWithoutActiveGamePlayNestedInput = {
+    create?: XOR<GamesCreateWithoutActiveGamePlayInput, GamesUncheckedCreateWithoutActiveGamePlayInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutActiveGamePlayInput
+    upsert?: GamesUpsertWithoutActiveGamePlayInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: GamesWhereUniqueInput
+    update?: XOR<GamesUpdateWithoutActiveGamePlayInput, GamesUncheckedUpdateWithoutActiveGamePlayInput>
+  }
+
+  export type GameTransactionsCreateNestedOneWithoutSlotTransactionsInput = {
+    create?: XOR<GameTransactionsCreateWithoutSlotTransactionsInput, GameTransactionsUncheckedCreateWithoutSlotTransactionsInput>
+    connectOrCreate?: GameTransactionsCreateOrConnectWithoutSlotTransactionsInput
+    connect?: GameTransactionsWhereUniqueInput
+  }
+
+  export type NullableEnumSlotStatusFieldUpdateOperationsInput = {
+    set?: SlotStatus | null
+    unset?: boolean
+  }
+
+  export type GameTransactionsUpdateOneWithoutSlotTransactionsNestedInput = {
+    create?: XOR<GameTransactionsCreateWithoutSlotTransactionsInput, GameTransactionsUncheckedCreateWithoutSlotTransactionsInput>
+    connectOrCreate?: GameTransactionsCreateOrConnectWithoutSlotTransactionsInput
+    upsert?: GameTransactionsUpsertWithoutSlotTransactionsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: GameTransactionsWhereUniqueInput
+    update?: XOR<GameTransactionsUpdateWithoutSlotTransactionsInput, GameTransactionsUncheckedUpdateWithoutSlotTransactionsInput>
+  }
+
+  export type GamesCreateNestedOneWithoutGameTransactionInput = {
+    create?: XOR<GamesCreateWithoutGameTransactionInput, GamesUncheckedCreateWithoutGameTransactionInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutGameTransactionInput
+    connect?: GamesWhereUniqueInput
+  }
+
+  export type PlayerCreateNestedOneWithoutGameTransactionsInput = {
+    create?: XOR<PlayerCreateWithoutGameTransactionsInput, PlayerUncheckedCreateWithoutGameTransactionsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutGameTransactionsInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type AdminCreateNestedOneWithoutGameTransactionsInput = {
+    create?: XOR<AdminCreateWithoutGameTransactionsInput, AdminUncheckedCreateWithoutGameTransactionsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutGameTransactionsInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type SlotTransactionsCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<Enumerable<SlotTransactionsCreateWithoutTransactionInput>, Enumerable<SlotTransactionsUncheckedCreateWithoutTransactionInput>>
+    connectOrCreate?: Enumerable<SlotTransactionsCreateOrConnectWithoutTransactionInput>
+    createMany?: SlotTransactionsCreateManyTransactionInputEnvelope
+    connect?: Enumerable<SlotTransactionsWhereUniqueInput>
+  }
+
+  export type FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput = {
+    create?: XOR<FishGameTransactionsCreateWithoutGameTransactionsInput, FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput>
+    connectOrCreate?: FishGameTransactionsCreateOrConnectWithoutGameTransactionsInput
+    connect?: FishGameTransactionsWhereUniqueInput
+  }
+
+  export type SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<Enumerable<SlotTransactionsCreateWithoutTransactionInput>, Enumerable<SlotTransactionsUncheckedCreateWithoutTransactionInput>>
+    connectOrCreate?: Enumerable<SlotTransactionsCreateOrConnectWithoutTransactionInput>
+    createMany?: SlotTransactionsCreateManyTransactionInputEnvelope
+    connect?: Enumerable<SlotTransactionsWhereUniqueInput>
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+    unset?: boolean
+  }
+
+  export type GamesUpdateOneWithoutGameTransactionNestedInput = {
+    create?: XOR<GamesCreateWithoutGameTransactionInput, GamesUncheckedCreateWithoutGameTransactionInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutGameTransactionInput
+    upsert?: GamesUpsertWithoutGameTransactionInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: GamesWhereUniqueInput
+    update?: XOR<GamesUpdateWithoutGameTransactionInput, GamesUncheckedUpdateWithoutGameTransactionInput>
+  }
+
+  export type PlayerUpdateOneWithoutGameTransactionsNestedInput = {
+    create?: XOR<PlayerCreateWithoutGameTransactionsInput, PlayerUncheckedCreateWithoutGameTransactionsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutGameTransactionsInput
+    upsert?: PlayerUpsertWithoutGameTransactionsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutGameTransactionsInput, PlayerUncheckedUpdateWithoutGameTransactionsInput>
+  }
+
+  export type AdminUpdateOneWithoutGameTransactionsNestedInput = {
+    create?: XOR<AdminCreateWithoutGameTransactionsInput, AdminUncheckedCreateWithoutGameTransactionsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutGameTransactionsInput
+    upsert?: AdminUpsertWithoutGameTransactionsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutGameTransactionsInput, AdminUncheckedUpdateWithoutGameTransactionsInput>
+  }
+
+  export type SlotTransactionsUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<Enumerable<SlotTransactionsCreateWithoutTransactionInput>, Enumerable<SlotTransactionsUncheckedCreateWithoutTransactionInput>>
+    connectOrCreate?: Enumerable<SlotTransactionsCreateOrConnectWithoutTransactionInput>
+    upsert?: Enumerable<SlotTransactionsUpsertWithWhereUniqueWithoutTransactionInput>
+    createMany?: SlotTransactionsCreateManyTransactionInputEnvelope
+    set?: Enumerable<SlotTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<SlotTransactionsWhereUniqueInput>
+    delete?: Enumerable<SlotTransactionsWhereUniqueInput>
+    connect?: Enumerable<SlotTransactionsWhereUniqueInput>
+    update?: Enumerable<SlotTransactionsUpdateWithWhereUniqueWithoutTransactionInput>
+    updateMany?: Enumerable<SlotTransactionsUpdateManyWithWhereWithoutTransactionInput>
+    deleteMany?: Enumerable<SlotTransactionsScalarWhereInput>
+  }
+
+  export type FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput = {
+    create?: XOR<FishGameTransactionsCreateWithoutGameTransactionsInput, FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput>
+    connectOrCreate?: FishGameTransactionsCreateOrConnectWithoutGameTransactionsInput
+    upsert?: FishGameTransactionsUpsertWithoutGameTransactionsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: FishGameTransactionsWhereUniqueInput
+    update?: XOR<FishGameTransactionsUpdateWithoutGameTransactionsInput, FishGameTransactionsUncheckedUpdateWithoutGameTransactionsInput>
+  }
+
+  export type SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<Enumerable<SlotTransactionsCreateWithoutTransactionInput>, Enumerable<SlotTransactionsUncheckedCreateWithoutTransactionInput>>
+    connectOrCreate?: Enumerable<SlotTransactionsCreateOrConnectWithoutTransactionInput>
+    upsert?: Enumerable<SlotTransactionsUpsertWithWhereUniqueWithoutTransactionInput>
+    createMany?: SlotTransactionsCreateManyTransactionInputEnvelope
+    set?: Enumerable<SlotTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<SlotTransactionsWhereUniqueInput>
+    delete?: Enumerable<SlotTransactionsWhereUniqueInput>
+    connect?: Enumerable<SlotTransactionsWhereUniqueInput>
+    update?: Enumerable<SlotTransactionsUpdateWithWhereUniqueWithoutTransactionInput>
+    updateMany?: Enumerable<SlotTransactionsUpdateManyWithWhereWithoutTransactionInput>
+    deleteMany?: Enumerable<SlotTransactionsScalarWhereInput>
+  }
+
+  export type GamesCreateNestedOneWithoutFishGameTransactionsInput = {
+    create?: XOR<GamesCreateWithoutFishGameTransactionsInput, GamesUncheckedCreateWithoutFishGameTransactionsInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutFishGameTransactionsInput
+    connect?: GamesWhereUniqueInput
+  }
+
+  export type PlayerCreateNestedOneWithoutFishGameTransactionsInput = {
+    create?: XOR<PlayerCreateWithoutFishGameTransactionsInput, PlayerUncheckedCreateWithoutFishGameTransactionsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutFishGameTransactionsInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type GameTransactionsCreateNestedManyWithoutFishGameTransactionsInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutFishGameTransactionsInput>, Enumerable<GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput>
+    createMany?: GameTransactionsCreateManyFishGameTransactionsInputEnvelope
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+  }
+
+  export type GameTransactionsUncheckedCreateNestedManyWithoutFishGameTransactionsInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutFishGameTransactionsInput>, Enumerable<GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput>
+    createMany?: GameTransactionsCreateManyFishGameTransactionsInputEnvelope
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+  }
+
+  export type GamesUpdateOneWithoutFishGameTransactionsNestedInput = {
+    create?: XOR<GamesCreateWithoutFishGameTransactionsInput, GamesUncheckedCreateWithoutFishGameTransactionsInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutFishGameTransactionsInput
+    upsert?: GamesUpsertWithoutFishGameTransactionsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: GamesWhereUniqueInput
+    update?: XOR<GamesUpdateWithoutFishGameTransactionsInput, GamesUncheckedUpdateWithoutFishGameTransactionsInput>
+  }
+
+  export type PlayerUpdateOneWithoutFishGameTransactionsNestedInput = {
+    create?: XOR<PlayerCreateWithoutFishGameTransactionsInput, PlayerUncheckedCreateWithoutFishGameTransactionsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutFishGameTransactionsInput
+    upsert?: PlayerUpsertWithoutFishGameTransactionsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutFishGameTransactionsInput, PlayerUncheckedUpdateWithoutFishGameTransactionsInput>
+  }
+
+  export type GameTransactionsUpdateManyWithoutFishGameTransactionsNestedInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutFishGameTransactionsInput>, Enumerable<GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput>
+    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutFishGameTransactionsInput>
+    createMany?: GameTransactionsCreateManyFishGameTransactionsInputEnvelope
+    set?: Enumerable<GameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
+    delete?: Enumerable<GameTransactionsWhereUniqueInput>
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutFishGameTransactionsInput>
+    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutFishGameTransactionsInput>
+    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
+  }
+
+  export type GameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsNestedInput = {
+    create?: XOR<Enumerable<GameTransactionsCreateWithoutFishGameTransactionsInput>, Enumerable<GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>>
+    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput>
+    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutFishGameTransactionsInput>
+    createMany?: GameTransactionsCreateManyFishGameTransactionsInputEnvelope
+    set?: Enumerable<GameTransactionsWhereUniqueInput>
+    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
+    delete?: Enumerable<GameTransactionsWhereUniqueInput>
+    connect?: Enumerable<GameTransactionsWhereUniqueInput>
+    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutFishGameTransactionsInput>
+    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutFishGameTransactionsInput>
+    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
+  }
+
+  export type SlotFreeBonusCreatematrixInput = {
+    set: Enumerable<InputJsonValue>
+  }
+
+  export type SlotFreeBonusCreatebonus_pos_matrixInput = {
+    set: Enumerable<InputJsonValue>
+  }
+
+  export type SlotFreeBonusCreateunlockedInput = {
+    set: Enumerable<InputJsonValue>
+  }
+
+  export type PlayerCreateNestedOneWithoutSlotFreeBonusInput = {
+    create?: XOR<PlayerCreateWithoutSlotFreeBonusInput, PlayerUncheckedCreateWithoutSlotFreeBonusInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutSlotFreeBonusInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type GamesCreateNestedOneWithoutSlotFreeBonusInput = {
+    create?: XOR<GamesCreateWithoutSlotFreeBonusInput, GamesUncheckedCreateWithoutSlotFreeBonusInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutSlotFreeBonusInput
+    connect?: GamesWhereUniqueInput
+  }
+
+  export type SlotFreeBonusUpdatematrixInput = {
+    set?: Enumerable<InputJsonValue>
+    push?: InputJsonValue | Enumerable<InputJsonValue>
+  }
+
+  export type SlotFreeBonusUpdatebonus_pos_matrixInput = {
+    set?: Enumerable<InputJsonValue>
+    push?: InputJsonValue | Enumerable<InputJsonValue>
+  }
+
+  export type SlotFreeBonusUpdateunlockedInput = {
+    set?: Enumerable<InputJsonValue>
+    push?: InputJsonValue | Enumerable<InputJsonValue>
+  }
+
+  export type PlayerUpdateOneWithoutSlotFreeBonusNestedInput = {
+    create?: XOR<PlayerCreateWithoutSlotFreeBonusInput, PlayerUncheckedCreateWithoutSlotFreeBonusInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutSlotFreeBonusInput
+    upsert?: PlayerUpsertWithoutSlotFreeBonusInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutSlotFreeBonusInput, PlayerUncheckedUpdateWithoutSlotFreeBonusInput>
+  }
+
+  export type GamesUpdateOneWithoutSlotFreeBonusNestedInput = {
+    create?: XOR<GamesCreateWithoutSlotFreeBonusInput, GamesUncheckedCreateWithoutSlotFreeBonusInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutSlotFreeBonusInput
+    upsert?: GamesUpsertWithoutSlotFreeBonusInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: GamesWhereUniqueInput
+    update?: XOR<GamesUpdateWithoutSlotFreeBonusInput, GamesUncheckedUpdateWithoutSlotFreeBonusInput>
+  }
+
+  export type PlayerCreateNestedOneWithoutPlayerBalanceTransactionsInput = {
+    create?: XOR<PlayerCreateWithoutPlayerBalanceTransactionsInput, PlayerUncheckedCreateWithoutPlayerBalanceTransactionsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutPlayerBalanceTransactionsInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type AdminCreateNestedOneWithoutPlayerBalanceTransactionsInput = {
+    create?: XOR<AdminCreateWithoutPlayerBalanceTransactionsInput, AdminUncheckedCreateWithoutPlayerBalanceTransactionsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutPlayerBalanceTransactionsInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type PlayerUpdateOneWithoutPlayerBalanceTransactionsNestedInput = {
+    create?: XOR<PlayerCreateWithoutPlayerBalanceTransactionsInput, PlayerUncheckedCreateWithoutPlayerBalanceTransactionsInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutPlayerBalanceTransactionsInput
+    upsert?: PlayerUpsertWithoutPlayerBalanceTransactionsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutPlayerBalanceTransactionsInput, PlayerUncheckedUpdateWithoutPlayerBalanceTransactionsInput>
+  }
+
+  export type AdminUpdateOneWithoutPlayerBalanceTransactionsNestedInput = {
+    create?: XOR<AdminCreateWithoutPlayerBalanceTransactionsInput, AdminUncheckedCreateWithoutPlayerBalanceTransactionsInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutPlayerBalanceTransactionsInput
+    upsert?: AdminUpsertWithoutPlayerBalanceTransactionsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutPlayerBalanceTransactionsInput, AdminUncheckedUpdateWithoutPlayerBalanceTransactionsInput>
+  }
+
+  export type NestedStringFilter = {
+    equals?: string
+    in?: Enumerable<string>
+    notIn?: Enumerable<string>
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringFilter | string
+  }
+
+  export type NestedStringNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringNullableFilter | string | null
+    isSet?: boolean
+  }
+
+  export type NestedFloatFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatFilter | number
+  }
+
+  export type NestedEnumAccountStatusFilter = {
+    equals?: AccountStatus
+    in?: Enumerable<AccountStatus>
+    notIn?: Enumerable<AccountStatus>
+    not?: NestedEnumAccountStatusFilter | AccountStatus
+  }
+
+  export type NestedEnumAccountTypeNullableFilter = {
+    equals?: AccountType | null
+    in?: Enumerable<AccountType> | null
+    notIn?: Enumerable<AccountType> | null
+    not?: NestedEnumAccountTypeNullableFilter | AccountType | null
+    isSet?: boolean
+  }
+
+  export type NestedDateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
+  }
+
+  export type NestedIntFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntFilter | number
+  }
+
+  export type NestedStringWithAggregatesFilter = {
+    equals?: string
+    in?: Enumerable<string>
+    notIn?: Enumerable<string>
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringWithAggregatesFilter | string
+    _count?: NestedIntFilter
+    _min?: NestedStringFilter
+    _max?: NestedStringFilter
+  }
+
+  export type NestedStringNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
+    isSet?: boolean
+  }
+
+  export type NestedIntNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableFilter | number | null
+    isSet?: boolean
+  }
+
+  export type NestedFloatWithAggregatesFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatWithAggregatesFilter | number
+    _count?: NestedIntFilter
+    _avg?: NestedFloatFilter
+    _sum?: NestedFloatFilter
+    _min?: NestedFloatFilter
+    _max?: NestedFloatFilter
+  }
+
+  export type NestedEnumAccountStatusWithAggregatesFilter = {
+    equals?: AccountStatus
+    in?: Enumerable<AccountStatus>
+    notIn?: Enumerable<AccountStatus>
+    not?: NestedEnumAccountStatusWithAggregatesFilter | AccountStatus
+    _count?: NestedIntFilter
+    _min?: NestedEnumAccountStatusFilter
+    _max?: NestedEnumAccountStatusFilter
+  }
+
+  export type NestedEnumAccountTypeNullableWithAggregatesFilter = {
+    equals?: AccountType | null
+    in?: Enumerable<AccountType> | null
+    notIn?: Enumerable<AccountType> | null
+    not?: NestedEnumAccountTypeNullableWithAggregatesFilter | AccountType | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedEnumAccountTypeNullableFilter
+    _max?: NestedEnumAccountTypeNullableFilter
+    isSet?: boolean
+  }
+
+  export type NestedDateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
+  }
+
+  export type NestedIntWithAggregatesFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntWithAggregatesFilter | number
+    _count?: NestedIntFilter
+    _avg?: NestedFloatFilter
+    _sum?: NestedIntFilter
+    _min?: NestedIntFilter
+    _max?: NestedIntFilter
+  }
+
+  export type NestedBoolFilter = {
+    equals?: boolean
+    not?: NestedBoolFilter | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter = {
+    equals?: boolean
+    not?: NestedBoolWithAggregatesFilter | boolean
+    _count?: NestedIntFilter
+    _min?: NestedBoolFilter
+    _max?: NestedBoolFilter
+  }
+
+  export type NestedIntNullableWithAggregatesFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableWithAggregatesFilter | number | null
+    _count?: NestedIntNullableFilter
+    _avg?: NestedFloatNullableFilter
+    _sum?: NestedIntNullableFilter
+    _min?: NestedIntNullableFilter
+    _max?: NestedIntNullableFilter
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatNullableFilter | number | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumAccountStatusNullableFilter = {
+    equals?: AccountStatus | null
+    in?: Enumerable<AccountStatus> | null
+    notIn?: Enumerable<AccountStatus> | null
+    not?: NestedEnumAccountStatusNullableFilter | AccountStatus | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumAccountStatusNullableWithAggregatesFilter = {
+    equals?: AccountStatus | null
+    in?: Enumerable<AccountStatus> | null
+    notIn?: Enumerable<AccountStatus> | null
+    not?: NestedEnumAccountStatusNullableWithAggregatesFilter | AccountStatus | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedEnumAccountStatusNullableFilter
+    _max?: NestedEnumAccountStatusNullableFilter
+    isSet?: boolean
+  }
+
+  export type NestedEnumSlotStatusNullableFilter = {
+    equals?: SlotStatus | null
+    in?: Enumerable<SlotStatus> | null
+    notIn?: Enumerable<SlotStatus> | null
+    not?: NestedEnumSlotStatusNullableFilter | SlotStatus | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumSlotStatusNullableWithAggregatesFilter = {
+    equals?: SlotStatus | null
+    in?: Enumerable<SlotStatus> | null
+    notIn?: Enumerable<SlotStatus> | null
+    not?: NestedEnumSlotStatusNullableWithAggregatesFilter | SlotStatus | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedEnumSlotStatusNullableFilter
+    _max?: NestedEnumSlotStatusNullableFilter
+    isSet?: boolean
+  }
+
+  export type NestedDateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedFloatNullableWithAggregatesFilter | number | null
+    _count?: NestedIntNullableFilter
+    _avg?: NestedFloatNullableFilter
+    _sum?: NestedFloatNullableFilter
+    _min?: NestedFloatNullableFilter
+    _max?: NestedFloatNullableFilter
+    isSet?: boolean
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
+    isSet?: boolean
+  }
+  export type NestedJsonNullableFilter = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase>, Exclude<keyof Required<NestedJsonNullableFilterBase>, 'path'>>,
+        Required<NestedJsonNullableFilterBase>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase>, 'path'>>
+
+  export type NestedJsonNullableFilterBase = {
+    equals?: InputJsonValue | null
+    not?: InputJsonValue | null
+    isSet?: boolean
+  }
+
+  export type SettingsCreateWithoutAdminInput = {
+    id?: string
+    grandJP?: boolean
+    grandJP_limit?: number
+    majorJP?: boolean
+    majorJP_limit?: number
+    minorJP?: boolean
+    minorJP_limit?: number
+    miniJP?: boolean
+    miniJP_limit?: number
+    grandScore?: number
+    majorScore?: number
+    minorScore?: number
+    miniScore?: number
+    miniShareNum?: number
+    maxShareNum?: number
+    dollarStatus?: boolean
+    account_type?: AccountType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Player?: PlayerCreateNestedOneWithoutSettingsInput
+  }
+
+  export type SettingsUncheckedCreateWithoutAdminInput = {
+    id?: string
+    grandJP?: boolean
+    grandJP_limit?: number
+    majorJP?: boolean
+    majorJP_limit?: number
+    minorJP?: boolean
+    minorJP_limit?: number
+    miniJP?: boolean
+    miniJP_limit?: number
+    grandScore?: number
+    majorScore?: number
+    minorScore?: number
+    miniScore?: number
+    miniShareNum?: number
+    maxShareNum?: number
+    dollarStatus?: boolean
+    account_type?: AccountType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Player?: PlayerUncheckedCreateNestedOneWithoutSettingsInput
+  }
+
+  export type SettingsCreateOrConnectWithoutAdminInput = {
+    where: SettingsWhereUniqueInput
+    create: XOR<SettingsCreateWithoutAdminInput, SettingsUncheckedCreateWithoutAdminInput>
+  }
+
+  export type AdminCreateWithoutUserInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreatedBy?: AdminCreateNestedOneWithoutUserInput
+    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateWithoutUserInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminCreateOrConnectWithoutUserInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+  }
+
+  export type AdminCreateWithoutCreatedByInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    User?: AdminCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminCreateOrConnectWithoutCreatedByInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutCreatedByInput, AdminUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type AdminCreateManyCreatedByInputEnvelope = {
+    data: Enumerable<AdminCreateManyCreatedByInput>
+  }
+
+  export type AdminBalanceTransactionsCreateWithoutAccount_userInput = {
+    id?: string
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    balanceBefore: number
+    balanceAfter: number
+    remark?: string | null
+    createdAt?: Date | string
+    Cashier_user?: AdminCreateNestedOneWithoutCashierInput
+  }
+
+  export type AdminBalanceTransactionsUncheckedCreateWithoutAccount_userInput = {
+    id?: string
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    cashier?: string | null
+    balanceBefore: number
+    balanceAfter: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AdminBalanceTransactionsCreateOrConnectWithoutAccount_userInput = {
+    where: AdminBalanceTransactionsWhereUniqueInput
+    create: XOR<AdminBalanceTransactionsCreateWithoutAccount_userInput, AdminBalanceTransactionsUncheckedCreateWithoutAccount_userInput>
+  }
+
+  export type AdminBalanceTransactionsCreateManyAccount_userInputEnvelope = {
+    data: Enumerable<AdminBalanceTransactionsCreateManyAccount_userInput>
+  }
+
+  export type AdminBalanceTransactionsCreateWithoutCashier_userInput = {
+    id?: string
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    balanceBefore: number
+    balanceAfter: number
+    remark?: string | null
+    createdAt?: Date | string
+    Account_user?: AdminCreateNestedOneWithoutAccountInput
+  }
+
+  export type AdminBalanceTransactionsUncheckedCreateWithoutCashier_userInput = {
+    id?: string
+    account?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    balanceBefore: number
+    balanceAfter: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AdminBalanceTransactionsCreateOrConnectWithoutCashier_userInput = {
+    where: AdminBalanceTransactionsWhereUniqueInput
+    create: XOR<AdminBalanceTransactionsCreateWithoutCashier_userInput, AdminBalanceTransactionsUncheckedCreateWithoutCashier_userInput>
+  }
+
+  export type AdminBalanceTransactionsCreateManyCashier_userInputEnvelope = {
+    data: Enumerable<AdminBalanceTransactionsCreateManyCashier_userInput>
+  }
+
+  export type PlayerCreateWithoutManagerInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutManagerInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutManagerInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutManagerInput, PlayerUncheckedCreateWithoutManagerInput>
+  }
+
+  export type PlayerCreateManyManagerInputEnvelope = {
+    data: Enumerable<PlayerCreateManyManagerInput>
+  }
+
+  export type PlayerBalanceTransactionsCreateWithoutAdminInput = {
+    id?: string
+    beforeRecharge: number
+    recharged: number
+    redeem?: number
+    afterRecharge: number
+    ip_address?: string | null
+    income?: number
+    remark?: string | null
+    createdAt?: Date | string
+    Player?: PlayerCreateNestedOneWithoutPlayerBalanceTransactionsInput
+  }
+
+  export type PlayerBalanceTransactionsUncheckedCreateWithoutAdminInput = {
+    id?: string
+    player?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeem?: number
+    afterRecharge: number
+    ip_address?: string | null
+    income?: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PlayerBalanceTransactionsCreateOrConnectWithoutAdminInput = {
+    where: PlayerBalanceTransactionsWhereUniqueInput
+    create: XOR<PlayerBalanceTransactionsCreateWithoutAdminInput, PlayerBalanceTransactionsUncheckedCreateWithoutAdminInput>
+  }
+
+  export type PlayerBalanceTransactionsCreateManyAdminInputEnvelope = {
+    data: Enumerable<PlayerBalanceTransactionsCreateManyAdminInput>
+  }
+
+  export type GameTransactionsCreateWithoutAdminInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    Game?: GamesCreateNestedOneWithoutGameTransactionInput
+    Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
+    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
+  }
+
+  export type GameTransactionsUncheckedCreateWithoutAdminInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    game_id?: string | null
+    player_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+    fish_transaction_id?: string | null
+  }
+
+  export type GameTransactionsCreateOrConnectWithoutAdminInput = {
+    where: GameTransactionsWhereUniqueInput
+    create: XOR<GameTransactionsCreateWithoutAdminInput, GameTransactionsUncheckedCreateWithoutAdminInput>
+  }
+
+  export type GameTransactionsCreateManyAdminInputEnvelope = {
+    data: Enumerable<GameTransactionsCreateManyAdminInput>
+  }
+
+  export type SettingsUpsertWithoutAdminInput = {
+    update: XOR<SettingsUpdateWithoutAdminInput, SettingsUncheckedUpdateWithoutAdminInput>
+    create: XOR<SettingsCreateWithoutAdminInput, SettingsUncheckedCreateWithoutAdminInput>
+  }
+
+  export type SettingsUpdateWithoutAdminInput = {
+    grandJP?: BoolFieldUpdateOperationsInput | boolean
+    grandJP_limit?: FloatFieldUpdateOperationsInput | number
+    majorJP?: BoolFieldUpdateOperationsInput | boolean
+    majorJP_limit?: FloatFieldUpdateOperationsInput | number
+    minorJP?: BoolFieldUpdateOperationsInput | boolean
+    minorJP_limit?: FloatFieldUpdateOperationsInput | number
+    miniJP?: BoolFieldUpdateOperationsInput | boolean
+    miniJP_limit?: FloatFieldUpdateOperationsInput | number
+    grandScore?: FloatFieldUpdateOperationsInput | number
+    majorScore?: FloatFieldUpdateOperationsInput | number
+    minorScore?: FloatFieldUpdateOperationsInput | number
+    miniScore?: FloatFieldUpdateOperationsInput | number
+    miniShareNum?: FloatFieldUpdateOperationsInput | number
+    maxShareNum?: FloatFieldUpdateOperationsInput | number
+    dollarStatus?: BoolFieldUpdateOperationsInput | boolean
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Player?: PlayerUpdateOneWithoutSettingsNestedInput
+  }
+
+  export type SettingsUncheckedUpdateWithoutAdminInput = {
+    grandJP?: BoolFieldUpdateOperationsInput | boolean
+    grandJP_limit?: FloatFieldUpdateOperationsInput | number
+    majorJP?: BoolFieldUpdateOperationsInput | boolean
+    majorJP_limit?: FloatFieldUpdateOperationsInput | number
+    minorJP?: BoolFieldUpdateOperationsInput | boolean
+    minorJP_limit?: FloatFieldUpdateOperationsInput | number
+    miniJP?: BoolFieldUpdateOperationsInput | boolean
+    miniJP_limit?: FloatFieldUpdateOperationsInput | number
+    grandScore?: FloatFieldUpdateOperationsInput | number
+    majorScore?: FloatFieldUpdateOperationsInput | number
+    minorScore?: FloatFieldUpdateOperationsInput | number
+    miniScore?: FloatFieldUpdateOperationsInput | number
+    miniShareNum?: FloatFieldUpdateOperationsInput | number
+    maxShareNum?: FloatFieldUpdateOperationsInput | number
+    dollarStatus?: BoolFieldUpdateOperationsInput | boolean
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Player?: PlayerUncheckedUpdateOneWithoutSettingsNestedInput
+  }
+
+  export type AdminUpsertWithoutUserInput = {
+    update: XOR<AdminUpdateWithoutUserInput, AdminUncheckedUpdateWithoutUserInput>
+    create: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+  }
+
+  export type AdminUpdateWithoutUserInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutUserInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: AdminWhereUniqueInput
+    update: XOR<AdminUpdateWithoutCreatedByInput, AdminUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<AdminCreateWithoutCreatedByInput, AdminUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type AdminUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: AdminWhereUniqueInput
+    data: XOR<AdminUpdateWithoutCreatedByInput, AdminUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type AdminUpdateManyWithWhereWithoutCreatedByInput = {
+    where: AdminScalarWhereInput
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AdminScalarWhereInput = {
+    AND?: Enumerable<AdminScalarWhereInput>
+    OR?: Enumerable<AdminScalarWhereInput>
+    NOT?: Enumerable<AdminScalarWhereInput>
+    id?: StringFilter | string
+    email_id?: StringNullableFilter | string | null
+    username?: StringFilter | string
+    password?: StringFilter | string
+    balance?: FloatFilter | number
+    setting_id?: StringNullableFilter | string | null
+    status?: EnumAccountStatusFilter | AccountStatus
+    account_type?: EnumAccountTypeNullableFilter | AccountType | null
+    timezone?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    created_by?: StringNullableFilter | string | null
+    holding?: IntFilter | number
+    totalSpent?: FloatFilter | number
+    totalRedeem?: FloatFilter | number
+    totalLost?: FloatFilter | number
+  }
+
+  export type AdminBalanceTransactionsUpsertWithWhereUniqueWithoutAccount_userInput = {
+    where: AdminBalanceTransactionsWhereUniqueInput
+    update: XOR<AdminBalanceTransactionsUpdateWithoutAccount_userInput, AdminBalanceTransactionsUncheckedUpdateWithoutAccount_userInput>
+    create: XOR<AdminBalanceTransactionsCreateWithoutAccount_userInput, AdminBalanceTransactionsUncheckedCreateWithoutAccount_userInput>
+  }
+
+  export type AdminBalanceTransactionsUpdateWithWhereUniqueWithoutAccount_userInput = {
+    where: AdminBalanceTransactionsWhereUniqueInput
+    data: XOR<AdminBalanceTransactionsUpdateWithoutAccount_userInput, AdminBalanceTransactionsUncheckedUpdateWithoutAccount_userInput>
+  }
+
+  export type AdminBalanceTransactionsUpdateManyWithWhereWithoutAccount_userInput = {
+    where: AdminBalanceTransactionsScalarWhereInput
+    data: XOR<AdminBalanceTransactionsUpdateManyMutationInput, AdminBalanceTransactionsUncheckedUpdateManyWithoutAccountInput>
+  }
+
+  export type AdminBalanceTransactionsScalarWhereInput = {
+    AND?: Enumerable<AdminBalanceTransactionsScalarWhereInput>
+    OR?: Enumerable<AdminBalanceTransactionsScalarWhereInput>
+    NOT?: Enumerable<AdminBalanceTransactionsScalarWhereInput>
+    id?: StringFilter | string
+    account?: StringNullableFilter | string | null
+    beforeRecharge?: FloatFilter | number
+    recharged?: FloatFilter | number
+    redeemed?: FloatFilter | number
+    afterRecharge?: FloatFilter | number
+    cashier?: StringNullableFilter | string | null
+    balanceBefore?: FloatFilter | number
+    balanceAfter?: FloatFilter | number
+    remark?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+  }
+
+  export type AdminBalanceTransactionsUpsertWithWhereUniqueWithoutCashier_userInput = {
+    where: AdminBalanceTransactionsWhereUniqueInput
+    update: XOR<AdminBalanceTransactionsUpdateWithoutCashier_userInput, AdminBalanceTransactionsUncheckedUpdateWithoutCashier_userInput>
+    create: XOR<AdminBalanceTransactionsCreateWithoutCashier_userInput, AdminBalanceTransactionsUncheckedCreateWithoutCashier_userInput>
+  }
+
+  export type AdminBalanceTransactionsUpdateWithWhereUniqueWithoutCashier_userInput = {
+    where: AdminBalanceTransactionsWhereUniqueInput
+    data: XOR<AdminBalanceTransactionsUpdateWithoutCashier_userInput, AdminBalanceTransactionsUncheckedUpdateWithoutCashier_userInput>
+  }
+
+  export type AdminBalanceTransactionsUpdateManyWithWhereWithoutCashier_userInput = {
+    where: AdminBalanceTransactionsScalarWhereInput
+    data: XOR<AdminBalanceTransactionsUpdateManyMutationInput, AdminBalanceTransactionsUncheckedUpdateManyWithoutCashierInput>
+  }
+
+  export type PlayerUpsertWithWhereUniqueWithoutManagerInput = {
+    where: PlayerWhereUniqueInput
+    update: XOR<PlayerUpdateWithoutManagerInput, PlayerUncheckedUpdateWithoutManagerInput>
+    create: XOR<PlayerCreateWithoutManagerInput, PlayerUncheckedCreateWithoutManagerInput>
+  }
+
+  export type PlayerUpdateWithWhereUniqueWithoutManagerInput = {
+    where: PlayerWhereUniqueInput
+    data: XOR<PlayerUpdateWithoutManagerInput, PlayerUncheckedUpdateWithoutManagerInput>
+  }
+
+  export type PlayerUpdateManyWithWhereWithoutManagerInput = {
+    where: PlayerScalarWhereInput
+    data: XOR<PlayerUpdateManyMutationInput, PlayerUncheckedUpdateManyWithoutPlayerInput>
+  }
+
+  export type PlayerScalarWhereInput = {
+    AND?: Enumerable<PlayerScalarWhereInput>
+    OR?: Enumerable<PlayerScalarWhereInput>
+    NOT?: Enumerable<PlayerScalarWhereInput>
+    id?: StringFilter | string
+    name?: StringNullableFilter | string | null
+    username?: StringFilter | string
+    password?: StringFilter | string
+    phone_number?: IntNullableFilter | number | null
+    country_code?: StringNullableFilter | string | null
+    status?: EnumAccountStatusFilter | AccountStatus
+    balance?: FloatFilter | number
+    game_played?: IntFilter | number
+    won?: FloatFilter | number
+    spent?: FloatFilter | number
+    won_total?: FloatFilter | number
+    spent_total?: FloatFilter | number
+    grandJP_won?: FloatFilter | number
+    grandJP_won_count?: IntFilter | number
+    majorJP_won?: FloatFilter | number
+    majorJP_won_count?: IntFilter | number
+    minorJP_won?: FloatFilter | number
+    minorJP_won_count?: IntFilter | number
+    miniJP_won?: FloatFilter | number
+    miniJP_won_count?: IntFilter | number
+    general_won?: FloatFilter | number
+    general_won_count?: IntFilter | number
+    setting_id?: StringNullableFilter | string | null
+    created_by?: StringFilter | string
+  }
+
+  export type PlayerBalanceTransactionsUpsertWithWhereUniqueWithoutAdminInput = {
+    where: PlayerBalanceTransactionsWhereUniqueInput
+    update: XOR<PlayerBalanceTransactionsUpdateWithoutAdminInput, PlayerBalanceTransactionsUncheckedUpdateWithoutAdminInput>
+    create: XOR<PlayerBalanceTransactionsCreateWithoutAdminInput, PlayerBalanceTransactionsUncheckedCreateWithoutAdminInput>
+  }
+
+  export type PlayerBalanceTransactionsUpdateWithWhereUniqueWithoutAdminInput = {
+    where: PlayerBalanceTransactionsWhereUniqueInput
+    data: XOR<PlayerBalanceTransactionsUpdateWithoutAdminInput, PlayerBalanceTransactionsUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type PlayerBalanceTransactionsUpdateManyWithWhereWithoutAdminInput = {
+    where: PlayerBalanceTransactionsScalarWhereInput
+    data: XOR<PlayerBalanceTransactionsUpdateManyMutationInput, PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerBalanceTransactionsInput>
+  }
+
+  export type PlayerBalanceTransactionsScalarWhereInput = {
+    AND?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
+    OR?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
+    NOT?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
+    id?: StringFilter | string
+    admin?: StringNullableFilter | string | null
+    player?: StringNullableFilter | string | null
+    beforeRecharge?: FloatFilter | number
+    recharged?: FloatFilter | number
+    redeem?: FloatFilter | number
+    afterRecharge?: FloatFilter | number
+    ip_address?: StringNullableFilter | string | null
+    income?: FloatFilter | number
+    remark?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+  }
+
+  export type GameTransactionsUpsertWithWhereUniqueWithoutAdminInput = {
+    where: GameTransactionsWhereUniqueInput
+    update: XOR<GameTransactionsUpdateWithoutAdminInput, GameTransactionsUncheckedUpdateWithoutAdminInput>
+    create: XOR<GameTransactionsCreateWithoutAdminInput, GameTransactionsUncheckedCreateWithoutAdminInput>
+  }
+
+  export type GameTransactionsUpdateWithWhereUniqueWithoutAdminInput = {
+    where: GameTransactionsWhereUniqueInput
+    data: XOR<GameTransactionsUpdateWithoutAdminInput, GameTransactionsUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type GameTransactionsUpdateManyWithWhereWithoutAdminInput = {
+    where: GameTransactionsScalarWhereInput
+    data: XOR<GameTransactionsUpdateManyMutationInput, GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput>
+  }
+
+  export type GameTransactionsScalarWhereInput = {
+    AND?: Enumerable<GameTransactionsScalarWhereInput>
+    OR?: Enumerable<GameTransactionsScalarWhereInput>
+    NOT?: Enumerable<GameTransactionsScalarWhereInput>
+    id?: StringFilter | string
+    date?: StringNullableFilter | string | null
+    player?: StringFilter | string
+    game?: StringFilter | string
+    spent?: FloatNullableFilter | number | null
+    won?: FloatNullableFilter | number | null
+    winType?: StringNullableFilter | string | null
+    game_id?: StringNullableFilter | string | null
+    player_id?: StringNullableFilter | string | null
+    user_id?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeNullableFilter | Date | string | null
+    room_id?: StringNullableFilter | string | null
+    fish_transaction_id?: StringNullableFilter | string | null
+  }
+
+  export type AdminCreateWithoutAccountInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreatedBy?: AdminCreateNestedOneWithoutUserInput
+    User?: AdminCreateNestedManyWithoutCreatedByInput
+    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateWithoutAccountInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
+    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminCreateOrConnectWithoutAccountInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutAccountInput, AdminUncheckedCreateWithoutAccountInput>
+  }
+
+  export type AdminCreateWithoutCashierInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreatedBy?: AdminCreateNestedOneWithoutUserInput
+    User?: AdminCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
+    Player?: PlayerCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateWithoutCashierInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminCreateOrConnectWithoutCashierInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutCashierInput, AdminUncheckedCreateWithoutCashierInput>
+  }
+
+  export type AdminUpsertWithoutAccountInput = {
+    update: XOR<AdminUpdateWithoutAccountInput, AdminUncheckedUpdateWithoutAccountInput>
+    create: XOR<AdminCreateWithoutAccountInput, AdminUncheckedCreateWithoutAccountInput>
+  }
+
+  export type AdminUpdateWithoutAccountInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutAccountInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUpsertWithoutCashierInput = {
+    update: XOR<AdminUpdateWithoutCashierInput, AdminUncheckedUpdateWithoutCashierInput>
+    create: XOR<AdminCreateWithoutCashierInput, AdminUncheckedCreateWithoutCashierInput>
+  }
+
+  export type AdminUpdateWithoutCashierInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutCashierInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminCreateWithoutSettingsInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreatedBy?: AdminCreateNestedOneWithoutUserInput
+    User?: AdminCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateWithoutSettingsInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminCreateOrConnectWithoutSettingsInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
+  }
+
+  export type PlayerCreateWithoutSettingsInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutSettingsInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutSettingsInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
+  }
+
+  export type AdminUpsertWithoutSettingsInput = {
+    update: XOR<AdminUpdateWithoutSettingsInput, AdminUncheckedUpdateWithoutSettingsInput>
+    create: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
+  }
+
+  export type AdminUpdateWithoutSettingsInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutSettingsInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type PlayerUpsertWithoutSettingsInput = {
+    update: XOR<PlayerUpdateWithoutSettingsInput, PlayerUncheckedUpdateWithoutSettingsInput>
+    create: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
+  }
+
+  export type PlayerUpdateWithoutSettingsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutSettingsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type SettingsCreateWithoutPlayerInput = {
+    id?: string
+    grandJP?: boolean
+    grandJP_limit?: number
+    majorJP?: boolean
+    majorJP_limit?: number
+    minorJP?: boolean
+    minorJP_limit?: number
+    miniJP?: boolean
+    miniJP_limit?: number
+    grandScore?: number
+    majorScore?: number
+    minorScore?: number
+    miniScore?: number
+    miniShareNum?: number
+    maxShareNum?: number
+    dollarStatus?: boolean
+    account_type?: AccountType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Admin?: AdminCreateNestedOneWithoutSettingsInput
+  }
+
+  export type SettingsUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    grandJP?: boolean
+    grandJP_limit?: number
+    majorJP?: boolean
+    majorJP_limit?: number
+    minorJP?: boolean
+    minorJP_limit?: number
+    miniJP?: boolean
+    miniJP_limit?: number
+    grandScore?: number
+    majorScore?: number
+    minorScore?: number
+    miniScore?: number
+    miniShareNum?: number
+    maxShareNum?: number
+    dollarStatus?: boolean
+    account_type?: AccountType | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Admin?: AdminUncheckedCreateNestedOneWithoutSettingsInput
+  }
+
+  export type SettingsCreateOrConnectWithoutPlayerInput = {
+    where: SettingsWhereUniqueInput
+    create: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type AdminCreateWithoutPlayerInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreatedBy?: AdminCreateNestedOneWithoutUserInput
+    User?: AdminCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminCreateOrConnectWithoutPlayerInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutPlayerInput, AdminUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type PlayerBalanceTransactionsCreateWithoutPlayerInput = {
+    id?: string
+    beforeRecharge: number
+    recharged: number
+    redeem?: number
+    afterRecharge: number
+    ip_address?: string | null
+    income?: number
+    remark?: string | null
+    createdAt?: Date | string
+    Admin?: AdminCreateNestedOneWithoutPlayerBalanceTransactionsInput
+  }
+
+  export type PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    admin?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeem?: number
+    afterRecharge: number
+    ip_address?: string | null
+    income?: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PlayerBalanceTransactionsCreateOrConnectWithoutPlayerInput = {
+    where: PlayerBalanceTransactionsWhereUniqueInput
+    create: XOR<PlayerBalanceTransactionsCreateWithoutPlayerInput, PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type PlayerBalanceTransactionsCreateManyPlayerInputEnvelope = {
+    data: Enumerable<PlayerBalanceTransactionsCreateManyPlayerInput>
+  }
+
+  export type ActiveGamePlayCreateWithoutPlayerInput = {
+    id?: string
+    Game?: GamesCreateNestedOneWithoutActiveGamePlayInput
+    maxWin?: number
+    startedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ActiveGamePlayUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    game_id: string
+    maxWin?: number
+    startedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ActiveGamePlayCreateOrConnectWithoutPlayerInput = {
+    where: ActiveGamePlayWhereUniqueInput
+    create: XOR<ActiveGamePlayCreateWithoutPlayerInput, ActiveGamePlayUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type GameTransactionsCreateWithoutPlayerInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    Game?: GamesCreateNestedOneWithoutGameTransactionInput
+    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
+    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
+  }
+
+  export type GameTransactionsUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    game_id?: string | null
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+    fish_transaction_id?: string | null
+  }
+
+  export type GameTransactionsCreateOrConnectWithoutPlayerInput = {
+    where: GameTransactionsWhereUniqueInput
+    create: XOR<GameTransactionsCreateWithoutPlayerInput, GameTransactionsUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type GameTransactionsCreateManyPlayerInputEnvelope = {
+    data: Enumerable<GameTransactionsCreateManyPlayerInput>
+  }
+
+  export type FishGameTransactionsCreateWithoutPlayerInput = {
+    id?: string
+    room_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+    Game?: GamesCreateNestedOneWithoutFishGameTransactionsInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutFishGameTransactionsInput
+  }
+
+  export type FishGameTransactionsUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    room_id?: string | null
+    game_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutFishGameTransactionsInput
+  }
+
+  export type FishGameTransactionsCreateOrConnectWithoutPlayerInput = {
+    where: FishGameTransactionsWhereUniqueInput
+    create: XOR<FishGameTransactionsCreateWithoutPlayerInput, FishGameTransactionsUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type FishGameTransactionsCreateManyPlayerInputEnvelope = {
+    data: Enumerable<FishGameTransactionsCreateManyPlayerInput>
+  }
+
+  export type SlotFreeBonusCreateWithoutPlayerInput = {
+    id?: string
+    bonus?: boolean
+    free_game?: boolean
+    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: number | null
+    remaining_spin?: number | null
+    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
+    start_balance: number
+    won_amount?: number | null
+    price_used?: number | null
+    max_win_amount?: number | null
+    no_of_win_round?: number | null
+    multiplier?: number | null
+    free_round_win?: InputJsonValue | null
+    Game?: GamesCreateNestedOneWithoutSlotFreeBonusInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlotFreeBonusUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    bonus?: boolean
+    free_game?: boolean
+    game_id: string
+    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: number | null
+    remaining_spin?: number | null
+    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
+    start_balance: number
+    won_amount?: number | null
+    price_used?: number | null
+    max_win_amount?: number | null
+    no_of_win_round?: number | null
+    multiplier?: number | null
+    free_round_win?: InputJsonValue | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlotFreeBonusCreateOrConnectWithoutPlayerInput = {
+    where: SlotFreeBonusWhereUniqueInput
+    create: XOR<SlotFreeBonusCreateWithoutPlayerInput, SlotFreeBonusUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type SlotFreeBonusCreateManyPlayerInputEnvelope = {
+    data: Enumerable<SlotFreeBonusCreateManyPlayerInput>
+  }
+
+  export type SettingsUpsertWithoutPlayerInput = {
+    update: XOR<SettingsUpdateWithoutPlayerInput, SettingsUncheckedUpdateWithoutPlayerInput>
+    create: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type SettingsUpdateWithoutPlayerInput = {
+    grandJP?: BoolFieldUpdateOperationsInput | boolean
+    grandJP_limit?: FloatFieldUpdateOperationsInput | number
+    majorJP?: BoolFieldUpdateOperationsInput | boolean
+    majorJP_limit?: FloatFieldUpdateOperationsInput | number
+    minorJP?: BoolFieldUpdateOperationsInput | boolean
+    minorJP_limit?: FloatFieldUpdateOperationsInput | number
+    miniJP?: BoolFieldUpdateOperationsInput | boolean
+    miniJP_limit?: FloatFieldUpdateOperationsInput | number
+    grandScore?: FloatFieldUpdateOperationsInput | number
+    majorScore?: FloatFieldUpdateOperationsInput | number
+    minorScore?: FloatFieldUpdateOperationsInput | number
+    miniScore?: FloatFieldUpdateOperationsInput | number
+    miniShareNum?: FloatFieldUpdateOperationsInput | number
+    maxShareNum?: FloatFieldUpdateOperationsInput | number
+    dollarStatus?: BoolFieldUpdateOperationsInput | boolean
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Admin?: AdminUpdateOneWithoutSettingsNestedInput
+  }
+
+  export type SettingsUncheckedUpdateWithoutPlayerInput = {
+    grandJP?: BoolFieldUpdateOperationsInput | boolean
+    grandJP_limit?: FloatFieldUpdateOperationsInput | number
+    majorJP?: BoolFieldUpdateOperationsInput | boolean
+    majorJP_limit?: FloatFieldUpdateOperationsInput | number
+    minorJP?: BoolFieldUpdateOperationsInput | boolean
+    minorJP_limit?: FloatFieldUpdateOperationsInput | number
+    miniJP?: BoolFieldUpdateOperationsInput | boolean
+    miniJP_limit?: FloatFieldUpdateOperationsInput | number
+    grandScore?: FloatFieldUpdateOperationsInput | number
+    majorScore?: FloatFieldUpdateOperationsInput | number
+    minorScore?: FloatFieldUpdateOperationsInput | number
+    miniScore?: FloatFieldUpdateOperationsInput | number
+    miniShareNum?: FloatFieldUpdateOperationsInput | number
+    maxShareNum?: FloatFieldUpdateOperationsInput | number
+    dollarStatus?: BoolFieldUpdateOperationsInput | boolean
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Admin?: AdminUncheckedUpdateOneWithoutSettingsNestedInput
+  }
+
+  export type AdminUpsertWithoutPlayerInput = {
+    update: XOR<AdminUpdateWithoutPlayerInput, AdminUncheckedUpdateWithoutPlayerInput>
+    create: XOR<AdminCreateWithoutPlayerInput, AdminUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type AdminUpdateWithoutPlayerInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutPlayerInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type PlayerBalanceTransactionsUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: PlayerBalanceTransactionsWhereUniqueInput
+    update: XOR<PlayerBalanceTransactionsUpdateWithoutPlayerInput, PlayerBalanceTransactionsUncheckedUpdateWithoutPlayerInput>
+    create: XOR<PlayerBalanceTransactionsCreateWithoutPlayerInput, PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type PlayerBalanceTransactionsUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: PlayerBalanceTransactionsWhereUniqueInput
+    data: XOR<PlayerBalanceTransactionsUpdateWithoutPlayerInput, PlayerBalanceTransactionsUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type PlayerBalanceTransactionsUpdateManyWithWhereWithoutPlayerInput = {
+    where: PlayerBalanceTransactionsScalarWhereInput
+    data: XOR<PlayerBalanceTransactionsUpdateManyMutationInput, PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerBalanceTransactionsInput>
+  }
+
+  export type ActiveGamePlayUpsertWithoutPlayerInput = {
+    update: XOR<ActiveGamePlayUpdateWithoutPlayerInput, ActiveGamePlayUncheckedUpdateWithoutPlayerInput>
+    create: XOR<ActiveGamePlayCreateWithoutPlayerInput, ActiveGamePlayUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type ActiveGamePlayUpdateWithoutPlayerInput = {
+    Game?: GamesUpdateOneWithoutActiveGamePlayNestedInput
+    maxWin?: FloatFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActiveGamePlayUncheckedUpdateWithoutPlayerInput = {
+    game_id?: StringFieldUpdateOperationsInput | string
+    maxWin?: FloatFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionsUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: GameTransactionsWhereUniqueInput
+    update: XOR<GameTransactionsUpdateWithoutPlayerInput, GameTransactionsUncheckedUpdateWithoutPlayerInput>
+    create: XOR<GameTransactionsCreateWithoutPlayerInput, GameTransactionsUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type GameTransactionsUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: GameTransactionsWhereUniqueInput
+    data: XOR<GameTransactionsUpdateWithoutPlayerInput, GameTransactionsUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type GameTransactionsUpdateManyWithWhereWithoutPlayerInput = {
+    where: GameTransactionsScalarWhereInput
+    data: XOR<GameTransactionsUpdateManyMutationInput, GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput>
+  }
+
+  export type FishGameTransactionsUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: FishGameTransactionsWhereUniqueInput
+    update: XOR<FishGameTransactionsUpdateWithoutPlayerInput, FishGameTransactionsUncheckedUpdateWithoutPlayerInput>
+    create: XOR<FishGameTransactionsCreateWithoutPlayerInput, FishGameTransactionsUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type FishGameTransactionsUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: FishGameTransactionsWhereUniqueInput
+    data: XOR<FishGameTransactionsUpdateWithoutPlayerInput, FishGameTransactionsUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type FishGameTransactionsUpdateManyWithWhereWithoutPlayerInput = {
+    where: FishGameTransactionsScalarWhereInput
+    data: XOR<FishGameTransactionsUpdateManyMutationInput, FishGameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsInput>
+  }
+
+  export type FishGameTransactionsScalarWhereInput = {
+    AND?: Enumerable<FishGameTransactionsScalarWhereInput>
+    OR?: Enumerable<FishGameTransactionsScalarWhereInput>
+    NOT?: Enumerable<FishGameTransactionsScalarWhereInput>
+    id?: StringFilter | string
+    room_id?: StringNullableFilter | string | null
+    player_id?: StringNullableFilter | string | null
+    game_id?: StringNullableFilter | string | null
+    started?: DateTimeFilter | Date | string
+    ended?: DateTimeNullableFilter | Date | string | null
+  }
+
+  export type SlotFreeBonusUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: SlotFreeBonusWhereUniqueInput
+    update: XOR<SlotFreeBonusUpdateWithoutPlayerInput, SlotFreeBonusUncheckedUpdateWithoutPlayerInput>
+    create: XOR<SlotFreeBonusCreateWithoutPlayerInput, SlotFreeBonusUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type SlotFreeBonusUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: SlotFreeBonusWhereUniqueInput
+    data: XOR<SlotFreeBonusUpdateWithoutPlayerInput, SlotFreeBonusUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type SlotFreeBonusUpdateManyWithWhereWithoutPlayerInput = {
+    where: SlotFreeBonusScalarWhereInput
+    data: XOR<SlotFreeBonusUpdateManyMutationInput, SlotFreeBonusUncheckedUpdateManyWithoutSlotFreeBonusInput>
+  }
+
+  export type SlotFreeBonusScalarWhereInput = {
+    AND?: Enumerable<SlotFreeBonusScalarWhereInput>
+    OR?: Enumerable<SlotFreeBonusScalarWhereInput>
+    NOT?: Enumerable<SlotFreeBonusScalarWhereInput>
+    id?: StringFilter | string
+    bonus?: BoolFilter | boolean
+    free_game?: BoolFilter | boolean
+    player_id?: StringFilter | string
+    game_id?: StringFilter | string
+    matrix?: JsonNullableListFilter
+    bonus_pos_matrix?: JsonNullableListFilter
+    total_spin?: IntNullableFilter | number | null
+    remaining_spin?: IntNullableFilter | number | null
+    unlocked?: JsonNullableListFilter
+    start_balance?: FloatFilter | number
+    won_amount?: FloatNullableFilter | number | null
+    price_used?: FloatNullableFilter | number | null
+    max_win_amount?: FloatNullableFilter | number | null
+    no_of_win_round?: IntNullableFilter | number | null
+    multiplier?: IntNullableFilter | number | null
+    free_round_win?: JsonNullableFilter
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+  }
+
+  export type GameTransactionsCreateWithoutGameInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
+    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
+    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
+  }
+
+  export type GameTransactionsUncheckedCreateWithoutGameInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    player_id?: string | null
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+    fish_transaction_id?: string | null
+  }
+
+  export type GameTransactionsCreateOrConnectWithoutGameInput = {
+    where: GameTransactionsWhereUniqueInput
+    create: XOR<GameTransactionsCreateWithoutGameInput, GameTransactionsUncheckedCreateWithoutGameInput>
+  }
+
+  export type GameTransactionsCreateManyGameInputEnvelope = {
+    data: Enumerable<GameTransactionsCreateManyGameInput>
+  }
+
+  export type ActiveGamePlayCreateWithoutGameInput = {
+    id?: string
+    Player?: PlayerCreateNestedOneWithoutActiveGamePlayInput
+    maxWin?: number
+    startedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ActiveGamePlayUncheckedCreateWithoutGameInput = {
+    id?: string
+    player_id: string
+    maxWin?: number
+    startedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ActiveGamePlayCreateOrConnectWithoutGameInput = {
+    where: ActiveGamePlayWhereUniqueInput
+    create: XOR<ActiveGamePlayCreateWithoutGameInput, ActiveGamePlayUncheckedCreateWithoutGameInput>
+  }
+
+  export type ActiveGamePlayCreateManyGameInputEnvelope = {
+    data: Enumerable<ActiveGamePlayCreateManyGameInput>
+  }
+
+  export type GameAssetsCreateWithoutGameInput = {
+    id?: string
+    platform: string
+    path?: string | null
+    version?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GameAssetsUncheckedCreateWithoutGameInput = {
+    id?: string
+    platform: string
+    path?: string | null
+    version?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GameAssetsCreateOrConnectWithoutGameInput = {
+    where: GameAssetsWhereUniqueInput
+    create: XOR<GameAssetsCreateWithoutGameInput, GameAssetsUncheckedCreateWithoutGameInput>
+  }
+
+  export type GameAssetsCreateManyGameInputEnvelope = {
+    data: Enumerable<GameAssetsCreateManyGameInput>
+  }
+
+  export type FishGameTransactionsCreateWithoutGameInput = {
+    id?: string
+    room_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+    Player?: PlayerCreateNestedOneWithoutFishGameTransactionsInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutFishGameTransactionsInput
+  }
+
+  export type FishGameTransactionsUncheckedCreateWithoutGameInput = {
+    id?: string
+    room_id?: string | null
+    player_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutFishGameTransactionsInput
+  }
+
+  export type FishGameTransactionsCreateOrConnectWithoutGameInput = {
+    where: FishGameTransactionsWhereUniqueInput
+    create: XOR<FishGameTransactionsCreateWithoutGameInput, FishGameTransactionsUncheckedCreateWithoutGameInput>
+  }
+
+  export type FishGameTransactionsCreateManyGameInputEnvelope = {
+    data: Enumerable<FishGameTransactionsCreateManyGameInput>
+  }
+
+  export type SlotFreeBonusCreateWithoutGameInput = {
+    id?: string
+    bonus?: boolean
+    free_game?: boolean
+    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: number | null
+    remaining_spin?: number | null
+    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
+    start_balance: number
+    won_amount?: number | null
+    price_used?: number | null
+    max_win_amount?: number | null
+    no_of_win_round?: number | null
+    multiplier?: number | null
+    free_round_win?: InputJsonValue | null
+    Player?: PlayerCreateNestedOneWithoutSlotFreeBonusInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlotFreeBonusUncheckedCreateWithoutGameInput = {
+    id?: string
+    bonus?: boolean
+    free_game?: boolean
+    player_id: string
+    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: number | null
+    remaining_spin?: number | null
+    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
+    start_balance: number
+    won_amount?: number | null
+    price_used?: number | null
+    max_win_amount?: number | null
+    no_of_win_round?: number | null
+    multiplier?: number | null
+    free_round_win?: InputJsonValue | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SlotFreeBonusCreateOrConnectWithoutGameInput = {
+    where: SlotFreeBonusWhereUniqueInput
+    create: XOR<SlotFreeBonusCreateWithoutGameInput, SlotFreeBonusUncheckedCreateWithoutGameInput>
+  }
+
+  export type SlotFreeBonusCreateManyGameInputEnvelope = {
+    data: Enumerable<SlotFreeBonusCreateManyGameInput>
+  }
+
+  export type GameTransactionsUpsertWithWhereUniqueWithoutGameInput = {
+    where: GameTransactionsWhereUniqueInput
+    update: XOR<GameTransactionsUpdateWithoutGameInput, GameTransactionsUncheckedUpdateWithoutGameInput>
+    create: XOR<GameTransactionsCreateWithoutGameInput, GameTransactionsUncheckedCreateWithoutGameInput>
+  }
+
+  export type GameTransactionsUpdateWithWhereUniqueWithoutGameInput = {
+    where: GameTransactionsWhereUniqueInput
+    data: XOR<GameTransactionsUpdateWithoutGameInput, GameTransactionsUncheckedUpdateWithoutGameInput>
+  }
+
+  export type GameTransactionsUpdateManyWithWhereWithoutGameInput = {
+    where: GameTransactionsScalarWhereInput
+    data: XOR<GameTransactionsUpdateManyMutationInput, GameTransactionsUncheckedUpdateManyWithoutGameTransactionInput>
+  }
+
+  export type ActiveGamePlayUpsertWithWhereUniqueWithoutGameInput = {
+    where: ActiveGamePlayWhereUniqueInput
+    update: XOR<ActiveGamePlayUpdateWithoutGameInput, ActiveGamePlayUncheckedUpdateWithoutGameInput>
+    create: XOR<ActiveGamePlayCreateWithoutGameInput, ActiveGamePlayUncheckedCreateWithoutGameInput>
+  }
+
+  export type ActiveGamePlayUpdateWithWhereUniqueWithoutGameInput = {
+    where: ActiveGamePlayWhereUniqueInput
+    data: XOR<ActiveGamePlayUpdateWithoutGameInput, ActiveGamePlayUncheckedUpdateWithoutGameInput>
+  }
+
+  export type ActiveGamePlayUpdateManyWithWhereWithoutGameInput = {
+    where: ActiveGamePlayScalarWhereInput
+    data: XOR<ActiveGamePlayUpdateManyMutationInput, ActiveGamePlayUncheckedUpdateManyWithoutActiveGamePlayInput>
+  }
+
+  export type ActiveGamePlayScalarWhereInput = {
+    AND?: Enumerable<ActiveGamePlayScalarWhereInput>
+    OR?: Enumerable<ActiveGamePlayScalarWhereInput>
+    NOT?: Enumerable<ActiveGamePlayScalarWhereInput>
+    id?: StringFilter | string
+    player_id?: StringFilter | string
+    game_id?: StringFilter | string
+    maxWin?: FloatFilter | number
+    startedAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+  }
+
+  export type GameAssetsUpsertWithWhereUniqueWithoutGameInput = {
+    where: GameAssetsWhereUniqueInput
+    update: XOR<GameAssetsUpdateWithoutGameInput, GameAssetsUncheckedUpdateWithoutGameInput>
+    create: XOR<GameAssetsCreateWithoutGameInput, GameAssetsUncheckedCreateWithoutGameInput>
+  }
+
+  export type GameAssetsUpdateWithWhereUniqueWithoutGameInput = {
+    where: GameAssetsWhereUniqueInput
+    data: XOR<GameAssetsUpdateWithoutGameInput, GameAssetsUncheckedUpdateWithoutGameInput>
+  }
+
+  export type GameAssetsUpdateManyWithWhereWithoutGameInput = {
+    where: GameAssetsScalarWhereInput
+    data: XOR<GameAssetsUpdateManyMutationInput, GameAssetsUncheckedUpdateManyWithoutGameAssetsInput>
+  }
+
+  export type GameAssetsScalarWhereInput = {
+    AND?: Enumerable<GameAssetsScalarWhereInput>
+    OR?: Enumerable<GameAssetsScalarWhereInput>
+    NOT?: Enumerable<GameAssetsScalarWhereInput>
+    id?: StringFilter | string
+    game_id?: StringNullableFilter | string | null
+    platform?: StringFilter | string
+    path?: StringNullableFilter | string | null
+    version?: IntNullableFilter | number | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+  }
+
+  export type FishGameTransactionsUpsertWithWhereUniqueWithoutGameInput = {
+    where: FishGameTransactionsWhereUniqueInput
+    update: XOR<FishGameTransactionsUpdateWithoutGameInput, FishGameTransactionsUncheckedUpdateWithoutGameInput>
+    create: XOR<FishGameTransactionsCreateWithoutGameInput, FishGameTransactionsUncheckedCreateWithoutGameInput>
+  }
+
+  export type FishGameTransactionsUpdateWithWhereUniqueWithoutGameInput = {
+    where: FishGameTransactionsWhereUniqueInput
+    data: XOR<FishGameTransactionsUpdateWithoutGameInput, FishGameTransactionsUncheckedUpdateWithoutGameInput>
+  }
+
+  export type FishGameTransactionsUpdateManyWithWhereWithoutGameInput = {
+    where: FishGameTransactionsScalarWhereInput
+    data: XOR<FishGameTransactionsUpdateManyMutationInput, FishGameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsInput>
+  }
+
+  export type SlotFreeBonusUpsertWithWhereUniqueWithoutGameInput = {
+    where: SlotFreeBonusWhereUniqueInput
+    update: XOR<SlotFreeBonusUpdateWithoutGameInput, SlotFreeBonusUncheckedUpdateWithoutGameInput>
+    create: XOR<SlotFreeBonusCreateWithoutGameInput, SlotFreeBonusUncheckedCreateWithoutGameInput>
+  }
+
+  export type SlotFreeBonusUpdateWithWhereUniqueWithoutGameInput = {
+    where: SlotFreeBonusWhereUniqueInput
+    data: XOR<SlotFreeBonusUpdateWithoutGameInput, SlotFreeBonusUncheckedUpdateWithoutGameInput>
+  }
+
+  export type SlotFreeBonusUpdateManyWithWhereWithoutGameInput = {
+    where: SlotFreeBonusScalarWhereInput
+    data: XOR<SlotFreeBonusUpdateManyMutationInput, SlotFreeBonusUncheckedUpdateManyWithoutSlotFreeBonusInput>
+  }
+
+  export type GamesCreateWithoutGameAssetsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesUncheckedCreateWithoutGameAssetsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesCreateOrConnectWithoutGameAssetsInput = {
+    where: GamesWhereUniqueInput
+    create: XOR<GamesCreateWithoutGameAssetsInput, GamesUncheckedCreateWithoutGameAssetsInput>
+  }
+
+  export type GamesUpsertWithoutGameAssetsInput = {
+    update: XOR<GamesUpdateWithoutGameAssetsInput, GamesUncheckedUpdateWithoutGameAssetsInput>
+    create: XOR<GamesCreateWithoutGameAssetsInput, GamesUncheckedCreateWithoutGameAssetsInput>
+  }
+
+  export type GamesUpdateWithoutGameAssetsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+  }
+
+  export type GamesUncheckedUpdateWithoutGameAssetsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+  }
+
+  export type PlayerCreateWithoutActiveGamePlayInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutActiveGamePlayInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutActiveGamePlayInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutActiveGamePlayInput, PlayerUncheckedCreateWithoutActiveGamePlayInput>
+  }
+
+  export type GamesCreateWithoutActiveGamePlayInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesUncheckedCreateWithoutActiveGamePlayInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesCreateOrConnectWithoutActiveGamePlayInput = {
+    where: GamesWhereUniqueInput
+    create: XOR<GamesCreateWithoutActiveGamePlayInput, GamesUncheckedCreateWithoutActiveGamePlayInput>
+  }
+
+  export type PlayerUpsertWithoutActiveGamePlayInput = {
+    update: XOR<PlayerUpdateWithoutActiveGamePlayInput, PlayerUncheckedUpdateWithoutActiveGamePlayInput>
+    create: XOR<PlayerCreateWithoutActiveGamePlayInput, PlayerUncheckedCreateWithoutActiveGamePlayInput>
+  }
+
+  export type PlayerUpdateWithoutActiveGamePlayInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutActiveGamePlayInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type GamesUpsertWithoutActiveGamePlayInput = {
+    update: XOR<GamesUpdateWithoutActiveGamePlayInput, GamesUncheckedUpdateWithoutActiveGamePlayInput>
+    create: XOR<GamesCreateWithoutActiveGamePlayInput, GamesUncheckedCreateWithoutActiveGamePlayInput>
+  }
+
+  export type GamesUpdateWithoutActiveGamePlayInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+  }
+
+  export type GamesUncheckedUpdateWithoutActiveGamePlayInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+  }
+
+  export type GameTransactionsCreateWithoutSlotTransactionsInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    Game?: GamesCreateNestedOneWithoutGameTransactionInput
+    Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
+    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
+    room_id?: string | null
+    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
+  }
+
+  export type GameTransactionsUncheckedCreateWithoutSlotTransactionsInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    game_id?: string | null
+    player_id?: string | null
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    room_id?: string | null
+    fish_transaction_id?: string | null
+  }
+
+  export type GameTransactionsCreateOrConnectWithoutSlotTransactionsInput = {
+    where: GameTransactionsWhereUniqueInput
+    create: XOR<GameTransactionsCreateWithoutSlotTransactionsInput, GameTransactionsUncheckedCreateWithoutSlotTransactionsInput>
+  }
+
+  export type GameTransactionsUpsertWithoutSlotTransactionsInput = {
+    update: XOR<GameTransactionsUpdateWithoutSlotTransactionsInput, GameTransactionsUncheckedUpdateWithoutSlotTransactionsInput>
+    create: XOR<GameTransactionsCreateWithoutSlotTransactionsInput, GameTransactionsUncheckedCreateWithoutSlotTransactionsInput>
+  }
+
+  export type GameTransactionsUpdateWithoutSlotTransactionsInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Game?: GamesUpdateOneWithoutGameTransactionNestedInput
+    Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
+    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
+  }
+
+  export type GameTransactionsUncheckedUpdateWithoutSlotTransactionsInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GamesCreateWithoutGameTransactionInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesUncheckedCreateWithoutGameTransactionInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesCreateOrConnectWithoutGameTransactionInput = {
+    where: GamesWhereUniqueInput
+    create: XOR<GamesCreateWithoutGameTransactionInput, GamesUncheckedCreateWithoutGameTransactionInput>
+  }
+
+  export type PlayerCreateWithoutGameTransactionsInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutGameTransactionsInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutGameTransactionsInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutGameTransactionsInput, PlayerUncheckedCreateWithoutGameTransactionsInput>
+  }
+
+  export type AdminCreateWithoutGameTransactionsInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreatedBy?: AdminCreateNestedOneWithoutUserInput
+    User?: AdminCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateWithoutGameTransactionsInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminCreateOrConnectWithoutGameTransactionsInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutGameTransactionsInput, AdminUncheckedCreateWithoutGameTransactionsInput>
+  }
+
+  export type SlotTransactionsCreateWithoutTransactionInput = {
+    id?: string
+    status?: SlotStatus | null
+    createdAt?: Date | string
+  }
+
+  export type SlotTransactionsUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    status?: SlotStatus | null
+    createdAt?: Date | string
+  }
+
+  export type SlotTransactionsCreateOrConnectWithoutTransactionInput = {
+    where: SlotTransactionsWhereUniqueInput
+    create: XOR<SlotTransactionsCreateWithoutTransactionInput, SlotTransactionsUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type SlotTransactionsCreateManyTransactionInputEnvelope = {
+    data: Enumerable<SlotTransactionsCreateManyTransactionInput>
+  }
+
+  export type FishGameTransactionsCreateWithoutGameTransactionsInput = {
+    id?: string
+    room_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+    Game?: GamesCreateNestedOneWithoutFishGameTransactionsInput
+    Player?: PlayerCreateNestedOneWithoutFishGameTransactionsInput
+  }
+
+  export type FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput = {
+    id?: string
+    room_id?: string | null
+    player_id?: string | null
+    game_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+  }
+
+  export type FishGameTransactionsCreateOrConnectWithoutGameTransactionsInput = {
+    where: FishGameTransactionsWhereUniqueInput
+    create: XOR<FishGameTransactionsCreateWithoutGameTransactionsInput, FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput>
+  }
+
+  export type GamesUpsertWithoutGameTransactionInput = {
+    update: XOR<GamesUpdateWithoutGameTransactionInput, GamesUncheckedUpdateWithoutGameTransactionInput>
+    create: XOR<GamesCreateWithoutGameTransactionInput, GamesUncheckedCreateWithoutGameTransactionInput>
+  }
+
+  export type GamesUpdateWithoutGameTransactionInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+  }
+
+  export type GamesUncheckedUpdateWithoutGameTransactionInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+  }
+
+  export type PlayerUpsertWithoutGameTransactionsInput = {
+    update: XOR<PlayerUpdateWithoutGameTransactionsInput, PlayerUncheckedUpdateWithoutGameTransactionsInput>
+    create: XOR<PlayerCreateWithoutGameTransactionsInput, PlayerUncheckedCreateWithoutGameTransactionsInput>
+  }
+
+  export type PlayerUpdateWithoutGameTransactionsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutGameTransactionsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type AdminUpsertWithoutGameTransactionsInput = {
+    update: XOR<AdminUpdateWithoutGameTransactionsInput, AdminUncheckedUpdateWithoutGameTransactionsInput>
+    create: XOR<AdminCreateWithoutGameTransactionsInput, AdminUncheckedCreateWithoutGameTransactionsInput>
+  }
+
+  export type AdminUpdateWithoutGameTransactionsInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutGameTransactionsInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type SlotTransactionsUpsertWithWhereUniqueWithoutTransactionInput = {
+    where: SlotTransactionsWhereUniqueInput
+    update: XOR<SlotTransactionsUpdateWithoutTransactionInput, SlotTransactionsUncheckedUpdateWithoutTransactionInput>
+    create: XOR<SlotTransactionsCreateWithoutTransactionInput, SlotTransactionsUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type SlotTransactionsUpdateWithWhereUniqueWithoutTransactionInput = {
+    where: SlotTransactionsWhereUniqueInput
+    data: XOR<SlotTransactionsUpdateWithoutTransactionInput, SlotTransactionsUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type SlotTransactionsUpdateManyWithWhereWithoutTransactionInput = {
+    where: SlotTransactionsScalarWhereInput
+    data: XOR<SlotTransactionsUpdateManyMutationInput, SlotTransactionsUncheckedUpdateManyWithoutSlotTransactionsInput>
+  }
+
+  export type SlotTransactionsScalarWhereInput = {
+    AND?: Enumerable<SlotTransactionsScalarWhereInput>
+    OR?: Enumerable<SlotTransactionsScalarWhereInput>
+    NOT?: Enumerable<SlotTransactionsScalarWhereInput>
+    id?: StringFilter | string
+    transaction_id?: StringNullableFilter | string | null
+    status?: EnumSlotStatusNullableFilter | SlotStatus | null
+    createdAt?: DateTimeFilter | Date | string
+  }
+
+  export type FishGameTransactionsUpsertWithoutGameTransactionsInput = {
+    update: XOR<FishGameTransactionsUpdateWithoutGameTransactionsInput, FishGameTransactionsUncheckedUpdateWithoutGameTransactionsInput>
+    create: XOR<FishGameTransactionsCreateWithoutGameTransactionsInput, FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput>
+  }
+
+  export type FishGameTransactionsUpdateWithoutGameTransactionsInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Game?: GamesUpdateOneWithoutFishGameTransactionsNestedInput
+    Player?: PlayerUpdateOneWithoutFishGameTransactionsNestedInput
+  }
+
+  export type FishGameTransactionsUncheckedUpdateWithoutGameTransactionsInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type GamesCreateWithoutFishGameTransactionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesUncheckedCreateWithoutFishGameTransactionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesCreateOrConnectWithoutFishGameTransactionsInput = {
+    where: GamesWhereUniqueInput
+    create: XOR<GamesCreateWithoutFishGameTransactionsInput, GamesUncheckedCreateWithoutFishGameTransactionsInput>
+  }
+
+  export type PlayerCreateWithoutFishGameTransactionsInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutFishGameTransactionsInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutFishGameTransactionsInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutFishGameTransactionsInput, PlayerUncheckedCreateWithoutFishGameTransactionsInput>
+  }
+
+  export type GameTransactionsCreateWithoutFishGameTransactionsInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    Game?: GamesCreateNestedOneWithoutGameTransactionInput
+    Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
+    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
+    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+  }
+
+  export type GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    game_id?: string | null
+    player_id?: string | null
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
+    room_id?: string | null
+  }
+
+  export type GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput = {
+    where: GameTransactionsWhereUniqueInput
+    create: XOR<GameTransactionsCreateWithoutFishGameTransactionsInput, GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>
+  }
+
+  export type GameTransactionsCreateManyFishGameTransactionsInputEnvelope = {
+    data: Enumerable<GameTransactionsCreateManyFishGameTransactionsInput>
+  }
+
+  export type GamesUpsertWithoutFishGameTransactionsInput = {
+    update: XOR<GamesUpdateWithoutFishGameTransactionsInput, GamesUncheckedUpdateWithoutFishGameTransactionsInput>
+    create: XOR<GamesCreateWithoutFishGameTransactionsInput, GamesUncheckedCreateWithoutFishGameTransactionsInput>
+  }
+
+  export type GamesUpdateWithoutFishGameTransactionsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+  }
+
+  export type GamesUncheckedUpdateWithoutFishGameTransactionsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+  }
+
+  export type PlayerUpsertWithoutFishGameTransactionsInput = {
+    update: XOR<PlayerUpdateWithoutFishGameTransactionsInput, PlayerUncheckedUpdateWithoutFishGameTransactionsInput>
+    create: XOR<PlayerCreateWithoutFishGameTransactionsInput, PlayerUncheckedCreateWithoutFishGameTransactionsInput>
+  }
+
+  export type PlayerUpdateWithoutFishGameTransactionsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutFishGameTransactionsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type GameTransactionsUpsertWithWhereUniqueWithoutFishGameTransactionsInput = {
+    where: GameTransactionsWhereUniqueInput
+    update: XOR<GameTransactionsUpdateWithoutFishGameTransactionsInput, GameTransactionsUncheckedUpdateWithoutFishGameTransactionsInput>
+    create: XOR<GameTransactionsCreateWithoutFishGameTransactionsInput, GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>
+  }
+
+  export type GameTransactionsUpdateWithWhereUniqueWithoutFishGameTransactionsInput = {
+    where: GameTransactionsWhereUniqueInput
+    data: XOR<GameTransactionsUpdateWithoutFishGameTransactionsInput, GameTransactionsUncheckedUpdateWithoutFishGameTransactionsInput>
+  }
+
+  export type GameTransactionsUpdateManyWithWhereWithoutFishGameTransactionsInput = {
+    where: GameTransactionsScalarWhereInput
+    data: XOR<GameTransactionsUpdateManyMutationInput, GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput>
+  }
+
+  export type PlayerCreateWithoutSlotFreeBonusInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutSlotFreeBonusInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutSlotFreeBonusInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutSlotFreeBonusInput, PlayerUncheckedCreateWithoutSlotFreeBonusInput>
+  }
+
+  export type GamesCreateWithoutSlotFreeBonusInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesUncheckedCreateWithoutSlotFreeBonusInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesCreateOrConnectWithoutSlotFreeBonusInput = {
+    where: GamesWhereUniqueInput
+    create: XOR<GamesCreateWithoutSlotFreeBonusInput, GamesUncheckedCreateWithoutSlotFreeBonusInput>
+  }
+
+  export type PlayerUpsertWithoutSlotFreeBonusInput = {
+    update: XOR<PlayerUpdateWithoutSlotFreeBonusInput, PlayerUncheckedUpdateWithoutSlotFreeBonusInput>
+    create: XOR<PlayerCreateWithoutSlotFreeBonusInput, PlayerUncheckedCreateWithoutSlotFreeBonusInput>
+  }
+
+  export type PlayerUpdateWithoutSlotFreeBonusInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutSlotFreeBonusInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type GamesUpsertWithoutSlotFreeBonusInput = {
+    update: XOR<GamesUpdateWithoutSlotFreeBonusInput, GamesUncheckedUpdateWithoutSlotFreeBonusInput>
+    create: XOR<GamesCreateWithoutSlotFreeBonusInput, GamesUncheckedCreateWithoutSlotFreeBonusInput>
+  }
+
+  export type GamesUpdateWithoutSlotFreeBonusInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
+  }
+
+  export type GamesUncheckedUpdateWithoutSlotFreeBonusInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+  }
+
+  export type PlayerCreateWithoutPlayerBalanceTransactionsInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutPlayerBalanceTransactionsInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutPlayerBalanceTransactionsInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutPlayerBalanceTransactionsInput, PlayerUncheckedCreateWithoutPlayerBalanceTransactionsInput>
+  }
+
+  export type AdminCreateWithoutPlayerBalanceTransactionsInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreatedBy?: AdminCreateNestedOneWithoutUserInput
+    User?: AdminCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerCreateNestedManyWithoutManagerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateWithoutPlayerBalanceTransactionsInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminCreateOrConnectWithoutPlayerBalanceTransactionsInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutPlayerBalanceTransactionsInput, AdminUncheckedCreateWithoutPlayerBalanceTransactionsInput>
+  }
+
+  export type PlayerUpsertWithoutPlayerBalanceTransactionsInput = {
+    update: XOR<PlayerUpdateWithoutPlayerBalanceTransactionsInput, PlayerUncheckedUpdateWithoutPlayerBalanceTransactionsInput>
+    create: XOR<PlayerCreateWithoutPlayerBalanceTransactionsInput, PlayerUncheckedCreateWithoutPlayerBalanceTransactionsInput>
+  }
+
+  export type PlayerUpdateWithoutPlayerBalanceTransactionsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutPlayerBalanceTransactionsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type AdminUpsertWithoutPlayerBalanceTransactionsInput = {
+    update: XOR<AdminUpdateWithoutPlayerBalanceTransactionsInput, AdminUncheckedUpdateWithoutPlayerBalanceTransactionsInput>
+    create: XOR<AdminCreateWithoutPlayerBalanceTransactionsInput, AdminUncheckedCreateWithoutPlayerBalanceTransactionsInput>
+  }
+
+  export type AdminUpdateWithoutPlayerBalanceTransactionsInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutPlayerBalanceTransactionsInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminCreateManyCreatedByInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    holding?: number
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminBalanceTransactionsCreateManyAccount_userInput = {
+    id?: string
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    cashier?: string | null
+    balanceBefore: number
+    balanceAfter: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AdminBalanceTransactionsCreateManyCashier_userInput = {
+    id?: string
+    account?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeemed: number
+    afterRecharge: number
+    balanceBefore: number
+    balanceAfter: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PlayerCreateManyManagerInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+  }
+
+  export type PlayerBalanceTransactionsCreateManyAdminInput = {
+    id?: string
+    player?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeem?: number
+    afterRecharge: number
+    ip_address?: string | null
+    income?: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type GameTransactionsCreateManyAdminInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    game_id?: string | null
+    player_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    room_id?: string | null
+    fish_transaction_id?: string | null
+  }
+
+  export type AdminUpdateWithoutCreatedByInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutCreatedByInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateManyWithoutUserInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    holding?: IntFieldUpdateOperationsInput | number
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminBalanceTransactionsUpdateWithoutAccount_userInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Cashier_user?: AdminUpdateOneWithoutCashierNestedInput
+  }
+
+  export type AdminBalanceTransactionsUncheckedUpdateWithoutAccount_userInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    cashier?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminBalanceTransactionsUncheckedUpdateManyWithoutAccountInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    cashier?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminBalanceTransactionsUpdateWithoutCashier_userInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Account_user?: AdminUpdateOneWithoutAccountNestedInput
+  }
+
+  export type AdminBalanceTransactionsUncheckedUpdateWithoutCashier_userInput = {
+    account?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminBalanceTransactionsUncheckedUpdateManyWithoutCashierInput = {
+    account?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeemed?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    balanceBefore?: FloatFieldUpdateOperationsInput | number
+    balanceAfter?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayerUpdateWithoutManagerInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutManagerInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateManyWithoutPlayerInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PlayerBalanceTransactionsUpdateWithoutAdminInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeem?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    income?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Player?: PlayerUpdateOneWithoutPlayerBalanceTransactionsNestedInput
+  }
+
+  export type PlayerBalanceTransactionsUncheckedUpdateWithoutAdminInput = {
+    player?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeem?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    income?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerBalanceTransactionsInput = {
+    player?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeem?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    income?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionsUpdateWithoutAdminInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Game?: GamesUpdateOneWithoutGameTransactionNestedInput
+    Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
+    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
+  }
+
+  export type GameTransactionsUncheckedUpdateWithoutAdminInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PlayerBalanceTransactionsCreateManyPlayerInput = {
+    id?: string
+    admin?: string | null
+    beforeRecharge: number
+    recharged: number
+    redeem?: number
+    afterRecharge: number
+    ip_address?: string | null
+    income?: number
+    remark?: string | null
+    createdAt?: Date | string
+  }
+
+  export type GameTransactionsCreateManyPlayerInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    game_id?: string | null
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    room_id?: string | null
+    fish_transaction_id?: string | null
+  }
+
+  export type FishGameTransactionsCreateManyPlayerInput = {
+    id?: string
+    room_id?: string | null
+    game_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+  }
+
+  export type SlotFreeBonusCreateManyPlayerInput = {
+    id?: string
+    bonus?: boolean
+    free_game?: boolean
+    game_id: string
+    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: number | null
+    remaining_spin?: number | null
+    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
+    start_balance: number
+    won_amount?: number | null
+    price_used?: number | null
+    max_win_amount?: number | null
+    no_of_win_round?: number | null
+    multiplier?: number | null
+    free_round_win?: InputJsonValue | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlayerBalanceTransactionsUpdateWithoutPlayerInput = {
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeem?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    income?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Admin?: AdminUpdateOneWithoutPlayerBalanceTransactionsNestedInput
+  }
+
+  export type PlayerBalanceTransactionsUncheckedUpdateWithoutPlayerInput = {
+    admin?: NullableStringFieldUpdateOperationsInput | string | null
+    beforeRecharge?: FloatFieldUpdateOperationsInput | number
+    recharged?: FloatFieldUpdateOperationsInput | number
+    redeem?: FloatFieldUpdateOperationsInput | number
+    afterRecharge?: FloatFieldUpdateOperationsInput | number
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    income?: FloatFieldUpdateOperationsInput | number
+    remark?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionsUpdateWithoutPlayerInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Game?: GamesUpdateOneWithoutGameTransactionNestedInput
+    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
+    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
+  }
+
+  export type GameTransactionsUncheckedUpdateWithoutPlayerInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FishGameTransactionsUpdateWithoutPlayerInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Game?: GamesUpdateOneWithoutFishGameTransactionsNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutFishGameTransactionsNestedInput
+  }
+
+  export type FishGameTransactionsUncheckedUpdateWithoutPlayerInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsNestedInput
+  }
+
+  export type FishGameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SlotFreeBonusUpdateWithoutPlayerInput = {
+    bonus?: BoolFieldUpdateOperationsInput | boolean
+    free_game?: BoolFieldUpdateOperationsInput | boolean
+    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
+    start_balance?: FloatFieldUpdateOperationsInput | number
+    won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_used?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_win_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    no_of_win_round?: NullableIntFieldUpdateOperationsInput | number | null
+    multiplier?: NullableIntFieldUpdateOperationsInput | number | null
+    free_round_win?: InputJsonValue | InputJsonValue | null
+    Game?: GamesUpdateOneWithoutSlotFreeBonusNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotFreeBonusUncheckedUpdateWithoutPlayerInput = {
+    bonus?: BoolFieldUpdateOperationsInput | boolean
+    free_game?: BoolFieldUpdateOperationsInput | boolean
+    game_id?: StringFieldUpdateOperationsInput | string
+    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
+    start_balance?: FloatFieldUpdateOperationsInput | number
+    won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_used?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_win_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    no_of_win_round?: NullableIntFieldUpdateOperationsInput | number | null
+    multiplier?: NullableIntFieldUpdateOperationsInput | number | null
+    free_round_win?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotFreeBonusUncheckedUpdateManyWithoutSlotFreeBonusInput = {
+    bonus?: BoolFieldUpdateOperationsInput | boolean
+    free_game?: BoolFieldUpdateOperationsInput | boolean
+    game_id?: StringFieldUpdateOperationsInput | string
+    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
+    start_balance?: FloatFieldUpdateOperationsInput | number
+    won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_used?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_win_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    no_of_win_round?: NullableIntFieldUpdateOperationsInput | number | null
+    multiplier?: NullableIntFieldUpdateOperationsInput | number | null
+    free_round_win?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionsCreateManyGameInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    player_id?: string | null
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    room_id?: string | null
+    fish_transaction_id?: string | null
+  }
+
+  export type ActiveGamePlayCreateManyGameInput = {
+    id?: string
+    player_id: string
+    maxWin?: number
+    startedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GameAssetsCreateManyGameInput = {
+    id?: string
+    platform: string
+    path?: string | null
+    version?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FishGameTransactionsCreateManyGameInput = {
+    id?: string
+    room_id?: string | null
+    player_id?: string | null
+    started?: Date | string
+    ended?: Date | string | null
+  }
+
+  export type SlotFreeBonusCreateManyGameInput = {
+    id?: string
+    bonus?: boolean
+    free_game?: boolean
+    player_id: string
+    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: number | null
+    remaining_spin?: number | null
+    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
+    start_balance: number
+    won_amount?: number | null
+    price_used?: number | null
+    max_win_amount?: number | null
+    no_of_win_round?: number | null
+    multiplier?: number | null
+    free_round_win?: InputJsonValue | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GameTransactionsUpdateWithoutGameInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
+    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
+    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
+  }
+
+  export type GameTransactionsUncheckedUpdateWithoutGameInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GameTransactionsUncheckedUpdateManyWithoutGameTransactionInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ActiveGamePlayUpdateWithoutGameInput = {
+    Player?: PlayerUpdateOneWithoutActiveGamePlayNestedInput
+    maxWin?: FloatFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActiveGamePlayUncheckedUpdateWithoutGameInput = {
+    player_id?: StringFieldUpdateOperationsInput | string
+    maxWin?: FloatFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActiveGamePlayUncheckedUpdateManyWithoutActiveGamePlayInput = {
+    player_id?: StringFieldUpdateOperationsInput | string
+    maxWin?: FloatFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameAssetsUpdateWithoutGameInput = {
+    platform?: StringFieldUpdateOperationsInput | string
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameAssetsUncheckedUpdateWithoutGameInput = {
+    platform?: StringFieldUpdateOperationsInput | string
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameAssetsUncheckedUpdateManyWithoutGameAssetsInput = {
+    platform?: StringFieldUpdateOperationsInput | string
+    path?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FishGameTransactionsUpdateWithoutGameInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Player?: PlayerUpdateOneWithoutFishGameTransactionsNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutFishGameTransactionsNestedInput
+  }
+
+  export type FishGameTransactionsUncheckedUpdateWithoutGameInput = {
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    started?: DateTimeFieldUpdateOperationsInput | Date | string
+    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsNestedInput
+  }
+
+  export type SlotFreeBonusUpdateWithoutGameInput = {
+    bonus?: BoolFieldUpdateOperationsInput | boolean
+    free_game?: BoolFieldUpdateOperationsInput | boolean
+    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
+    start_balance?: FloatFieldUpdateOperationsInput | number
+    won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_used?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_win_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    no_of_win_round?: NullableIntFieldUpdateOperationsInput | number | null
+    multiplier?: NullableIntFieldUpdateOperationsInput | number | null
+    free_round_win?: InputJsonValue | InputJsonValue | null
+    Player?: PlayerUpdateOneWithoutSlotFreeBonusNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotFreeBonusUncheckedUpdateWithoutGameInput = {
+    bonus?: BoolFieldUpdateOperationsInput | boolean
+    free_game?: BoolFieldUpdateOperationsInput | boolean
+    player_id?: StringFieldUpdateOperationsInput | string
+    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
+    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
+    total_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
+    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
+    start_balance?: FloatFieldUpdateOperationsInput | number
+    won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    price_used?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_win_amount?: NullableFloatFieldUpdateOperationsInput | number | null
+    no_of_win_round?: NullableIntFieldUpdateOperationsInput | number | null
+    multiplier?: NullableIntFieldUpdateOperationsInput | number | null
+    free_round_win?: InputJsonValue | InputJsonValue | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotTransactionsCreateManyTransactionInput = {
+    id?: string
+    status?: SlotStatus | null
+    createdAt?: Date | string
+  }
+
+  export type SlotTransactionsUpdateWithoutTransactionInput = {
+    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotTransactionsUncheckedUpdateWithoutTransactionInput = {
+    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SlotTransactionsUncheckedUpdateManyWithoutSlotTransactionsInput = {
+    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionsCreateManyFishGameTransactionsInput = {
+    id?: string
+    date?: string | null
+    player: string
+    game: string
+    spent?: number | null
+    won?: number | null
+    winType?: string | null
+    game_id?: string | null
+    player_id?: string | null
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    room_id?: string | null
+  }
+
+  export type GameTransactionsUpdateWithoutFishGameTransactionsInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Game?: GamesUpdateOneWithoutGameTransactionNestedInput
+    Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
+    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
+    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GameTransactionsUncheckedUpdateWithoutFishGameTransactionsInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
+    room_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+
+
+  /**
+   * Batch Payload for updateMany & deleteMany & createMany
+   */
+
+  export type BatchPayload = {
+    count: number
+  }
+
+  /**
+   * DMMF
+   */
+  export const dmmf: runtime.BaseDMMF
+}
