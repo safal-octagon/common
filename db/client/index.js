@@ -344,7 +344,12 @@ const config = {
     "config": {
       "engineType": "library"
     },
-    "binaryTargets": [],
+    "binaryTargets": [
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
+      }
+    ],
     "previewFeatures": [],
     "isCustomOutput": true
   },
@@ -377,7 +382,7 @@ const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
-path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "db\\client\\query_engine-windows.dll.node")
+path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
+path.join(process.cwd(), "db\\client\\libquery_engine-linux-musl-openssl-3.0.x.so.node")
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "db\\client\\schema.prisma")
