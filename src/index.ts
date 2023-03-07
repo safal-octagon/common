@@ -10,4 +10,4 @@ export * from "./middlewares/errorHandler";
 export * from "./middlewares/requireAuth";
 export * from "./middlewares/requirePrimaryAdmin";
 export * from "./holding/commonHolding";
-export * from "../db/client";
+export * from "./db/index";
