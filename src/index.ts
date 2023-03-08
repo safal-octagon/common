@@ -10,4 +10,3 @@ export * from "./middlewares/errorHandler";
 export * from "./middlewares/requireAuth";
 export * from "./middlewares/requirePrimaryAdmin";
 export * from "./utility/commonFunctions";
-export * from "../../admin/src/db/index";
