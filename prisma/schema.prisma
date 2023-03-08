@@ -4,7 +4,7 @@
 generator client {
     provider      = "prisma-client-js"
     output        = "../db/client"
-    binaryTargets = "linux-musl-openssl-3.0.x"
+    binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -192,27 +192,22 @@ model FishGameTransactions {
 }
 
 model SlotFreeBonus {
-    id               String   @id @default(uuid()) @map("_id")
-    bonus            Boolean  @default(false)
-    free_game        Boolean  @default(false)
-    player_id        String
-    game_id          String
-    matrix           Json[]
-    bonus_pos_matrix Json[]
-    total_spin       Int?     @default(0)
-    remaining_spin   Int?     @default(0)
-    unlocked         Json[]
-    start_balance    Float
-    won_amount       Float?
-    price_used       Float?
-    max_win_amount   Float?
-    no_of_win_round  Int?
-    multiplier       Int?     @default(0)
-    free_round_win   Json?
-    Player           Player?  @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    Game             Games?   @relation(fields: [game_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    createdAt        DateTime @default(now())
-    updatedAt        DateTime @updatedAt
+    id              String   @id @default(uuid()) @map("_id")
+    player_id       String
+    game_id         String
+    total_spin      Int?     @default(0)
+    remaining_spin  Int?     @default(0)
+    start_balance   Float
+    won_amount      Float?
+    price_used      Float?
+    max_win_amount  Float?
+    no_of_win_round Int?
+    multiplier      Int?     @default(0)
+    free_round_win  Json?
+    Player          Player?  @relation(fields: [player_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    Game            Games?   @relation(fields: [game_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
 }
 
 model RefreshToken {

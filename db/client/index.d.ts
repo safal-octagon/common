@@ -199,15 +199,10 @@ export type FishGameTransactions = {
  */
 export type SlotFreeBonus = {
   id: string
-  bonus: boolean
-  free_game: boolean
   player_id: string
   game_id: string
-  matrix: Prisma.JsonValue[]
-  bonus_pos_matrix: Prisma.JsonValue[]
   total_spin: number | null
   remaining_spin: number | null
-  unlocked: Prisma.JsonValue[]
   start_balance: number
   won_amount: number | null
   price_used: number | null
@@ -12740,8 +12735,6 @@ export namespace Prisma {
 
   export type SlotFreeBonusMinAggregateOutputType = {
     id: string | null
-    bonus: boolean | null
-    free_game: boolean | null
     player_id: string | null
     game_id: string | null
     total_spin: number | null
@@ -12758,8 +12751,6 @@ export namespace Prisma {
 
   export type SlotFreeBonusMaxAggregateOutputType = {
     id: string | null
-    bonus: boolean | null
-    free_game: boolean | null
     player_id: string | null
     game_id: string | null
     total_spin: number | null
@@ -12776,15 +12767,10 @@ export namespace Prisma {
 
   export type SlotFreeBonusCountAggregateOutputType = {
     id: number
-    bonus: number
-    free_game: number
     player_id: number
     game_id: number
-    matrix: number
-    bonus_pos_matrix: number
     total_spin: number
     remaining_spin: number
-    unlocked: number
     start_balance: number
     won_amount: number
     price_used: number
@@ -12822,8 +12808,6 @@ export namespace Prisma {
 
   export type SlotFreeBonusMinAggregateInputType = {
     id?: true
-    bonus?: true
-    free_game?: true
     player_id?: true
     game_id?: true
     total_spin?: true
@@ -12840,8 +12824,6 @@ export namespace Prisma {
 
   export type SlotFreeBonusMaxAggregateInputType = {
     id?: true
-    bonus?: true
-    free_game?: true
     player_id?: true
     game_id?: true
     total_spin?: true
@@ -12858,15 +12840,10 @@ export namespace Prisma {
 
   export type SlotFreeBonusCountAggregateInputType = {
     id?: true
-    bonus?: true
-    free_game?: true
     player_id?: true
     game_id?: true
-    matrix?: true
-    bonus_pos_matrix?: true
     total_spin?: true
     remaining_spin?: true
-    unlocked?: true
     start_balance?: true
     won_amount?: true
     price_used?: true
@@ -12968,15 +12945,10 @@ export namespace Prisma {
 
   export type SlotFreeBonusGroupByOutputType = {
     id: string
-    bonus: boolean
-    free_game: boolean
     player_id: string
     game_id: string
-    matrix: JsonValue[]
-    bonus_pos_matrix: JsonValue[]
     total_spin: number | null
     remaining_spin: number | null
-    unlocked: JsonValue[]
     start_balance: number
     won_amount: number | null
     price_used: number | null
@@ -13009,15 +12981,10 @@ export namespace Prisma {
 
   export type SlotFreeBonusSelect = {
     id?: boolean
-    bonus?: boolean
-    free_game?: boolean
     player_id?: boolean
     game_id?: boolean
-    matrix?: boolean
-    bonus_pos_matrix?: boolean
     total_spin?: boolean
     remaining_spin?: boolean
-    unlocked?: boolean
     start_balance?: boolean
     won_amount?: boolean
     price_used?: boolean
@@ -16073,15 +16040,10 @@ export namespace Prisma {
 
   export const SlotFreeBonusScalarFieldEnum: {
     id: 'id',
-    bonus: 'bonus',
-    free_game: 'free_game',
     player_id: 'player_id',
     game_id: 'game_id',
-    matrix: 'matrix',
-    bonus_pos_matrix: 'bonus_pos_matrix',
     total_spin: 'total_spin',
     remaining_spin: 'remaining_spin',
-    unlocked: 'unlocked',
     start_balance: 'start_balance',
     won_amount: 'won_amount',
     price_used: 'price_used',
@@ -16920,15 +16882,10 @@ export namespace Prisma {
     OR?: Enumerable<SlotFreeBonusWhereInput>
     NOT?: Enumerable<SlotFreeBonusWhereInput>
     id?: StringFilter | string
-    bonus?: BoolFilter | boolean
-    free_game?: BoolFilter | boolean
     player_id?: StringFilter | string
     game_id?: StringFilter | string
-    matrix?: JsonNullableListFilter
-    bonus_pos_matrix?: JsonNullableListFilter
     total_spin?: IntNullableFilter | number | null
     remaining_spin?: IntNullableFilter | number | null
-    unlocked?: JsonNullableListFilter
     start_balance?: FloatFilter | number
     won_amount?: FloatNullableFilter | number | null
     price_used?: FloatNullableFilter | number | null
@@ -16944,15 +16901,10 @@ export namespace Prisma {
 
   export type SlotFreeBonusOrderByWithRelationInput = {
     id?: SortOrder
-    bonus?: SortOrder
-    free_game?: SortOrder
     player_id?: SortOrder
     game_id?: SortOrder
-    matrix?: SortOrder
-    bonus_pos_matrix?: SortOrder
     total_spin?: SortOrder
     remaining_spin?: SortOrder
-    unlocked?: SortOrder
     start_balance?: SortOrder
     won_amount?: SortOrder
     price_used?: SortOrder
@@ -16972,15 +16924,10 @@ export namespace Prisma {
 
   export type SlotFreeBonusOrderByWithAggregationInput = {
     id?: SortOrder
-    bonus?: SortOrder
-    free_game?: SortOrder
     player_id?: SortOrder
     game_id?: SortOrder
-    matrix?: SortOrder
-    bonus_pos_matrix?: SortOrder
     total_spin?: SortOrder
     remaining_spin?: SortOrder
-    unlocked?: SortOrder
     start_balance?: SortOrder
     won_amount?: SortOrder
     price_used?: SortOrder
@@ -17002,15 +16949,10 @@ export namespace Prisma {
     OR?: Enumerable<SlotFreeBonusScalarWhereWithAggregatesInput>
     NOT?: Enumerable<SlotFreeBonusScalarWhereWithAggregatesInput>
     id?: StringWithAggregatesFilter | string
-    bonus?: BoolWithAggregatesFilter | boolean
-    free_game?: BoolWithAggregatesFilter | boolean
     player_id?: StringWithAggregatesFilter | string
     game_id?: StringWithAggregatesFilter | string
-    matrix?: JsonNullableListFilter
-    bonus_pos_matrix?: JsonNullableListFilter
     total_spin?: IntNullableWithAggregatesFilter | number | null
     remaining_spin?: IntNullableWithAggregatesFilter | number | null
-    unlocked?: JsonNullableListFilter
     start_balance?: FloatWithAggregatesFilter | number
     won_amount?: FloatNullableWithAggregatesFilter | number | null
     price_used?: FloatNullableWithAggregatesFilter | number | null
@@ -18162,13 +18104,8 @@ export namespace Prisma {
 
   export type SlotFreeBonusCreateInput = {
     id?: string
-    bonus?: boolean
-    free_game?: boolean
-    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: number | null
     remaining_spin?: number | null
-    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
     start_balance: number
     won_amount?: number | null
     price_used?: number | null
@@ -18184,15 +18121,10 @@ export namespace Prisma {
 
   export type SlotFreeBonusUncheckedCreateInput = {
     id?: string
-    bonus?: boolean
-    free_game?: boolean
     player_id: string
     game_id: string
-    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: number | null
     remaining_spin?: number | null
-    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
     start_balance: number
     won_amount?: number | null
     price_used?: number | null
@@ -18205,13 +18137,8 @@ export namespace Prisma {
   }
 
   export type SlotFreeBonusUpdateInput = {
-    bonus?: BoolFieldUpdateOperationsInput | boolean
-    free_game?: BoolFieldUpdateOperationsInput | boolean
-    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: NullableIntFieldUpdateOperationsInput | number | null
     remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
-    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
     start_balance?: FloatFieldUpdateOperationsInput | number
     won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
     price_used?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -18226,15 +18153,10 @@ export namespace Prisma {
   }
 
   export type SlotFreeBonusUncheckedUpdateInput = {
-    bonus?: BoolFieldUpdateOperationsInput | boolean
-    free_game?: BoolFieldUpdateOperationsInput | boolean
     player_id?: StringFieldUpdateOperationsInput | string
     game_id?: StringFieldUpdateOperationsInput | string
-    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: NullableIntFieldUpdateOperationsInput | number | null
     remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
-    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
     start_balance?: FloatFieldUpdateOperationsInput | number
     won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
     price_used?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -18248,15 +18170,10 @@ export namespace Prisma {
 
   export type SlotFreeBonusCreateManyInput = {
     id?: string
-    bonus?: boolean
-    free_game?: boolean
     player_id: string
     game_id: string
-    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: number | null
     remaining_spin?: number | null
-    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
     start_balance: number
     won_amount?: number | null
     price_used?: number | null
@@ -18269,13 +18186,8 @@ export namespace Prisma {
   }
 
   export type SlotFreeBonusUpdateManyMutationInput = {
-    bonus?: BoolFieldUpdateOperationsInput | boolean
-    free_game?: BoolFieldUpdateOperationsInput | boolean
-    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: NullableIntFieldUpdateOperationsInput | number | null
     remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
-    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
     start_balance?: FloatFieldUpdateOperationsInput | number
     won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
     price_used?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -18288,15 +18200,10 @@ export namespace Prisma {
   }
 
   export type SlotFreeBonusUncheckedUpdateManyInput = {
-    bonus?: BoolFieldUpdateOperationsInput | boolean
-    free_game?: BoolFieldUpdateOperationsInput | boolean
     player_id?: StringFieldUpdateOperationsInput | string
     game_id?: StringFieldUpdateOperationsInput | string
-    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: NullableIntFieldUpdateOperationsInput | number | null
     remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
-    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
     start_balance?: FloatFieldUpdateOperationsInput | number
     won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
     price_used?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -19454,20 +19361,6 @@ export namespace Prisma {
     started?: SortOrder
     ended?: SortOrder
   }
-  export type JsonNullableListFilter = 
-    | PatchUndefined<
-        Either<Required<JsonNullableListFilterBase>, Exclude<keyof Required<JsonNullableListFilterBase>, 'path'>>,
-        Required<JsonNullableListFilterBase>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableListFilterBase>, 'path'>>
-
-  export type JsonNullableListFilterBase = {
-    equals?: Enumerable<InputJsonValue> | null
-    has?: InputJsonValue | null
-    hasEvery?: Enumerable<InputJsonValue>
-    hasSome?: Enumerable<InputJsonValue>
-    isEmpty?: boolean
-  }
   export type JsonNullableFilter = 
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase>, Exclude<keyof Required<JsonNullableFilterBase>, 'path'>>,
@@ -19483,15 +19376,10 @@ export namespace Prisma {
 
   export type SlotFreeBonusCountOrderByAggregateInput = {
     id?: SortOrder
-    bonus?: SortOrder
-    free_game?: SortOrder
     player_id?: SortOrder
     game_id?: SortOrder
-    matrix?: SortOrder
-    bonus_pos_matrix?: SortOrder
     total_spin?: SortOrder
     remaining_spin?: SortOrder
-    unlocked?: SortOrder
     start_balance?: SortOrder
     won_amount?: SortOrder
     price_used?: SortOrder
@@ -19516,8 +19404,6 @@ export namespace Prisma {
 
   export type SlotFreeBonusMaxOrderByAggregateInput = {
     id?: SortOrder
-    bonus?: SortOrder
-    free_game?: SortOrder
     player_id?: SortOrder
     game_id?: SortOrder
     total_spin?: SortOrder
@@ -19534,8 +19420,6 @@ export namespace Prisma {
 
   export type SlotFreeBonusMinOrderByAggregateInput = {
     id?: SortOrder
-    bonus?: SortOrder
-    free_game?: SortOrder
     player_id?: SortOrder
     game_id?: SortOrder
     total_spin?: SortOrder
@@ -20791,18 +20675,6 @@ export namespace Prisma {
     deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
   }
 
-  export type SlotFreeBonusCreatematrixInput = {
-    set: Enumerable<InputJsonValue>
-  }
-
-  export type SlotFreeBonusCreatebonus_pos_matrixInput = {
-    set: Enumerable<InputJsonValue>
-  }
-
-  export type SlotFreeBonusCreateunlockedInput = {
-    set: Enumerable<InputJsonValue>
-  }
-
   export type PlayerCreateNestedOneWithoutSlotFreeBonusInput = {
     create?: XOR<PlayerCreateWithoutSlotFreeBonusInput, PlayerUncheckedCreateWithoutSlotFreeBonusInput>
     connectOrCreate?: PlayerCreateOrConnectWithoutSlotFreeBonusInput
@@ -20813,21 +20685,6 @@ export namespace Prisma {
     create?: XOR<GamesCreateWithoutSlotFreeBonusInput, GamesUncheckedCreateWithoutSlotFreeBonusInput>
     connectOrCreate?: GamesCreateOrConnectWithoutSlotFreeBonusInput
     connect?: GamesWhereUniqueInput
-  }
-
-  export type SlotFreeBonusUpdatematrixInput = {
-    set?: Enumerable<InputJsonValue>
-    push?: InputJsonValue | Enumerable<InputJsonValue>
-  }
-
-  export type SlotFreeBonusUpdatebonus_pos_matrixInput = {
-    set?: Enumerable<InputJsonValue>
-    push?: InputJsonValue | Enumerable<InputJsonValue>
-  }
-
-  export type SlotFreeBonusUpdateunlockedInput = {
-    set?: Enumerable<InputJsonValue>
-    push?: InputJsonValue | Enumerable<InputJsonValue>
   }
 
   export type PlayerUpdateOneWithoutSlotFreeBonusNestedInput = {
@@ -22574,13 +22431,8 @@ export namespace Prisma {
 
   export type SlotFreeBonusCreateWithoutPlayerInput = {
     id?: string
-    bonus?: boolean
-    free_game?: boolean
-    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: number | null
     remaining_spin?: number | null
-    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
     start_balance: number
     won_amount?: number | null
     price_used?: number | null
@@ -22595,14 +22447,9 @@ export namespace Prisma {
 
   export type SlotFreeBonusUncheckedCreateWithoutPlayerInput = {
     id?: string
-    bonus?: boolean
-    free_game?: boolean
     game_id: string
-    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: number | null
     remaining_spin?: number | null
-    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
     start_balance: number
     won_amount?: number | null
     price_used?: number | null
@@ -22823,15 +22670,10 @@ export namespace Prisma {
     OR?: Enumerable<SlotFreeBonusScalarWhereInput>
     NOT?: Enumerable<SlotFreeBonusScalarWhereInput>
     id?: StringFilter | string
-    bonus?: BoolFilter | boolean
-    free_game?: BoolFilter | boolean
     player_id?: StringFilter | string
     game_id?: StringFilter | string
-    matrix?: JsonNullableListFilter
-    bonus_pos_matrix?: JsonNullableListFilter
     total_spin?: IntNullableFilter | number | null
     remaining_spin?: IntNullableFilter | number | null
-    unlocked?: JsonNullableListFilter
     start_balance?: FloatFilter | number
     won_amount?: FloatNullableFilter | number | null
     price_used?: FloatNullableFilter | number | null
@@ -22967,13 +22809,8 @@ export namespace Prisma {
 
   export type SlotFreeBonusCreateWithoutGameInput = {
     id?: string
-    bonus?: boolean
-    free_game?: boolean
-    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: number | null
     remaining_spin?: number | null
-    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
     start_balance: number
     won_amount?: number | null
     price_used?: number | null
@@ -22988,14 +22825,9 @@ export namespace Prisma {
 
   export type SlotFreeBonusUncheckedCreateWithoutGameInput = {
     id?: string
-    bonus?: boolean
-    free_game?: boolean
     player_id: string
-    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: number | null
     remaining_spin?: number | null
-    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
     start_balance: number
     won_amount?: number | null
     price_used?: number | null
@@ -24960,14 +24792,9 @@ export namespace Prisma {
 
   export type SlotFreeBonusCreateManyPlayerInput = {
     id?: string
-    bonus?: boolean
-    free_game?: boolean
     game_id: string
-    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: number | null
     remaining_spin?: number | null
-    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
     start_balance: number
     won_amount?: number | null
     price_used?: number | null
@@ -25059,13 +24886,8 @@ export namespace Prisma {
   }
 
   export type SlotFreeBonusUpdateWithoutPlayerInput = {
-    bonus?: BoolFieldUpdateOperationsInput | boolean
-    free_game?: BoolFieldUpdateOperationsInput | boolean
-    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: NullableIntFieldUpdateOperationsInput | number | null
     remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
-    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
     start_balance?: FloatFieldUpdateOperationsInput | number
     won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
     price_used?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -25079,14 +24901,9 @@ export namespace Prisma {
   }
 
   export type SlotFreeBonusUncheckedUpdateWithoutPlayerInput = {
-    bonus?: BoolFieldUpdateOperationsInput | boolean
-    free_game?: BoolFieldUpdateOperationsInput | boolean
     game_id?: StringFieldUpdateOperationsInput | string
-    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: NullableIntFieldUpdateOperationsInput | number | null
     remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
-    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
     start_balance?: FloatFieldUpdateOperationsInput | number
     won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
     price_used?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -25099,14 +24916,9 @@ export namespace Prisma {
   }
 
   export type SlotFreeBonusUncheckedUpdateManyWithoutSlotFreeBonusInput = {
-    bonus?: BoolFieldUpdateOperationsInput | boolean
-    free_game?: BoolFieldUpdateOperationsInput | boolean
     game_id?: StringFieldUpdateOperationsInput | string
-    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: NullableIntFieldUpdateOperationsInput | number | null
     remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
-    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
     start_balance?: FloatFieldUpdateOperationsInput | number
     won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
     price_used?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -25161,14 +24973,9 @@ export namespace Prisma {
 
   export type SlotFreeBonusCreateManyGameInput = {
     id?: string
-    bonus?: boolean
-    free_game?: boolean
     player_id: string
-    matrix?: SlotFreeBonusCreatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusCreatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: number | null
     remaining_spin?: number | null
-    unlocked?: SlotFreeBonusCreateunlockedInput | Enumerable<InputJsonValue>
     start_balance: number
     won_amount?: number | null
     price_used?: number | null
@@ -25289,13 +25096,8 @@ export namespace Prisma {
   }
 
   export type SlotFreeBonusUpdateWithoutGameInput = {
-    bonus?: BoolFieldUpdateOperationsInput | boolean
-    free_game?: BoolFieldUpdateOperationsInput | boolean
-    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: NullableIntFieldUpdateOperationsInput | number | null
     remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
-    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
     start_balance?: FloatFieldUpdateOperationsInput | number
     won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
     price_used?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -25309,14 +25111,9 @@ export namespace Prisma {
   }
 
   export type SlotFreeBonusUncheckedUpdateWithoutGameInput = {
-    bonus?: BoolFieldUpdateOperationsInput | boolean
-    free_game?: BoolFieldUpdateOperationsInput | boolean
     player_id?: StringFieldUpdateOperationsInput | string
-    matrix?: SlotFreeBonusUpdatematrixInput | Enumerable<InputJsonValue>
-    bonus_pos_matrix?: SlotFreeBonusUpdatebonus_pos_matrixInput | Enumerable<InputJsonValue>
     total_spin?: NullableIntFieldUpdateOperationsInput | number | null
     remaining_spin?: NullableIntFieldUpdateOperationsInput | number | null
-    unlocked?: SlotFreeBonusUpdateunlockedInput | Enumerable<InputJsonValue>
     start_balance?: FloatFieldUpdateOperationsInput | number
     won_amount?: NullableFloatFieldUpdateOperationsInput | number | null
     price_used?: NullableFloatFieldUpdateOperationsInput | number | null

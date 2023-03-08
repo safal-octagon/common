@@ -252,15 +252,10 @@ exports.Prisma.SettingsScalarFieldEnum = makeEnum({
 
 exports.Prisma.SlotFreeBonusScalarFieldEnum = makeEnum({
   id: 'id',
-  bonus: 'bonus',
-  free_game: 'free_game',
   player_id: 'player_id',
   game_id: 'game_id',
-  matrix: 'matrix',
-  bonus_pos_matrix: 'bonus_pos_matrix',
   total_spin: 'total_spin',
   remaining_spin: 'remaining_spin',
-  unlocked: 'unlocked',
   start_balance: 'start_balance',
   won_amount: 'won_amount',
   price_used: 'price_used',
