@@ -25,3 +25,4 @@ __exportStar(require("./middlewares/errorHandler"), exports);
 __exportStar(require("./middlewares/requireAuth"), exports);
 __exportStar(require("./middlewares/requirePrimaryAdmin"), exports);
 __exportStar(require("./utility/commonFunctions"), exports);
+__exportStar(require("../db/client"), exports);
