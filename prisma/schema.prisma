@@ -79,6 +79,31 @@ model Settings {
     Player        Player?
 }
 
+model FavoriteGame {
+    id       String  @id @default(uuid()) @map("_id")
+    game     Games   @relation(fields: [gameId], references: [id])
+    gameId   String
+    player   Player  @relation(fields: [playerId], references: [id])
+    playerId String
+    status   Boolean @default(true)
+}
+
+model PlayerToken {
+    id       String @id @default(uuid()) @map("_id")
+    player   Player @relation(fields: [playerId], references: [id])
+    playerId String
+    token    String
+}
+
+model SpinTime {
+    id       String  @id @default(uuid()) @map("_id")
+    player   Player  @relation(fields: [playerId], references: [id])
+    playerId String
+    enabled  Boolean
+    renewOn  String
+    timeLeft String
+}
+
 model Player {
     id                        String                      @id @default(uuid()) @map("_id")
     name                      String?
@@ -112,6 +137,9 @@ model Player {
     GameTransactions          GameTransactions[]
     FishGameTransactions      FishGameTransactions[]
     SlotFreeBonus             SlotFreeBonus[]
+    FavoriteGame              FavoriteGame[]
+    PlayerToken               PlayerToken[]
+    SpinTime                  SpinTime[]
 }
 
 model Games {
@@ -125,6 +153,7 @@ model Games {
     GameAssets           GameAssets[]
     FishGameTransactions FishGameTransactions[]
     SlotFreeBonus        SlotFreeBonus[]
+    FavoriteGame         FavoriteGame[]
 }
 
 model GameAssets {
