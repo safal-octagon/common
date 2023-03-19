@@ -131,6 +131,13 @@ exports.Prisma.AdminScalarFieldEnum = makeEnum({
   totalLost: 'totalLost'
 });
 
+exports.Prisma.FavoriteGameScalarFieldEnum = makeEnum({
+  id: 'id',
+  gameId: 'gameId',
+  playerId: 'playerId',
+  status: 'status'
+});
+
 exports.Prisma.FishGameTransactionsScalarFieldEnum = makeEnum({
   id: 'id',
   room_id: 'room_id',
@@ -217,6 +224,12 @@ exports.Prisma.PlayerScalarFieldEnum = makeEnum({
   created_by: 'created_by'
 });
 
+exports.Prisma.PlayerTokenScalarFieldEnum = makeEnum({
+  id: 'id',
+  playerId: 'playerId',
+  token: 'token'
+});
+
 exports.Prisma.QueryMode = makeEnum({
   default: 'default',
   insensitive: 'insensitive'
@@ -278,6 +291,14 @@ exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
 });
+
+exports.Prisma.SpinTimeScalarFieldEnum = makeEnum({
+  id: 'id',
+  playerId: 'playerId',
+  enabled: 'enabled',
+  renewOn: 'renewOn',
+  timeLeft: 'timeLeft'
+});
 exports.AccountStatus = makeEnum({
   ACTIVE: 'ACTIVE',
   DISABLE: 'DISABLE'
@@ -302,6 +323,9 @@ exports.Prisma.ModelName = makeEnum({
   Admin: 'Admin',
   AdminBalanceTransactions: 'AdminBalanceTransactions',
   Settings: 'Settings',
+  FavoriteGame: 'FavoriteGame',
+  PlayerToken: 'PlayerToken',
+  SpinTime: 'SpinTime',
   Player: 'Player',
   Games: 'Games',
   GameAssets: 'GameAssets',

@@ -78,6 +78,39 @@ export type Settings = {
 }
 
 /**
+ * Model FavoriteGame
+ * 
+ */
+export type FavoriteGame = {
+  id: string
+  gameId: string
+  playerId: string
+  status: boolean
+}
+
+/**
+ * Model PlayerToken
+ * 
+ */
+export type PlayerToken = {
+  id: string
+  playerId: string
+  token: string
+}
+
+/**
+ * Model SpinTime
+ * 
+ */
+export type SpinTime = {
+  id: string
+  playerId: string
+  enabled: boolean
+  renewOn: string
+  timeLeft: string
+}
+
+/**
  * Model Player
  * 
  */
@@ -394,6 +427,36 @@ export class PrismaClient<
     * ```
     */
   get settings(): Prisma.SettingsDelegate<GlobalReject>;
+
+  /**
+   * `prisma.favoriteGame`: Exposes CRUD operations for the **FavoriteGame** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FavoriteGames
+    * const favoriteGames = await prisma.favoriteGame.findMany()
+    * ```
+    */
+  get favoriteGame(): Prisma.FavoriteGameDelegate<GlobalReject>;
+
+  /**
+   * `prisma.playerToken`: Exposes CRUD operations for the **PlayerToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlayerTokens
+    * const playerTokens = await prisma.playerToken.findMany()
+    * ```
+    */
+  get playerToken(): Prisma.PlayerTokenDelegate<GlobalReject>;
+
+  /**
+   * `prisma.spinTime`: Exposes CRUD operations for the **SpinTime** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SpinTimes
+    * const spinTimes = await prisma.spinTime.findMany()
+    * ```
+    */
+  get spinTime(): Prisma.SpinTimeDelegate<GlobalReject>;
 
   /**
    * `prisma.player`: Exposes CRUD operations for the **Player** model.
@@ -966,6 +1029,9 @@ export namespace Prisma {
     Admin: 'Admin',
     AdminBalanceTransactions: 'AdminBalanceTransactions',
     Settings: 'Settings',
+    FavoriteGame: 'FavoriteGame',
+    PlayerToken: 'PlayerToken',
+    SpinTime: 'SpinTime',
     Player: 'Player',
     Games: 'Games',
     GameAssets: 'GameAssets',
@@ -1199,6 +1265,9 @@ export namespace Prisma {
     GameTransactions: number
     FishGameTransactions: number
     SlotFreeBonus: number
+    FavoriteGame: number
+    PlayerToken: number
+    SpinTime: number
   }
 
   export type PlayerCountOutputTypeSelect = {
@@ -1206,6 +1275,9 @@ export namespace Prisma {
     GameTransactions?: boolean
     FishGameTransactions?: boolean
     SlotFreeBonus?: boolean
+    FavoriteGame?: boolean
+    PlayerToken?: boolean
+    SpinTime?: boolean
   }
 
   export type PlayerCountOutputTypeGetPayload<S extends boolean | null | undefined | PlayerCountOutputTypeArgs> =
@@ -1249,6 +1321,7 @@ export namespace Prisma {
     GameAssets: number
     FishGameTransactions: number
     SlotFreeBonus: number
+    FavoriteGame: number
   }
 
   export type GamesCountOutputTypeSelect = {
@@ -1257,6 +1330,7 @@ export namespace Prisma {
     GameAssets?: boolean
     FishGameTransactions?: boolean
     SlotFreeBonus?: boolean
+    FavoriteGame?: boolean
   }
 
   export type GamesCountOutputTypeGetPayload<S extends boolean | null | undefined | GamesCountOutputTypeArgs> =
@@ -4947,6 +5021,2949 @@ export namespace Prisma {
 
 
   /**
+   * Model FavoriteGame
+   */
+
+
+  export type AggregateFavoriteGame = {
+    _count: FavoriteGameCountAggregateOutputType | null
+    _min: FavoriteGameMinAggregateOutputType | null
+    _max: FavoriteGameMaxAggregateOutputType | null
+  }
+
+  export type FavoriteGameMinAggregateOutputType = {
+    id: string | null
+    gameId: string | null
+    playerId: string | null
+    status: boolean | null
+  }
+
+  export type FavoriteGameMaxAggregateOutputType = {
+    id: string | null
+    gameId: string | null
+    playerId: string | null
+    status: boolean | null
+  }
+
+  export type FavoriteGameCountAggregateOutputType = {
+    id: number
+    gameId: number
+    playerId: number
+    status: number
+    _all: number
+  }
+
+
+  export type FavoriteGameMinAggregateInputType = {
+    id?: true
+    gameId?: true
+    playerId?: true
+    status?: true
+  }
+
+  export type FavoriteGameMaxAggregateInputType = {
+    id?: true
+    gameId?: true
+    playerId?: true
+    status?: true
+  }
+
+  export type FavoriteGameCountAggregateInputType = {
+    id?: true
+    gameId?: true
+    playerId?: true
+    status?: true
+    _all?: true
+  }
+
+  export type FavoriteGameAggregateArgs = {
+    /**
+     * Filter which FavoriteGame to aggregate.
+     */
+    where?: FavoriteGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteGames to fetch.
+     */
+    orderBy?: Enumerable<FavoriteGameOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FavoriteGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FavoriteGames
+    **/
+    _count?: true | FavoriteGameCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FavoriteGameMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FavoriteGameMaxAggregateInputType
+  }
+
+  export type GetFavoriteGameAggregateType<T extends FavoriteGameAggregateArgs> = {
+        [P in keyof T & keyof AggregateFavoriteGame]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFavoriteGame[P]>
+      : GetScalarType<T[P], AggregateFavoriteGame[P]>
+  }
+
+
+
+
+  export type FavoriteGameGroupByArgs = {
+    where?: FavoriteGameWhereInput
+    orderBy?: Enumerable<FavoriteGameOrderByWithAggregationInput>
+    by: FavoriteGameScalarFieldEnum[]
+    having?: FavoriteGameScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FavoriteGameCountAggregateInputType | true
+    _min?: FavoriteGameMinAggregateInputType
+    _max?: FavoriteGameMaxAggregateInputType
+  }
+
+
+  export type FavoriteGameGroupByOutputType = {
+    id: string
+    gameId: string
+    playerId: string
+    status: boolean
+    _count: FavoriteGameCountAggregateOutputType | null
+    _min: FavoriteGameMinAggregateOutputType | null
+    _max: FavoriteGameMaxAggregateOutputType | null
+  }
+
+  type GetFavoriteGameGroupByPayload<T extends FavoriteGameGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<FavoriteGameGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FavoriteGameGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FavoriteGameGroupByOutputType[P]>
+            : GetScalarType<T[P], FavoriteGameGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FavoriteGameSelect = {
+    id?: boolean
+    game?: boolean | GamesArgs
+    gameId?: boolean
+    player?: boolean | PlayerArgs
+    playerId?: boolean
+    status?: boolean
+  }
+
+
+  export type FavoriteGameInclude = {
+    game?: boolean | GamesArgs
+    player?: boolean | PlayerArgs
+  }
+
+  export type FavoriteGameGetPayload<S extends boolean | null | undefined | FavoriteGameArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? FavoriteGame :
+    S extends undefined ? never :
+    S extends { include: any } & (FavoriteGameArgs | FavoriteGameFindManyArgs)
+    ? FavoriteGame  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'game' ? GamesGetPayload<S['include'][P]> :
+        P extends 'player' ? PlayerGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (FavoriteGameArgs | FavoriteGameFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'game' ? GamesGetPayload<S['select'][P]> :
+        P extends 'player' ? PlayerGetPayload<S['select'][P]> :  P extends keyof FavoriteGame ? FavoriteGame[P] : never
+  } 
+      : FavoriteGame
+
+
+  type FavoriteGameCountArgs = 
+    Omit<FavoriteGameFindManyArgs, 'select' | 'include'> & {
+      select?: FavoriteGameCountAggregateInputType | true
+    }
+
+  export interface FavoriteGameDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one FavoriteGame that matches the filter.
+     * @param {FavoriteGameFindUniqueArgs} args - Arguments to find a FavoriteGame
+     * @example
+     * // Get one FavoriteGame
+     * const favoriteGame = await prisma.favoriteGame.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends FavoriteGameFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, FavoriteGameFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'FavoriteGame'> extends True ? Prisma__FavoriteGameClient<FavoriteGameGetPayload<T>> : Prisma__FavoriteGameClient<FavoriteGameGetPayload<T> | null, null>
+
+    /**
+     * Find one FavoriteGame that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {FavoriteGameFindUniqueOrThrowArgs} args - Arguments to find a FavoriteGame
+     * @example
+     * // Get one FavoriteGame
+     * const favoriteGame = await prisma.favoriteGame.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends FavoriteGameFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, FavoriteGameFindUniqueOrThrowArgs>
+    ): Prisma__FavoriteGameClient<FavoriteGameGetPayload<T>>
+
+    /**
+     * Find the first FavoriteGame that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteGameFindFirstArgs} args - Arguments to find a FavoriteGame
+     * @example
+     * // Get one FavoriteGame
+     * const favoriteGame = await prisma.favoriteGame.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends FavoriteGameFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, FavoriteGameFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'FavoriteGame'> extends True ? Prisma__FavoriteGameClient<FavoriteGameGetPayload<T>> : Prisma__FavoriteGameClient<FavoriteGameGetPayload<T> | null, null>
+
+    /**
+     * Find the first FavoriteGame that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteGameFindFirstOrThrowArgs} args - Arguments to find a FavoriteGame
+     * @example
+     * // Get one FavoriteGame
+     * const favoriteGame = await prisma.favoriteGame.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends FavoriteGameFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, FavoriteGameFindFirstOrThrowArgs>
+    ): Prisma__FavoriteGameClient<FavoriteGameGetPayload<T>>
+
+    /**
+     * Find zero or more FavoriteGames that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteGameFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FavoriteGames
+     * const favoriteGames = await prisma.favoriteGame.findMany()
+     * 
+     * // Get first 10 FavoriteGames
+     * const favoriteGames = await prisma.favoriteGame.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const favoriteGameWithIdOnly = await prisma.favoriteGame.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends FavoriteGameFindManyArgs>(
+      args?: SelectSubset<T, FavoriteGameFindManyArgs>
+    ): Prisma.PrismaPromise<Array<FavoriteGameGetPayload<T>>>
+
+    /**
+     * Create a FavoriteGame.
+     * @param {FavoriteGameCreateArgs} args - Arguments to create a FavoriteGame.
+     * @example
+     * // Create one FavoriteGame
+     * const FavoriteGame = await prisma.favoriteGame.create({
+     *   data: {
+     *     // ... data to create a FavoriteGame
+     *   }
+     * })
+     * 
+    **/
+    create<T extends FavoriteGameCreateArgs>(
+      args: SelectSubset<T, FavoriteGameCreateArgs>
+    ): Prisma__FavoriteGameClient<FavoriteGameGetPayload<T>>
+
+    /**
+     * Create many FavoriteGames.
+     *     @param {FavoriteGameCreateManyArgs} args - Arguments to create many FavoriteGames.
+     *     @example
+     *     // Create many FavoriteGames
+     *     const favoriteGame = await prisma.favoriteGame.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends FavoriteGameCreateManyArgs>(
+      args?: SelectSubset<T, FavoriteGameCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a FavoriteGame.
+     * @param {FavoriteGameDeleteArgs} args - Arguments to delete one FavoriteGame.
+     * @example
+     * // Delete one FavoriteGame
+     * const FavoriteGame = await prisma.favoriteGame.delete({
+     *   where: {
+     *     // ... filter to delete one FavoriteGame
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends FavoriteGameDeleteArgs>(
+      args: SelectSubset<T, FavoriteGameDeleteArgs>
+    ): Prisma__FavoriteGameClient<FavoriteGameGetPayload<T>>
+
+    /**
+     * Update one FavoriteGame.
+     * @param {FavoriteGameUpdateArgs} args - Arguments to update one FavoriteGame.
+     * @example
+     * // Update one FavoriteGame
+     * const favoriteGame = await prisma.favoriteGame.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends FavoriteGameUpdateArgs>(
+      args: SelectSubset<T, FavoriteGameUpdateArgs>
+    ): Prisma__FavoriteGameClient<FavoriteGameGetPayload<T>>
+
+    /**
+     * Delete zero or more FavoriteGames.
+     * @param {FavoriteGameDeleteManyArgs} args - Arguments to filter FavoriteGames to delete.
+     * @example
+     * // Delete a few FavoriteGames
+     * const { count } = await prisma.favoriteGame.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends FavoriteGameDeleteManyArgs>(
+      args?: SelectSubset<T, FavoriteGameDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FavoriteGames.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteGameUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FavoriteGames
+     * const favoriteGame = await prisma.favoriteGame.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends FavoriteGameUpdateManyArgs>(
+      args: SelectSubset<T, FavoriteGameUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FavoriteGame.
+     * @param {FavoriteGameUpsertArgs} args - Arguments to update or create a FavoriteGame.
+     * @example
+     * // Update or create a FavoriteGame
+     * const favoriteGame = await prisma.favoriteGame.upsert({
+     *   create: {
+     *     // ... data to create a FavoriteGame
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FavoriteGame we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends FavoriteGameUpsertArgs>(
+      args: SelectSubset<T, FavoriteGameUpsertArgs>
+    ): Prisma__FavoriteGameClient<FavoriteGameGetPayload<T>>
+
+    /**
+     * Find zero or more FavoriteGames that matches the filter.
+     * @param {FavoriteGameFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const favoriteGame = await prisma.favoriteGame.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: FavoriteGameFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a FavoriteGame.
+     * @param {FavoriteGameAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const favoriteGame = await prisma.favoriteGame.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: FavoriteGameAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of FavoriteGames.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteGameCountArgs} args - Arguments to filter FavoriteGames to count.
+     * @example
+     * // Count the number of FavoriteGames
+     * const count = await prisma.favoriteGame.count({
+     *   where: {
+     *     // ... the filter for the FavoriteGames we want to count
+     *   }
+     * })
+    **/
+    count<T extends FavoriteGameCountArgs>(
+      args?: Subset<T, FavoriteGameCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FavoriteGameCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FavoriteGame.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteGameAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FavoriteGameAggregateArgs>(args: Subset<T, FavoriteGameAggregateArgs>): Prisma.PrismaPromise<GetFavoriteGameAggregateType<T>>
+
+    /**
+     * Group by FavoriteGame.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteGameGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FavoriteGameGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FavoriteGameGroupByArgs['orderBy'] }
+        : { orderBy?: FavoriteGameGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FavoriteGameGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFavoriteGameGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FavoriteGame.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__FavoriteGameClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    game<T extends GamesArgs= {}>(args?: Subset<T, GamesArgs>): Prisma__GamesClient<GamesGetPayload<T> | Null>;
+
+    player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * FavoriteGame base type for findUnique actions
+   */
+  export type FavoriteGameFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    /**
+     * Filter, which FavoriteGame to fetch.
+     */
+    where: FavoriteGameWhereUniqueInput
+  }
+
+  /**
+   * FavoriteGame findUnique
+   */
+  export interface FavoriteGameFindUniqueArgs extends FavoriteGameFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * FavoriteGame findUniqueOrThrow
+   */
+  export type FavoriteGameFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    /**
+     * Filter, which FavoriteGame to fetch.
+     */
+    where: FavoriteGameWhereUniqueInput
+  }
+
+
+  /**
+   * FavoriteGame base type for findFirst actions
+   */
+  export type FavoriteGameFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    /**
+     * Filter, which FavoriteGame to fetch.
+     */
+    where?: FavoriteGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteGames to fetch.
+     */
+    orderBy?: Enumerable<FavoriteGameOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FavoriteGames.
+     */
+    cursor?: FavoriteGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FavoriteGames.
+     */
+    distinct?: Enumerable<FavoriteGameScalarFieldEnum>
+  }
+
+  /**
+   * FavoriteGame findFirst
+   */
+  export interface FavoriteGameFindFirstArgs extends FavoriteGameFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * FavoriteGame findFirstOrThrow
+   */
+  export type FavoriteGameFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    /**
+     * Filter, which FavoriteGame to fetch.
+     */
+    where?: FavoriteGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteGames to fetch.
+     */
+    orderBy?: Enumerable<FavoriteGameOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FavoriteGames.
+     */
+    cursor?: FavoriteGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteGames.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FavoriteGames.
+     */
+    distinct?: Enumerable<FavoriteGameScalarFieldEnum>
+  }
+
+
+  /**
+   * FavoriteGame findMany
+   */
+  export type FavoriteGameFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    /**
+     * Filter, which FavoriteGames to fetch.
+     */
+    where?: FavoriteGameWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteGames to fetch.
+     */
+    orderBy?: Enumerable<FavoriteGameOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FavoriteGames.
+     */
+    cursor?: FavoriteGameWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteGames from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteGames.
+     */
+    skip?: number
+    distinct?: Enumerable<FavoriteGameScalarFieldEnum>
+  }
+
+
+  /**
+   * FavoriteGame create
+   */
+  export type FavoriteGameCreateArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    /**
+     * The data needed to create a FavoriteGame.
+     */
+    data: XOR<FavoriteGameCreateInput, FavoriteGameUncheckedCreateInput>
+  }
+
+
+  /**
+   * FavoriteGame createMany
+   */
+  export type FavoriteGameCreateManyArgs = {
+    /**
+     * The data used to create many FavoriteGames.
+     */
+    data: Enumerable<FavoriteGameCreateManyInput>
+  }
+
+
+  /**
+   * FavoriteGame update
+   */
+  export type FavoriteGameUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    /**
+     * The data needed to update a FavoriteGame.
+     */
+    data: XOR<FavoriteGameUpdateInput, FavoriteGameUncheckedUpdateInput>
+    /**
+     * Choose, which FavoriteGame to update.
+     */
+    where: FavoriteGameWhereUniqueInput
+  }
+
+
+  /**
+   * FavoriteGame updateMany
+   */
+  export type FavoriteGameUpdateManyArgs = {
+    /**
+     * The data used to update FavoriteGames.
+     */
+    data: XOR<FavoriteGameUpdateManyMutationInput, FavoriteGameUncheckedUpdateManyInput>
+    /**
+     * Filter which FavoriteGames to update
+     */
+    where?: FavoriteGameWhereInput
+  }
+
+
+  /**
+   * FavoriteGame upsert
+   */
+  export type FavoriteGameUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    /**
+     * The filter to search for the FavoriteGame to update in case it exists.
+     */
+    where: FavoriteGameWhereUniqueInput
+    /**
+     * In case the FavoriteGame found by the `where` argument doesn't exist, create a new FavoriteGame with this data.
+     */
+    create: XOR<FavoriteGameCreateInput, FavoriteGameUncheckedCreateInput>
+    /**
+     * In case the FavoriteGame was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FavoriteGameUpdateInput, FavoriteGameUncheckedUpdateInput>
+  }
+
+
+  /**
+   * FavoriteGame delete
+   */
+  export type FavoriteGameDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    /**
+     * Filter which FavoriteGame to delete.
+     */
+    where: FavoriteGameWhereUniqueInput
+  }
+
+
+  /**
+   * FavoriteGame deleteMany
+   */
+  export type FavoriteGameDeleteManyArgs = {
+    /**
+     * Filter which FavoriteGames to delete
+     */
+    where?: FavoriteGameWhereInput
+  }
+
+
+  /**
+   * FavoriteGame findRaw
+   */
+  export type FavoriteGameFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * FavoriteGame aggregateRaw
+   */
+  export type FavoriteGameAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * FavoriteGame without action
+   */
+  export type FavoriteGameArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+  }
+
+
+
+  /**
+   * Model PlayerToken
+   */
+
+
+  export type AggregatePlayerToken = {
+    _count: PlayerTokenCountAggregateOutputType | null
+    _min: PlayerTokenMinAggregateOutputType | null
+    _max: PlayerTokenMaxAggregateOutputType | null
+  }
+
+  export type PlayerTokenMinAggregateOutputType = {
+    id: string | null
+    playerId: string | null
+    token: string | null
+  }
+
+  export type PlayerTokenMaxAggregateOutputType = {
+    id: string | null
+    playerId: string | null
+    token: string | null
+  }
+
+  export type PlayerTokenCountAggregateOutputType = {
+    id: number
+    playerId: number
+    token: number
+    _all: number
+  }
+
+
+  export type PlayerTokenMinAggregateInputType = {
+    id?: true
+    playerId?: true
+    token?: true
+  }
+
+  export type PlayerTokenMaxAggregateInputType = {
+    id?: true
+    playerId?: true
+    token?: true
+  }
+
+  export type PlayerTokenCountAggregateInputType = {
+    id?: true
+    playerId?: true
+    token?: true
+    _all?: true
+  }
+
+  export type PlayerTokenAggregateArgs = {
+    /**
+     * Filter which PlayerToken to aggregate.
+     */
+    where?: PlayerTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerTokens to fetch.
+     */
+    orderBy?: Enumerable<PlayerTokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlayerTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlayerTokens
+    **/
+    _count?: true | PlayerTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlayerTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlayerTokenMaxAggregateInputType
+  }
+
+  export type GetPlayerTokenAggregateType<T extends PlayerTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlayerToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlayerToken[P]>
+      : GetScalarType<T[P], AggregatePlayerToken[P]>
+  }
+
+
+
+
+  export type PlayerTokenGroupByArgs = {
+    where?: PlayerTokenWhereInput
+    orderBy?: Enumerable<PlayerTokenOrderByWithAggregationInput>
+    by: PlayerTokenScalarFieldEnum[]
+    having?: PlayerTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlayerTokenCountAggregateInputType | true
+    _min?: PlayerTokenMinAggregateInputType
+    _max?: PlayerTokenMaxAggregateInputType
+  }
+
+
+  export type PlayerTokenGroupByOutputType = {
+    id: string
+    playerId: string
+    token: string
+    _count: PlayerTokenCountAggregateOutputType | null
+    _min: PlayerTokenMinAggregateOutputType | null
+    _max: PlayerTokenMaxAggregateOutputType | null
+  }
+
+  type GetPlayerTokenGroupByPayload<T extends PlayerTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<PlayerTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlayerTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlayerTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], PlayerTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlayerTokenSelect = {
+    id?: boolean
+    player?: boolean | PlayerArgs
+    playerId?: boolean
+    token?: boolean
+  }
+
+
+  export type PlayerTokenInclude = {
+    player?: boolean | PlayerArgs
+  }
+
+  export type PlayerTokenGetPayload<S extends boolean | null | undefined | PlayerTokenArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? PlayerToken :
+    S extends undefined ? never :
+    S extends { include: any } & (PlayerTokenArgs | PlayerTokenFindManyArgs)
+    ? PlayerToken  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'player' ? PlayerGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (PlayerTokenArgs | PlayerTokenFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'player' ? PlayerGetPayload<S['select'][P]> :  P extends keyof PlayerToken ? PlayerToken[P] : never
+  } 
+      : PlayerToken
+
+
+  type PlayerTokenCountArgs = 
+    Omit<PlayerTokenFindManyArgs, 'select' | 'include'> & {
+      select?: PlayerTokenCountAggregateInputType | true
+    }
+
+  export interface PlayerTokenDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one PlayerToken that matches the filter.
+     * @param {PlayerTokenFindUniqueArgs} args - Arguments to find a PlayerToken
+     * @example
+     * // Get one PlayerToken
+     * const playerToken = await prisma.playerToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends PlayerTokenFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, PlayerTokenFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'PlayerToken'> extends True ? Prisma__PlayerTokenClient<PlayerTokenGetPayload<T>> : Prisma__PlayerTokenClient<PlayerTokenGetPayload<T> | null, null>
+
+    /**
+     * Find one PlayerToken that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {PlayerTokenFindUniqueOrThrowArgs} args - Arguments to find a PlayerToken
+     * @example
+     * // Get one PlayerToken
+     * const playerToken = await prisma.playerToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends PlayerTokenFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, PlayerTokenFindUniqueOrThrowArgs>
+    ): Prisma__PlayerTokenClient<PlayerTokenGetPayload<T>>
+
+    /**
+     * Find the first PlayerToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerTokenFindFirstArgs} args - Arguments to find a PlayerToken
+     * @example
+     * // Get one PlayerToken
+     * const playerToken = await prisma.playerToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends PlayerTokenFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, PlayerTokenFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'PlayerToken'> extends True ? Prisma__PlayerTokenClient<PlayerTokenGetPayload<T>> : Prisma__PlayerTokenClient<PlayerTokenGetPayload<T> | null, null>
+
+    /**
+     * Find the first PlayerToken that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerTokenFindFirstOrThrowArgs} args - Arguments to find a PlayerToken
+     * @example
+     * // Get one PlayerToken
+     * const playerToken = await prisma.playerToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends PlayerTokenFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, PlayerTokenFindFirstOrThrowArgs>
+    ): Prisma__PlayerTokenClient<PlayerTokenGetPayload<T>>
+
+    /**
+     * Find zero or more PlayerTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerTokenFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlayerTokens
+     * const playerTokens = await prisma.playerToken.findMany()
+     * 
+     * // Get first 10 PlayerTokens
+     * const playerTokens = await prisma.playerToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const playerTokenWithIdOnly = await prisma.playerToken.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends PlayerTokenFindManyArgs>(
+      args?: SelectSubset<T, PlayerTokenFindManyArgs>
+    ): Prisma.PrismaPromise<Array<PlayerTokenGetPayload<T>>>
+
+    /**
+     * Create a PlayerToken.
+     * @param {PlayerTokenCreateArgs} args - Arguments to create a PlayerToken.
+     * @example
+     * // Create one PlayerToken
+     * const PlayerToken = await prisma.playerToken.create({
+     *   data: {
+     *     // ... data to create a PlayerToken
+     *   }
+     * })
+     * 
+    **/
+    create<T extends PlayerTokenCreateArgs>(
+      args: SelectSubset<T, PlayerTokenCreateArgs>
+    ): Prisma__PlayerTokenClient<PlayerTokenGetPayload<T>>
+
+    /**
+     * Create many PlayerTokens.
+     *     @param {PlayerTokenCreateManyArgs} args - Arguments to create many PlayerTokens.
+     *     @example
+     *     // Create many PlayerTokens
+     *     const playerToken = await prisma.playerToken.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends PlayerTokenCreateManyArgs>(
+      args?: SelectSubset<T, PlayerTokenCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PlayerToken.
+     * @param {PlayerTokenDeleteArgs} args - Arguments to delete one PlayerToken.
+     * @example
+     * // Delete one PlayerToken
+     * const PlayerToken = await prisma.playerToken.delete({
+     *   where: {
+     *     // ... filter to delete one PlayerToken
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends PlayerTokenDeleteArgs>(
+      args: SelectSubset<T, PlayerTokenDeleteArgs>
+    ): Prisma__PlayerTokenClient<PlayerTokenGetPayload<T>>
+
+    /**
+     * Update one PlayerToken.
+     * @param {PlayerTokenUpdateArgs} args - Arguments to update one PlayerToken.
+     * @example
+     * // Update one PlayerToken
+     * const playerToken = await prisma.playerToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends PlayerTokenUpdateArgs>(
+      args: SelectSubset<T, PlayerTokenUpdateArgs>
+    ): Prisma__PlayerTokenClient<PlayerTokenGetPayload<T>>
+
+    /**
+     * Delete zero or more PlayerTokens.
+     * @param {PlayerTokenDeleteManyArgs} args - Arguments to filter PlayerTokens to delete.
+     * @example
+     * // Delete a few PlayerTokens
+     * const { count } = await prisma.playerToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends PlayerTokenDeleteManyArgs>(
+      args?: SelectSubset<T, PlayerTokenDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlayerTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlayerTokens
+     * const playerToken = await prisma.playerToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends PlayerTokenUpdateManyArgs>(
+      args: SelectSubset<T, PlayerTokenUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PlayerToken.
+     * @param {PlayerTokenUpsertArgs} args - Arguments to update or create a PlayerToken.
+     * @example
+     * // Update or create a PlayerToken
+     * const playerToken = await prisma.playerToken.upsert({
+     *   create: {
+     *     // ... data to create a PlayerToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlayerToken we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends PlayerTokenUpsertArgs>(
+      args: SelectSubset<T, PlayerTokenUpsertArgs>
+    ): Prisma__PlayerTokenClient<PlayerTokenGetPayload<T>>
+
+    /**
+     * Find zero or more PlayerTokens that matches the filter.
+     * @param {PlayerTokenFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const playerToken = await prisma.playerToken.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: PlayerTokenFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a PlayerToken.
+     * @param {PlayerTokenAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const playerToken = await prisma.playerToken.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: PlayerTokenAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of PlayerTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerTokenCountArgs} args - Arguments to filter PlayerTokens to count.
+     * @example
+     * // Count the number of PlayerTokens
+     * const count = await prisma.playerToken.count({
+     *   where: {
+     *     // ... the filter for the PlayerTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlayerTokenCountArgs>(
+      args?: Subset<T, PlayerTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlayerTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlayerToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlayerTokenAggregateArgs>(args: Subset<T, PlayerTokenAggregateArgs>): Prisma.PrismaPromise<GetPlayerTokenAggregateType<T>>
+
+    /**
+     * Group by PlayerToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayerTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlayerTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlayerTokenGroupByArgs['orderBy'] }
+        : { orderBy?: PlayerTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlayerTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlayerTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlayerToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__PlayerTokenClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * PlayerToken base type for findUnique actions
+   */
+  export type PlayerTokenFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    /**
+     * Filter, which PlayerToken to fetch.
+     */
+    where: PlayerTokenWhereUniqueInput
+  }
+
+  /**
+   * PlayerToken findUnique
+   */
+  export interface PlayerTokenFindUniqueArgs extends PlayerTokenFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * PlayerToken findUniqueOrThrow
+   */
+  export type PlayerTokenFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    /**
+     * Filter, which PlayerToken to fetch.
+     */
+    where: PlayerTokenWhereUniqueInput
+  }
+
+
+  /**
+   * PlayerToken base type for findFirst actions
+   */
+  export type PlayerTokenFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    /**
+     * Filter, which PlayerToken to fetch.
+     */
+    where?: PlayerTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerTokens to fetch.
+     */
+    orderBy?: Enumerable<PlayerTokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayerTokens.
+     */
+    cursor?: PlayerTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayerTokens.
+     */
+    distinct?: Enumerable<PlayerTokenScalarFieldEnum>
+  }
+
+  /**
+   * PlayerToken findFirst
+   */
+  export interface PlayerTokenFindFirstArgs extends PlayerTokenFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * PlayerToken findFirstOrThrow
+   */
+  export type PlayerTokenFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    /**
+     * Filter, which PlayerToken to fetch.
+     */
+    where?: PlayerTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerTokens to fetch.
+     */
+    orderBy?: Enumerable<PlayerTokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayerTokens.
+     */
+    cursor?: PlayerTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayerTokens.
+     */
+    distinct?: Enumerable<PlayerTokenScalarFieldEnum>
+  }
+
+
+  /**
+   * PlayerToken findMany
+   */
+  export type PlayerTokenFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    /**
+     * Filter, which PlayerTokens to fetch.
+     */
+    where?: PlayerTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayerTokens to fetch.
+     */
+    orderBy?: Enumerable<PlayerTokenOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlayerTokens.
+     */
+    cursor?: PlayerTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayerTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayerTokens.
+     */
+    skip?: number
+    distinct?: Enumerable<PlayerTokenScalarFieldEnum>
+  }
+
+
+  /**
+   * PlayerToken create
+   */
+  export type PlayerTokenCreateArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    /**
+     * The data needed to create a PlayerToken.
+     */
+    data: XOR<PlayerTokenCreateInput, PlayerTokenUncheckedCreateInput>
+  }
+
+
+  /**
+   * PlayerToken createMany
+   */
+  export type PlayerTokenCreateManyArgs = {
+    /**
+     * The data used to create many PlayerTokens.
+     */
+    data: Enumerable<PlayerTokenCreateManyInput>
+  }
+
+
+  /**
+   * PlayerToken update
+   */
+  export type PlayerTokenUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    /**
+     * The data needed to update a PlayerToken.
+     */
+    data: XOR<PlayerTokenUpdateInput, PlayerTokenUncheckedUpdateInput>
+    /**
+     * Choose, which PlayerToken to update.
+     */
+    where: PlayerTokenWhereUniqueInput
+  }
+
+
+  /**
+   * PlayerToken updateMany
+   */
+  export type PlayerTokenUpdateManyArgs = {
+    /**
+     * The data used to update PlayerTokens.
+     */
+    data: XOR<PlayerTokenUpdateManyMutationInput, PlayerTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which PlayerTokens to update
+     */
+    where?: PlayerTokenWhereInput
+  }
+
+
+  /**
+   * PlayerToken upsert
+   */
+  export type PlayerTokenUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    /**
+     * The filter to search for the PlayerToken to update in case it exists.
+     */
+    where: PlayerTokenWhereUniqueInput
+    /**
+     * In case the PlayerToken found by the `where` argument doesn't exist, create a new PlayerToken with this data.
+     */
+    create: XOR<PlayerTokenCreateInput, PlayerTokenUncheckedCreateInput>
+    /**
+     * In case the PlayerToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlayerTokenUpdateInput, PlayerTokenUncheckedUpdateInput>
+  }
+
+
+  /**
+   * PlayerToken delete
+   */
+  export type PlayerTokenDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    /**
+     * Filter which PlayerToken to delete.
+     */
+    where: PlayerTokenWhereUniqueInput
+  }
+
+
+  /**
+   * PlayerToken deleteMany
+   */
+  export type PlayerTokenDeleteManyArgs = {
+    /**
+     * Filter which PlayerTokens to delete
+     */
+    where?: PlayerTokenWhereInput
+  }
+
+
+  /**
+   * PlayerToken findRaw
+   */
+  export type PlayerTokenFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * PlayerToken aggregateRaw
+   */
+  export type PlayerTokenAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * PlayerToken without action
+   */
+  export type PlayerTokenArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+  }
+
+
+
+  /**
+   * Model SpinTime
+   */
+
+
+  export type AggregateSpinTime = {
+    _count: SpinTimeCountAggregateOutputType | null
+    _min: SpinTimeMinAggregateOutputType | null
+    _max: SpinTimeMaxAggregateOutputType | null
+  }
+
+  export type SpinTimeMinAggregateOutputType = {
+    id: string | null
+    playerId: string | null
+    enabled: boolean | null
+    renewOn: string | null
+    timeLeft: string | null
+  }
+
+  export type SpinTimeMaxAggregateOutputType = {
+    id: string | null
+    playerId: string | null
+    enabled: boolean | null
+    renewOn: string | null
+    timeLeft: string | null
+  }
+
+  export type SpinTimeCountAggregateOutputType = {
+    id: number
+    playerId: number
+    enabled: number
+    renewOn: number
+    timeLeft: number
+    _all: number
+  }
+
+
+  export type SpinTimeMinAggregateInputType = {
+    id?: true
+    playerId?: true
+    enabled?: true
+    renewOn?: true
+    timeLeft?: true
+  }
+
+  export type SpinTimeMaxAggregateInputType = {
+    id?: true
+    playerId?: true
+    enabled?: true
+    renewOn?: true
+    timeLeft?: true
+  }
+
+  export type SpinTimeCountAggregateInputType = {
+    id?: true
+    playerId?: true
+    enabled?: true
+    renewOn?: true
+    timeLeft?: true
+    _all?: true
+  }
+
+  export type SpinTimeAggregateArgs = {
+    /**
+     * Filter which SpinTime to aggregate.
+     */
+    where?: SpinTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpinTimes to fetch.
+     */
+    orderBy?: Enumerable<SpinTimeOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SpinTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpinTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpinTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SpinTimes
+    **/
+    _count?: true | SpinTimeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SpinTimeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SpinTimeMaxAggregateInputType
+  }
+
+  export type GetSpinTimeAggregateType<T extends SpinTimeAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpinTime]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpinTime[P]>
+      : GetScalarType<T[P], AggregateSpinTime[P]>
+  }
+
+
+
+
+  export type SpinTimeGroupByArgs = {
+    where?: SpinTimeWhereInput
+    orderBy?: Enumerable<SpinTimeOrderByWithAggregationInput>
+    by: SpinTimeScalarFieldEnum[]
+    having?: SpinTimeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SpinTimeCountAggregateInputType | true
+    _min?: SpinTimeMinAggregateInputType
+    _max?: SpinTimeMaxAggregateInputType
+  }
+
+
+  export type SpinTimeGroupByOutputType = {
+    id: string
+    playerId: string
+    enabled: boolean
+    renewOn: string
+    timeLeft: string
+    _count: SpinTimeCountAggregateOutputType | null
+    _min: SpinTimeMinAggregateOutputType | null
+    _max: SpinTimeMaxAggregateOutputType | null
+  }
+
+  type GetSpinTimeGroupByPayload<T extends SpinTimeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<SpinTimeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SpinTimeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SpinTimeGroupByOutputType[P]>
+            : GetScalarType<T[P], SpinTimeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SpinTimeSelect = {
+    id?: boolean
+    player?: boolean | PlayerArgs
+    playerId?: boolean
+    enabled?: boolean
+    renewOn?: boolean
+    timeLeft?: boolean
+  }
+
+
+  export type SpinTimeInclude = {
+    player?: boolean | PlayerArgs
+  }
+
+  export type SpinTimeGetPayload<S extends boolean | null | undefined | SpinTimeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? SpinTime :
+    S extends undefined ? never :
+    S extends { include: any } & (SpinTimeArgs | SpinTimeFindManyArgs)
+    ? SpinTime  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'player' ? PlayerGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (SpinTimeArgs | SpinTimeFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'player' ? PlayerGetPayload<S['select'][P]> :  P extends keyof SpinTime ? SpinTime[P] : never
+  } 
+      : SpinTime
+
+
+  type SpinTimeCountArgs = 
+    Omit<SpinTimeFindManyArgs, 'select' | 'include'> & {
+      select?: SpinTimeCountAggregateInputType | true
+    }
+
+  export interface SpinTimeDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one SpinTime that matches the filter.
+     * @param {SpinTimeFindUniqueArgs} args - Arguments to find a SpinTime
+     * @example
+     * // Get one SpinTime
+     * const spinTime = await prisma.spinTime.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends SpinTimeFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, SpinTimeFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'SpinTime'> extends True ? Prisma__SpinTimeClient<SpinTimeGetPayload<T>> : Prisma__SpinTimeClient<SpinTimeGetPayload<T> | null, null>
+
+    /**
+     * Find one SpinTime that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {SpinTimeFindUniqueOrThrowArgs} args - Arguments to find a SpinTime
+     * @example
+     * // Get one SpinTime
+     * const spinTime = await prisma.spinTime.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends SpinTimeFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, SpinTimeFindUniqueOrThrowArgs>
+    ): Prisma__SpinTimeClient<SpinTimeGetPayload<T>>
+
+    /**
+     * Find the first SpinTime that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpinTimeFindFirstArgs} args - Arguments to find a SpinTime
+     * @example
+     * // Get one SpinTime
+     * const spinTime = await prisma.spinTime.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends SpinTimeFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, SpinTimeFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'SpinTime'> extends True ? Prisma__SpinTimeClient<SpinTimeGetPayload<T>> : Prisma__SpinTimeClient<SpinTimeGetPayload<T> | null, null>
+
+    /**
+     * Find the first SpinTime that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpinTimeFindFirstOrThrowArgs} args - Arguments to find a SpinTime
+     * @example
+     * // Get one SpinTime
+     * const spinTime = await prisma.spinTime.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends SpinTimeFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, SpinTimeFindFirstOrThrowArgs>
+    ): Prisma__SpinTimeClient<SpinTimeGetPayload<T>>
+
+    /**
+     * Find zero or more SpinTimes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpinTimeFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SpinTimes
+     * const spinTimes = await prisma.spinTime.findMany()
+     * 
+     * // Get first 10 SpinTimes
+     * const spinTimes = await prisma.spinTime.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const spinTimeWithIdOnly = await prisma.spinTime.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends SpinTimeFindManyArgs>(
+      args?: SelectSubset<T, SpinTimeFindManyArgs>
+    ): Prisma.PrismaPromise<Array<SpinTimeGetPayload<T>>>
+
+    /**
+     * Create a SpinTime.
+     * @param {SpinTimeCreateArgs} args - Arguments to create a SpinTime.
+     * @example
+     * // Create one SpinTime
+     * const SpinTime = await prisma.spinTime.create({
+     *   data: {
+     *     // ... data to create a SpinTime
+     *   }
+     * })
+     * 
+    **/
+    create<T extends SpinTimeCreateArgs>(
+      args: SelectSubset<T, SpinTimeCreateArgs>
+    ): Prisma__SpinTimeClient<SpinTimeGetPayload<T>>
+
+    /**
+     * Create many SpinTimes.
+     *     @param {SpinTimeCreateManyArgs} args - Arguments to create many SpinTimes.
+     *     @example
+     *     // Create many SpinTimes
+     *     const spinTime = await prisma.spinTime.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends SpinTimeCreateManyArgs>(
+      args?: SelectSubset<T, SpinTimeCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a SpinTime.
+     * @param {SpinTimeDeleteArgs} args - Arguments to delete one SpinTime.
+     * @example
+     * // Delete one SpinTime
+     * const SpinTime = await prisma.spinTime.delete({
+     *   where: {
+     *     // ... filter to delete one SpinTime
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends SpinTimeDeleteArgs>(
+      args: SelectSubset<T, SpinTimeDeleteArgs>
+    ): Prisma__SpinTimeClient<SpinTimeGetPayload<T>>
+
+    /**
+     * Update one SpinTime.
+     * @param {SpinTimeUpdateArgs} args - Arguments to update one SpinTime.
+     * @example
+     * // Update one SpinTime
+     * const spinTime = await prisma.spinTime.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends SpinTimeUpdateArgs>(
+      args: SelectSubset<T, SpinTimeUpdateArgs>
+    ): Prisma__SpinTimeClient<SpinTimeGetPayload<T>>
+
+    /**
+     * Delete zero or more SpinTimes.
+     * @param {SpinTimeDeleteManyArgs} args - Arguments to filter SpinTimes to delete.
+     * @example
+     * // Delete a few SpinTimes
+     * const { count } = await prisma.spinTime.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends SpinTimeDeleteManyArgs>(
+      args?: SelectSubset<T, SpinTimeDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SpinTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpinTimeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SpinTimes
+     * const spinTime = await prisma.spinTime.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends SpinTimeUpdateManyArgs>(
+      args: SelectSubset<T, SpinTimeUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SpinTime.
+     * @param {SpinTimeUpsertArgs} args - Arguments to update or create a SpinTime.
+     * @example
+     * // Update or create a SpinTime
+     * const spinTime = await prisma.spinTime.upsert({
+     *   create: {
+     *     // ... data to create a SpinTime
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SpinTime we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends SpinTimeUpsertArgs>(
+      args: SelectSubset<T, SpinTimeUpsertArgs>
+    ): Prisma__SpinTimeClient<SpinTimeGetPayload<T>>
+
+    /**
+     * Find zero or more SpinTimes that matches the filter.
+     * @param {SpinTimeFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const spinTime = await prisma.spinTime.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: SpinTimeFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a SpinTime.
+     * @param {SpinTimeAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const spinTime = await prisma.spinTime.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: SpinTimeAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of SpinTimes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpinTimeCountArgs} args - Arguments to filter SpinTimes to count.
+     * @example
+     * // Count the number of SpinTimes
+     * const count = await prisma.spinTime.count({
+     *   where: {
+     *     // ... the filter for the SpinTimes we want to count
+     *   }
+     * })
+    **/
+    count<T extends SpinTimeCountArgs>(
+      args?: Subset<T, SpinTimeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SpinTimeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SpinTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpinTimeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SpinTimeAggregateArgs>(args: Subset<T, SpinTimeAggregateArgs>): Prisma.PrismaPromise<GetSpinTimeAggregateType<T>>
+
+    /**
+     * Group by SpinTime.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpinTimeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SpinTimeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SpinTimeGroupByArgs['orderBy'] }
+        : { orderBy?: SpinTimeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SpinTimeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpinTimeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SpinTime.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__SpinTimeClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * SpinTime base type for findUnique actions
+   */
+  export type SpinTimeFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    /**
+     * Filter, which SpinTime to fetch.
+     */
+    where: SpinTimeWhereUniqueInput
+  }
+
+  /**
+   * SpinTime findUnique
+   */
+  export interface SpinTimeFindUniqueArgs extends SpinTimeFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * SpinTime findUniqueOrThrow
+   */
+  export type SpinTimeFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    /**
+     * Filter, which SpinTime to fetch.
+     */
+    where: SpinTimeWhereUniqueInput
+  }
+
+
+  /**
+   * SpinTime base type for findFirst actions
+   */
+  export type SpinTimeFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    /**
+     * Filter, which SpinTime to fetch.
+     */
+    where?: SpinTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpinTimes to fetch.
+     */
+    orderBy?: Enumerable<SpinTimeOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SpinTimes.
+     */
+    cursor?: SpinTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpinTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpinTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SpinTimes.
+     */
+    distinct?: Enumerable<SpinTimeScalarFieldEnum>
+  }
+
+  /**
+   * SpinTime findFirst
+   */
+  export interface SpinTimeFindFirstArgs extends SpinTimeFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * SpinTime findFirstOrThrow
+   */
+  export type SpinTimeFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    /**
+     * Filter, which SpinTime to fetch.
+     */
+    where?: SpinTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpinTimes to fetch.
+     */
+    orderBy?: Enumerable<SpinTimeOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SpinTimes.
+     */
+    cursor?: SpinTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpinTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpinTimes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SpinTimes.
+     */
+    distinct?: Enumerable<SpinTimeScalarFieldEnum>
+  }
+
+
+  /**
+   * SpinTime findMany
+   */
+  export type SpinTimeFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    /**
+     * Filter, which SpinTimes to fetch.
+     */
+    where?: SpinTimeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SpinTimes to fetch.
+     */
+    orderBy?: Enumerable<SpinTimeOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SpinTimes.
+     */
+    cursor?: SpinTimeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SpinTimes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SpinTimes.
+     */
+    skip?: number
+    distinct?: Enumerable<SpinTimeScalarFieldEnum>
+  }
+
+
+  /**
+   * SpinTime create
+   */
+  export type SpinTimeCreateArgs = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    /**
+     * The data needed to create a SpinTime.
+     */
+    data: XOR<SpinTimeCreateInput, SpinTimeUncheckedCreateInput>
+  }
+
+
+  /**
+   * SpinTime createMany
+   */
+  export type SpinTimeCreateManyArgs = {
+    /**
+     * The data used to create many SpinTimes.
+     */
+    data: Enumerable<SpinTimeCreateManyInput>
+  }
+
+
+  /**
+   * SpinTime update
+   */
+  export type SpinTimeUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    /**
+     * The data needed to update a SpinTime.
+     */
+    data: XOR<SpinTimeUpdateInput, SpinTimeUncheckedUpdateInput>
+    /**
+     * Choose, which SpinTime to update.
+     */
+    where: SpinTimeWhereUniqueInput
+  }
+
+
+  /**
+   * SpinTime updateMany
+   */
+  export type SpinTimeUpdateManyArgs = {
+    /**
+     * The data used to update SpinTimes.
+     */
+    data: XOR<SpinTimeUpdateManyMutationInput, SpinTimeUncheckedUpdateManyInput>
+    /**
+     * Filter which SpinTimes to update
+     */
+    where?: SpinTimeWhereInput
+  }
+
+
+  /**
+   * SpinTime upsert
+   */
+  export type SpinTimeUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    /**
+     * The filter to search for the SpinTime to update in case it exists.
+     */
+    where: SpinTimeWhereUniqueInput
+    /**
+     * In case the SpinTime found by the `where` argument doesn't exist, create a new SpinTime with this data.
+     */
+    create: XOR<SpinTimeCreateInput, SpinTimeUncheckedCreateInput>
+    /**
+     * In case the SpinTime was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SpinTimeUpdateInput, SpinTimeUncheckedUpdateInput>
+  }
+
+
+  /**
+   * SpinTime delete
+   */
+  export type SpinTimeDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    /**
+     * Filter which SpinTime to delete.
+     */
+    where: SpinTimeWhereUniqueInput
+  }
+
+
+  /**
+   * SpinTime deleteMany
+   */
+  export type SpinTimeDeleteManyArgs = {
+    /**
+     * Filter which SpinTimes to delete
+     */
+    where?: SpinTimeWhereInput
+  }
+
+
+  /**
+   * SpinTime findRaw
+   */
+  export type SpinTimeFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * SpinTime aggregateRaw
+   */
+  export type SpinTimeAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * SpinTime without action
+   */
+  export type SpinTimeArgs = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+  }
+
+
+
+  /**
    * Model Player
    */
 
@@ -5377,6 +8394,9 @@ export namespace Prisma {
     GameTransactions?: boolean | Player$GameTransactionsArgs
     FishGameTransactions?: boolean | Player$FishGameTransactionsArgs
     SlotFreeBonus?: boolean | Player$SlotFreeBonusArgs
+    FavoriteGame?: boolean | Player$FavoriteGameArgs
+    PlayerToken?: boolean | Player$PlayerTokenArgs
+    SpinTime?: boolean | Player$SpinTimeArgs
     _count?: boolean | PlayerCountOutputTypeArgs
   }
 
@@ -5389,6 +8409,9 @@ export namespace Prisma {
     GameTransactions?: boolean | Player$GameTransactionsArgs
     FishGameTransactions?: boolean | Player$FishGameTransactionsArgs
     SlotFreeBonus?: boolean | Player$SlotFreeBonusArgs
+    FavoriteGame?: boolean | Player$FavoriteGameArgs
+    PlayerToken?: boolean | Player$PlayerTokenArgs
+    SpinTime?: boolean | Player$SpinTimeArgs
     _count?: boolean | PlayerCountOutputTypeArgs
   }
 
@@ -5406,6 +8429,9 @@ export namespace Prisma {
         P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['include'][P]>>  :
         P extends 'FishGameTransactions' ? Array < FishGameTransactionsGetPayload<S['include'][P]>>  :
         P extends 'SlotFreeBonus' ? Array < SlotFreeBonusGetPayload<S['include'][P]>>  :
+        P extends 'FavoriteGame' ? Array < FavoriteGameGetPayload<S['include'][P]>>  :
+        P extends 'PlayerToken' ? Array < PlayerTokenGetPayload<S['include'][P]>>  :
+        P extends 'SpinTime' ? Array < SpinTimeGetPayload<S['include'][P]>>  :
         P extends '_count' ? PlayerCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (PlayerArgs | PlayerFindManyArgs)
@@ -5418,6 +8444,9 @@ export namespace Prisma {
         P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['select'][P]>>  :
         P extends 'FishGameTransactions' ? Array < FishGameTransactionsGetPayload<S['select'][P]>>  :
         P extends 'SlotFreeBonus' ? Array < SlotFreeBonusGetPayload<S['select'][P]>>  :
+        P extends 'FavoriteGame' ? Array < FavoriteGameGetPayload<S['select'][P]>>  :
+        P extends 'PlayerToken' ? Array < PlayerTokenGetPayload<S['select'][P]>>  :
+        P extends 'SpinTime' ? Array < SpinTimeGetPayload<S['select'][P]>>  :
         P extends '_count' ? PlayerCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Player ? Player[P] : never
   } 
       : Player
@@ -5830,6 +8859,12 @@ export namespace Prisma {
     FishGameTransactions<T extends Player$FishGameTransactionsArgs= {}>(args?: Subset<T, Player$FishGameTransactionsArgs>): Prisma.PrismaPromise<Array<FishGameTransactionsGetPayload<T>>| Null>;
 
     SlotFreeBonus<T extends Player$SlotFreeBonusArgs= {}>(args?: Subset<T, Player$SlotFreeBonusArgs>): Prisma.PrismaPromise<Array<SlotFreeBonusGetPayload<T>>| Null>;
+
+    FavoriteGame<T extends Player$FavoriteGameArgs= {}>(args?: Subset<T, Player$FavoriteGameArgs>): Prisma.PrismaPromise<Array<FavoriteGameGetPayload<T>>| Null>;
+
+    PlayerToken<T extends Player$PlayerTokenArgs= {}>(args?: Subset<T, Player$PlayerTokenArgs>): Prisma.PrismaPromise<Array<PlayerTokenGetPayload<T>>| Null>;
+
+    SpinTime<T extends Player$SpinTimeArgs= {}>(args?: Subset<T, Player$SpinTimeArgs>): Prisma.PrismaPromise<Array<SpinTimeGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -6300,6 +9335,69 @@ export namespace Prisma {
 
 
   /**
+   * Player.FavoriteGame
+   */
+  export type Player$FavoriteGameArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    where?: FavoriteGameWhereInput
+    orderBy?: Enumerable<FavoriteGameOrderByWithRelationInput>
+    cursor?: FavoriteGameWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<FavoriteGameScalarFieldEnum>
+  }
+
+
+  /**
+   * Player.PlayerToken
+   */
+  export type Player$PlayerTokenArgs = {
+    /**
+     * Select specific fields to fetch from the PlayerToken
+     */
+    select?: PlayerTokenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerTokenInclude | null
+    where?: PlayerTokenWhereInput
+    orderBy?: Enumerable<PlayerTokenOrderByWithRelationInput>
+    cursor?: PlayerTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<PlayerTokenScalarFieldEnum>
+  }
+
+
+  /**
+   * Player.SpinTime
+   */
+  export type Player$SpinTimeArgs = {
+    /**
+     * Select specific fields to fetch from the SpinTime
+     */
+    select?: SpinTimeSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SpinTimeInclude | null
+    where?: SpinTimeWhereInput
+    orderBy?: Enumerable<SpinTimeOrderByWithRelationInput>
+    cursor?: SpinTimeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<SpinTimeScalarFieldEnum>
+  }
+
+
+  /**
    * Player without action
    */
   export type PlayerArgs = {
@@ -6520,6 +9618,7 @@ export namespace Prisma {
     GameAssets?: boolean | Games$GameAssetsArgs
     FishGameTransactions?: boolean | Games$FishGameTransactionsArgs
     SlotFreeBonus?: boolean | Games$SlotFreeBonusArgs
+    FavoriteGame?: boolean | Games$FavoriteGameArgs
     _count?: boolean | GamesCountOutputTypeArgs
   }
 
@@ -6530,6 +9629,7 @@ export namespace Prisma {
     GameAssets?: boolean | Games$GameAssetsArgs
     FishGameTransactions?: boolean | Games$FishGameTransactionsArgs
     SlotFreeBonus?: boolean | Games$SlotFreeBonusArgs
+    FavoriteGame?: boolean | Games$FavoriteGameArgs
     _count?: boolean | GamesCountOutputTypeArgs
   }
 
@@ -6545,6 +9645,7 @@ export namespace Prisma {
         P extends 'GameAssets' ? Array < GameAssetsGetPayload<S['include'][P]>>  :
         P extends 'FishGameTransactions' ? Array < FishGameTransactionsGetPayload<S['include'][P]>>  :
         P extends 'SlotFreeBonus' ? Array < SlotFreeBonusGetPayload<S['include'][P]>>  :
+        P extends 'FavoriteGame' ? Array < FavoriteGameGetPayload<S['include'][P]>>  :
         P extends '_count' ? GamesCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (GamesArgs | GamesFindManyArgs)
@@ -6555,6 +9656,7 @@ export namespace Prisma {
         P extends 'GameAssets' ? Array < GameAssetsGetPayload<S['select'][P]>>  :
         P extends 'FishGameTransactions' ? Array < FishGameTransactionsGetPayload<S['select'][P]>>  :
         P extends 'SlotFreeBonus' ? Array < SlotFreeBonusGetPayload<S['select'][P]>>  :
+        P extends 'FavoriteGame' ? Array < FavoriteGameGetPayload<S['select'][P]>>  :
         P extends '_count' ? GamesCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Games ? Games[P] : never
   } 
       : Games
@@ -6963,6 +10065,8 @@ export namespace Prisma {
     FishGameTransactions<T extends Games$FishGameTransactionsArgs= {}>(args?: Subset<T, Games$FishGameTransactionsArgs>): Prisma.PrismaPromise<Array<FishGameTransactionsGetPayload<T>>| Null>;
 
     SlotFreeBonus<T extends Games$SlotFreeBonusArgs= {}>(args?: Subset<T, Games$SlotFreeBonusArgs>): Prisma.PrismaPromise<Array<SlotFreeBonusGetPayload<T>>| Null>;
+
+    FavoriteGame<T extends Games$FavoriteGameArgs= {}>(args?: Subset<T, Games$FavoriteGameArgs>): Prisma.PrismaPromise<Array<FavoriteGameGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -7450,6 +10554,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<SlotFreeBonusScalarFieldEnum>
+  }
+
+
+  /**
+   * Games.FavoriteGame
+   */
+  export type Games$FavoriteGameArgs = {
+    /**
+     * Select specific fields to fetch from the FavoriteGame
+     */
+    select?: FavoriteGameSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FavoriteGameInclude | null
+    where?: FavoriteGameWhereInput
+    orderBy?: Enumerable<FavoriteGameOrderByWithRelationInput>
+    cursor?: FavoriteGameWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<FavoriteGameScalarFieldEnum>
   }
 
 
@@ -15892,6 +19017,16 @@ export namespace Prisma {
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
 
 
+  export const FavoriteGameScalarFieldEnum: {
+    id: 'id',
+    gameId: 'gameId',
+    playerId: 'playerId',
+    status: 'status'
+  };
+
+  export type FavoriteGameScalarFieldEnum = (typeof FavoriteGameScalarFieldEnum)[keyof typeof FavoriteGameScalarFieldEnum]
+
+
   export const FishGameTransactionsScalarFieldEnum: {
     id: 'id',
     room_id: 'room_id',
@@ -15996,6 +19131,15 @@ export namespace Prisma {
   export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum]
 
 
+  export const PlayerTokenScalarFieldEnum: {
+    id: 'id',
+    playerId: 'playerId',
+    token: 'token'
+  };
+
+  export type PlayerTokenScalarFieldEnum = (typeof PlayerTokenScalarFieldEnum)[keyof typeof PlayerTokenScalarFieldEnum]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -16074,6 +19218,17 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const SpinTimeScalarFieldEnum: {
+    id: 'id',
+    playerId: 'playerId',
+    enabled: 'enabled',
+    renewOn: 'renewOn',
+    timeLeft: 'timeLeft'
+  };
+
+  export type SpinTimeScalarFieldEnum = (typeof SpinTimeScalarFieldEnum)[keyof typeof SpinTimeScalarFieldEnum]
 
 
   /**
@@ -16373,6 +19528,137 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
+  export type FavoriteGameWhereInput = {
+    AND?: Enumerable<FavoriteGameWhereInput>
+    OR?: Enumerable<FavoriteGameWhereInput>
+    NOT?: Enumerable<FavoriteGameWhereInput>
+    id?: StringFilter | string
+    game?: XOR<GamesRelationFilter, GamesWhereInput>
+    gameId?: StringFilter | string
+    player?: XOR<PlayerRelationFilter, PlayerWhereInput>
+    playerId?: StringFilter | string
+    status?: BoolFilter | boolean
+  }
+
+  export type FavoriteGameOrderByWithRelationInput = {
+    id?: SortOrder
+    game?: GamesOrderByWithRelationInput
+    gameId?: SortOrder
+    player?: PlayerOrderByWithRelationInput
+    playerId?: SortOrder
+    status?: SortOrder
+  }
+
+  export type FavoriteGameWhereUniqueInput = {
+    id?: string
+  }
+
+  export type FavoriteGameOrderByWithAggregationInput = {
+    id?: SortOrder
+    gameId?: SortOrder
+    playerId?: SortOrder
+    status?: SortOrder
+    _count?: FavoriteGameCountOrderByAggregateInput
+    _max?: FavoriteGameMaxOrderByAggregateInput
+    _min?: FavoriteGameMinOrderByAggregateInput
+  }
+
+  export type FavoriteGameScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<FavoriteGameScalarWhereWithAggregatesInput>
+    OR?: Enumerable<FavoriteGameScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<FavoriteGameScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    gameId?: StringWithAggregatesFilter | string
+    playerId?: StringWithAggregatesFilter | string
+    status?: BoolWithAggregatesFilter | boolean
+  }
+
+  export type PlayerTokenWhereInput = {
+    AND?: Enumerable<PlayerTokenWhereInput>
+    OR?: Enumerable<PlayerTokenWhereInput>
+    NOT?: Enumerable<PlayerTokenWhereInput>
+    id?: StringFilter | string
+    player?: XOR<PlayerRelationFilter, PlayerWhereInput>
+    playerId?: StringFilter | string
+    token?: StringFilter | string
+  }
+
+  export type PlayerTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    player?: PlayerOrderByWithRelationInput
+    playerId?: SortOrder
+    token?: SortOrder
+  }
+
+  export type PlayerTokenWhereUniqueInput = {
+    id?: string
+  }
+
+  export type PlayerTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    playerId?: SortOrder
+    token?: SortOrder
+    _count?: PlayerTokenCountOrderByAggregateInput
+    _max?: PlayerTokenMaxOrderByAggregateInput
+    _min?: PlayerTokenMinOrderByAggregateInput
+  }
+
+  export type PlayerTokenScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<PlayerTokenScalarWhereWithAggregatesInput>
+    OR?: Enumerable<PlayerTokenScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<PlayerTokenScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    playerId?: StringWithAggregatesFilter | string
+    token?: StringWithAggregatesFilter | string
+  }
+
+  export type SpinTimeWhereInput = {
+    AND?: Enumerable<SpinTimeWhereInput>
+    OR?: Enumerable<SpinTimeWhereInput>
+    NOT?: Enumerable<SpinTimeWhereInput>
+    id?: StringFilter | string
+    player?: XOR<PlayerRelationFilter, PlayerWhereInput>
+    playerId?: StringFilter | string
+    enabled?: BoolFilter | boolean
+    renewOn?: StringFilter | string
+    timeLeft?: StringFilter | string
+  }
+
+  export type SpinTimeOrderByWithRelationInput = {
+    id?: SortOrder
+    player?: PlayerOrderByWithRelationInput
+    playerId?: SortOrder
+    enabled?: SortOrder
+    renewOn?: SortOrder
+    timeLeft?: SortOrder
+  }
+
+  export type SpinTimeWhereUniqueInput = {
+    id?: string
+  }
+
+  export type SpinTimeOrderByWithAggregationInput = {
+    id?: SortOrder
+    playerId?: SortOrder
+    enabled?: SortOrder
+    renewOn?: SortOrder
+    timeLeft?: SortOrder
+    _count?: SpinTimeCountOrderByAggregateInput
+    _max?: SpinTimeMaxOrderByAggregateInput
+    _min?: SpinTimeMinOrderByAggregateInput
+  }
+
+  export type SpinTimeScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<SpinTimeScalarWhereWithAggregatesInput>
+    OR?: Enumerable<SpinTimeScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<SpinTimeScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    playerId?: StringWithAggregatesFilter | string
+    enabled?: BoolWithAggregatesFilter | boolean
+    renewOn?: StringWithAggregatesFilter | string
+    timeLeft?: StringWithAggregatesFilter | string
+  }
+
   export type PlayerWhereInput = {
     AND?: Enumerable<PlayerWhereInput>
     OR?: Enumerable<PlayerWhereInput>
@@ -16409,6 +19695,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsListRelationFilter
     FishGameTransactions?: FishGameTransactionsListRelationFilter
     SlotFreeBonus?: SlotFreeBonusListRelationFilter
+    FavoriteGame?: FavoriteGameListRelationFilter
+    PlayerToken?: PlayerTokenListRelationFilter
+    SpinTime?: SpinTimeListRelationFilter
   }
 
   export type PlayerOrderByWithRelationInput = {
@@ -16444,6 +19733,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsOrderByRelationAggregateInput
     FishGameTransactions?: FishGameTransactionsOrderByRelationAggregateInput
     SlotFreeBonus?: SlotFreeBonusOrderByRelationAggregateInput
+    FavoriteGame?: FavoriteGameOrderByRelationAggregateInput
+    PlayerToken?: PlayerTokenOrderByRelationAggregateInput
+    SpinTime?: SpinTimeOrderByRelationAggregateInput
   }
 
   export type PlayerWhereUniqueInput = {
@@ -16530,6 +19822,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsListRelationFilter
     FishGameTransactions?: FishGameTransactionsListRelationFilter
     SlotFreeBonus?: SlotFreeBonusListRelationFilter
+    FavoriteGame?: FavoriteGameListRelationFilter
   }
 
   export type GamesOrderByWithRelationInput = {
@@ -16543,6 +19836,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsOrderByRelationAggregateInput
     FishGameTransactions?: FishGameTransactionsOrderByRelationAggregateInput
     SlotFreeBonus?: SlotFreeBonusOrderByRelationAggregateInput
+    FavoriteGame?: FavoriteGameOrderByRelationAggregateInput
   }
 
   export type GamesWhereUniqueInput = {
@@ -17478,6 +20772,137 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FavoriteGameCreateInput = {
+    id?: string
+    game: GamesCreateNestedOneWithoutFavoriteGameInput
+    player: PlayerCreateNestedOneWithoutFavoriteGameInput
+    status?: boolean
+  }
+
+  export type FavoriteGameUncheckedCreateInput = {
+    id?: string
+    gameId: string
+    playerId: string
+    status?: boolean
+  }
+
+  export type FavoriteGameUpdateInput = {
+    game?: GamesUpdateOneRequiredWithoutFavoriteGameNestedInput
+    player?: PlayerUpdateOneRequiredWithoutFavoriteGameNestedInput
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FavoriteGameUncheckedUpdateInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    playerId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FavoriteGameCreateManyInput = {
+    id?: string
+    gameId: string
+    playerId: string
+    status?: boolean
+  }
+
+  export type FavoriteGameUpdateManyMutationInput = {
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FavoriteGameUncheckedUpdateManyInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    playerId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PlayerTokenCreateInput = {
+    id?: string
+    player: PlayerCreateNestedOneWithoutPlayerTokenInput
+    token: string
+  }
+
+  export type PlayerTokenUncheckedCreateInput = {
+    id?: string
+    playerId: string
+    token: string
+  }
+
+  export type PlayerTokenUpdateInput = {
+    player?: PlayerUpdateOneRequiredWithoutPlayerTokenNestedInput
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerTokenUncheckedUpdateInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerTokenCreateManyInput = {
+    id?: string
+    playerId: string
+    token: string
+  }
+
+  export type PlayerTokenUpdateManyMutationInput = {
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerTokenUncheckedUpdateManyInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SpinTimeCreateInput = {
+    id?: string
+    player: PlayerCreateNestedOneWithoutSpinTimeInput
+    enabled: boolean
+    renewOn: string
+    timeLeft: string
+  }
+
+  export type SpinTimeUncheckedCreateInput = {
+    id?: string
+    playerId: string
+    enabled: boolean
+    renewOn: string
+    timeLeft: string
+  }
+
+  export type SpinTimeUpdateInput = {
+    player?: PlayerUpdateOneRequiredWithoutSpinTimeNestedInput
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    renewOn?: StringFieldUpdateOperationsInput | string
+    timeLeft?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SpinTimeUncheckedUpdateInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    renewOn?: StringFieldUpdateOperationsInput | string
+    timeLeft?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SpinTimeCreateManyInput = {
+    id?: string
+    playerId: string
+    enabled: boolean
+    renewOn: string
+    timeLeft: string
+  }
+
+  export type SpinTimeUpdateManyMutationInput = {
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    renewOn?: StringFieldUpdateOperationsInput | string
+    timeLeft?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SpinTimeUncheckedUpdateManyInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    renewOn?: StringFieldUpdateOperationsInput | string
+    timeLeft?: StringFieldUpdateOperationsInput | string
+  }
+
   export type PlayerCreateInput = {
     id?: string
     name?: string | null
@@ -17509,6 +20934,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateInput = {
@@ -17542,6 +20970,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUpdateInput = {
@@ -17574,6 +21005,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateInput = {
@@ -17606,6 +21040,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerCreateManyInput = {
@@ -17699,6 +21136,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutGameInput
   }
 
   export type GamesUncheckedCreateInput = {
@@ -17712,6 +21150,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GamesUpdateInput = {
@@ -17724,6 +21163,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutGameNestedInput
   }
 
   export type GamesUncheckedUpdateInput = {
@@ -17736,6 +21176,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type GamesCreateManyInput = {
@@ -18831,6 +22272,74 @@ export namespace Prisma {
     _max?: NestedBoolFilter
   }
 
+  export type GamesRelationFilter = {
+    is?: GamesWhereInput | null
+    isNot?: GamesWhereInput | null
+  }
+
+  export type FavoriteGameCountOrderByAggregateInput = {
+    id?: SortOrder
+    gameId?: SortOrder
+    playerId?: SortOrder
+    status?: SortOrder
+  }
+
+  export type FavoriteGameMaxOrderByAggregateInput = {
+    id?: SortOrder
+    gameId?: SortOrder
+    playerId?: SortOrder
+    status?: SortOrder
+  }
+
+  export type FavoriteGameMinOrderByAggregateInput = {
+    id?: SortOrder
+    gameId?: SortOrder
+    playerId?: SortOrder
+    status?: SortOrder
+  }
+
+  export type PlayerTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    playerId?: SortOrder
+    token?: SortOrder
+  }
+
+  export type PlayerTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    playerId?: SortOrder
+    token?: SortOrder
+  }
+
+  export type PlayerTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    playerId?: SortOrder
+    token?: SortOrder
+  }
+
+  export type SpinTimeCountOrderByAggregateInput = {
+    id?: SortOrder
+    playerId?: SortOrder
+    enabled?: SortOrder
+    renewOn?: SortOrder
+    timeLeft?: SortOrder
+  }
+
+  export type SpinTimeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    playerId?: SortOrder
+    enabled?: SortOrder
+    renewOn?: SortOrder
+    timeLeft?: SortOrder
+  }
+
+  export type SpinTimeMinOrderByAggregateInput = {
+    id?: SortOrder
+    playerId?: SortOrder
+    enabled?: SortOrder
+    renewOn?: SortOrder
+    timeLeft?: SortOrder
+  }
+
   export type IntNullableFilter = {
     equals?: number | null
     in?: Enumerable<number> | null
@@ -18860,11 +22369,41 @@ export namespace Prisma {
     none?: SlotFreeBonusWhereInput
   }
 
+  export type FavoriteGameListRelationFilter = {
+    every?: FavoriteGameWhereInput
+    some?: FavoriteGameWhereInput
+    none?: FavoriteGameWhereInput
+  }
+
+  export type PlayerTokenListRelationFilter = {
+    every?: PlayerTokenWhereInput
+    some?: PlayerTokenWhereInput
+    none?: PlayerTokenWhereInput
+  }
+
+  export type SpinTimeListRelationFilter = {
+    every?: SpinTimeWhereInput
+    some?: SpinTimeWhereInput
+    none?: SpinTimeWhereInput
+  }
+
   export type FishGameTransactionsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type SlotFreeBonusOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FavoriteGameOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlayerTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SpinTimeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -19078,11 +22617,6 @@ export namespace Prisma {
     _min?: NestedEnumAccountStatusNullableFilter
     _max?: NestedEnumAccountStatusNullableFilter
     isSet?: boolean
-  }
-
-  export type GamesRelationFilter = {
-    is?: GamesWhereInput | null
-    isNot?: GamesWhereInput | null
   }
 
   export type GameAssetsCountOrderByAggregateInput = {
@@ -19958,6 +23492,62 @@ export namespace Prisma {
     update?: XOR<PlayerUpdateWithoutSettingsInput, PlayerUncheckedUpdateWithoutSettingsInput>
   }
 
+  export type GamesCreateNestedOneWithoutFavoriteGameInput = {
+    create?: XOR<GamesCreateWithoutFavoriteGameInput, GamesUncheckedCreateWithoutFavoriteGameInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutFavoriteGameInput
+    connect?: GamesWhereUniqueInput
+  }
+
+  export type PlayerCreateNestedOneWithoutFavoriteGameInput = {
+    create?: XOR<PlayerCreateWithoutFavoriteGameInput, PlayerUncheckedCreateWithoutFavoriteGameInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutFavoriteGameInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type GamesUpdateOneRequiredWithoutFavoriteGameNestedInput = {
+    create?: XOR<GamesCreateWithoutFavoriteGameInput, GamesUncheckedCreateWithoutFavoriteGameInput>
+    connectOrCreate?: GamesCreateOrConnectWithoutFavoriteGameInput
+    upsert?: GamesUpsertWithoutFavoriteGameInput
+    connect?: GamesWhereUniqueInput
+    update?: XOR<GamesUpdateWithoutFavoriteGameInput, GamesUncheckedUpdateWithoutFavoriteGameInput>
+  }
+
+  export type PlayerUpdateOneRequiredWithoutFavoriteGameNestedInput = {
+    create?: XOR<PlayerCreateWithoutFavoriteGameInput, PlayerUncheckedCreateWithoutFavoriteGameInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutFavoriteGameInput
+    upsert?: PlayerUpsertWithoutFavoriteGameInput
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutFavoriteGameInput, PlayerUncheckedUpdateWithoutFavoriteGameInput>
+  }
+
+  export type PlayerCreateNestedOneWithoutPlayerTokenInput = {
+    create?: XOR<PlayerCreateWithoutPlayerTokenInput, PlayerUncheckedCreateWithoutPlayerTokenInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutPlayerTokenInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type PlayerUpdateOneRequiredWithoutPlayerTokenNestedInput = {
+    create?: XOR<PlayerCreateWithoutPlayerTokenInput, PlayerUncheckedCreateWithoutPlayerTokenInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutPlayerTokenInput
+    upsert?: PlayerUpsertWithoutPlayerTokenInput
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutPlayerTokenInput, PlayerUncheckedUpdateWithoutPlayerTokenInput>
+  }
+
+  export type PlayerCreateNestedOneWithoutSpinTimeInput = {
+    create?: XOR<PlayerCreateWithoutSpinTimeInput, PlayerUncheckedCreateWithoutSpinTimeInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutSpinTimeInput
+    connect?: PlayerWhereUniqueInput
+  }
+
+  export type PlayerUpdateOneRequiredWithoutSpinTimeNestedInput = {
+    create?: XOR<PlayerCreateWithoutSpinTimeInput, PlayerUncheckedCreateWithoutSpinTimeInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutSpinTimeInput
+    upsert?: PlayerUpsertWithoutSpinTimeInput
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutSpinTimeInput, PlayerUncheckedUpdateWithoutSpinTimeInput>
+  }
+
   export type SettingsCreateNestedOneWithoutPlayerInput = {
     create?: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
     connectOrCreate?: SettingsCreateOrConnectWithoutPlayerInput
@@ -20004,6 +23594,27 @@ export namespace Prisma {
     connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
   }
 
+  export type FavoriteGameCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<FavoriteGameCreateWithoutPlayerInput>, Enumerable<FavoriteGameUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<FavoriteGameCreateOrConnectWithoutPlayerInput>
+    createMany?: FavoriteGameCreateManyPlayerInputEnvelope
+    connect?: Enumerable<FavoriteGameWhereUniqueInput>
+  }
+
+  export type PlayerTokenCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<PlayerTokenCreateWithoutPlayerInput>, Enumerable<PlayerTokenUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<PlayerTokenCreateOrConnectWithoutPlayerInput>
+    createMany?: PlayerTokenCreateManyPlayerInputEnvelope
+    connect?: Enumerable<PlayerTokenWhereUniqueInput>
+  }
+
+  export type SpinTimeCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<SpinTimeCreateWithoutPlayerInput>, Enumerable<SpinTimeUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<SpinTimeCreateOrConnectWithoutPlayerInput>
+    createMany?: SpinTimeCreateManyPlayerInputEnvelope
+    connect?: Enumerable<SpinTimeWhereUniqueInput>
+  }
+
   export type PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput = {
     create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutPlayerInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>>
     connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutPlayerInput>
@@ -20036,6 +23647,27 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutPlayerInput>
     createMany?: SlotFreeBonusCreateManyPlayerInputEnvelope
     connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+  }
+
+  export type FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<FavoriteGameCreateWithoutPlayerInput>, Enumerable<FavoriteGameUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<FavoriteGameCreateOrConnectWithoutPlayerInput>
+    createMany?: FavoriteGameCreateManyPlayerInputEnvelope
+    connect?: Enumerable<FavoriteGameWhereUniqueInput>
+  }
+
+  export type PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<PlayerTokenCreateWithoutPlayerInput>, Enumerable<PlayerTokenUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<PlayerTokenCreateOrConnectWithoutPlayerInput>
+    createMany?: PlayerTokenCreateManyPlayerInputEnvelope
+    connect?: Enumerable<PlayerTokenWhereUniqueInput>
+  }
+
+  export type SpinTimeUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<SpinTimeCreateWithoutPlayerInput>, Enumerable<SpinTimeUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<SpinTimeCreateOrConnectWithoutPlayerInput>
+    createMany?: SpinTimeCreateManyPlayerInputEnvelope
+    connect?: Enumerable<SpinTimeWhereUniqueInput>
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -20131,6 +23763,48 @@ export namespace Prisma {
     deleteMany?: Enumerable<SlotFreeBonusScalarWhereInput>
   }
 
+  export type FavoriteGameUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<FavoriteGameCreateWithoutPlayerInput>, Enumerable<FavoriteGameUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<FavoriteGameCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<FavoriteGameUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: FavoriteGameCreateManyPlayerInputEnvelope
+    set?: Enumerable<FavoriteGameWhereUniqueInput>
+    disconnect?: Enumerable<FavoriteGameWhereUniqueInput>
+    delete?: Enumerable<FavoriteGameWhereUniqueInput>
+    connect?: Enumerable<FavoriteGameWhereUniqueInput>
+    update?: Enumerable<FavoriteGameUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<FavoriteGameUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<FavoriteGameScalarWhereInput>
+  }
+
+  export type PlayerTokenUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<PlayerTokenCreateWithoutPlayerInput>, Enumerable<PlayerTokenUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<PlayerTokenCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<PlayerTokenUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: PlayerTokenCreateManyPlayerInputEnvelope
+    set?: Enumerable<PlayerTokenWhereUniqueInput>
+    disconnect?: Enumerable<PlayerTokenWhereUniqueInput>
+    delete?: Enumerable<PlayerTokenWhereUniqueInput>
+    connect?: Enumerable<PlayerTokenWhereUniqueInput>
+    update?: Enumerable<PlayerTokenUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<PlayerTokenUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<PlayerTokenScalarWhereInput>
+  }
+
+  export type SpinTimeUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<SpinTimeCreateWithoutPlayerInput>, Enumerable<SpinTimeUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<SpinTimeCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<SpinTimeUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: SpinTimeCreateManyPlayerInputEnvelope
+    set?: Enumerable<SpinTimeWhereUniqueInput>
+    disconnect?: Enumerable<SpinTimeWhereUniqueInput>
+    delete?: Enumerable<SpinTimeWhereUniqueInput>
+    connect?: Enumerable<SpinTimeWhereUniqueInput>
+    update?: Enumerable<SpinTimeUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<SpinTimeUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<SpinTimeScalarWhereInput>
+  }
+
   export type PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput = {
     create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutPlayerInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>>
     connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutPlayerInput>
@@ -20197,6 +23871,48 @@ export namespace Prisma {
     deleteMany?: Enumerable<SlotFreeBonusScalarWhereInput>
   }
 
+  export type FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<FavoriteGameCreateWithoutPlayerInput>, Enumerable<FavoriteGameUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<FavoriteGameCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<FavoriteGameUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: FavoriteGameCreateManyPlayerInputEnvelope
+    set?: Enumerable<FavoriteGameWhereUniqueInput>
+    disconnect?: Enumerable<FavoriteGameWhereUniqueInput>
+    delete?: Enumerable<FavoriteGameWhereUniqueInput>
+    connect?: Enumerable<FavoriteGameWhereUniqueInput>
+    update?: Enumerable<FavoriteGameUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<FavoriteGameUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<FavoriteGameScalarWhereInput>
+  }
+
+  export type PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<PlayerTokenCreateWithoutPlayerInput>, Enumerable<PlayerTokenUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<PlayerTokenCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<PlayerTokenUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: PlayerTokenCreateManyPlayerInputEnvelope
+    set?: Enumerable<PlayerTokenWhereUniqueInput>
+    disconnect?: Enumerable<PlayerTokenWhereUniqueInput>
+    delete?: Enumerable<PlayerTokenWhereUniqueInput>
+    connect?: Enumerable<PlayerTokenWhereUniqueInput>
+    update?: Enumerable<PlayerTokenUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<PlayerTokenUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<PlayerTokenScalarWhereInput>
+  }
+
+  export type SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<SpinTimeCreateWithoutPlayerInput>, Enumerable<SpinTimeUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<SpinTimeCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<SpinTimeUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: SpinTimeCreateManyPlayerInputEnvelope
+    set?: Enumerable<SpinTimeWhereUniqueInput>
+    disconnect?: Enumerable<SpinTimeWhereUniqueInput>
+    delete?: Enumerable<SpinTimeWhereUniqueInput>
+    connect?: Enumerable<SpinTimeWhereUniqueInput>
+    update?: Enumerable<SpinTimeUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<SpinTimeUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<SpinTimeScalarWhereInput>
+  }
+
   export type GameTransactionsCreateNestedManyWithoutGameInput = {
     create?: XOR<Enumerable<GameTransactionsCreateWithoutGameInput>, Enumerable<GameTransactionsUncheckedCreateWithoutGameInput>>
     connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutGameInput>
@@ -20232,6 +23948,13 @@ export namespace Prisma {
     connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
   }
 
+  export type FavoriteGameCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<FavoriteGameCreateWithoutGameInput>, Enumerable<FavoriteGameUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<FavoriteGameCreateOrConnectWithoutGameInput>
+    createMany?: FavoriteGameCreateManyGameInputEnvelope
+    connect?: Enumerable<FavoriteGameWhereUniqueInput>
+  }
+
   export type GameTransactionsUncheckedCreateNestedManyWithoutGameInput = {
     create?: XOR<Enumerable<GameTransactionsCreateWithoutGameInput>, Enumerable<GameTransactionsUncheckedCreateWithoutGameInput>>
     connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutGameInput>
@@ -20265,6 +23988,13 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<SlotFreeBonusCreateOrConnectWithoutGameInput>
     createMany?: SlotFreeBonusCreateManyGameInputEnvelope
     connect?: Enumerable<SlotFreeBonusWhereUniqueInput>
+  }
+
+  export type FavoriteGameUncheckedCreateNestedManyWithoutGameInput = {
+    create?: XOR<Enumerable<FavoriteGameCreateWithoutGameInput>, Enumerable<FavoriteGameUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<FavoriteGameCreateOrConnectWithoutGameInput>
+    createMany?: FavoriteGameCreateManyGameInputEnvelope
+    connect?: Enumerable<FavoriteGameWhereUniqueInput>
   }
 
   export type NullableEnumAccountStatusFieldUpdateOperationsInput = {
@@ -20342,6 +24072,20 @@ export namespace Prisma {
     deleteMany?: Enumerable<SlotFreeBonusScalarWhereInput>
   }
 
+  export type FavoriteGameUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<FavoriteGameCreateWithoutGameInput>, Enumerable<FavoriteGameUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<FavoriteGameCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<FavoriteGameUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: FavoriteGameCreateManyGameInputEnvelope
+    set?: Enumerable<FavoriteGameWhereUniqueInput>
+    disconnect?: Enumerable<FavoriteGameWhereUniqueInput>
+    delete?: Enumerable<FavoriteGameWhereUniqueInput>
+    connect?: Enumerable<FavoriteGameWhereUniqueInput>
+    update?: Enumerable<FavoriteGameUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<FavoriteGameUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<FavoriteGameScalarWhereInput>
+  }
+
   export type GameTransactionsUncheckedUpdateManyWithoutGameNestedInput = {
     create?: XOR<Enumerable<GameTransactionsCreateWithoutGameInput>, Enumerable<GameTransactionsUncheckedCreateWithoutGameInput>>
     connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutGameInput>
@@ -20410,6 +24154,20 @@ export namespace Prisma {
     update?: Enumerable<SlotFreeBonusUpdateWithWhereUniqueWithoutGameInput>
     updateMany?: Enumerable<SlotFreeBonusUpdateManyWithWhereWithoutGameInput>
     deleteMany?: Enumerable<SlotFreeBonusScalarWhereInput>
+  }
+
+  export type FavoriteGameUncheckedUpdateManyWithoutGameNestedInput = {
+    create?: XOR<Enumerable<FavoriteGameCreateWithoutGameInput>, Enumerable<FavoriteGameUncheckedCreateWithoutGameInput>>
+    connectOrCreate?: Enumerable<FavoriteGameCreateOrConnectWithoutGameInput>
+    upsert?: Enumerable<FavoriteGameUpsertWithWhereUniqueWithoutGameInput>
+    createMany?: FavoriteGameCreateManyGameInputEnvelope
+    set?: Enumerable<FavoriteGameWhereUniqueInput>
+    disconnect?: Enumerable<FavoriteGameWhereUniqueInput>
+    delete?: Enumerable<FavoriteGameWhereUniqueInput>
+    connect?: Enumerable<FavoriteGameWhereUniqueInput>
+    update?: Enumerable<FavoriteGameUpdateWithWhereUniqueWithoutGameInput>
+    updateMany?: Enumerable<FavoriteGameUpdateManyWithWhereWithoutGameInput>
+    deleteMany?: Enumerable<FavoriteGameScalarWhereInput>
   }
 
   export type GamesCreateNestedOneWithoutGameAssetsInput = {
@@ -21327,6 +25085,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutManagerInput = {
@@ -21359,6 +25120,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutManagerInput = {
@@ -22042,6 +25806,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutSettingsInput = {
@@ -22074,6 +25841,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutSettingsInput = {
@@ -22166,6 +25936,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutSettingsInput = {
@@ -22197,6 +25970,513 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type GamesCreateWithoutFavoriteGameInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesUncheckedCreateWithoutFavoriteGameInput = {
+    id?: string
+    name: string
+    description?: string | null
+    played?: number
+    status?: AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
+    GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+  }
+
+  export type GamesCreateOrConnectWithoutFavoriteGameInput = {
+    where: GamesWhereUniqueInput
+    create: XOR<GamesCreateWithoutFavoriteGameInput, GamesUncheckedCreateWithoutFavoriteGameInput>
+  }
+
+  export type PlayerCreateWithoutFavoriteGameInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutFavoriteGameInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutFavoriteGameInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutFavoriteGameInput, PlayerUncheckedCreateWithoutFavoriteGameInput>
+  }
+
+  export type GamesUpsertWithoutFavoriteGameInput = {
+    update: XOR<GamesUpdateWithoutFavoriteGameInput, GamesUncheckedUpdateWithoutFavoriteGameInput>
+    create: XOR<GamesCreateWithoutFavoriteGameInput, GamesUncheckedCreateWithoutFavoriteGameInput>
+  }
+
+  export type GamesUpdateWithoutFavoriteGameInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+  }
+
+  export type GamesUncheckedUpdateWithoutFavoriteGameInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    played?: IntFieldUpdateOperationsInput | number
+    status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
+    GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
+    GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+  }
+
+  export type PlayerUpsertWithoutFavoriteGameInput = {
+    update: XOR<PlayerUpdateWithoutFavoriteGameInput, PlayerUncheckedUpdateWithoutFavoriteGameInput>
+    create: XOR<PlayerCreateWithoutFavoriteGameInput, PlayerUncheckedCreateWithoutFavoriteGameInput>
+  }
+
+  export type PlayerUpdateWithoutFavoriteGameInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutFavoriteGameInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerCreateWithoutPlayerTokenInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutPlayerTokenInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutPlayerTokenInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutPlayerTokenInput, PlayerUncheckedCreateWithoutPlayerTokenInput>
+  }
+
+  export type PlayerUpsertWithoutPlayerTokenInput = {
+    update: XOR<PlayerUpdateWithoutPlayerTokenInput, PlayerUncheckedUpdateWithoutPlayerTokenInput>
+    create: XOR<PlayerCreateWithoutPlayerTokenInput, PlayerUncheckedCreateWithoutPlayerTokenInput>
+  }
+
+  export type PlayerUpdateWithoutPlayerTokenInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutPlayerTokenInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerCreateWithoutSpinTimeInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutSpinTimeInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutSpinTimeInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutSpinTimeInput, PlayerUncheckedCreateWithoutSpinTimeInput>
+  }
+
+  export type PlayerUpsertWithoutSpinTimeInput = {
+    update: XOR<PlayerUpdateWithoutSpinTimeInput, PlayerUncheckedUpdateWithoutSpinTimeInput>
+    create: XOR<PlayerCreateWithoutSpinTimeInput, PlayerUncheckedCreateWithoutSpinTimeInput>
+  }
+
+  export type PlayerUpdateWithoutSpinTimeInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutSpinTimeInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type SettingsCreateWithoutPlayerInput = {
@@ -22470,6 +26750,69 @@ export namespace Prisma {
     data: Enumerable<SlotFreeBonusCreateManyPlayerInput>
   }
 
+  export type FavoriteGameCreateWithoutPlayerInput = {
+    id?: string
+    game: GamesCreateNestedOneWithoutFavoriteGameInput
+    status?: boolean
+  }
+
+  export type FavoriteGameUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    gameId: string
+    status?: boolean
+  }
+
+  export type FavoriteGameCreateOrConnectWithoutPlayerInput = {
+    where: FavoriteGameWhereUniqueInput
+    create: XOR<FavoriteGameCreateWithoutPlayerInput, FavoriteGameUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type FavoriteGameCreateManyPlayerInputEnvelope = {
+    data: Enumerable<FavoriteGameCreateManyPlayerInput>
+  }
+
+  export type PlayerTokenCreateWithoutPlayerInput = {
+    id?: string
+    token: string
+  }
+
+  export type PlayerTokenUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    token: string
+  }
+
+  export type PlayerTokenCreateOrConnectWithoutPlayerInput = {
+    where: PlayerTokenWhereUniqueInput
+    create: XOR<PlayerTokenCreateWithoutPlayerInput, PlayerTokenUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type PlayerTokenCreateManyPlayerInputEnvelope = {
+    data: Enumerable<PlayerTokenCreateManyPlayerInput>
+  }
+
+  export type SpinTimeCreateWithoutPlayerInput = {
+    id?: string
+    enabled: boolean
+    renewOn: string
+    timeLeft: string
+  }
+
+  export type SpinTimeUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    enabled: boolean
+    renewOn: string
+    timeLeft: string
+  }
+
+  export type SpinTimeCreateOrConnectWithoutPlayerInput = {
+    where: SpinTimeWhereUniqueInput
+    create: XOR<SpinTimeCreateWithoutPlayerInput, SpinTimeUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type SpinTimeCreateManyPlayerInputEnvelope = {
+    data: Enumerable<SpinTimeCreateManyPlayerInput>
+  }
+
   export type SettingsUpsertWithoutPlayerInput = {
     update: XOR<SettingsUpdateWithoutPlayerInput, SettingsUncheckedUpdateWithoutPlayerInput>
     create: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
@@ -22685,6 +27028,84 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter | Date | string
   }
 
+  export type FavoriteGameUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: FavoriteGameWhereUniqueInput
+    update: XOR<FavoriteGameUpdateWithoutPlayerInput, FavoriteGameUncheckedUpdateWithoutPlayerInput>
+    create: XOR<FavoriteGameCreateWithoutPlayerInput, FavoriteGameUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type FavoriteGameUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: FavoriteGameWhereUniqueInput
+    data: XOR<FavoriteGameUpdateWithoutPlayerInput, FavoriteGameUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type FavoriteGameUpdateManyWithWhereWithoutPlayerInput = {
+    where: FavoriteGameScalarWhereInput
+    data: XOR<FavoriteGameUpdateManyMutationInput, FavoriteGameUncheckedUpdateManyWithoutFavoriteGameInput>
+  }
+
+  export type FavoriteGameScalarWhereInput = {
+    AND?: Enumerable<FavoriteGameScalarWhereInput>
+    OR?: Enumerable<FavoriteGameScalarWhereInput>
+    NOT?: Enumerable<FavoriteGameScalarWhereInput>
+    id?: StringFilter | string
+    gameId?: StringFilter | string
+    playerId?: StringFilter | string
+    status?: BoolFilter | boolean
+  }
+
+  export type PlayerTokenUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: PlayerTokenWhereUniqueInput
+    update: XOR<PlayerTokenUpdateWithoutPlayerInput, PlayerTokenUncheckedUpdateWithoutPlayerInput>
+    create: XOR<PlayerTokenCreateWithoutPlayerInput, PlayerTokenUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type PlayerTokenUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: PlayerTokenWhereUniqueInput
+    data: XOR<PlayerTokenUpdateWithoutPlayerInput, PlayerTokenUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type PlayerTokenUpdateManyWithWhereWithoutPlayerInput = {
+    where: PlayerTokenScalarWhereInput
+    data: XOR<PlayerTokenUpdateManyMutationInput, PlayerTokenUncheckedUpdateManyWithoutPlayerTokenInput>
+  }
+
+  export type PlayerTokenScalarWhereInput = {
+    AND?: Enumerable<PlayerTokenScalarWhereInput>
+    OR?: Enumerable<PlayerTokenScalarWhereInput>
+    NOT?: Enumerable<PlayerTokenScalarWhereInput>
+    id?: StringFilter | string
+    playerId?: StringFilter | string
+    token?: StringFilter | string
+  }
+
+  export type SpinTimeUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: SpinTimeWhereUniqueInput
+    update: XOR<SpinTimeUpdateWithoutPlayerInput, SpinTimeUncheckedUpdateWithoutPlayerInput>
+    create: XOR<SpinTimeCreateWithoutPlayerInput, SpinTimeUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type SpinTimeUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: SpinTimeWhereUniqueInput
+    data: XOR<SpinTimeUpdateWithoutPlayerInput, SpinTimeUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type SpinTimeUpdateManyWithWhereWithoutPlayerInput = {
+    where: SpinTimeScalarWhereInput
+    data: XOR<SpinTimeUpdateManyMutationInput, SpinTimeUncheckedUpdateManyWithoutSpinTimeInput>
+  }
+
+  export type SpinTimeScalarWhereInput = {
+    AND?: Enumerable<SpinTimeScalarWhereInput>
+    OR?: Enumerable<SpinTimeScalarWhereInput>
+    NOT?: Enumerable<SpinTimeScalarWhereInput>
+    id?: StringFilter | string
+    playerId?: StringFilter | string
+    enabled?: BoolFilter | boolean
+    renewOn?: StringFilter | string
+    timeLeft?: StringFilter | string
+  }
+
   export type GameTransactionsCreateWithoutGameInput = {
     id?: string
     date?: string | null
@@ -22848,6 +27269,27 @@ export namespace Prisma {
     data: Enumerable<SlotFreeBonusCreateManyGameInput>
   }
 
+  export type FavoriteGameCreateWithoutGameInput = {
+    id?: string
+    player: PlayerCreateNestedOneWithoutFavoriteGameInput
+    status?: boolean
+  }
+
+  export type FavoriteGameUncheckedCreateWithoutGameInput = {
+    id?: string
+    playerId: string
+    status?: boolean
+  }
+
+  export type FavoriteGameCreateOrConnectWithoutGameInput = {
+    where: FavoriteGameWhereUniqueInput
+    create: XOR<FavoriteGameCreateWithoutGameInput, FavoriteGameUncheckedCreateWithoutGameInput>
+  }
+
+  export type FavoriteGameCreateManyGameInputEnvelope = {
+    data: Enumerable<FavoriteGameCreateManyGameInput>
+  }
+
   export type GameTransactionsUpsertWithWhereUniqueWithoutGameInput = {
     where: GameTransactionsWhereUniqueInput
     update: XOR<GameTransactionsUpdateWithoutGameInput, GameTransactionsUncheckedUpdateWithoutGameInput>
@@ -22953,6 +27395,22 @@ export namespace Prisma {
     data: XOR<SlotFreeBonusUpdateManyMutationInput, SlotFreeBonusUncheckedUpdateManyWithoutSlotFreeBonusInput>
   }
 
+  export type FavoriteGameUpsertWithWhereUniqueWithoutGameInput = {
+    where: FavoriteGameWhereUniqueInput
+    update: XOR<FavoriteGameUpdateWithoutGameInput, FavoriteGameUncheckedUpdateWithoutGameInput>
+    create: XOR<FavoriteGameCreateWithoutGameInput, FavoriteGameUncheckedCreateWithoutGameInput>
+  }
+
+  export type FavoriteGameUpdateWithWhereUniqueWithoutGameInput = {
+    where: FavoriteGameWhereUniqueInput
+    data: XOR<FavoriteGameUpdateWithoutGameInput, FavoriteGameUncheckedUpdateWithoutGameInput>
+  }
+
+  export type FavoriteGameUpdateManyWithWhereWithoutGameInput = {
+    where: FavoriteGameScalarWhereInput
+    data: XOR<FavoriteGameUpdateManyMutationInput, FavoriteGameUncheckedUpdateManyWithoutFavoriteGameInput>
+  }
+
   export type GamesCreateWithoutGameAssetsInput = {
     id?: string
     name: string
@@ -22963,6 +27421,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutGameInput
   }
 
   export type GamesUncheckedCreateWithoutGameAssetsInput = {
@@ -22975,6 +27434,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GamesCreateOrConnectWithoutGameAssetsInput = {
@@ -22996,6 +27456,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutGameNestedInput
   }
 
   export type GamesUncheckedUpdateWithoutGameAssetsInput = {
@@ -23007,6 +27468,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type PlayerCreateWithoutActiveGamePlayInput = {
@@ -23039,6 +27501,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutActiveGamePlayInput = {
@@ -23071,6 +27536,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutActiveGamePlayInput = {
@@ -23088,6 +27556,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutGameInput
   }
 
   export type GamesUncheckedCreateWithoutActiveGamePlayInput = {
@@ -23100,6 +27569,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GamesCreateOrConnectWithoutActiveGamePlayInput = {
@@ -23141,6 +27611,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutActiveGamePlayInput = {
@@ -23172,6 +27645,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GamesUpsertWithoutActiveGamePlayInput = {
@@ -23188,6 +27664,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutGameNestedInput
   }
 
   export type GamesUncheckedUpdateWithoutActiveGamePlayInput = {
@@ -23199,6 +27676,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type GameTransactionsCreateWithoutSlotTransactionsInput = {
@@ -23287,6 +27765,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutGameInput
   }
 
   export type GamesUncheckedCreateWithoutGameTransactionInput = {
@@ -23299,6 +27778,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GamesCreateOrConnectWithoutGameTransactionInput = {
@@ -23336,6 +27816,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutGameTransactionsInput = {
@@ -23368,6 +27851,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutGameTransactionsInput = {
@@ -23486,6 +27972,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutGameNestedInput
   }
 
   export type GamesUncheckedUpdateWithoutGameTransactionInput = {
@@ -23497,6 +27984,7 @@ export namespace Prisma {
     GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type PlayerUpsertWithoutGameTransactionsInput = {
@@ -23533,6 +28021,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutGameTransactionsInput = {
@@ -23564,6 +28055,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type AdminUpsertWithoutGameTransactionsInput = {
@@ -23674,6 +28168,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
     GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutGameInput
   }
 
   export type GamesUncheckedCreateWithoutFishGameTransactionsInput = {
@@ -23686,6 +28181,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
     GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GamesCreateOrConnectWithoutFishGameTransactionsInput = {
@@ -23723,6 +28219,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutFishGameTransactionsInput = {
@@ -23755,6 +28254,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutFishGameTransactionsInput = {
@@ -23819,6 +28321,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
     GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutGameNestedInput
   }
 
   export type GamesUncheckedUpdateWithoutFishGameTransactionsInput = {
@@ -23830,6 +28333,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
     GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type PlayerUpsertWithoutFishGameTransactionsInput = {
@@ -23866,6 +28370,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutFishGameTransactionsInput = {
@@ -23897,6 +28404,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GameTransactionsUpsertWithWhereUniqueWithoutFishGameTransactionsInput = {
@@ -23945,6 +28455,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutSlotFreeBonusInput = {
@@ -23977,6 +28490,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutSlotFreeBonusInput = {
@@ -23994,6 +28510,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
     GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutGameInput
   }
 
   export type GamesUncheckedCreateWithoutSlotFreeBonusInput = {
@@ -24006,6 +28523,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
     GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutGameInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutGameInput
   }
 
   export type GamesCreateOrConnectWithoutSlotFreeBonusInput = {
@@ -24047,6 +28565,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutSlotFreeBonusInput = {
@@ -24078,6 +28599,9 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GamesUpsertWithoutSlotFreeBonusInput = {
@@ -24094,6 +28618,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
     GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutGameNestedInput
   }
 
   export type GamesUncheckedUpdateWithoutSlotFreeBonusInput = {
@@ -24105,6 +28630,7 @@ export namespace Prisma {
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
     GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutGameNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
   export type PlayerCreateWithoutPlayerBalanceTransactionsInput = {
@@ -24137,6 +28663,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutPlayerBalanceTransactionsInput = {
@@ -24169,6 +28698,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutPlayerBalanceTransactionsInput = {
@@ -24263,6 +28795,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutPlayerBalanceTransactionsInput = {
@@ -24294,6 +28829,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type AdminUpsertWithoutPlayerBalanceTransactionsInput = {
@@ -24611,6 +29149,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutManagerInput = {
@@ -24642,6 +29183,9 @@ export namespace Prisma {
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateManyWithoutPlayerInput = {
@@ -24806,6 +29350,24 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type FavoriteGameCreateManyPlayerInput = {
+    id?: string
+    gameId: string
+    status?: boolean
+  }
+
+  export type PlayerTokenCreateManyPlayerInput = {
+    id?: string
+    token: string
+  }
+
+  export type SpinTimeCreateManyPlayerInput = {
+    id?: string
+    enabled: boolean
+    renewOn: string
+    timeLeft: string
+  }
+
   export type PlayerBalanceTransactionsUpdateWithoutPlayerInput = {
     beforeRecharge?: FloatFieldUpdateOperationsInput | number
     recharged?: FloatFieldUpdateOperationsInput | number
@@ -24930,6 +29492,51 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FavoriteGameUpdateWithoutPlayerInput = {
+    game?: GamesUpdateOneRequiredWithoutFavoriteGameNestedInput
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FavoriteGameUncheckedUpdateWithoutPlayerInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FavoriteGameUncheckedUpdateManyWithoutFavoriteGameInput = {
+    gameId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PlayerTokenUpdateWithoutPlayerInput = {
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerTokenUncheckedUpdateWithoutPlayerInput = {
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PlayerTokenUncheckedUpdateManyWithoutPlayerTokenInput = {
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SpinTimeUpdateWithoutPlayerInput = {
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    renewOn?: StringFieldUpdateOperationsInput | string
+    timeLeft?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SpinTimeUncheckedUpdateWithoutPlayerInput = {
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    renewOn?: StringFieldUpdateOperationsInput | string
+    timeLeft?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SpinTimeUncheckedUpdateManyWithoutSpinTimeInput = {
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    renewOn?: StringFieldUpdateOperationsInput | string
+    timeLeft?: StringFieldUpdateOperationsInput | string
+  }
+
   export type GameTransactionsCreateManyGameInput = {
     id?: string
     date?: string | null
@@ -24985,6 +29592,12 @@ export namespace Prisma {
     free_round_win?: InputJsonValue | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type FavoriteGameCreateManyGameInput = {
+    id?: string
+    playerId: string
+    status?: boolean
   }
 
   export type GameTransactionsUpdateWithoutGameInput = {
@@ -25123,6 +29736,16 @@ export namespace Prisma {
     free_round_win?: InputJsonValue | InputJsonValue | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavoriteGameUpdateWithoutGameInput = {
+    player?: PlayerUpdateOneRequiredWithoutFavoriteGameNestedInput
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FavoriteGameUncheckedUpdateWithoutGameInput = {
+    playerId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SlotTransactionsCreateManyTransactionInput = {
