@@ -161,7 +161,7 @@ export type Games = {
 export type GameAssets = {
   id: string
   game_id: string | null
-  platform: string
+  platform: GamePlatform
   path: string | null
   version: number | null
   createdAt: Date
@@ -302,6 +302,15 @@ export const AccountType: {
 };
 
 export type AccountType = (typeof AccountType)[keyof typeof AccountType]
+
+
+export const GamePlatform: {
+  ios: 'ios',
+  android: 'android',
+  webGl: 'webGl'
+};
+
+export type GamePlatform = (typeof GamePlatform)[keyof typeof GamePlatform]
 
 
 export const SlotStatus: {
@@ -10618,7 +10627,7 @@ export namespace Prisma {
   export type GameAssetsMinAggregateOutputType = {
     id: string | null
     game_id: string | null
-    platform: string | null
+    platform: GamePlatform | null
     path: string | null
     version: number | null
     createdAt: Date | null
@@ -10628,7 +10637,7 @@ export namespace Prisma {
   export type GameAssetsMaxAggregateOutputType = {
     id: string | null
     game_id: string | null
-    platform: string | null
+    platform: GamePlatform | null
     path: string | null
     version: number | null
     createdAt: Date | null
@@ -10776,7 +10785,7 @@ export namespace Prisma {
   export type GameAssetsGroupByOutputType = {
     id: string
     game_id: string | null
-    platform: string
+    platform: GamePlatform
     path: string | null
     version: number | null
     createdAt: Date
@@ -19873,7 +19882,7 @@ export namespace Prisma {
     NOT?: Enumerable<GameAssetsWhereInput>
     id?: StringFilter | string
     game_id?: StringNullableFilter | string | null
-    platform?: StringFilter | string
+    platform?: EnumGamePlatformFilter | GamePlatform
     path?: StringNullableFilter | string | null
     version?: IntNullableFilter | number | null
     Game?: XOR<GamesRelationFilter, GamesWhereInput> | null
@@ -19917,7 +19926,7 @@ export namespace Prisma {
     NOT?: Enumerable<GameAssetsScalarWhereWithAggregatesInput>
     id?: StringWithAggregatesFilter | string
     game_id?: StringNullableWithAggregatesFilter | string | null
-    platform?: StringWithAggregatesFilter | string
+    platform?: EnumGamePlatformWithAggregatesFilter | GamePlatform
     path?: StringNullableWithAggregatesFilter | string | null
     version?: IntNullableWithAggregatesFilter | number | null
     createdAt?: DateTimeWithAggregatesFilter | Date | string
@@ -21203,7 +21212,7 @@ export namespace Prisma {
 
   export type GameAssetsCreateInput = {
     id?: string
-    platform: string
+    platform: GamePlatform
     path?: string | null
     version?: number | null
     Game?: GamesCreateNestedOneWithoutGameAssetsInput
@@ -21214,7 +21223,7 @@ export namespace Prisma {
   export type GameAssetsUncheckedCreateInput = {
     id?: string
     game_id?: string | null
-    platform: string
+    platform: GamePlatform
     path?: string | null
     version?: number | null
     createdAt?: Date | string
@@ -21222,7 +21231,7 @@ export namespace Prisma {
   }
 
   export type GameAssetsUpdateInput = {
-    platform?: StringFieldUpdateOperationsInput | string
+    platform?: EnumGamePlatformFieldUpdateOperationsInput | GamePlatform
     path?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
     Game?: GamesUpdateOneWithoutGameAssetsNestedInput
@@ -21232,7 +21241,7 @@ export namespace Prisma {
 
   export type GameAssetsUncheckedUpdateInput = {
     game_id?: NullableStringFieldUpdateOperationsInput | string | null
-    platform?: StringFieldUpdateOperationsInput | string
+    platform?: EnumGamePlatformFieldUpdateOperationsInput | GamePlatform
     path?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21242,7 +21251,7 @@ export namespace Prisma {
   export type GameAssetsCreateManyInput = {
     id?: string
     game_id?: string | null
-    platform: string
+    platform: GamePlatform
     path?: string | null
     version?: number | null
     createdAt?: Date | string
@@ -21250,7 +21259,7 @@ export namespace Prisma {
   }
 
   export type GameAssetsUpdateManyMutationInput = {
-    platform?: StringFieldUpdateOperationsInput | string
+    platform?: EnumGamePlatformFieldUpdateOperationsInput | GamePlatform
     path?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21259,7 +21268,7 @@ export namespace Prisma {
 
   export type GameAssetsUncheckedUpdateManyInput = {
     game_id?: NullableStringFieldUpdateOperationsInput | string | null
-    platform?: StringFieldUpdateOperationsInput | string
+    platform?: EnumGamePlatformFieldUpdateOperationsInput | GamePlatform
     path?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22619,6 +22628,13 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type EnumGamePlatformFilter = {
+    equals?: GamePlatform
+    in?: Enumerable<GamePlatform>
+    notIn?: Enumerable<GamePlatform>
+    not?: NestedEnumGamePlatformFilter | GamePlatform
+  }
+
   export type GameAssetsCountOrderByAggregateInput = {
     id?: SortOrder
     game_id?: SortOrder
@@ -22655,6 +22671,16 @@ export namespace Prisma {
 
   export type GameAssetsSumOrderByAggregateInput = {
     version?: SortOrder
+  }
+
+  export type EnumGamePlatformWithAggregatesFilter = {
+    equals?: GamePlatform
+    in?: Enumerable<GamePlatform>
+    notIn?: Enumerable<GamePlatform>
+    not?: NestedEnumGamePlatformWithAggregatesFilter | GamePlatform
+    _count?: NestedIntFilter
+    _min?: NestedEnumGamePlatformFilter
+    _max?: NestedEnumGamePlatformFilter
   }
 
   export type ActiveGamePlayCountOrderByAggregateInput = {
@@ -24176,6 +24202,10 @@ export namespace Prisma {
     connect?: GamesWhereUniqueInput
   }
 
+  export type EnumGamePlatformFieldUpdateOperationsInput = {
+    set?: GamePlatform
+  }
+
   export type GamesUpdateOneWithoutGameAssetsNestedInput = {
     create?: XOR<GamesCreateWithoutGameAssetsInput, GamesUncheckedCreateWithoutGameAssetsInput>
     connectOrCreate?: GamesCreateOrConnectWithoutGameAssetsInput
@@ -24747,6 +24777,23 @@ export namespace Prisma {
     _min?: NestedEnumAccountStatusNullableFilter
     _max?: NestedEnumAccountStatusNullableFilter
     isSet?: boolean
+  }
+
+  export type NestedEnumGamePlatformFilter = {
+    equals?: GamePlatform
+    in?: Enumerable<GamePlatform>
+    notIn?: Enumerable<GamePlatform>
+    not?: NestedEnumGamePlatformFilter | GamePlatform
+  }
+
+  export type NestedEnumGamePlatformWithAggregatesFilter = {
+    equals?: GamePlatform
+    in?: Enumerable<GamePlatform>
+    notIn?: Enumerable<GamePlatform>
+    not?: NestedEnumGamePlatformWithAggregatesFilter | GamePlatform
+    _count?: NestedIntFilter
+    _min?: NestedEnumGamePlatformFilter
+    _max?: NestedEnumGamePlatformFilter
   }
 
   export type NestedEnumSlotStatusNullableFilter = {
@@ -27176,7 +27223,7 @@ export namespace Prisma {
 
   export type GameAssetsCreateWithoutGameInput = {
     id?: string
-    platform: string
+    platform: GamePlatform
     path?: string | null
     version?: number | null
     createdAt?: Date | string
@@ -27185,7 +27232,7 @@ export namespace Prisma {
 
   export type GameAssetsUncheckedCreateWithoutGameInput = {
     id?: string
-    platform: string
+    platform: GamePlatform
     path?: string | null
     version?: number | null
     createdAt?: Date | string
@@ -27356,7 +27403,7 @@ export namespace Prisma {
     NOT?: Enumerable<GameAssetsScalarWhereInput>
     id?: StringFilter | string
     game_id?: StringNullableFilter | string | null
-    platform?: StringFilter | string
+    platform?: EnumGamePlatformFilter | GamePlatform
     path?: StringNullableFilter | string | null
     version?: IntNullableFilter | number | null
     createdAt?: DateTimeFilter | Date | string
@@ -29563,7 +29610,7 @@ export namespace Prisma {
 
   export type GameAssetsCreateManyGameInput = {
     id?: string
-    platform: string
+    platform: GamePlatform
     path?: string | null
     version?: number | null
     createdAt?: Date | string
@@ -29669,7 +29716,7 @@ export namespace Prisma {
   }
 
   export type GameAssetsUpdateWithoutGameInput = {
-    platform?: StringFieldUpdateOperationsInput | string
+    platform?: EnumGamePlatformFieldUpdateOperationsInput | GamePlatform
     path?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29677,7 +29724,7 @@ export namespace Prisma {
   }
 
   export type GameAssetsUncheckedUpdateWithoutGameInput = {
-    platform?: StringFieldUpdateOperationsInput | string
+    platform?: EnumGamePlatformFieldUpdateOperationsInput | GamePlatform
     path?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29685,7 +29732,7 @@ export namespace Prisma {
   }
 
   export type GameAssetsUncheckedUpdateManyWithoutGameAssetsInput = {
-    platform?: StringFieldUpdateOperationsInput | string
+    platform?: EnumGamePlatformFieldUpdateOperationsInput | GamePlatform
     path?: NullableStringFieldUpdateOperationsInput | string | null
     version?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

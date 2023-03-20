@@ -314,6 +314,12 @@ exports.AccountType = makeEnum({
   CASHIER: 'CASHIER'
 });
 
+exports.GamePlatform = makeEnum({
+  ios: 'ios',
+  android: 'android',
+  webGl: 'webGl'
+});
+
 exports.SlotStatus = makeEnum({
   STARTED: 'STARTED',
   COMPLETED: 'COMPLETED'
