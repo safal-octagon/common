@@ -4,6 +4,7 @@ interface UserPayload {
     email?: string;
     username: string;
     account_type: AccountType;
+    setting_id?: string;
 }
 declare enum AccountType {
     PRIMARY_ADMIN = "PRIMARY_ADMIN",
