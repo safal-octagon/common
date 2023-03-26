@@ -71,6 +71,8 @@ export type Settings = {
   miniScore: number
   miniShareNum: number
   maxShareNum: number
+  minHolding: number
+  maxHolding: number
   dollarStatus: boolean
   account_type: AccountType | null
   createdAt: Date
@@ -3878,6 +3880,8 @@ export namespace Prisma {
     miniScore: number | null
     miniShareNum: number | null
     maxShareNum: number | null
+    minHolding: number | null
+    maxHolding: number | null
   }
 
   export type SettingsSumAggregateOutputType = {
@@ -3891,6 +3895,8 @@ export namespace Prisma {
     miniScore: number | null
     miniShareNum: number | null
     maxShareNum: number | null
+    minHolding: number | null
+    maxHolding: number | null
   }
 
   export type SettingsMinAggregateOutputType = {
@@ -3909,6 +3915,8 @@ export namespace Prisma {
     miniScore: number | null
     miniShareNum: number | null
     maxShareNum: number | null
+    minHolding: number | null
+    maxHolding: number | null
     dollarStatus: boolean | null
     account_type: AccountType | null
     createdAt: Date | null
@@ -3931,6 +3939,8 @@ export namespace Prisma {
     miniScore: number | null
     miniShareNum: number | null
     maxShareNum: number | null
+    minHolding: number | null
+    maxHolding: number | null
     dollarStatus: boolean | null
     account_type: AccountType | null
     createdAt: Date | null
@@ -3953,6 +3963,8 @@ export namespace Prisma {
     miniScore: number
     miniShareNum: number
     maxShareNum: number
+    minHolding: number
+    maxHolding: number
     dollarStatus: number
     account_type: number
     createdAt: number
@@ -3972,6 +3984,8 @@ export namespace Prisma {
     miniScore?: true
     miniShareNum?: true
     maxShareNum?: true
+    minHolding?: true
+    maxHolding?: true
   }
 
   export type SettingsSumAggregateInputType = {
@@ -3985,6 +3999,8 @@ export namespace Prisma {
     miniScore?: true
     miniShareNum?: true
     maxShareNum?: true
+    minHolding?: true
+    maxHolding?: true
   }
 
   export type SettingsMinAggregateInputType = {
@@ -4003,6 +4019,8 @@ export namespace Prisma {
     miniScore?: true
     miniShareNum?: true
     maxShareNum?: true
+    minHolding?: true
+    maxHolding?: true
     dollarStatus?: true
     account_type?: true
     createdAt?: true
@@ -4025,6 +4043,8 @@ export namespace Prisma {
     miniScore?: true
     miniShareNum?: true
     maxShareNum?: true
+    minHolding?: true
+    maxHolding?: true
     dollarStatus?: true
     account_type?: true
     createdAt?: true
@@ -4047,6 +4067,8 @@ export namespace Prisma {
     miniScore?: true
     miniShareNum?: true
     maxShareNum?: true
+    minHolding?: true
+    maxHolding?: true
     dollarStatus?: true
     account_type?: true
     createdAt?: true
@@ -4157,6 +4179,8 @@ export namespace Prisma {
     miniScore: number
     miniShareNum: number
     maxShareNum: number
+    minHolding: number
+    maxHolding: number
     dollarStatus: boolean
     account_type: AccountType | null
     createdAt: Date
@@ -4198,6 +4222,8 @@ export namespace Prisma {
     miniScore?: boolean
     miniShareNum?: boolean
     maxShareNum?: boolean
+    minHolding?: boolean
+    maxHolding?: boolean
     dollarStatus?: boolean
     account_type?: boolean
     createdAt?: boolean
@@ -19182,6 +19208,8 @@ export namespace Prisma {
     miniScore: 'miniScore',
     miniShareNum: 'miniShareNum',
     maxShareNum: 'maxShareNum',
+    minHolding: 'minHolding',
+    maxHolding: 'maxHolding',
     dollarStatus: 'dollarStatus',
     account_type: 'account_type',
     createdAt: 'createdAt',
@@ -19449,6 +19477,8 @@ export namespace Prisma {
     miniScore?: FloatFilter | number
     miniShareNum?: FloatFilter | number
     maxShareNum?: FloatFilter | number
+    minHolding?: IntFilter | number
+    maxHolding?: IntFilter | number
     dollarStatus?: BoolFilter | boolean
     account_type?: EnumAccountTypeNullableFilter | AccountType | null
     createdAt?: DateTimeFilter | Date | string
@@ -19473,6 +19503,8 @@ export namespace Prisma {
     miniScore?: SortOrder
     miniShareNum?: SortOrder
     maxShareNum?: SortOrder
+    minHolding?: SortOrder
+    maxHolding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
@@ -19501,6 +19533,8 @@ export namespace Prisma {
     miniScore?: SortOrder
     miniShareNum?: SortOrder
     maxShareNum?: SortOrder
+    minHolding?: SortOrder
+    maxHolding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
@@ -19531,6 +19565,8 @@ export namespace Prisma {
     miniScore?: FloatWithAggregatesFilter | number
     miniShareNum?: FloatWithAggregatesFilter | number
     maxShareNum?: FloatWithAggregatesFilter | number
+    minHolding?: IntWithAggregatesFilter | number
+    maxHolding?: IntWithAggregatesFilter | number
     dollarStatus?: BoolWithAggregatesFilter | boolean
     account_type?: EnumAccountTypeNullableWithAggregatesFilter | AccountType | null
     createdAt?: DateTimeWithAggregatesFilter | Date | string
@@ -20639,6 +20675,8 @@ export namespace Prisma {
     miniScore?: number
     miniShareNum?: number
     maxShareNum?: number
+    minHolding?: number
+    maxHolding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
@@ -20663,6 +20701,8 @@ export namespace Prisma {
     miniScore?: number
     miniShareNum?: number
     maxShareNum?: number
+    minHolding?: number
+    maxHolding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
@@ -20686,6 +20726,8 @@ export namespace Prisma {
     miniScore?: FloatFieldUpdateOperationsInput | number
     miniShareNum?: FloatFieldUpdateOperationsInput | number
     maxShareNum?: FloatFieldUpdateOperationsInput | number
+    minHolding?: IntFieldUpdateOperationsInput | number
+    maxHolding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20709,6 +20751,8 @@ export namespace Prisma {
     miniScore?: FloatFieldUpdateOperationsInput | number
     miniShareNum?: FloatFieldUpdateOperationsInput | number
     maxShareNum?: FloatFieldUpdateOperationsInput | number
+    minHolding?: IntFieldUpdateOperationsInput | number
+    maxHolding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20733,6 +20777,8 @@ export namespace Prisma {
     miniScore?: number
     miniShareNum?: number
     maxShareNum?: number
+    minHolding?: number
+    maxHolding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
@@ -20754,6 +20800,8 @@ export namespace Prisma {
     miniScore?: FloatFieldUpdateOperationsInput | number
     miniShareNum?: FloatFieldUpdateOperationsInput | number
     maxShareNum?: FloatFieldUpdateOperationsInput | number
+    minHolding?: IntFieldUpdateOperationsInput | number
+    maxHolding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20775,6 +20823,8 @@ export namespace Prisma {
     miniScore?: FloatFieldUpdateOperationsInput | number
     miniShareNum?: FloatFieldUpdateOperationsInput | number
     maxShareNum?: FloatFieldUpdateOperationsInput | number
+    minHolding?: IntFieldUpdateOperationsInput | number
+    maxHolding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22197,6 +22247,8 @@ export namespace Prisma {
     miniScore?: SortOrder
     miniShareNum?: SortOrder
     maxShareNum?: SortOrder
+    minHolding?: SortOrder
+    maxHolding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
@@ -22214,6 +22266,8 @@ export namespace Prisma {
     miniScore?: SortOrder
     miniShareNum?: SortOrder
     maxShareNum?: SortOrder
+    minHolding?: SortOrder
+    maxHolding?: SortOrder
   }
 
   export type SettingsMaxOrderByAggregateInput = {
@@ -22232,6 +22286,8 @@ export namespace Prisma {
     miniScore?: SortOrder
     miniShareNum?: SortOrder
     maxShareNum?: SortOrder
+    minHolding?: SortOrder
+    maxHolding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
@@ -22254,6 +22310,8 @@ export namespace Prisma {
     miniScore?: SortOrder
     miniShareNum?: SortOrder
     maxShareNum?: SortOrder
+    minHolding?: SortOrder
+    maxHolding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
@@ -22271,6 +22329,8 @@ export namespace Prisma {
     miniScore?: SortOrder
     miniShareNum?: SortOrder
     maxShareNum?: SortOrder
+    minHolding?: SortOrder
+    maxHolding?: SortOrder
   }
 
   export type BoolWithAggregatesFilter = {
@@ -24887,6 +24947,8 @@ export namespace Prisma {
     miniScore?: number
     miniShareNum?: number
     maxShareNum?: number
+    minHolding?: number
+    maxHolding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
@@ -24910,6 +24972,8 @@ export namespace Prisma {
     miniScore?: number
     miniShareNum?: number
     maxShareNum?: number
+    minHolding?: number
+    maxHolding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
@@ -25279,6 +25343,8 @@ export namespace Prisma {
     miniScore?: FloatFieldUpdateOperationsInput | number
     miniShareNum?: FloatFieldUpdateOperationsInput | number
     maxShareNum?: FloatFieldUpdateOperationsInput | number
+    minHolding?: IntFieldUpdateOperationsInput | number
+    maxHolding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25301,6 +25367,8 @@ export namespace Prisma {
     miniScore?: FloatFieldUpdateOperationsInput | number
     miniShareNum?: FloatFieldUpdateOperationsInput | number
     maxShareNum?: FloatFieldUpdateOperationsInput | number
+    minHolding?: IntFieldUpdateOperationsInput | number
+    maxHolding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26542,6 +26610,8 @@ export namespace Prisma {
     miniScore?: number
     miniShareNum?: number
     maxShareNum?: number
+    minHolding?: number
+    maxHolding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
@@ -26565,6 +26635,8 @@ export namespace Prisma {
     miniScore?: number
     miniShareNum?: number
     maxShareNum?: number
+    minHolding?: number
+    maxHolding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
@@ -26880,6 +26952,8 @@ export namespace Prisma {
     miniScore?: FloatFieldUpdateOperationsInput | number
     miniShareNum?: FloatFieldUpdateOperationsInput | number
     maxShareNum?: FloatFieldUpdateOperationsInput | number
+    minHolding?: IntFieldUpdateOperationsInput | number
+    maxHolding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26902,6 +26976,8 @@ export namespace Prisma {
     miniScore?: FloatFieldUpdateOperationsInput | number
     miniShareNum?: FloatFieldUpdateOperationsInput | number
     maxShareNum?: FloatFieldUpdateOperationsInput | number
+    minHolding?: IntFieldUpdateOperationsInput | number
+    maxHolding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

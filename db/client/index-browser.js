@@ -257,6 +257,8 @@ exports.Prisma.SettingsScalarFieldEnum = makeEnum({
   miniScore: 'miniScore',
   miniShareNum: 'miniShareNum',
   maxShareNum: 'maxShareNum',
+  minHolding: 'minHolding',
+  maxHolding: 'maxHolding',
   dollarStatus: 'dollarStatus',
   account_type: 'account_type',
   createdAt: 'createdAt',

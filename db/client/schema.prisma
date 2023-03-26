@@ -71,6 +71,8 @@ model Settings {
     miniScore     Float        @default(20)
     miniShareNum  Float        @default(2)
     maxShareNum   Float        @default(8)
+    minHolding    Int          @default(0)
+    maxHolding    Int          @default(100)
     dollarStatus  Boolean      @default(false)
     account_type  AccountType?
     createdAt     DateTime     @default(now())
