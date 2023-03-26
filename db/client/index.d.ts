@@ -1273,13 +1273,13 @@ export namespace Prisma {
 
 
   export type SettingsCountOutputType = {
-    Admin: number
-    Player: number
+    admins: number
+    players: number
   }
 
   export type SettingsCountOutputTypeSelect = {
-    Admin?: boolean
-    Player?: boolean
+    admins?: boolean
+    players?: boolean
   }
 
   export type SettingsCountOutputTypeGetPayload<S extends boolean | null | undefined | SettingsCountOutputTypeArgs> =
@@ -4282,15 +4282,15 @@ export namespace Prisma {
     account_type?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Admin?: boolean | Settings$AdminArgs
-    Player?: boolean | Settings$PlayerArgs
+    admins?: boolean | Settings$adminsArgs
+    players?: boolean | Settings$playersArgs
     _count?: boolean | SettingsCountOutputTypeArgs
   }
 
 
   export type SettingsInclude = {
-    Admin?: boolean | Settings$AdminArgs
-    Player?: boolean | Settings$PlayerArgs
+    admins?: boolean | Settings$adminsArgs
+    players?: boolean | Settings$playersArgs
     _count?: boolean | SettingsCountOutputTypeArgs
   }
 
@@ -4301,15 +4301,15 @@ export namespace Prisma {
     S extends { include: any } & (SettingsArgs | SettingsFindManyArgs)
     ? Settings  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'Admin' ? Array < AdminGetPayload<S['include'][P]>>  :
-        P extends 'Player' ? Array < PlayerGetPayload<S['include'][P]>>  :
+        P extends 'admins' ? Array < AdminGetPayload<S['include'][P]>>  :
+        P extends 'players' ? Array < PlayerGetPayload<S['include'][P]>>  :
         P extends '_count' ? SettingsCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (SettingsArgs | SettingsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'Admin' ? Array < AdminGetPayload<S['select'][P]>>  :
-        P extends 'Player' ? Array < PlayerGetPayload<S['select'][P]>>  :
+        P extends 'admins' ? Array < AdminGetPayload<S['select'][P]>>  :
+        P extends 'players' ? Array < PlayerGetPayload<S['select'][P]>>  :
         P extends '_count' ? SettingsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Settings ? Settings[P] : never
   } 
       : Settings
@@ -4709,9 +4709,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    Admin<T extends Settings$AdminArgs= {}>(args?: Subset<T, Settings$AdminArgs>): Prisma.PrismaPromise<Array<AdminGetPayload<T>>| Null>;
+    admins<T extends Settings$adminsArgs= {}>(args?: Subset<T, Settings$adminsArgs>): Prisma.PrismaPromise<Array<AdminGetPayload<T>>| Null>;
 
-    Player<T extends Settings$PlayerArgs= {}>(args?: Subset<T, Settings$PlayerArgs>): Prisma.PrismaPromise<Array<PlayerGetPayload<T>>| Null>;
+    players<T extends Settings$playersArgs= {}>(args?: Subset<T, Settings$playersArgs>): Prisma.PrismaPromise<Array<PlayerGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -5098,9 +5098,9 @@ export namespace Prisma {
 
 
   /**
-   * Settings.Admin
+   * Settings.admins
    */
-  export type Settings$AdminArgs = {
+  export type Settings$adminsArgs = {
     /**
      * Select specific fields to fetch from the Admin
      */
@@ -5119,9 +5119,9 @@ export namespace Prisma {
 
 
   /**
-   * Settings.Player
+   * Settings.players
    */
-  export type Settings$PlayerArgs = {
+  export type Settings$playersArgs = {
     /**
      * Select specific fields to fetch from the Player
      */
@@ -19585,8 +19585,8 @@ export namespace Prisma {
     account_type?: EnumAccountTypeNullableFilter | AccountType | null
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
-    Admin?: AdminListRelationFilter
-    Player?: PlayerListRelationFilter
+    admins?: AdminListRelationFilter
+    players?: PlayerListRelationFilter
   }
 
   export type SettingsOrderByWithRelationInput = {
@@ -19612,8 +19612,8 @@ export namespace Prisma {
     account_type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Admin?: AdminOrderByRelationAggregateInput
-    Player?: PlayerOrderByRelationAggregateInput
+    admins?: AdminOrderByRelationAggregateInput
+    players?: PlayerOrderByRelationAggregateInput
   }
 
   export type SettingsWhereUniqueInput = {
@@ -20529,7 +20529,7 @@ export namespace Prisma {
     balance?: number
     status?: AccountStatus
     account_type?: AccountType | null
-    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    Settings?: SettingsCreateNestedOneWithoutAdminsInput
     timezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20578,7 +20578,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20787,8 +20787,8 @@ export namespace Prisma {
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Admin?: AdminCreateNestedManyWithoutSettingsInput
-    Player?: PlayerCreateNestedManyWithoutSettingsInput
+    admins?: AdminCreateNestedManyWithoutSettingsInput
+    players?: PlayerCreateNestedManyWithoutSettingsInput
   }
 
   export type SettingsUncheckedCreateInput = {
@@ -20814,8 +20814,8 @@ export namespace Prisma {
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Admin?: AdminUncheckedCreateNestedManyWithoutSettingsInput
-    Player?: PlayerUncheckedCreateNestedManyWithoutSettingsInput
+    admins?: AdminUncheckedCreateNestedManyWithoutSettingsInput
+    players?: PlayerUncheckedCreateNestedManyWithoutSettingsInput
   }
 
   export type SettingsUpdateInput = {
@@ -20840,8 +20840,8 @@ export namespace Prisma {
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Admin?: AdminUpdateManyWithoutSettingsNestedInput
-    Player?: PlayerUpdateManyWithoutSettingsNestedInput
+    admins?: AdminUpdateManyWithoutSettingsNestedInput
+    players?: PlayerUpdateManyWithoutSettingsNestedInput
   }
 
   export type SettingsUncheckedUpdateInput = {
@@ -20866,8 +20866,8 @@ export namespace Prisma {
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Admin?: AdminUncheckedUpdateManyWithoutSettingsNestedInput
-    Player?: PlayerUncheckedUpdateManyWithoutSettingsNestedInput
+    admins?: AdminUncheckedUpdateManyWithoutSettingsNestedInput
+    players?: PlayerUncheckedUpdateManyWithoutSettingsNestedInput
   }
 
   export type SettingsCreateManyInput = {
@@ -21098,7 +21098,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     manager: AdminCreateNestedOneWithoutPlayerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
@@ -21169,7 +21169,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
@@ -23271,9 +23271,9 @@ export namespace Prisma {
     income?: SortOrder
   }
 
-  export type SettingsCreateNestedOneWithoutAdminInput = {
-    create?: XOR<SettingsCreateWithoutAdminInput, SettingsUncheckedCreateWithoutAdminInput>
-    connectOrCreate?: SettingsCreateOrConnectWithoutAdminInput
+  export type SettingsCreateNestedOneWithoutAdminsInput = {
+    create?: XOR<SettingsCreateWithoutAdminsInput, SettingsUncheckedCreateWithoutAdminsInput>
+    connectOrCreate?: SettingsCreateOrConnectWithoutAdminsInput
     connect?: SettingsWhereUniqueInput
   }
 
@@ -23393,14 +23393,14 @@ export namespace Prisma {
     unset?: boolean
   }
 
-  export type SettingsUpdateOneWithoutAdminNestedInput = {
-    create?: XOR<SettingsCreateWithoutAdminInput, SettingsUncheckedCreateWithoutAdminInput>
-    connectOrCreate?: SettingsCreateOrConnectWithoutAdminInput
-    upsert?: SettingsUpsertWithoutAdminInput
+  export type SettingsUpdateOneWithoutAdminsNestedInput = {
+    create?: XOR<SettingsCreateWithoutAdminsInput, SettingsUncheckedCreateWithoutAdminsInput>
+    connectOrCreate?: SettingsCreateOrConnectWithoutAdminsInput
+    upsert?: SettingsUpsertWithoutAdminsInput
     disconnect?: boolean
     delete?: boolean
     connect?: SettingsWhereUniqueInput
-    update?: XOR<SettingsUpdateWithoutAdminInput, SettingsUncheckedUpdateWithoutAdminInput>
+    update?: XOR<SettingsUpdateWithoutAdminsInput, SettingsUncheckedUpdateWithoutAdminsInput>
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -23769,9 +23769,9 @@ export namespace Prisma {
     update?: XOR<PlayerUpdateWithoutSpinTimeInput, PlayerUncheckedUpdateWithoutSpinTimeInput>
   }
 
-  export type SettingsCreateNestedOneWithoutPlayerInput = {
-    create?: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
-    connectOrCreate?: SettingsCreateOrConnectWithoutPlayerInput
+  export type SettingsCreateNestedOneWithoutPlayersInput = {
+    create?: XOR<SettingsCreateWithoutPlayersInput, SettingsUncheckedCreateWithoutPlayersInput>
+    connectOrCreate?: SettingsCreateOrConnectWithoutPlayersInput
     connect?: SettingsWhereUniqueInput
   }
 
@@ -23900,14 +23900,14 @@ export namespace Prisma {
     unset?: boolean
   }
 
-  export type SettingsUpdateOneWithoutPlayerNestedInput = {
-    create?: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
-    connectOrCreate?: SettingsCreateOrConnectWithoutPlayerInput
-    upsert?: SettingsUpsertWithoutPlayerInput
+  export type SettingsUpdateOneWithoutPlayersNestedInput = {
+    create?: XOR<SettingsCreateWithoutPlayersInput, SettingsUncheckedCreateWithoutPlayersInput>
+    connectOrCreate?: SettingsCreateOrConnectWithoutPlayersInput
+    upsert?: SettingsUpsertWithoutPlayersInput
     disconnect?: boolean
     delete?: boolean
     connect?: SettingsWhereUniqueInput
-    update?: XOR<SettingsUpdateWithoutPlayerInput, SettingsUncheckedUpdateWithoutPlayerInput>
+    update?: XOR<SettingsUpdateWithoutPlayersInput, SettingsUncheckedUpdateWithoutPlayersInput>
   }
 
   export type AdminUpdateOneRequiredWithoutPlayerNestedInput = {
@@ -25066,7 +25066,7 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type SettingsCreateWithoutAdminInput = {
+  export type SettingsCreateWithoutAdminsInput = {
     id?: string
     grandJP?: boolean
     grandJP_limit?: number
@@ -25089,10 +25089,10 @@ export namespace Prisma {
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Player?: PlayerCreateNestedManyWithoutSettingsInput
+    players?: PlayerCreateNestedManyWithoutSettingsInput
   }
 
-  export type SettingsUncheckedCreateWithoutAdminInput = {
+  export type SettingsUncheckedCreateWithoutAdminsInput = {
     id?: string
     grandJP?: boolean
     grandJP_limit?: number
@@ -25115,12 +25115,12 @@ export namespace Prisma {
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Player?: PlayerUncheckedCreateNestedManyWithoutSettingsInput
+    players?: PlayerUncheckedCreateNestedManyWithoutSettingsInput
   }
 
-  export type SettingsCreateOrConnectWithoutAdminInput = {
+  export type SettingsCreateOrConnectWithoutAdminsInput = {
     where: SettingsWhereUniqueInput
-    create: XOR<SettingsCreateWithoutAdminInput, SettingsUncheckedCreateWithoutAdminInput>
+    create: XOR<SettingsCreateWithoutAdminsInput, SettingsUncheckedCreateWithoutAdminsInput>
   }
 
   export type AdminCreateWithoutUserInput = {
@@ -25131,7 +25131,7 @@ export namespace Prisma {
     balance?: number
     status?: AccountStatus
     account_type?: AccountType | null
-    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    Settings?: SettingsCreateNestedOneWithoutAdminsInput
     timezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25184,7 +25184,7 @@ export namespace Prisma {
     balance?: number
     status?: AccountStatus
     account_type?: AccountType | null
-    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    Settings?: SettingsCreateNestedOneWithoutAdminsInput
     timezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25327,7 +25327,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
@@ -25460,12 +25460,12 @@ export namespace Prisma {
     data: Enumerable<GameTransactionsCreateManyAdminInput>
   }
 
-  export type SettingsUpsertWithoutAdminInput = {
-    update: XOR<SettingsUpdateWithoutAdminInput, SettingsUncheckedUpdateWithoutAdminInput>
-    create: XOR<SettingsCreateWithoutAdminInput, SettingsUncheckedCreateWithoutAdminInput>
+  export type SettingsUpsertWithoutAdminsInput = {
+    update: XOR<SettingsUpdateWithoutAdminsInput, SettingsUncheckedUpdateWithoutAdminsInput>
+    create: XOR<SettingsCreateWithoutAdminsInput, SettingsUncheckedCreateWithoutAdminsInput>
   }
 
-  export type SettingsUpdateWithoutAdminInput = {
+  export type SettingsUpdateWithoutAdminsInput = {
     grandJP?: BoolFieldUpdateOperationsInput | boolean
     grandJP_limit?: FloatFieldUpdateOperationsInput | number
     majorJP?: BoolFieldUpdateOperationsInput | boolean
@@ -25487,10 +25487,10 @@ export namespace Prisma {
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Player?: PlayerUpdateManyWithoutSettingsNestedInput
+    players?: PlayerUpdateManyWithoutSettingsNestedInput
   }
 
-  export type SettingsUncheckedUpdateWithoutAdminInput = {
+  export type SettingsUncheckedUpdateWithoutAdminsInput = {
     grandJP?: BoolFieldUpdateOperationsInput | boolean
     grandJP_limit?: FloatFieldUpdateOperationsInput | number
     majorJP?: BoolFieldUpdateOperationsInput | boolean
@@ -25512,7 +25512,7 @@ export namespace Prisma {
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Player?: PlayerUncheckedUpdateManyWithoutSettingsNestedInput
+    players?: PlayerUncheckedUpdateManyWithoutSettingsNestedInput
   }
 
   export type AdminUpsertWithoutUserInput = {
@@ -25527,7 +25527,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25777,7 +25777,7 @@ export namespace Prisma {
     balance?: number
     status?: AccountStatus
     account_type?: AccountType | null
-    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    Settings?: SettingsCreateNestedOneWithoutAdminsInput
     timezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25830,7 +25830,7 @@ export namespace Prisma {
     balance?: number
     status?: AccountStatus
     account_type?: AccountType | null
-    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    Settings?: SettingsCreateNestedOneWithoutAdminsInput
     timezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25887,7 +25887,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25938,7 +25938,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26126,7 +26126,7 @@ export namespace Prisma {
 
   export type AdminUpdateManyWithWhereWithoutSettingsInput = {
     where: AdminScalarWhereInput
-    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyWithoutAdminInput>
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyWithoutAdminsInput>
   }
 
   export type PlayerUpsertWithWhereUniqueWithoutSettingsInput = {
@@ -26142,7 +26142,7 @@ export namespace Prisma {
 
   export type PlayerUpdateManyWithWhereWithoutSettingsInput = {
     where: PlayerScalarWhereInput
-    data: XOR<PlayerUpdateManyMutationInput, PlayerUncheckedUpdateManyWithoutPlayerInput>
+    data: XOR<PlayerUpdateManyMutationInput, PlayerUncheckedUpdateManyWithoutPlayersInput>
   }
 
   export type GamesCreateWithoutFavoriteGameInput = {
@@ -26200,7 +26200,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     manager: AdminCreateNestedOneWithoutPlayerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
@@ -26308,7 +26308,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
@@ -26377,7 +26377,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     manager: AdminCreateNestedOneWithoutPlayerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
@@ -26456,7 +26456,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
@@ -26525,7 +26525,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     manager: AdminCreateNestedOneWithoutPlayerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
@@ -26604,7 +26604,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
@@ -26649,7 +26649,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
-  export type SettingsCreateWithoutPlayerInput = {
+  export type SettingsCreateWithoutPlayersInput = {
     id?: string
     grandJP?: boolean
     grandJP_limit?: number
@@ -26672,10 +26672,10 @@ export namespace Prisma {
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Admin?: AdminCreateNestedManyWithoutSettingsInput
+    admins?: AdminCreateNestedManyWithoutSettingsInput
   }
 
-  export type SettingsUncheckedCreateWithoutPlayerInput = {
+  export type SettingsUncheckedCreateWithoutPlayersInput = {
     id?: string
     grandJP?: boolean
     grandJP_limit?: number
@@ -26698,12 +26698,12 @@ export namespace Prisma {
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Admin?: AdminUncheckedCreateNestedManyWithoutSettingsInput
+    admins?: AdminUncheckedCreateNestedManyWithoutSettingsInput
   }
 
-  export type SettingsCreateOrConnectWithoutPlayerInput = {
+  export type SettingsCreateOrConnectWithoutPlayersInput = {
     where: SettingsWhereUniqueInput
-    create: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
+    create: XOR<SettingsCreateWithoutPlayersInput, SettingsUncheckedCreateWithoutPlayersInput>
   }
 
   export type AdminCreateWithoutPlayerInput = {
@@ -26714,7 +26714,7 @@ export namespace Prisma {
     balance?: number
     status?: AccountStatus
     account_type?: AccountType | null
-    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    Settings?: SettingsCreateNestedOneWithoutAdminsInput
     timezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26989,12 +26989,12 @@ export namespace Prisma {
     data: Enumerable<SpinTimeCreateManyPlayerInput>
   }
 
-  export type SettingsUpsertWithoutPlayerInput = {
-    update: XOR<SettingsUpdateWithoutPlayerInput, SettingsUncheckedUpdateWithoutPlayerInput>
-    create: XOR<SettingsCreateWithoutPlayerInput, SettingsUncheckedCreateWithoutPlayerInput>
+  export type SettingsUpsertWithoutPlayersInput = {
+    update: XOR<SettingsUpdateWithoutPlayersInput, SettingsUncheckedUpdateWithoutPlayersInput>
+    create: XOR<SettingsCreateWithoutPlayersInput, SettingsUncheckedCreateWithoutPlayersInput>
   }
 
-  export type SettingsUpdateWithoutPlayerInput = {
+  export type SettingsUpdateWithoutPlayersInput = {
     grandJP?: BoolFieldUpdateOperationsInput | boolean
     grandJP_limit?: FloatFieldUpdateOperationsInput | number
     majorJP?: BoolFieldUpdateOperationsInput | boolean
@@ -27016,10 +27016,10 @@ export namespace Prisma {
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Admin?: AdminUpdateManyWithoutSettingsNestedInput
+    admins?: AdminUpdateManyWithoutSettingsNestedInput
   }
 
-  export type SettingsUncheckedUpdateWithoutPlayerInput = {
+  export type SettingsUncheckedUpdateWithoutPlayersInput = {
     grandJP?: BoolFieldUpdateOperationsInput | boolean
     grandJP_limit?: FloatFieldUpdateOperationsInput | number
     majorJP?: BoolFieldUpdateOperationsInput | boolean
@@ -27041,7 +27041,7 @@ export namespace Prisma {
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Admin?: AdminUncheckedUpdateManyWithoutSettingsNestedInput
+    admins?: AdminUncheckedUpdateManyWithoutSettingsNestedInput
   }
 
   export type AdminUpsertWithoutPlayerInput = {
@@ -27056,7 +27056,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27677,7 +27677,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     manager: AdminCreateNestedOneWithoutPlayerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
@@ -27787,7 +27787,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
@@ -27992,7 +27992,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     manager: AdminCreateNestedOneWithoutPlayerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
@@ -28051,7 +28051,7 @@ export namespace Prisma {
     balance?: number
     status?: AccountStatus
     account_type?: AccountType | null
-    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    Settings?: SettingsCreateNestedOneWithoutAdminsInput
     timezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28197,7 +28197,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
@@ -28254,7 +28254,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28395,7 +28395,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     manager: AdminCreateNestedOneWithoutPlayerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
@@ -28546,7 +28546,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
@@ -28631,7 +28631,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     manager: AdminCreateNestedOneWithoutPlayerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
@@ -28741,7 +28741,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
@@ -28839,7 +28839,7 @@ export namespace Prisma {
     miniJP_won_count?: number
     general_won?: number
     general_won_count?: number
-    Settings?: SettingsCreateNestedOneWithoutPlayerInput
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
     manager: AdminCreateNestedOneWithoutPlayerInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
@@ -28898,7 +28898,7 @@ export namespace Prisma {
     balance?: number
     status?: AccountStatus
     account_type?: AccountType | null
-    Settings?: SettingsCreateNestedOneWithoutAdminInput
+    Settings?: SettingsCreateNestedOneWithoutAdminsInput
     timezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28971,7 +28971,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
@@ -29028,7 +29028,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29174,7 +29174,7 @@ export namespace Prisma {
     balance?: FloatFieldUpdateOperationsInput | number
     status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    Settings?: SettingsUpdateOneWithoutAdminNestedInput
+    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29325,7 +29325,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
-    Settings?: SettingsUpdateOneWithoutPlayerNestedInput
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
@@ -29570,7 +29570,7 @@ export namespace Prisma {
     totalLost?: FloatFieldUpdateOperationsInput | number
   }
 
-  export type AdminUncheckedUpdateManyWithoutAdminInput = {
+  export type AdminUncheckedUpdateManyWithoutAdminsInput = {
     email_id?: NullableStringFieldUpdateOperationsInput | string | null
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -29653,6 +29653,32 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateManyWithoutPlayersInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlayerBalanceTransactionsCreateManyPlayerInput = {
