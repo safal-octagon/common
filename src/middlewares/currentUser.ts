@@ -1,11 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { Settings } from "../../db/client";
 
 interface UserPayload {
   id: string;
   email?: string;
   username: string;
   account_type: AccountType;
+  setting_id?: string;
 }
 
 enum AccountType {
