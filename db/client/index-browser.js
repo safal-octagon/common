@@ -125,7 +125,7 @@ exports.Prisma.AdminScalarFieldEnum = makeEnum({
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   created_by: 'created_by',
-  holding: 'holding',
+  master_id: 'master_id',
   totalSpent: 'totalSpent',
   totalRedeem: 'totalRedeem',
   totalLost: 'totalLost'
@@ -259,6 +259,7 @@ exports.Prisma.SettingsScalarFieldEnum = makeEnum({
   maxShareNum: 'maxShareNum',
   minHolding: 'minHolding',
   maxHolding: 'maxHolding',
+  holding: 'holding',
   dollarStatus: 'dollarStatus',
   account_type: 'account_type',
   createdAt: 'createdAt',

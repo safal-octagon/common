@@ -33,10 +33,11 @@ model Admin {
     Player                    Player[]
     PlayerBalanceTransactions PlayerBalanceTransactions[]
     GameTransactions          GameTransactions[]
-    holding                   Int                         @default(30)
-    totalSpent                Float                       @default(0)
-    totalRedeem               Float                       @default(0)
-    totalLost                 Float                       @default(0)
+
+    master_id   String?
+    totalSpent  Float   @default(0)
+    totalRedeem Float   @default(0)
+    totalLost   Float   @default(0)
 }
 
 model AdminBalanceTransactions {
@@ -73,12 +74,13 @@ model Settings {
     maxShareNum   Float        @default(8)
     minHolding    Int          @default(0)
     maxHolding    Int          @default(100)
+    holding       Int          @default(30)
     dollarStatus  Boolean      @default(false)
     account_type  AccountType?
     createdAt     DateTime     @default(now())
     updatedAt     DateTime     @updatedAt
-    Admin         Admin?
-    Player        Player?
+    Admin         Admin[]
+    Player        Player[]
 }
 
 model FavoriteGame {

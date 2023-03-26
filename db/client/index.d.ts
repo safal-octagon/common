@@ -27,7 +27,7 @@ export type Admin = {
   createdAt: Date
   updatedAt: Date
   created_by: string | null
-  holding: number
+  master_id: string | null
   totalSpent: number
   totalRedeem: number
   totalLost: number
@@ -73,6 +73,7 @@ export type Settings = {
   maxShareNum: number
   minHolding: number
   maxHolding: number
+  holding: number
   dollarStatus: boolean
   account_type: AccountType | null
   createdAt: Date
@@ -1267,6 +1268,51 @@ export namespace Prisma {
 
 
   /**
+   * Count Type SettingsCountOutputType
+   */
+
+
+  export type SettingsCountOutputType = {
+    Admin: number
+    Player: number
+  }
+
+  export type SettingsCountOutputTypeSelect = {
+    Admin?: boolean
+    Player?: boolean
+  }
+
+  export type SettingsCountOutputTypeGetPayload<S extends boolean | null | undefined | SettingsCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? SettingsCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (SettingsCountOutputTypeArgs)
+    ? SettingsCountOutputType 
+    : S extends { select: any } & (SettingsCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof SettingsCountOutputType ? SettingsCountOutputType[P] : never
+  } 
+      : SettingsCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * SettingsCountOutputType without action
+   */
+  export type SettingsCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the SettingsCountOutputType
+     */
+    select?: SettingsCountOutputTypeSelect | null
+  }
+
+
+
+  /**
    * Count Type PlayerCountOutputType
    */
 
@@ -1479,7 +1525,6 @@ export namespace Prisma {
 
   export type AdminAvgAggregateOutputType = {
     balance: number | null
-    holding: number | null
     totalSpent: number | null
     totalRedeem: number | null
     totalLost: number | null
@@ -1487,7 +1532,6 @@ export namespace Prisma {
 
   export type AdminSumAggregateOutputType = {
     balance: number | null
-    holding: number | null
     totalSpent: number | null
     totalRedeem: number | null
     totalLost: number | null
@@ -1506,7 +1550,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     created_by: string | null
-    holding: number | null
+    master_id: string | null
     totalSpent: number | null
     totalRedeem: number | null
     totalLost: number | null
@@ -1525,7 +1569,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     created_by: string | null
-    holding: number | null
+    master_id: string | null
     totalSpent: number | null
     totalRedeem: number | null
     totalLost: number | null
@@ -1544,7 +1588,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     created_by: number
-    holding: number
+    master_id: number
     totalSpent: number
     totalRedeem: number
     totalLost: number
@@ -1554,7 +1598,6 @@ export namespace Prisma {
 
   export type AdminAvgAggregateInputType = {
     balance?: true
-    holding?: true
     totalSpent?: true
     totalRedeem?: true
     totalLost?: true
@@ -1562,7 +1605,6 @@ export namespace Prisma {
 
   export type AdminSumAggregateInputType = {
     balance?: true
-    holding?: true
     totalSpent?: true
     totalRedeem?: true
     totalLost?: true
@@ -1581,7 +1623,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     created_by?: true
-    holding?: true
+    master_id?: true
     totalSpent?: true
     totalRedeem?: true
     totalLost?: true
@@ -1600,7 +1642,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     created_by?: true
-    holding?: true
+    master_id?: true
     totalSpent?: true
     totalRedeem?: true
     totalLost?: true
@@ -1619,7 +1661,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     created_by?: true
-    holding?: true
+    master_id?: true
     totalSpent?: true
     totalRedeem?: true
     totalLost?: true
@@ -1726,7 +1768,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     created_by: string | null
-    holding: number
+    master_id: string | null
     totalSpent: number
     totalRedeem: number
     totalLost: number
@@ -1772,7 +1814,7 @@ export namespace Prisma {
     Player?: boolean | Admin$PlayerArgs
     PlayerBalanceTransactions?: boolean | Admin$PlayerBalanceTransactionsArgs
     GameTransactions?: boolean | Admin$GameTransactionsArgs
-    holding?: boolean
+    master_id?: boolean
     totalSpent?: boolean
     totalRedeem?: boolean
     totalLost?: boolean
@@ -3882,6 +3924,7 @@ export namespace Prisma {
     maxShareNum: number | null
     minHolding: number | null
     maxHolding: number | null
+    holding: number | null
   }
 
   export type SettingsSumAggregateOutputType = {
@@ -3897,6 +3940,7 @@ export namespace Prisma {
     maxShareNum: number | null
     minHolding: number | null
     maxHolding: number | null
+    holding: number | null
   }
 
   export type SettingsMinAggregateOutputType = {
@@ -3917,6 +3961,7 @@ export namespace Prisma {
     maxShareNum: number | null
     minHolding: number | null
     maxHolding: number | null
+    holding: number | null
     dollarStatus: boolean | null
     account_type: AccountType | null
     createdAt: Date | null
@@ -3941,6 +3986,7 @@ export namespace Prisma {
     maxShareNum: number | null
     minHolding: number | null
     maxHolding: number | null
+    holding: number | null
     dollarStatus: boolean | null
     account_type: AccountType | null
     createdAt: Date | null
@@ -3965,6 +4011,7 @@ export namespace Prisma {
     maxShareNum: number
     minHolding: number
     maxHolding: number
+    holding: number
     dollarStatus: number
     account_type: number
     createdAt: number
@@ -3986,6 +4033,7 @@ export namespace Prisma {
     maxShareNum?: true
     minHolding?: true
     maxHolding?: true
+    holding?: true
   }
 
   export type SettingsSumAggregateInputType = {
@@ -4001,6 +4049,7 @@ export namespace Prisma {
     maxShareNum?: true
     minHolding?: true
     maxHolding?: true
+    holding?: true
   }
 
   export type SettingsMinAggregateInputType = {
@@ -4021,6 +4070,7 @@ export namespace Prisma {
     maxShareNum?: true
     minHolding?: true
     maxHolding?: true
+    holding?: true
     dollarStatus?: true
     account_type?: true
     createdAt?: true
@@ -4045,6 +4095,7 @@ export namespace Prisma {
     maxShareNum?: true
     minHolding?: true
     maxHolding?: true
+    holding?: true
     dollarStatus?: true
     account_type?: true
     createdAt?: true
@@ -4069,6 +4120,7 @@ export namespace Prisma {
     maxShareNum?: true
     minHolding?: true
     maxHolding?: true
+    holding?: true
     dollarStatus?: true
     account_type?: true
     createdAt?: true
@@ -4181,6 +4233,7 @@ export namespace Prisma {
     maxShareNum: number
     minHolding: number
     maxHolding: number
+    holding: number
     dollarStatus: boolean
     account_type: AccountType | null
     createdAt: Date
@@ -4224,18 +4277,21 @@ export namespace Prisma {
     maxShareNum?: boolean
     minHolding?: boolean
     maxHolding?: boolean
+    holding?: boolean
     dollarStatus?: boolean
     account_type?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Admin?: boolean | AdminArgs
-    Player?: boolean | PlayerArgs
+    Admin?: boolean | Settings$AdminArgs
+    Player?: boolean | Settings$PlayerArgs
+    _count?: boolean | SettingsCountOutputTypeArgs
   }
 
 
   export type SettingsInclude = {
-    Admin?: boolean | AdminArgs
-    Player?: boolean | PlayerArgs
+    Admin?: boolean | Settings$AdminArgs
+    Player?: boolean | Settings$PlayerArgs
+    _count?: boolean | SettingsCountOutputTypeArgs
   }
 
   export type SettingsGetPayload<S extends boolean | null | undefined | SettingsArgs> =
@@ -4245,14 +4301,16 @@ export namespace Prisma {
     S extends { include: any } & (SettingsArgs | SettingsFindManyArgs)
     ? Settings  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'Admin' ? AdminGetPayload<S['include'][P]> | null :
-        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :  never
+        P extends 'Admin' ? Array < AdminGetPayload<S['include'][P]>>  :
+        P extends 'Player' ? Array < PlayerGetPayload<S['include'][P]>>  :
+        P extends '_count' ? SettingsCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (SettingsArgs | SettingsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'Admin' ? AdminGetPayload<S['select'][P]> | null :
-        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :  P extends keyof Settings ? Settings[P] : never
+        P extends 'Admin' ? Array < AdminGetPayload<S['select'][P]>>  :
+        P extends 'Player' ? Array < PlayerGetPayload<S['select'][P]>>  :
+        P extends '_count' ? SettingsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Settings ? Settings[P] : never
   } 
       : Settings
 
@@ -4651,9 +4709,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    Admin<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
+    Admin<T extends Settings$AdminArgs= {}>(args?: Subset<T, Settings$AdminArgs>): Prisma.PrismaPromise<Array<AdminGetPayload<T>>| Null>;
 
-    Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
+    Player<T extends Settings$PlayerArgs= {}>(args?: Subset<T, Settings$PlayerArgs>): Prisma.PrismaPromise<Array<PlayerGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -5036,6 +5094,48 @@ export namespace Prisma {
      * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
      */
     options?: InputJsonValue
+  }
+
+
+  /**
+   * Settings.Admin
+   */
+  export type Settings$AdminArgs = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AdminInclude | null
+    where?: AdminWhereInput
+    orderBy?: Enumerable<AdminOrderByWithRelationInput>
+    cursor?: AdminWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AdminScalarFieldEnum>
+  }
+
+
+  /**
+   * Settings.Player
+   */
+  export type Settings$PlayerArgs = {
+    /**
+     * Select specific fields to fetch from the Player
+     */
+    select?: PlayerSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: PlayerInclude | null
+    where?: PlayerWhereInput
+    orderBy?: Enumerable<PlayerOrderByWithRelationInput>
+    cursor?: PlayerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<PlayerScalarFieldEnum>
   }
 
 
@@ -19043,7 +19143,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     created_by: 'created_by',
-    holding: 'holding',
+    master_id: 'master_id',
     totalSpent: 'totalSpent',
     totalRedeem: 'totalRedeem',
     totalLost: 'totalLost'
@@ -19210,6 +19310,7 @@ export namespace Prisma {
     maxShareNum: 'maxShareNum',
     minHolding: 'minHolding',
     maxHolding: 'maxHolding',
+    holding: 'holding',
     dollarStatus: 'dollarStatus',
     account_type: 'account_type',
     createdAt: 'createdAt',
@@ -19297,7 +19398,7 @@ export namespace Prisma {
     Player?: PlayerListRelationFilter
     PlayerBalanceTransactions?: PlayerBalanceTransactionsListRelationFilter
     GameTransactions?: GameTransactionsListRelationFilter
-    holding?: IntFilter | number
+    master_id?: StringNullableFilter | string | null
     totalSpent?: FloatFilter | number
     totalRedeem?: FloatFilter | number
     totalLost?: FloatFilter | number
@@ -19324,7 +19425,7 @@ export namespace Prisma {
     Player?: PlayerOrderByRelationAggregateInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsOrderByRelationAggregateInput
     GameTransactions?: GameTransactionsOrderByRelationAggregateInput
-    holding?: SortOrder
+    master_id?: SortOrder
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
@@ -19350,7 +19451,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     created_by?: SortOrder
-    holding?: SortOrder
+    master_id?: SortOrder
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
@@ -19377,7 +19478,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
     created_by?: StringNullableWithAggregatesFilter | string | null
-    holding?: IntWithAggregatesFilter | number
+    master_id?: StringNullableWithAggregatesFilter | string | null
     totalSpent?: FloatWithAggregatesFilter | number
     totalRedeem?: FloatWithAggregatesFilter | number
     totalLost?: FloatWithAggregatesFilter | number
@@ -19479,12 +19580,13 @@ export namespace Prisma {
     maxShareNum?: FloatFilter | number
     minHolding?: IntFilter | number
     maxHolding?: IntFilter | number
+    holding?: IntFilter | number
     dollarStatus?: BoolFilter | boolean
     account_type?: EnumAccountTypeNullableFilter | AccountType | null
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
-    Admin?: XOR<AdminRelationFilter, AdminWhereInput> | null
-    Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
+    Admin?: AdminListRelationFilter
+    Player?: PlayerListRelationFilter
   }
 
   export type SettingsOrderByWithRelationInput = {
@@ -19505,12 +19607,13 @@ export namespace Prisma {
     maxShareNum?: SortOrder
     minHolding?: SortOrder
     maxHolding?: SortOrder
+    holding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Admin?: AdminOrderByWithRelationInput
-    Player?: PlayerOrderByWithRelationInput
+    Admin?: AdminOrderByRelationAggregateInput
+    Player?: PlayerOrderByRelationAggregateInput
   }
 
   export type SettingsWhereUniqueInput = {
@@ -19535,6 +19638,7 @@ export namespace Prisma {
     maxShareNum?: SortOrder
     minHolding?: SortOrder
     maxHolding?: SortOrder
+    holding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
@@ -19567,6 +19671,7 @@ export namespace Prisma {
     maxShareNum?: FloatWithAggregatesFilter | number
     minHolding?: IntWithAggregatesFilter | number
     maxHolding?: IntWithAggregatesFilter | number
+    holding?: IntWithAggregatesFilter | number
     dollarStatus?: BoolWithAggregatesFilter | boolean
     account_type?: EnumAccountTypeNullableWithAggregatesFilter | AccountType | null
     createdAt?: DateTimeWithAggregatesFilter | Date | string
@@ -20435,7 +20540,7 @@ export namespace Prisma {
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -20460,7 +20565,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -20484,7 +20589,7 @@ export namespace Prisma {
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -20508,7 +20613,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -20527,7 +20632,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     created_by?: string | null
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -20543,7 +20648,7 @@ export namespace Prisma {
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -20561,7 +20666,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -20677,12 +20782,13 @@ export namespace Prisma {
     maxShareNum?: number
     minHolding?: number
     maxHolding?: number
+    holding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Admin?: AdminCreateNestedOneWithoutSettingsInput
-    Player?: PlayerCreateNestedOneWithoutSettingsInput
+    Admin?: AdminCreateNestedManyWithoutSettingsInput
+    Player?: PlayerCreateNestedManyWithoutSettingsInput
   }
 
   export type SettingsUncheckedCreateInput = {
@@ -20703,12 +20809,13 @@ export namespace Prisma {
     maxShareNum?: number
     minHolding?: number
     maxHolding?: number
+    holding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Admin?: AdminUncheckedCreateNestedOneWithoutSettingsInput
-    Player?: PlayerUncheckedCreateNestedOneWithoutSettingsInput
+    Admin?: AdminUncheckedCreateNestedManyWithoutSettingsInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutSettingsInput
   }
 
   export type SettingsUpdateInput = {
@@ -20728,12 +20835,13 @@ export namespace Prisma {
     maxShareNum?: FloatFieldUpdateOperationsInput | number
     minHolding?: IntFieldUpdateOperationsInput | number
     maxHolding?: IntFieldUpdateOperationsInput | number
+    holding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Admin?: AdminUpdateOneWithoutSettingsNestedInput
-    Player?: PlayerUpdateOneWithoutSettingsNestedInput
+    Admin?: AdminUpdateManyWithoutSettingsNestedInput
+    Player?: PlayerUpdateManyWithoutSettingsNestedInput
   }
 
   export type SettingsUncheckedUpdateInput = {
@@ -20753,12 +20861,13 @@ export namespace Prisma {
     maxShareNum?: FloatFieldUpdateOperationsInput | number
     minHolding?: IntFieldUpdateOperationsInput | number
     maxHolding?: IntFieldUpdateOperationsInput | number
+    holding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Admin?: AdminUncheckedUpdateOneWithoutSettingsNestedInput
-    Player?: PlayerUncheckedUpdateOneWithoutSettingsNestedInput
+    Admin?: AdminUncheckedUpdateManyWithoutSettingsNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutSettingsNestedInput
   }
 
   export type SettingsCreateManyInput = {
@@ -20779,6 +20888,7 @@ export namespace Prisma {
     maxShareNum?: number
     minHolding?: number
     maxHolding?: number
+    holding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
@@ -20802,6 +20912,7 @@ export namespace Prisma {
     maxShareNum?: FloatFieldUpdateOperationsInput | number
     minHolding?: IntFieldUpdateOperationsInput | number
     maxHolding?: IntFieldUpdateOperationsInput | number
+    holding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20825,6 +20936,7 @@ export namespace Prisma {
     maxShareNum?: FloatFieldUpdateOperationsInput | number
     minHolding?: IntFieldUpdateOperationsInput | number
     maxHolding?: IntFieldUpdateOperationsInput | number
+    holding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21919,8 +22031,8 @@ export namespace Prisma {
   }
 
   export type AdminRelationFilter = {
-    is?: AdminWhereInput | null
-    isNot?: AdminWhereInput | null
+    is?: AdminWhereInput
+    isNot?: AdminWhereInput
   }
 
   export type AdminListRelationFilter = {
@@ -21951,17 +22063,6 @@ export namespace Prisma {
     every?: GameTransactionsWhereInput
     some?: GameTransactionsWhereInput
     none?: GameTransactionsWhereInput
-  }
-
-  export type IntFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntFilter | number
   }
 
   export type AdminOrderByRelationAggregateInput = {
@@ -21997,7 +22098,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     created_by?: SortOrder
-    holding?: SortOrder
+    master_id?: SortOrder
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
@@ -22005,7 +22106,6 @@ export namespace Prisma {
 
   export type AdminAvgOrderByAggregateInput = {
     balance?: SortOrder
-    holding?: SortOrder
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
@@ -22024,7 +22124,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     created_by?: SortOrder
-    holding?: SortOrder
+    master_id?: SortOrder
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
@@ -22043,7 +22143,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     created_by?: SortOrder
-    holding?: SortOrder
+    master_id?: SortOrder
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
@@ -22051,7 +22151,6 @@ export namespace Prisma {
 
   export type AdminSumOrderByAggregateInput = {
     balance?: SortOrder
-    holding?: SortOrder
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
@@ -22145,22 +22244,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
-  export type IntWithAggregatesFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntWithAggregatesFilter | number
-    _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedIntFilter
-    _min?: NestedIntFilter
-    _max?: NestedIntFilter
-  }
-
   export type AdminBalanceTransactionsCountOrderByAggregateInput = {
     id?: SortOrder
     account?: SortOrder
@@ -22226,9 +22309,15 @@ export namespace Prisma {
     not?: NestedBoolFilter | boolean
   }
 
-  export type PlayerRelationFilter = {
-    is?: PlayerWhereInput | null
-    isNot?: PlayerWhereInput | null
+  export type IntFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntFilter | number
   }
 
   export type SettingsCountOrderByAggregateInput = {
@@ -22249,6 +22338,7 @@ export namespace Prisma {
     maxShareNum?: SortOrder
     minHolding?: SortOrder
     maxHolding?: SortOrder
+    holding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
@@ -22268,6 +22358,7 @@ export namespace Prisma {
     maxShareNum?: SortOrder
     minHolding?: SortOrder
     maxHolding?: SortOrder
+    holding?: SortOrder
   }
 
   export type SettingsMaxOrderByAggregateInput = {
@@ -22288,6 +22379,7 @@ export namespace Prisma {
     maxShareNum?: SortOrder
     minHolding?: SortOrder
     maxHolding?: SortOrder
+    holding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
@@ -22312,6 +22404,7 @@ export namespace Prisma {
     maxShareNum?: SortOrder
     minHolding?: SortOrder
     maxHolding?: SortOrder
+    holding?: SortOrder
     dollarStatus?: SortOrder
     account_type?: SortOrder
     createdAt?: SortOrder
@@ -22331,6 +22424,7 @@ export namespace Prisma {
     maxShareNum?: SortOrder
     minHolding?: SortOrder
     maxHolding?: SortOrder
+    holding?: SortOrder
   }
 
   export type BoolWithAggregatesFilter = {
@@ -22341,9 +22435,30 @@ export namespace Prisma {
     _max?: NestedBoolFilter
   }
 
+  export type IntWithAggregatesFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntWithAggregatesFilter | number
+    _count?: NestedIntFilter
+    _avg?: NestedFloatFilter
+    _sum?: NestedIntFilter
+    _min?: NestedIntFilter
+    _max?: NestedIntFilter
+  }
+
   export type GamesRelationFilter = {
     is?: GamesWhereInput | null
     isNot?: GamesWhereInput | null
+  }
+
+  export type PlayerRelationFilter = {
+    is?: PlayerWhereInput | null
+    isNot?: PlayerWhereInput | null
   }
 
   export type FavoriteGameCountOrderByAggregateInput = {
@@ -23386,14 +23501,6 @@ export namespace Prisma {
     deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type AdminUncheckedUpdateManyWithoutCreatedByNestedInput = {
     create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
     connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
@@ -23510,72 +23617,100 @@ export namespace Prisma {
     update?: XOR<AdminUpdateWithoutCashierInput, AdminUncheckedUpdateWithoutCashierInput>
   }
 
-  export type AdminCreateNestedOneWithoutSettingsInput = {
-    create?: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutSettingsInput
-    connect?: AdminWhereUniqueInput
+  export type AdminCreateNestedManyWithoutSettingsInput = {
+    create?: XOR<Enumerable<AdminCreateWithoutSettingsInput>, Enumerable<AdminUncheckedCreateWithoutSettingsInput>>
+    connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutSettingsInput>
+    createMany?: AdminCreateManySettingsInputEnvelope
+    connect?: Enumerable<AdminWhereUniqueInput>
   }
 
-  export type PlayerCreateNestedOneWithoutSettingsInput = {
-    create?: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: PlayerCreateOrConnectWithoutSettingsInput
-    connect?: PlayerWhereUniqueInput
+  export type PlayerCreateNestedManyWithoutSettingsInput = {
+    create?: XOR<Enumerable<PlayerCreateWithoutSettingsInput>, Enumerable<PlayerUncheckedCreateWithoutSettingsInput>>
+    connectOrCreate?: Enumerable<PlayerCreateOrConnectWithoutSettingsInput>
+    createMany?: PlayerCreateManySettingsInputEnvelope
+    connect?: Enumerable<PlayerWhereUniqueInput>
   }
 
-  export type AdminUncheckedCreateNestedOneWithoutSettingsInput = {
-    create?: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutSettingsInput
-    connect?: AdminWhereUniqueInput
+  export type AdminUncheckedCreateNestedManyWithoutSettingsInput = {
+    create?: XOR<Enumerable<AdminCreateWithoutSettingsInput>, Enumerable<AdminUncheckedCreateWithoutSettingsInput>>
+    connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutSettingsInput>
+    createMany?: AdminCreateManySettingsInputEnvelope
+    connect?: Enumerable<AdminWhereUniqueInput>
   }
 
-  export type PlayerUncheckedCreateNestedOneWithoutSettingsInput = {
-    create?: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: PlayerCreateOrConnectWithoutSettingsInput
-    connect?: PlayerWhereUniqueInput
+  export type PlayerUncheckedCreateNestedManyWithoutSettingsInput = {
+    create?: XOR<Enumerable<PlayerCreateWithoutSettingsInput>, Enumerable<PlayerUncheckedCreateWithoutSettingsInput>>
+    connectOrCreate?: Enumerable<PlayerCreateOrConnectWithoutSettingsInput>
+    createMany?: PlayerCreateManySettingsInputEnvelope
+    connect?: Enumerable<PlayerWhereUniqueInput>
   }
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
 
-  export type AdminUpdateOneWithoutSettingsNestedInput = {
-    create?: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutSettingsInput
-    upsert?: AdminUpsertWithoutSettingsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: AdminWhereUniqueInput
-    update?: XOR<AdminUpdateWithoutSettingsInput, AdminUncheckedUpdateWithoutSettingsInput>
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
-  export type PlayerUpdateOneWithoutSettingsNestedInput = {
-    create?: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: PlayerCreateOrConnectWithoutSettingsInput
-    upsert?: PlayerUpsertWithoutSettingsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: PlayerWhereUniqueInput
-    update?: XOR<PlayerUpdateWithoutSettingsInput, PlayerUncheckedUpdateWithoutSettingsInput>
+  export type AdminUpdateManyWithoutSettingsNestedInput = {
+    create?: XOR<Enumerable<AdminCreateWithoutSettingsInput>, Enumerable<AdminUncheckedCreateWithoutSettingsInput>>
+    connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutSettingsInput>
+    upsert?: Enumerable<AdminUpsertWithWhereUniqueWithoutSettingsInput>
+    createMany?: AdminCreateManySettingsInputEnvelope
+    set?: Enumerable<AdminWhereUniqueInput>
+    disconnect?: Enumerable<AdminWhereUniqueInput>
+    delete?: Enumerable<AdminWhereUniqueInput>
+    connect?: Enumerable<AdminWhereUniqueInput>
+    update?: Enumerable<AdminUpdateWithWhereUniqueWithoutSettingsInput>
+    updateMany?: Enumerable<AdminUpdateManyWithWhereWithoutSettingsInput>
+    deleteMany?: Enumerable<AdminScalarWhereInput>
   }
 
-  export type AdminUncheckedUpdateOneWithoutSettingsNestedInput = {
-    create?: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutSettingsInput
-    upsert?: AdminUpsertWithoutSettingsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: AdminWhereUniqueInput
-    update?: XOR<AdminUpdateWithoutSettingsInput, AdminUncheckedUpdateWithoutSettingsInput>
+  export type PlayerUpdateManyWithoutSettingsNestedInput = {
+    create?: XOR<Enumerable<PlayerCreateWithoutSettingsInput>, Enumerable<PlayerUncheckedCreateWithoutSettingsInput>>
+    connectOrCreate?: Enumerable<PlayerCreateOrConnectWithoutSettingsInput>
+    upsert?: Enumerable<PlayerUpsertWithWhereUniqueWithoutSettingsInput>
+    createMany?: PlayerCreateManySettingsInputEnvelope
+    set?: Enumerable<PlayerWhereUniqueInput>
+    disconnect?: Enumerable<PlayerWhereUniqueInput>
+    delete?: Enumerable<PlayerWhereUniqueInput>
+    connect?: Enumerable<PlayerWhereUniqueInput>
+    update?: Enumerable<PlayerUpdateWithWhereUniqueWithoutSettingsInput>
+    updateMany?: Enumerable<PlayerUpdateManyWithWhereWithoutSettingsInput>
+    deleteMany?: Enumerable<PlayerScalarWhereInput>
   }
 
-  export type PlayerUncheckedUpdateOneWithoutSettingsNestedInput = {
-    create?: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: PlayerCreateOrConnectWithoutSettingsInput
-    upsert?: PlayerUpsertWithoutSettingsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: PlayerWhereUniqueInput
-    update?: XOR<PlayerUpdateWithoutSettingsInput, PlayerUncheckedUpdateWithoutSettingsInput>
+  export type AdminUncheckedUpdateManyWithoutSettingsNestedInput = {
+    create?: XOR<Enumerable<AdminCreateWithoutSettingsInput>, Enumerable<AdminUncheckedCreateWithoutSettingsInput>>
+    connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutSettingsInput>
+    upsert?: Enumerable<AdminUpsertWithWhereUniqueWithoutSettingsInput>
+    createMany?: AdminCreateManySettingsInputEnvelope
+    set?: Enumerable<AdminWhereUniqueInput>
+    disconnect?: Enumerable<AdminWhereUniqueInput>
+    delete?: Enumerable<AdminWhereUniqueInput>
+    connect?: Enumerable<AdminWhereUniqueInput>
+    update?: Enumerable<AdminUpdateWithWhereUniqueWithoutSettingsInput>
+    updateMany?: Enumerable<AdminUpdateManyWithWhereWithoutSettingsInput>
+    deleteMany?: Enumerable<AdminScalarWhereInput>
+  }
+
+  export type PlayerUncheckedUpdateManyWithoutSettingsNestedInput = {
+    create?: XOR<Enumerable<PlayerCreateWithoutSettingsInput>, Enumerable<PlayerUncheckedCreateWithoutSettingsInput>>
+    connectOrCreate?: Enumerable<PlayerCreateOrConnectWithoutSettingsInput>
+    upsert?: Enumerable<PlayerUpsertWithWhereUniqueWithoutSettingsInput>
+    createMany?: PlayerCreateManySettingsInputEnvelope
+    set?: Enumerable<PlayerWhereUniqueInput>
+    disconnect?: Enumerable<PlayerWhereUniqueInput>
+    delete?: Enumerable<PlayerWhereUniqueInput>
+    connect?: Enumerable<PlayerWhereUniqueInput>
+    update?: Enumerable<PlayerUpdateWithWhereUniqueWithoutSettingsInput>
+    updateMany?: Enumerable<PlayerUpdateManyWithWhereWithoutSettingsInput>
+    deleteMany?: Enumerable<PlayerScalarWhereInput>
   }
 
   export type GamesCreateNestedOneWithoutFavoriteGameInput = {
@@ -24653,17 +24788,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter | Date | string
   }
 
-  export type NestedIntFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntFilter | number
-  }
-
   export type NestedStringWithAggregatesFilter = {
     equals?: string
     in?: Enumerable<string>
@@ -24679,6 +24803,17 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedStringFilter
     _max?: NestedStringFilter
+  }
+
+  export type NestedIntFilter = {
+    equals?: number
+    in?: Enumerable<number>
+    notIn?: Enumerable<number>
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntFilter | number
   }
 
   export type NestedStringNullableWithAggregatesFilter = {
@@ -24762,6 +24897,19 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
+  export type NestedBoolFilter = {
+    equals?: boolean
+    not?: NestedBoolFilter | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter = {
+    equals?: boolean
+    not?: NestedBoolWithAggregatesFilter | boolean
+    _count?: NestedIntFilter
+    _min?: NestedBoolFilter
+    _max?: NestedBoolFilter
+  }
+
   export type NestedIntWithAggregatesFilter = {
     equals?: number
     in?: Enumerable<number>
@@ -24776,19 +24924,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter
     _min?: NestedIntFilter
     _max?: NestedIntFilter
-  }
-
-  export type NestedBoolFilter = {
-    equals?: boolean
-    not?: NestedBoolFilter | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter = {
-    equals?: boolean
-    not?: NestedBoolWithAggregatesFilter | boolean
-    _count?: NestedIntFilter
-    _min?: NestedBoolFilter
-    _max?: NestedBoolFilter
   }
 
   export type NestedIntNullableWithAggregatesFilter = {
@@ -24949,11 +25084,12 @@ export namespace Prisma {
     maxShareNum?: number
     minHolding?: number
     maxHolding?: number
+    holding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Player?: PlayerCreateNestedOneWithoutSettingsInput
+    Player?: PlayerCreateNestedManyWithoutSettingsInput
   }
 
   export type SettingsUncheckedCreateWithoutAdminInput = {
@@ -24974,11 +25110,12 @@ export namespace Prisma {
     maxShareNum?: number
     minHolding?: number
     maxHolding?: number
+    holding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Player?: PlayerUncheckedCreateNestedOneWithoutSettingsInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutSettingsInput
   }
 
   export type SettingsCreateOrConnectWithoutAdminInput = {
@@ -25004,7 +25141,7 @@ export namespace Prisma {
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25028,7 +25165,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25057,7 +25194,7 @@ export namespace Prisma {
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25081,7 +25218,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25345,11 +25482,12 @@ export namespace Prisma {
     maxShareNum?: FloatFieldUpdateOperationsInput | number
     minHolding?: IntFieldUpdateOperationsInput | number
     maxHolding?: IntFieldUpdateOperationsInput | number
+    holding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Player?: PlayerUpdateOneWithoutSettingsNestedInput
+    Player?: PlayerUpdateManyWithoutSettingsNestedInput
   }
 
   export type SettingsUncheckedUpdateWithoutAdminInput = {
@@ -25369,11 +25507,12 @@ export namespace Prisma {
     maxShareNum?: FloatFieldUpdateOperationsInput | number
     minHolding?: IntFieldUpdateOperationsInput | number
     maxHolding?: IntFieldUpdateOperationsInput | number
+    holding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Player?: PlayerUncheckedUpdateOneWithoutSettingsNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutSettingsNestedInput
   }
 
   export type AdminUpsertWithoutUserInput = {
@@ -25398,7 +25537,7 @@ export namespace Prisma {
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -25421,7 +25560,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -25459,7 +25598,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
     created_by?: StringNullableFilter | string | null
-    holding?: IntFilter | number
+    master_id?: StringNullableFilter | string | null
     totalSpent?: FloatFilter | number
     totalRedeem?: FloatFilter | number
     totalLost?: FloatFilter | number
@@ -25648,7 +25787,7 @@ export namespace Prisma {
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25672,7 +25811,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25701,7 +25840,7 @@ export namespace Prisma {
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25725,7 +25864,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25758,7 +25897,7 @@ export namespace Prisma {
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -25781,7 +25920,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -25809,7 +25948,7 @@ export namespace Prisma {
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -25832,7 +25971,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -25856,7 +25995,7 @@ export namespace Prisma {
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25880,7 +26019,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -25889,6 +26028,10 @@ export namespace Prisma {
   export type AdminCreateOrConnectWithoutSettingsInput = {
     where: AdminWhereUniqueInput
     create: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
+  }
+
+  export type AdminCreateManySettingsInputEnvelope = {
+    data: Enumerable<AdminCreateManySettingsInput>
   }
 
   export type PlayerCreateWithoutSettingsInput = {
@@ -25966,128 +26109,40 @@ export namespace Prisma {
     create: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
   }
 
-  export type AdminUpsertWithoutSettingsInput = {
+  export type PlayerCreateManySettingsInputEnvelope = {
+    data: Enumerable<PlayerCreateManySettingsInput>
+  }
+
+  export type AdminUpsertWithWhereUniqueWithoutSettingsInput = {
+    where: AdminWhereUniqueInput
     update: XOR<AdminUpdateWithoutSettingsInput, AdminUncheckedUpdateWithoutSettingsInput>
     create: XOR<AdminCreateWithoutSettingsInput, AdminUncheckedCreateWithoutSettingsInput>
   }
 
-  export type AdminUpdateWithoutSettingsInput = {
-    email_id?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
-    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
-    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    timezone?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
-    User?: AdminUpdateManyWithoutCreatedByNestedInput
-    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
-    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
-    Player?: PlayerUpdateManyWithoutManagerNestedInput
-    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
-    totalSpent?: FloatFieldUpdateOperationsInput | number
-    totalRedeem?: FloatFieldUpdateOperationsInput | number
-    totalLost?: FloatFieldUpdateOperationsInput | number
+  export type AdminUpdateWithWhereUniqueWithoutSettingsInput = {
+    where: AdminWhereUniqueInput
+    data: XOR<AdminUpdateWithoutSettingsInput, AdminUncheckedUpdateWithoutSettingsInput>
   }
 
-  export type AdminUncheckedUpdateWithoutSettingsInput = {
-    email_id?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
-    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
-    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    timezone?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_by?: NullableStringFieldUpdateOperationsInput | string | null
-    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
-    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
-    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
-    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
-    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
-    totalSpent?: FloatFieldUpdateOperationsInput | number
-    totalRedeem?: FloatFieldUpdateOperationsInput | number
-    totalLost?: FloatFieldUpdateOperationsInput | number
+  export type AdminUpdateManyWithWhereWithoutSettingsInput = {
+    where: AdminScalarWhereInput
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyWithoutAdminInput>
   }
 
-  export type PlayerUpsertWithoutSettingsInput = {
+  export type PlayerUpsertWithWhereUniqueWithoutSettingsInput = {
+    where: PlayerWhereUniqueInput
     update: XOR<PlayerUpdateWithoutSettingsInput, PlayerUncheckedUpdateWithoutSettingsInput>
     create: XOR<PlayerCreateWithoutSettingsInput, PlayerUncheckedCreateWithoutSettingsInput>
   }
 
-  export type PlayerUpdateWithoutSettingsInput = {
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
-    country_code?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
-    balance?: FloatFieldUpdateOperationsInput | number
-    game_played?: IntFieldUpdateOperationsInput | number
-    won?: FloatFieldUpdateOperationsInput | number
-    spent?: FloatFieldUpdateOperationsInput | number
-    won_total?: FloatFieldUpdateOperationsInput | number
-    spent_total?: FloatFieldUpdateOperationsInput | number
-    grandJP_won?: FloatFieldUpdateOperationsInput | number
-    grandJP_won_count?: IntFieldUpdateOperationsInput | number
-    majorJP_won?: FloatFieldUpdateOperationsInput | number
-    majorJP_won_count?: IntFieldUpdateOperationsInput | number
-    minorJP_won?: FloatFieldUpdateOperationsInput | number
-    minorJP_won_count?: IntFieldUpdateOperationsInput | number
-    miniJP_won?: FloatFieldUpdateOperationsInput | number
-    miniJP_won_count?: IntFieldUpdateOperationsInput | number
-    general_won?: FloatFieldUpdateOperationsInput | number
-    general_won_count?: IntFieldUpdateOperationsInput | number
-    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
-    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
-    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
-    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
-    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
-    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
-    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
-    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+  export type PlayerUpdateWithWhereUniqueWithoutSettingsInput = {
+    where: PlayerWhereUniqueInput
+    data: XOR<PlayerUpdateWithoutSettingsInput, PlayerUncheckedUpdateWithoutSettingsInput>
   }
 
-  export type PlayerUncheckedUpdateWithoutSettingsInput = {
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
-    country_code?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
-    balance?: FloatFieldUpdateOperationsInput | number
-    game_played?: IntFieldUpdateOperationsInput | number
-    won?: FloatFieldUpdateOperationsInput | number
-    spent?: FloatFieldUpdateOperationsInput | number
-    won_total?: FloatFieldUpdateOperationsInput | number
-    spent_total?: FloatFieldUpdateOperationsInput | number
-    grandJP_won?: FloatFieldUpdateOperationsInput | number
-    grandJP_won_count?: IntFieldUpdateOperationsInput | number
-    majorJP_won?: FloatFieldUpdateOperationsInput | number
-    majorJP_won_count?: IntFieldUpdateOperationsInput | number
-    minorJP_won?: FloatFieldUpdateOperationsInput | number
-    minorJP_won_count?: IntFieldUpdateOperationsInput | number
-    miniJP_won?: FloatFieldUpdateOperationsInput | number
-    miniJP_won_count?: IntFieldUpdateOperationsInput | number
-    general_won?: FloatFieldUpdateOperationsInput | number
-    general_won_count?: IntFieldUpdateOperationsInput | number
-    created_by?: StringFieldUpdateOperationsInput | string
-    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
-    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
-    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
-    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
-    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
-    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
-    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+  export type PlayerUpdateManyWithWhereWithoutSettingsInput = {
+    where: PlayerScalarWhereInput
+    data: XOR<PlayerUpdateManyMutationInput, PlayerUncheckedUpdateManyWithoutPlayerInput>
   }
 
   export type GamesCreateWithoutFavoriteGameInput = {
@@ -26612,11 +26667,12 @@ export namespace Prisma {
     maxShareNum?: number
     minHolding?: number
     maxHolding?: number
+    holding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Admin?: AdminCreateNestedOneWithoutSettingsInput
+    Admin?: AdminCreateNestedManyWithoutSettingsInput
   }
 
   export type SettingsUncheckedCreateWithoutPlayerInput = {
@@ -26637,11 +26693,12 @@ export namespace Prisma {
     maxShareNum?: number
     minHolding?: number
     maxHolding?: number
+    holding?: number
     dollarStatus?: boolean
     account_type?: AccountType | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Admin?: AdminUncheckedCreateNestedOneWithoutSettingsInput
+    Admin?: AdminUncheckedCreateNestedManyWithoutSettingsInput
   }
 
   export type SettingsCreateOrConnectWithoutPlayerInput = {
@@ -26667,7 +26724,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -26691,7 +26748,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -26954,11 +27011,12 @@ export namespace Prisma {
     maxShareNum?: FloatFieldUpdateOperationsInput | number
     minHolding?: IntFieldUpdateOperationsInput | number
     maxHolding?: IntFieldUpdateOperationsInput | number
+    holding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Admin?: AdminUpdateOneWithoutSettingsNestedInput
+    Admin?: AdminUpdateManyWithoutSettingsNestedInput
   }
 
   export type SettingsUncheckedUpdateWithoutPlayerInput = {
@@ -26978,11 +27036,12 @@ export namespace Prisma {
     maxShareNum?: FloatFieldUpdateOperationsInput | number
     minHolding?: IntFieldUpdateOperationsInput | number
     maxHolding?: IntFieldUpdateOperationsInput | number
+    holding?: IntFieldUpdateOperationsInput | number
     dollarStatus?: BoolFieldUpdateOperationsInput | boolean
     account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Admin?: AdminUncheckedUpdateOneWithoutSettingsNestedInput
+    Admin?: AdminUncheckedUpdateManyWithoutSettingsNestedInput
   }
 
   export type AdminUpsertWithoutPlayerInput = {
@@ -27007,7 +27066,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -27030,7 +27089,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -28002,7 +28061,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -28026,7 +28085,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -28205,7 +28264,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -28228,7 +28287,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -28849,7 +28908,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     Player?: PlayerCreateNestedManyWithoutManagerInput
     GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -28873,7 +28932,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -28979,7 +29038,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -29002,7 +29061,7 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -29020,7 +29079,7 @@ export namespace Prisma {
     timezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    holding?: number
+    master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
@@ -29125,7 +29184,7 @@ export namespace Prisma {
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -29148,7 +29207,7 @@ export namespace Prisma {
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -29165,7 +29224,7 @@ export namespace Prisma {
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    holding?: IntFieldUpdateOperationsInput | number
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
@@ -29418,6 +29477,182 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     room_id?: NullableStringFieldUpdateOperationsInput | string | null
     fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AdminCreateManySettingsInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    master_id?: string | null
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type PlayerCreateManySettingsInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    created_by: string
+  }
+
+  export type AdminUpdateWithoutSettingsInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutSettingsInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateManyWithoutAdminInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type PlayerUpdateWithoutSettingsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutSettingsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerBalanceTransactionsCreateManyPlayerInput = {
