@@ -32,12 +32,10 @@ model Admin {
     cashier                   AdminBalanceTransactions[]  @relation("cashier")
     Player                    Player[]
     PlayerBalanceTransactions PlayerBalanceTransactions[]
-    GameTransactions          GameTransactions[]
-
-    master_id   String?
-    totalSpent  Float   @default(0)
-    totalRedeem Float   @default(0)
-    totalLost   Float   @default(0)
+    master_id                 String?
+    totalSpent                Float                       @default(0)
+    totalRedeem               Float                       @default(0)
+    totalLost                 Float                       @default(0)
 }
 
 model AdminBalanceTransactions {
@@ -188,46 +186,32 @@ model ActiveGamePlay {
     updatedAt DateTime @updatedAt
 }
 
-model SlotTransactions {
-    id             String            @id @default(uuid()) @map("_id")
-    transaction_id String?
-    status         SlotStatus?
-    Transaction    GameTransactions? @relation(fields: [transaction_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-    createdAt      DateTime          @default(now())
-}
-
 model GameTransactions {
-    id                   String                @id @default(uuid()) @map("_id")
-    date                 String?
-    player               String
-    game                 String
-    spent                Float?
-    won                  Float?
-    winType              String?
-    game_id              String?
-    player_id            String?
-    user_id              String?
-    createdAt            DateTime              @default(now())
-    updatedAt            DateTime?             @updatedAt
-    Game                 Games?                @relation(fields: [game_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-    Player               Player?               @relation(fields: [player_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-    Admin                Admin?                @relation(fields: [user_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-    SlotTransactions     SlotTransactions[]
-    room_id              String?
-    fish_transaction_id  String?
-    FishGameTransactions FishGameTransactions? @relation(fields: [fish_transaction_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    id        String    @id @default(uuid()) @map("_id")
+    date      String?
+    player    String
+    game      String
+    spent     Float?
+    won       Float?
+    winType   String?
+    game_id   String?
+    player_id String?
+    user_id   String?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    Game      Games?    @relation(fields: [game_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    Player    Player?   @relation(fields: [player_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
 }
 
 model FishGameTransactions {
-    id               String             @id @default(uuid()) @map("_id")
-    room_id          String?
-    player_id        String?
-    game_id          String?
-    started          DateTime           @default(now())
-    ended            DateTime?
-    Game             Games?             @relation(fields: [game_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
-    Player           Player?            @relation(fields: [player_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-    GameTransactions GameTransactions[]
+    id        String    @id @default(uuid()) @map("_id")
+    room_id   String?
+    player_id String?
+    game_id   String?
+    started   DateTime  @default(now())
+    ended     DateTime?
+    Game      Games?    @relation(fields: [game_id], references: [id], onDelete: SetNull, onUpdate: SetNull)
+    Player    Player?   @relation(fields: [player_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
 }
 
 model SlotFreeBonus {

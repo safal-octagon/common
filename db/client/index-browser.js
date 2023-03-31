@@ -169,9 +169,7 @@ exports.Prisma.GameTransactionsScalarFieldEnum = makeEnum({
   player_id: 'player_id',
   user_id: 'user_id',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  room_id: 'room_id',
-  fish_transaction_id: 'fish_transaction_id'
+  updatedAt: 'updatedAt'
 });
 
 exports.Prisma.GamesScalarFieldEnum = makeEnum({
@@ -283,13 +281,6 @@ exports.Prisma.SlotFreeBonusScalarFieldEnum = makeEnum({
   updatedAt: 'updatedAt'
 });
 
-exports.Prisma.SlotTransactionsScalarFieldEnum = makeEnum({
-  id: 'id',
-  transaction_id: 'transaction_id',
-  status: 'status',
-  createdAt: 'createdAt'
-});
-
 exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
@@ -323,11 +314,6 @@ exports.GamePlatform = makeEnum({
   webGl: 'webGl'
 });
 
-exports.SlotStatus = makeEnum({
-  STARTED: 'STARTED',
-  COMPLETED: 'COMPLETED'
-});
-
 exports.Prisma.ModelName = makeEnum({
   Admin: 'Admin',
   AdminBalanceTransactions: 'AdminBalanceTransactions',
@@ -339,7 +325,6 @@ exports.Prisma.ModelName = makeEnum({
   Games: 'Games',
   GameAssets: 'GameAssets',
   ActiveGamePlay: 'ActiveGamePlay',
-  SlotTransactions: 'SlotTransactions',
   GameTransactions: 'GameTransactions',
   FishGameTransactions: 'FishGameTransactions',
   SlotFreeBonus: 'SlotFreeBonus',

@@ -185,17 +185,6 @@ export type ActiveGamePlay = {
 }
 
 /**
- * Model SlotTransactions
- * 
- */
-export type SlotTransactions = {
-  id: string
-  transaction_id: string | null
-  status: SlotStatus | null
-  createdAt: Date
-}
-
-/**
  * Model GameTransactions
  * 
  */
@@ -212,8 +201,6 @@ export type GameTransactions = {
   user_id: string | null
   createdAt: Date
   updatedAt: Date | null
-  room_id: string | null
-  fish_transaction_id: string | null
 }
 
 /**
@@ -314,14 +301,6 @@ export const GamePlatform: {
 };
 
 export type GamePlatform = (typeof GamePlatform)[keyof typeof GamePlatform]
-
-
-export const SlotStatus: {
-  STARTED: 'STARTED',
-  COMPLETED: 'COMPLETED'
-};
-
-export type SlotStatus = (typeof SlotStatus)[keyof typeof SlotStatus]
 
 
 /**
@@ -509,16 +488,6 @@ export class PrismaClient<
     * ```
     */
   get activeGamePlay(): Prisma.ActiveGamePlayDelegate<GlobalReject>;
-
-  /**
-   * `prisma.slotTransactions`: Exposes CRUD operations for the **SlotTransactions** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more SlotTransactions
-    * const slotTransactions = await prisma.slotTransactions.findMany()
-    * ```
-    */
-  get slotTransactions(): Prisma.SlotTransactionsDelegate<GlobalReject>;
 
   /**
    * `prisma.gameTransactions`: Exposes CRUD operations for the **GameTransactions** model.
@@ -1048,7 +1017,6 @@ export namespace Prisma {
     Games: 'Games',
     GameAssets: 'GameAssets',
     ActiveGamePlay: 'ActiveGamePlay',
-    SlotTransactions: 'SlotTransactions',
     GameTransactions: 'GameTransactions',
     FishGameTransactions: 'FishGameTransactions',
     SlotFreeBonus: 'SlotFreeBonus',
@@ -1225,7 +1193,6 @@ export namespace Prisma {
     cashier: number
     Player: number
     PlayerBalanceTransactions: number
-    GameTransactions: number
   }
 
   export type AdminCountOutputTypeSelect = {
@@ -1234,7 +1201,6 @@ export namespace Prisma {
     cashier?: boolean
     Player?: boolean
     PlayerBalanceTransactions?: boolean
-    GameTransactions?: boolean
   }
 
   export type AdminCountOutputTypeGetPayload<S extends boolean | null | undefined | AdminCountOutputTypeArgs> =
@@ -1416,92 +1382,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the GamesCountOutputType
      */
     select?: GamesCountOutputTypeSelect | null
-  }
-
-
-
-  /**
-   * Count Type GameTransactionsCountOutputType
-   */
-
-
-  export type GameTransactionsCountOutputType = {
-    SlotTransactions: number
-  }
-
-  export type GameTransactionsCountOutputTypeSelect = {
-    SlotTransactions?: boolean
-  }
-
-  export type GameTransactionsCountOutputTypeGetPayload<S extends boolean | null | undefined | GameTransactionsCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? GameTransactionsCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (GameTransactionsCountOutputTypeArgs)
-    ? GameTransactionsCountOutputType 
-    : S extends { select: any } & (GameTransactionsCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof GameTransactionsCountOutputType ? GameTransactionsCountOutputType[P] : never
-  } 
-      : GameTransactionsCountOutputType
-
-
-
-
-  // Custom InputTypes
-
-  /**
-   * GameTransactionsCountOutputType without action
-   */
-  export type GameTransactionsCountOutputTypeArgs = {
-    /**
-     * Select specific fields to fetch from the GameTransactionsCountOutputType
-     */
-    select?: GameTransactionsCountOutputTypeSelect | null
-  }
-
-
-
-  /**
-   * Count Type FishGameTransactionsCountOutputType
-   */
-
-
-  export type FishGameTransactionsCountOutputType = {
-    GameTransactions: number
-  }
-
-  export type FishGameTransactionsCountOutputTypeSelect = {
-    GameTransactions?: boolean
-  }
-
-  export type FishGameTransactionsCountOutputTypeGetPayload<S extends boolean | null | undefined | FishGameTransactionsCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? FishGameTransactionsCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (FishGameTransactionsCountOutputTypeArgs)
-    ? FishGameTransactionsCountOutputType 
-    : S extends { select: any } & (FishGameTransactionsCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof FishGameTransactionsCountOutputType ? FishGameTransactionsCountOutputType[P] : never
-  } 
-      : FishGameTransactionsCountOutputType
-
-
-
-
-  // Custom InputTypes
-
-  /**
-   * FishGameTransactionsCountOutputType without action
-   */
-  export type FishGameTransactionsCountOutputTypeArgs = {
-    /**
-     * Select specific fields to fetch from the FishGameTransactionsCountOutputType
-     */
-    select?: FishGameTransactionsCountOutputTypeSelect | null
   }
 
 
@@ -1813,7 +1693,6 @@ export namespace Prisma {
     cashier?: boolean | Admin$cashierArgs
     Player?: boolean | Admin$PlayerArgs
     PlayerBalanceTransactions?: boolean | Admin$PlayerBalanceTransactionsArgs
-    GameTransactions?: boolean | Admin$GameTransactionsArgs
     master_id?: boolean
     totalSpent?: boolean
     totalRedeem?: boolean
@@ -1830,7 +1709,6 @@ export namespace Prisma {
     cashier?: boolean | Admin$cashierArgs
     Player?: boolean | Admin$PlayerArgs
     PlayerBalanceTransactions?: boolean | Admin$PlayerBalanceTransactionsArgs
-    GameTransactions?: boolean | Admin$GameTransactionsArgs
     _count?: boolean | AdminCountOutputTypeArgs
   }
 
@@ -1848,7 +1726,6 @@ export namespace Prisma {
         P extends 'cashier' ? Array < AdminBalanceTransactionsGetPayload<S['include'][P]>>  :
         P extends 'Player' ? Array < PlayerGetPayload<S['include'][P]>>  :
         P extends 'PlayerBalanceTransactions' ? Array < PlayerBalanceTransactionsGetPayload<S['include'][P]>>  :
-        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['include'][P]>>  :
         P extends '_count' ? AdminCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (AdminArgs | AdminFindManyArgs)
@@ -1861,7 +1738,6 @@ export namespace Prisma {
         P extends 'cashier' ? Array < AdminBalanceTransactionsGetPayload<S['select'][P]>>  :
         P extends 'Player' ? Array < PlayerGetPayload<S['select'][P]>>  :
         P extends 'PlayerBalanceTransactions' ? Array < PlayerBalanceTransactionsGetPayload<S['select'][P]>>  :
-        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['select'][P]>>  :
         P extends '_count' ? AdminCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Admin ? Admin[P] : never
   } 
       : Admin
@@ -2274,8 +2150,6 @@ export namespace Prisma {
     Player<T extends Admin$PlayerArgs= {}>(args?: Subset<T, Admin$PlayerArgs>): Prisma.PrismaPromise<Array<PlayerGetPayload<T>>| Null>;
 
     PlayerBalanceTransactions<T extends Admin$PlayerBalanceTransactionsArgs= {}>(args?: Subset<T, Admin$PlayerBalanceTransactionsArgs>): Prisma.PrismaPromise<Array<PlayerBalanceTransactionsGetPayload<T>>| Null>;
-
-    GameTransactions<T extends Admin$GameTransactionsArgs= {}>(args?: Subset<T, Admin$GameTransactionsArgs>): Prisma.PrismaPromise<Array<GameTransactionsGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -2763,27 +2637,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<PlayerBalanceTransactionsScalarFieldEnum>
-  }
-
-
-  /**
-   * Admin.GameTransactions
-   */
-  export type Admin$GameTransactionsArgs = {
-    /**
-     * Select specific fields to fetch from the GameTransactions
-     */
-    select?: GameTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: GameTransactionsInclude | null
-    where?: GameTransactionsWhereInput
-    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
-    cursor?: GameTransactionsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<GameTransactionsScalarFieldEnum>
   }
 
 
@@ -12802,985 +12655,6 @@ export namespace Prisma {
 
 
   /**
-   * Model SlotTransactions
-   */
-
-
-  export type AggregateSlotTransactions = {
-    _count: SlotTransactionsCountAggregateOutputType | null
-    _min: SlotTransactionsMinAggregateOutputType | null
-    _max: SlotTransactionsMaxAggregateOutputType | null
-  }
-
-  export type SlotTransactionsMinAggregateOutputType = {
-    id: string | null
-    transaction_id: string | null
-    status: SlotStatus | null
-    createdAt: Date | null
-  }
-
-  export type SlotTransactionsMaxAggregateOutputType = {
-    id: string | null
-    transaction_id: string | null
-    status: SlotStatus | null
-    createdAt: Date | null
-  }
-
-  export type SlotTransactionsCountAggregateOutputType = {
-    id: number
-    transaction_id: number
-    status: number
-    createdAt: number
-    _all: number
-  }
-
-
-  export type SlotTransactionsMinAggregateInputType = {
-    id?: true
-    transaction_id?: true
-    status?: true
-    createdAt?: true
-  }
-
-  export type SlotTransactionsMaxAggregateInputType = {
-    id?: true
-    transaction_id?: true
-    status?: true
-    createdAt?: true
-  }
-
-  export type SlotTransactionsCountAggregateInputType = {
-    id?: true
-    transaction_id?: true
-    status?: true
-    createdAt?: true
-    _all?: true
-  }
-
-  export type SlotTransactionsAggregateArgs = {
-    /**
-     * Filter which SlotTransactions to aggregate.
-     */
-    where?: SlotTransactionsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of SlotTransactions to fetch.
-     */
-    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SlotTransactionsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` SlotTransactions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` SlotTransactions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned SlotTransactions
-    **/
-    _count?: true | SlotTransactionsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SlotTransactionsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SlotTransactionsMaxAggregateInputType
-  }
-
-  export type GetSlotTransactionsAggregateType<T extends SlotTransactionsAggregateArgs> = {
-        [P in keyof T & keyof AggregateSlotTransactions]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSlotTransactions[P]>
-      : GetScalarType<T[P], AggregateSlotTransactions[P]>
-  }
-
-
-
-
-  export type SlotTransactionsGroupByArgs = {
-    where?: SlotTransactionsWhereInput
-    orderBy?: Enumerable<SlotTransactionsOrderByWithAggregationInput>
-    by: SlotTransactionsScalarFieldEnum[]
-    having?: SlotTransactionsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SlotTransactionsCountAggregateInputType | true
-    _min?: SlotTransactionsMinAggregateInputType
-    _max?: SlotTransactionsMaxAggregateInputType
-  }
-
-
-  export type SlotTransactionsGroupByOutputType = {
-    id: string
-    transaction_id: string | null
-    status: SlotStatus | null
-    createdAt: Date
-    _count: SlotTransactionsCountAggregateOutputType | null
-    _min: SlotTransactionsMinAggregateOutputType | null
-    _max: SlotTransactionsMaxAggregateOutputType | null
-  }
-
-  type GetSlotTransactionsGroupByPayload<T extends SlotTransactionsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickArray<SlotTransactionsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SlotTransactionsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SlotTransactionsGroupByOutputType[P]>
-            : GetScalarType<T[P], SlotTransactionsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SlotTransactionsSelect = {
-    id?: boolean
-    transaction_id?: boolean
-    status?: boolean
-    Transaction?: boolean | GameTransactionsArgs
-    createdAt?: boolean
-  }
-
-
-  export type SlotTransactionsInclude = {
-    Transaction?: boolean | GameTransactionsArgs
-  }
-
-  export type SlotTransactionsGetPayload<S extends boolean | null | undefined | SlotTransactionsArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? SlotTransactions :
-    S extends undefined ? never :
-    S extends { include: any } & (SlotTransactionsArgs | SlotTransactionsFindManyArgs)
-    ? SlotTransactions  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'Transaction' ? GameTransactionsGetPayload<S['include'][P]> | null :  never
-  } 
-    : S extends { select: any } & (SlotTransactionsArgs | SlotTransactionsFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'Transaction' ? GameTransactionsGetPayload<S['select'][P]> | null :  P extends keyof SlotTransactions ? SlotTransactions[P] : never
-  } 
-      : SlotTransactions
-
-
-  type SlotTransactionsCountArgs = 
-    Omit<SlotTransactionsFindManyArgs, 'select' | 'include'> & {
-      select?: SlotTransactionsCountAggregateInputType | true
-    }
-
-  export interface SlotTransactionsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
-    /**
-     * Find zero or one SlotTransactions that matches the filter.
-     * @param {SlotTransactionsFindUniqueArgs} args - Arguments to find a SlotTransactions
-     * @example
-     * // Get one SlotTransactions
-     * const slotTransactions = await prisma.slotTransactions.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends SlotTransactionsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, SlotTransactionsFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'SlotTransactions'> extends True ? Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>> : Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T> | null, null>
-
-    /**
-     * Find one SlotTransactions that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {SlotTransactionsFindUniqueOrThrowArgs} args - Arguments to find a SlotTransactions
-     * @example
-     * // Get one SlotTransactions
-     * const slotTransactions = await prisma.slotTransactions.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends SlotTransactionsFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, SlotTransactionsFindUniqueOrThrowArgs>
-    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
-
-    /**
-     * Find the first SlotTransactions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SlotTransactionsFindFirstArgs} args - Arguments to find a SlotTransactions
-     * @example
-     * // Get one SlotTransactions
-     * const slotTransactions = await prisma.slotTransactions.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends SlotTransactionsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, SlotTransactionsFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'SlotTransactions'> extends True ? Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>> : Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T> | null, null>
-
-    /**
-     * Find the first SlotTransactions that matches the filter or
-     * throw `NotFoundError` if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SlotTransactionsFindFirstOrThrowArgs} args - Arguments to find a SlotTransactions
-     * @example
-     * // Get one SlotTransactions
-     * const slotTransactions = await prisma.slotTransactions.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends SlotTransactionsFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, SlotTransactionsFindFirstOrThrowArgs>
-    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
-
-    /**
-     * Find zero or more SlotTransactions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SlotTransactionsFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all SlotTransactions
-     * const slotTransactions = await prisma.slotTransactions.findMany()
-     * 
-     * // Get first 10 SlotTransactions
-     * const slotTransactions = await prisma.slotTransactions.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const slotTransactionsWithIdOnly = await prisma.slotTransactions.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends SlotTransactionsFindManyArgs>(
-      args?: SelectSubset<T, SlotTransactionsFindManyArgs>
-    ): Prisma.PrismaPromise<Array<SlotTransactionsGetPayload<T>>>
-
-    /**
-     * Create a SlotTransactions.
-     * @param {SlotTransactionsCreateArgs} args - Arguments to create a SlotTransactions.
-     * @example
-     * // Create one SlotTransactions
-     * const SlotTransactions = await prisma.slotTransactions.create({
-     *   data: {
-     *     // ... data to create a SlotTransactions
-     *   }
-     * })
-     * 
-    **/
-    create<T extends SlotTransactionsCreateArgs>(
-      args: SelectSubset<T, SlotTransactionsCreateArgs>
-    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
-
-    /**
-     * Create many SlotTransactions.
-     *     @param {SlotTransactionsCreateManyArgs} args - Arguments to create many SlotTransactions.
-     *     @example
-     *     // Create many SlotTransactions
-     *     const slotTransactions = await prisma.slotTransactions.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends SlotTransactionsCreateManyArgs>(
-      args?: SelectSubset<T, SlotTransactionsCreateManyArgs>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a SlotTransactions.
-     * @param {SlotTransactionsDeleteArgs} args - Arguments to delete one SlotTransactions.
-     * @example
-     * // Delete one SlotTransactions
-     * const SlotTransactions = await prisma.slotTransactions.delete({
-     *   where: {
-     *     // ... filter to delete one SlotTransactions
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends SlotTransactionsDeleteArgs>(
-      args: SelectSubset<T, SlotTransactionsDeleteArgs>
-    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
-
-    /**
-     * Update one SlotTransactions.
-     * @param {SlotTransactionsUpdateArgs} args - Arguments to update one SlotTransactions.
-     * @example
-     * // Update one SlotTransactions
-     * const slotTransactions = await prisma.slotTransactions.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends SlotTransactionsUpdateArgs>(
-      args: SelectSubset<T, SlotTransactionsUpdateArgs>
-    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
-
-    /**
-     * Delete zero or more SlotTransactions.
-     * @param {SlotTransactionsDeleteManyArgs} args - Arguments to filter SlotTransactions to delete.
-     * @example
-     * // Delete a few SlotTransactions
-     * const { count } = await prisma.slotTransactions.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends SlotTransactionsDeleteManyArgs>(
-      args?: SelectSubset<T, SlotTransactionsDeleteManyArgs>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more SlotTransactions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SlotTransactionsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many SlotTransactions
-     * const slotTransactions = await prisma.slotTransactions.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends SlotTransactionsUpdateManyArgs>(
-      args: SelectSubset<T, SlotTransactionsUpdateManyArgs>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one SlotTransactions.
-     * @param {SlotTransactionsUpsertArgs} args - Arguments to update or create a SlotTransactions.
-     * @example
-     * // Update or create a SlotTransactions
-     * const slotTransactions = await prisma.slotTransactions.upsert({
-     *   create: {
-     *     // ... data to create a SlotTransactions
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the SlotTransactions we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends SlotTransactionsUpsertArgs>(
-      args: SelectSubset<T, SlotTransactionsUpsertArgs>
-    ): Prisma__SlotTransactionsClient<SlotTransactionsGetPayload<T>>
-
-    /**
-     * Find zero or more SlotTransactions that matches the filter.
-     * @param {SlotTransactionsFindRawArgs} args - Select which filters you would like to apply.
-     * @example
-     * const slotTransactions = await prisma.slotTransactions.findRaw({
-     *   filter: { age: { $gt: 25 } } 
-     * })
-    **/
-    findRaw(
-      args?: SlotTransactionsFindRawArgs
-    ): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Perform aggregation operations on a SlotTransactions.
-     * @param {SlotTransactionsAggregateRawArgs} args - Select which aggregations you would like to apply.
-     * @example
-     * const slotTransactions = await prisma.slotTransactions.aggregateRaw({
-     *   pipeline: [
-     *     { $match: { status: "registered" } },
-     *     { $group: { _id: "$country", total: { $sum: 1 } } }
-     *   ]
-     * })
-    **/
-    aggregateRaw(
-      args?: SlotTransactionsAggregateRawArgs
-    ): Prisma.PrismaPromise<JsonObject>
-
-    /**
-     * Count the number of SlotTransactions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SlotTransactionsCountArgs} args - Arguments to filter SlotTransactions to count.
-     * @example
-     * // Count the number of SlotTransactions
-     * const count = await prisma.slotTransactions.count({
-     *   where: {
-     *     // ... the filter for the SlotTransactions we want to count
-     *   }
-     * })
-    **/
-    count<T extends SlotTransactionsCountArgs>(
-      args?: Subset<T, SlotTransactionsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SlotTransactionsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a SlotTransactions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SlotTransactionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SlotTransactionsAggregateArgs>(args: Subset<T, SlotTransactionsAggregateArgs>): Prisma.PrismaPromise<GetSlotTransactionsAggregateType<T>>
-
-    /**
-     * Group by SlotTransactions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SlotTransactionsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SlotTransactionsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SlotTransactionsGroupByArgs['orderBy'] }
-        : { orderBy?: SlotTransactionsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SlotTransactionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSlotTransactionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for SlotTransactions.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export class Prisma__SlotTransactionsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
-    private readonly _dmmf;
-    private readonly _queryType;
-    private readonly _rootField;
-    private readonly _clientMethod;
-    private readonly _args;
-    private readonly _dataPath;
-    private readonly _errorFormat;
-    private readonly _measurePerformance?;
-    private _isList;
-    private _callsite;
-    private _requestPromise?;
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-
-    Transaction<T extends GameTransactionsArgs= {}>(args?: Subset<T, GameTransactionsArgs>): Prisma__GameTransactionsClient<GameTransactionsGetPayload<T> | Null>;
-
-    private get _document();
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
-  }
-
-
-
-  // Custom InputTypes
-
-  /**
-   * SlotTransactions base type for findUnique actions
-   */
-  export type SlotTransactionsFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    /**
-     * Filter, which SlotTransactions to fetch.
-     */
-    where: SlotTransactionsWhereUniqueInput
-  }
-
-  /**
-   * SlotTransactions findUnique
-   */
-  export interface SlotTransactionsFindUniqueArgs extends SlotTransactionsFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * SlotTransactions findUniqueOrThrow
-   */
-  export type SlotTransactionsFindUniqueOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    /**
-     * Filter, which SlotTransactions to fetch.
-     */
-    where: SlotTransactionsWhereUniqueInput
-  }
-
-
-  /**
-   * SlotTransactions base type for findFirst actions
-   */
-  export type SlotTransactionsFindFirstArgsBase = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    /**
-     * Filter, which SlotTransactions to fetch.
-     */
-    where?: SlotTransactionsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of SlotTransactions to fetch.
-     */
-    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for SlotTransactions.
-     */
-    cursor?: SlotTransactionsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` SlotTransactions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` SlotTransactions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of SlotTransactions.
-     */
-    distinct?: Enumerable<SlotTransactionsScalarFieldEnum>
-  }
-
-  /**
-   * SlotTransactions findFirst
-   */
-  export interface SlotTransactionsFindFirstArgs extends SlotTransactionsFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * SlotTransactions findFirstOrThrow
-   */
-  export type SlotTransactionsFindFirstOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    /**
-     * Filter, which SlotTransactions to fetch.
-     */
-    where?: SlotTransactionsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of SlotTransactions to fetch.
-     */
-    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for SlotTransactions.
-     */
-    cursor?: SlotTransactionsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` SlotTransactions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` SlotTransactions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of SlotTransactions.
-     */
-    distinct?: Enumerable<SlotTransactionsScalarFieldEnum>
-  }
-
-
-  /**
-   * SlotTransactions findMany
-   */
-  export type SlotTransactionsFindManyArgs = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    /**
-     * Filter, which SlotTransactions to fetch.
-     */
-    where?: SlotTransactionsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of SlotTransactions to fetch.
-     */
-    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing SlotTransactions.
-     */
-    cursor?: SlotTransactionsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` SlotTransactions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` SlotTransactions.
-     */
-    skip?: number
-    distinct?: Enumerable<SlotTransactionsScalarFieldEnum>
-  }
-
-
-  /**
-   * SlotTransactions create
-   */
-  export type SlotTransactionsCreateArgs = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    /**
-     * The data needed to create a SlotTransactions.
-     */
-    data: XOR<SlotTransactionsCreateInput, SlotTransactionsUncheckedCreateInput>
-  }
-
-
-  /**
-   * SlotTransactions createMany
-   */
-  export type SlotTransactionsCreateManyArgs = {
-    /**
-     * The data used to create many SlotTransactions.
-     */
-    data: Enumerable<SlotTransactionsCreateManyInput>
-  }
-
-
-  /**
-   * SlotTransactions update
-   */
-  export type SlotTransactionsUpdateArgs = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    /**
-     * The data needed to update a SlotTransactions.
-     */
-    data: XOR<SlotTransactionsUpdateInput, SlotTransactionsUncheckedUpdateInput>
-    /**
-     * Choose, which SlotTransactions to update.
-     */
-    where: SlotTransactionsWhereUniqueInput
-  }
-
-
-  /**
-   * SlotTransactions updateMany
-   */
-  export type SlotTransactionsUpdateManyArgs = {
-    /**
-     * The data used to update SlotTransactions.
-     */
-    data: XOR<SlotTransactionsUpdateManyMutationInput, SlotTransactionsUncheckedUpdateManyInput>
-    /**
-     * Filter which SlotTransactions to update
-     */
-    where?: SlotTransactionsWhereInput
-  }
-
-
-  /**
-   * SlotTransactions upsert
-   */
-  export type SlotTransactionsUpsertArgs = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    /**
-     * The filter to search for the SlotTransactions to update in case it exists.
-     */
-    where: SlotTransactionsWhereUniqueInput
-    /**
-     * In case the SlotTransactions found by the `where` argument doesn't exist, create a new SlotTransactions with this data.
-     */
-    create: XOR<SlotTransactionsCreateInput, SlotTransactionsUncheckedCreateInput>
-    /**
-     * In case the SlotTransactions was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SlotTransactionsUpdateInput, SlotTransactionsUncheckedUpdateInput>
-  }
-
-
-  /**
-   * SlotTransactions delete
-   */
-  export type SlotTransactionsDeleteArgs = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    /**
-     * Filter which SlotTransactions to delete.
-     */
-    where: SlotTransactionsWhereUniqueInput
-  }
-
-
-  /**
-   * SlotTransactions deleteMany
-   */
-  export type SlotTransactionsDeleteManyArgs = {
-    /**
-     * Filter which SlotTransactions to delete
-     */
-    where?: SlotTransactionsWhereInput
-  }
-
-
-  /**
-   * SlotTransactions findRaw
-   */
-  export type SlotTransactionsFindRawArgs = {
-    /**
-     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
-     */
-    filter?: InputJsonValue
-    /**
-     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-
-  /**
-   * SlotTransactions aggregateRaw
-   */
-  export type SlotTransactionsAggregateRawArgs = {
-    /**
-     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
-     */
-    pipeline?: InputJsonValue[]
-    /**
-     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
-     */
-    options?: InputJsonValue
-  }
-
-
-  /**
-   * SlotTransactions without action
-   */
-  export type SlotTransactionsArgs = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-  }
-
-
-
-  /**
    * Model GameTransactions
    */
 
@@ -13816,8 +12690,6 @@ export namespace Prisma {
     user_id: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    room_id: string | null
-    fish_transaction_id: string | null
   }
 
   export type GameTransactionsMaxAggregateOutputType = {
@@ -13833,8 +12705,6 @@ export namespace Prisma {
     user_id: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    room_id: string | null
-    fish_transaction_id: string | null
   }
 
   export type GameTransactionsCountAggregateOutputType = {
@@ -13850,8 +12720,6 @@ export namespace Prisma {
     user_id: number
     createdAt: number
     updatedAt: number
-    room_id: number
-    fish_transaction_id: number
     _all: number
   }
 
@@ -13879,8 +12747,6 @@ export namespace Prisma {
     user_id?: true
     createdAt?: true
     updatedAt?: true
-    room_id?: true
-    fish_transaction_id?: true
   }
 
   export type GameTransactionsMaxAggregateInputType = {
@@ -13896,8 +12762,6 @@ export namespace Prisma {
     user_id?: true
     createdAt?: true
     updatedAt?: true
-    room_id?: true
-    fish_transaction_id?: true
   }
 
   export type GameTransactionsCountAggregateInputType = {
@@ -13913,8 +12777,6 @@ export namespace Prisma {
     user_id?: true
     createdAt?: true
     updatedAt?: true
-    room_id?: true
-    fish_transaction_id?: true
     _all?: true
   }
 
@@ -14018,8 +12880,6 @@ export namespace Prisma {
     user_id: string | null
     createdAt: Date
     updatedAt: Date | null
-    room_id: string | null
-    fish_transaction_id: string | null
     _count: GameTransactionsCountAggregateOutputType | null
     _avg: GameTransactionsAvgAggregateOutputType | null
     _sum: GameTransactionsSumAggregateOutputType | null
@@ -14056,22 +12916,12 @@ export namespace Prisma {
     updatedAt?: boolean
     Game?: boolean | GamesArgs
     Player?: boolean | PlayerArgs
-    Admin?: boolean | AdminArgs
-    SlotTransactions?: boolean | GameTransactions$SlotTransactionsArgs
-    room_id?: boolean
-    fish_transaction_id?: boolean
-    FishGameTransactions?: boolean | FishGameTransactionsArgs
-    _count?: boolean | GameTransactionsCountOutputTypeArgs
   }
 
 
   export type GameTransactionsInclude = {
     Game?: boolean | GamesArgs
     Player?: boolean | PlayerArgs
-    Admin?: boolean | AdminArgs
-    SlotTransactions?: boolean | GameTransactions$SlotTransactionsArgs
-    FishGameTransactions?: boolean | FishGameTransactionsArgs
-    _count?: boolean | GameTransactionsCountOutputTypeArgs
   }
 
   export type GameTransactionsGetPayload<S extends boolean | null | undefined | GameTransactionsArgs> =
@@ -14082,21 +12932,13 @@ export namespace Prisma {
     ? GameTransactions  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'Game' ? GamesGetPayload<S['include'][P]> | null :
-        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :
-        P extends 'Admin' ? AdminGetPayload<S['include'][P]> | null :
-        P extends 'SlotTransactions' ? Array < SlotTransactionsGetPayload<S['include'][P]>>  :
-        P extends 'FishGameTransactions' ? FishGameTransactionsGetPayload<S['include'][P]> | null :
-        P extends '_count' ? GameTransactionsCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :  never
   } 
     : S extends { select: any } & (GameTransactionsArgs | GameTransactionsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'Game' ? GamesGetPayload<S['select'][P]> | null :
-        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :
-        P extends 'Admin' ? AdminGetPayload<S['select'][P]> | null :
-        P extends 'SlotTransactions' ? Array < SlotTransactionsGetPayload<S['select'][P]>>  :
-        P extends 'FishGameTransactions' ? FishGameTransactionsGetPayload<S['select'][P]> | null :
-        P extends '_count' ? GameTransactionsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof GameTransactions ? GameTransactions[P] : never
+        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :  P extends keyof GameTransactions ? GameTransactions[P] : never
   } 
       : GameTransactions
 
@@ -14499,12 +13341,6 @@ export namespace Prisma {
 
     Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
 
-    Admin<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
-
-    SlotTransactions<T extends GameTransactions$SlotTransactionsArgs= {}>(args?: Subset<T, GameTransactions$SlotTransactionsArgs>): Prisma.PrismaPromise<Array<SlotTransactionsGetPayload<T>>| Null>;
-
-    FishGameTransactions<T extends FishGameTransactionsArgs= {}>(args?: Subset<T, FishGameTransactionsArgs>): Prisma__FishGameTransactionsClient<FishGameTransactionsGetPayload<T> | Null>;
-
     private get _document();
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -14890,27 +13726,6 @@ export namespace Prisma {
 
 
   /**
-   * GameTransactions.SlotTransactions
-   */
-  export type GameTransactions$SlotTransactionsArgs = {
-    /**
-     * Select specific fields to fetch from the SlotTransactions
-     */
-    select?: SlotTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SlotTransactionsInclude | null
-    where?: SlotTransactionsWhereInput
-    orderBy?: Enumerable<SlotTransactionsOrderByWithRelationInput>
-    cursor?: SlotTransactionsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<SlotTransactionsScalarFieldEnum>
-  }
-
-
-  /**
    * GameTransactions without action
    */
   export type GameTransactionsArgs = {
@@ -15102,16 +13917,12 @@ export namespace Prisma {
     ended?: boolean
     Game?: boolean | GamesArgs
     Player?: boolean | PlayerArgs
-    GameTransactions?: boolean | FishGameTransactions$GameTransactionsArgs
-    _count?: boolean | FishGameTransactionsCountOutputTypeArgs
   }
 
 
   export type FishGameTransactionsInclude = {
     Game?: boolean | GamesArgs
     Player?: boolean | PlayerArgs
-    GameTransactions?: boolean | FishGameTransactions$GameTransactionsArgs
-    _count?: boolean | FishGameTransactionsCountOutputTypeArgs
   }
 
   export type FishGameTransactionsGetPayload<S extends boolean | null | undefined | FishGameTransactionsArgs> =
@@ -15122,17 +13933,13 @@ export namespace Prisma {
     ? FishGameTransactions  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'Game' ? GamesGetPayload<S['include'][P]> | null :
-        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :
-        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['include'][P]>>  :
-        P extends '_count' ? FishGameTransactionsCountOutputTypeGetPayload<S['include'][P]> :  never
+        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :  never
   } 
     : S extends { select: any } & (FishGameTransactionsArgs | FishGameTransactionsFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'Game' ? GamesGetPayload<S['select'][P]> | null :
-        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :
-        P extends 'GameTransactions' ? Array < GameTransactionsGetPayload<S['select'][P]>>  :
-        P extends '_count' ? FishGameTransactionsCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof FishGameTransactions ? FishGameTransactions[P] : never
+        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :  P extends keyof FishGameTransactions ? FishGameTransactions[P] : never
   } 
       : FishGameTransactions
 
@@ -15535,8 +14342,6 @@ export namespace Prisma {
 
     Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
 
-    GameTransactions<T extends FishGameTransactions$GameTransactionsArgs= {}>(args?: Subset<T, FishGameTransactions$GameTransactionsArgs>): Prisma.PrismaPromise<Array<GameTransactionsGetPayload<T>>| Null>;
-
     private get _document();
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -15918,27 +14723,6 @@ export namespace Prisma {
      * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
      */
     options?: InputJsonValue
-  }
-
-
-  /**
-   * FishGameTransactions.GameTransactions
-   */
-  export type FishGameTransactions$GameTransactionsArgs = {
-    /**
-     * Select specific fields to fetch from the GameTransactions
-     */
-    select?: GameTransactionsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: GameTransactionsInclude | null
-    where?: GameTransactionsWhereInput
-    orderBy?: Enumerable<GameTransactionsOrderByWithRelationInput>
-    cursor?: GameTransactionsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Enumerable<GameTransactionsScalarFieldEnum>
   }
 
 
@@ -19199,9 +17983,7 @@ export namespace Prisma {
     player_id: 'player_id',
     user_id: 'user_id',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    room_id: 'room_id',
-    fish_transaction_id: 'fish_transaction_id'
+    updatedAt: 'updatedAt'
   };
 
   export type GameTransactionsScalarFieldEnum = (typeof GameTransactionsScalarFieldEnum)[keyof typeof GameTransactionsScalarFieldEnum]
@@ -19340,16 +18122,6 @@ export namespace Prisma {
   export type SlotFreeBonusScalarFieldEnum = (typeof SlotFreeBonusScalarFieldEnum)[keyof typeof SlotFreeBonusScalarFieldEnum]
 
 
-  export const SlotTransactionsScalarFieldEnum: {
-    id: 'id',
-    transaction_id: 'transaction_id',
-    status: 'status',
-    createdAt: 'createdAt'
-  };
-
-  export type SlotTransactionsScalarFieldEnum = (typeof SlotTransactionsScalarFieldEnum)[keyof typeof SlotTransactionsScalarFieldEnum]
-
-
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -19397,7 +18169,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsListRelationFilter
     Player?: PlayerListRelationFilter
     PlayerBalanceTransactions?: PlayerBalanceTransactionsListRelationFilter
-    GameTransactions?: GameTransactionsListRelationFilter
     master_id?: StringNullableFilter | string | null
     totalSpent?: FloatFilter | number
     totalRedeem?: FloatFilter | number
@@ -19424,7 +18195,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsOrderByRelationAggregateInput
     Player?: PlayerOrderByRelationAggregateInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsOrderByRelationAggregateInput
-    GameTransactions?: GameTransactionsOrderByRelationAggregateInput
     master_id?: SortOrder
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
@@ -20130,49 +18900,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
-  export type SlotTransactionsWhereInput = {
-    AND?: Enumerable<SlotTransactionsWhereInput>
-    OR?: Enumerable<SlotTransactionsWhereInput>
-    NOT?: Enumerable<SlotTransactionsWhereInput>
-    id?: StringFilter | string
-    transaction_id?: StringNullableFilter | string | null
-    status?: EnumSlotStatusNullableFilter | SlotStatus | null
-    Transaction?: XOR<GameTransactionsRelationFilter, GameTransactionsWhereInput> | null
-    createdAt?: DateTimeFilter | Date | string
-  }
-
-  export type SlotTransactionsOrderByWithRelationInput = {
-    id?: SortOrder
-    transaction_id?: SortOrder
-    status?: SortOrder
-    Transaction?: GameTransactionsOrderByWithRelationInput
-    createdAt?: SortOrder
-  }
-
-  export type SlotTransactionsWhereUniqueInput = {
-    id?: string
-  }
-
-  export type SlotTransactionsOrderByWithAggregationInput = {
-    id?: SortOrder
-    transaction_id?: SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-    _count?: SlotTransactionsCountOrderByAggregateInput
-    _max?: SlotTransactionsMaxOrderByAggregateInput
-    _min?: SlotTransactionsMinOrderByAggregateInput
-  }
-
-  export type SlotTransactionsScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<SlotTransactionsScalarWhereWithAggregatesInput>
-    OR?: Enumerable<SlotTransactionsScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<SlotTransactionsScalarWhereWithAggregatesInput>
-    id?: StringWithAggregatesFilter | string
-    transaction_id?: StringNullableWithAggregatesFilter | string | null
-    status?: EnumSlotStatusNullableWithAggregatesFilter | SlotStatus | null
-    createdAt?: DateTimeWithAggregatesFilter | Date | string
-  }
-
   export type GameTransactionsWhereInput = {
     AND?: Enumerable<GameTransactionsWhereInput>
     OR?: Enumerable<GameTransactionsWhereInput>
@@ -20191,11 +18918,6 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableFilter | Date | string | null
     Game?: XOR<GamesRelationFilter, GamesWhereInput> | null
     Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
-    Admin?: XOR<AdminRelationFilter, AdminWhereInput> | null
-    SlotTransactions?: SlotTransactionsListRelationFilter
-    room_id?: StringNullableFilter | string | null
-    fish_transaction_id?: StringNullableFilter | string | null
-    FishGameTransactions?: XOR<FishGameTransactionsRelationFilter, FishGameTransactionsWhereInput> | null
   }
 
   export type GameTransactionsOrderByWithRelationInput = {
@@ -20213,11 +18935,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     Game?: GamesOrderByWithRelationInput
     Player?: PlayerOrderByWithRelationInput
-    Admin?: AdminOrderByWithRelationInput
-    SlotTransactions?: SlotTransactionsOrderByRelationAggregateInput
-    room_id?: SortOrder
-    fish_transaction_id?: SortOrder
-    FishGameTransactions?: FishGameTransactionsOrderByWithRelationInput
   }
 
   export type GameTransactionsWhereUniqueInput = {
@@ -20237,8 +18954,6 @@ export namespace Prisma {
     user_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    room_id?: SortOrder
-    fish_transaction_id?: SortOrder
     _count?: GameTransactionsCountOrderByAggregateInput
     _avg?: GameTransactionsAvgOrderByAggregateInput
     _max?: GameTransactionsMaxOrderByAggregateInput
@@ -20262,8 +18977,6 @@ export namespace Prisma {
     user_id?: StringNullableWithAggregatesFilter | string | null
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
-    room_id?: StringNullableWithAggregatesFilter | string | null
-    fish_transaction_id?: StringNullableWithAggregatesFilter | string | null
   }
 
   export type FishGameTransactionsWhereInput = {
@@ -20278,7 +18991,6 @@ export namespace Prisma {
     ended?: DateTimeNullableFilter | Date | string | null
     Game?: XOR<GamesRelationFilter, GamesWhereInput> | null
     Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
-    GameTransactions?: GameTransactionsListRelationFilter
   }
 
   export type FishGameTransactionsOrderByWithRelationInput = {
@@ -20290,7 +19002,6 @@ export namespace Prisma {
     ended?: SortOrder
     Game?: GamesOrderByWithRelationInput
     Player?: PlayerOrderByWithRelationInput
-    GameTransactions?: GameTransactionsOrderByRelationAggregateInput
   }
 
   export type FishGameTransactionsWhereUniqueInput = {
@@ -20539,7 +19250,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -20564,7 +19274,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -20588,7 +19297,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -20612,7 +19320,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -21494,50 +20201,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SlotTransactionsCreateInput = {
-    id?: string
-    status?: SlotStatus | null
-    Transaction?: GameTransactionsCreateNestedOneWithoutSlotTransactionsInput
-    createdAt?: Date | string
-  }
-
-  export type SlotTransactionsUncheckedCreateInput = {
-    id?: string
-    transaction_id?: string | null
-    status?: SlotStatus | null
-    createdAt?: Date | string
-  }
-
-  export type SlotTransactionsUpdateInput = {
-    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
-    Transaction?: GameTransactionsUpdateOneWithoutSlotTransactionsNestedInput
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SlotTransactionsUncheckedUpdateInput = {
-    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SlotTransactionsCreateManyInput = {
-    id?: string
-    transaction_id?: string | null
-    status?: SlotStatus | null
-    createdAt?: Date | string
-  }
-
-  export type SlotTransactionsUpdateManyMutationInput = {
-    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SlotTransactionsUncheckedUpdateManyInput = {
-    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type GameTransactionsCreateInput = {
     id?: string
     date?: string | null
@@ -21546,14 +20209,11 @@ export namespace Prisma {
     spent?: number | null
     won?: number | null
     winType?: string | null
+    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     Game?: GamesCreateNestedOneWithoutGameTransactionInput
     Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
-    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
-    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
   }
 
   export type GameTransactionsUncheckedCreateInput = {
@@ -21569,9 +20229,6 @@ export namespace Prisma {
     user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-    fish_transaction_id?: string | null
   }
 
   export type GameTransactionsUpdateInput = {
@@ -21581,14 +20238,11 @@ export namespace Prisma {
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
     winType?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Game?: GamesUpdateOneWithoutGameTransactionNestedInput
     Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
-    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
-    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
   }
 
   export type GameTransactionsUncheckedUpdateInput = {
@@ -21603,9 +20257,6 @@ export namespace Prisma {
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GameTransactionsCreateManyInput = {
@@ -21621,8 +20272,6 @@ export namespace Prisma {
     user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
-    room_id?: string | null
-    fish_transaction_id?: string | null
   }
 
   export type GameTransactionsUpdateManyMutationInput = {
@@ -21632,9 +20281,9 @@ export namespace Prisma {
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
     winType?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GameTransactionsUncheckedUpdateManyInput = {
@@ -21649,8 +20298,6 @@ export namespace Prisma {
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FishGameTransactionsCreateInput = {
@@ -21660,7 +20307,6 @@ export namespace Prisma {
     ended?: Date | string | null
     Game?: GamesCreateNestedOneWithoutFishGameTransactionsInput
     Player?: PlayerCreateNestedOneWithoutFishGameTransactionsInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutFishGameTransactionsInput
   }
 
   export type FishGameTransactionsUncheckedCreateInput = {
@@ -21670,7 +20316,6 @@ export namespace Prisma {
     game_id?: string | null
     started?: Date | string
     ended?: Date | string | null
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutFishGameTransactionsInput
   }
 
   export type FishGameTransactionsUpdateInput = {
@@ -21679,7 +20324,6 @@ export namespace Prisma {
     ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Game?: GamesUpdateOneWithoutFishGameTransactionsNestedInput
     Player?: PlayerUpdateOneWithoutFishGameTransactionsNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutFishGameTransactionsNestedInput
   }
 
   export type FishGameTransactionsUncheckedUpdateInput = {
@@ -21688,7 +20332,6 @@ export namespace Prisma {
     game_id?: NullableStringFieldUpdateOperationsInput | string | null
     started?: DateTimeFieldUpdateOperationsInput | Date | string
     ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsNestedInput
   }
 
   export type FishGameTransactionsCreateManyInput = {
@@ -22059,12 +20702,6 @@ export namespace Prisma {
     none?: PlayerBalanceTransactionsWhereInput
   }
 
-  export type GameTransactionsListRelationFilter = {
-    every?: GameTransactionsWhereInput
-    some?: GameTransactionsWhereInput
-    none?: GameTransactionsWhereInput
-  }
-
   export type AdminOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -22078,10 +20715,6 @@ export namespace Prisma {
   }
 
   export type PlayerBalanceTransactionsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type GameTransactionsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22541,6 +21174,12 @@ export namespace Prisma {
     isNot?: ActiveGamePlayWhereInput | null
   }
 
+  export type GameTransactionsListRelationFilter = {
+    every?: GameTransactionsWhereInput
+    some?: GameTransactionsWhereInput
+    none?: GameTransactionsWhereInput
+  }
+
   export type FishGameTransactionsListRelationFilter = {
     every?: FishGameTransactionsWhereInput
     some?: FishGameTransactionsWhereInput
@@ -22569,6 +21208,10 @@ export namespace Prisma {
     every?: SpinTimeWhereInput
     some?: SpinTimeWhereInput
     none?: SpinTimeWhereInput
+  }
+
+  export type GameTransactionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type FishGameTransactionsOrderByRelationAggregateInput = {
@@ -22893,51 +21536,6 @@ export namespace Prisma {
     maxWin?: SortOrder
   }
 
-  export type EnumSlotStatusNullableFilter = {
-    equals?: SlotStatus | null
-    in?: Enumerable<SlotStatus> | null
-    notIn?: Enumerable<SlotStatus> | null
-    not?: NestedEnumSlotStatusNullableFilter | SlotStatus | null
-    isSet?: boolean
-  }
-
-  export type GameTransactionsRelationFilter = {
-    is?: GameTransactionsWhereInput | null
-    isNot?: GameTransactionsWhereInput | null
-  }
-
-  export type SlotTransactionsCountOrderByAggregateInput = {
-    id?: SortOrder
-    transaction_id?: SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type SlotTransactionsMaxOrderByAggregateInput = {
-    id?: SortOrder
-    transaction_id?: SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type SlotTransactionsMinOrderByAggregateInput = {
-    id?: SortOrder
-    transaction_id?: SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type EnumSlotStatusNullableWithAggregatesFilter = {
-    equals?: SlotStatus | null
-    in?: Enumerable<SlotStatus> | null
-    notIn?: Enumerable<SlotStatus> | null
-    not?: NestedEnumSlotStatusNullableWithAggregatesFilter | SlotStatus | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumSlotStatusNullableFilter
-    _max?: NestedEnumSlotStatusNullableFilter
-    isSet?: boolean
-  }
-
   export type FloatNullableFilter = {
     equals?: number | null
     in?: Enumerable<number> | null
@@ -22962,21 +21560,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type SlotTransactionsListRelationFilter = {
-    every?: SlotTransactionsWhereInput
-    some?: SlotTransactionsWhereInput
-    none?: SlotTransactionsWhereInput
-  }
-
-  export type FishGameTransactionsRelationFilter = {
-    is?: FishGameTransactionsWhereInput | null
-    isNot?: FishGameTransactionsWhereInput | null
-  }
-
-  export type SlotTransactionsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type GameTransactionsCountOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
@@ -22990,8 +21573,6 @@ export namespace Prisma {
     user_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    room_id?: SortOrder
-    fish_transaction_id?: SortOrder
   }
 
   export type GameTransactionsAvgOrderByAggregateInput = {
@@ -23012,8 +21593,6 @@ export namespace Prisma {
     user_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    room_id?: SortOrder
-    fish_transaction_id?: SortOrder
   }
 
   export type GameTransactionsMinOrderByAggregateInput = {
@@ -23029,8 +21608,6 @@ export namespace Prisma {
     user_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    room_id?: SortOrder
-    fish_transaction_id?: SortOrder
   }
 
   export type GameTransactionsSumOrderByAggregateInput = {
@@ -23318,13 +21895,6 @@ export namespace Prisma {
     connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
   }
 
-  export type GameTransactionsCreateNestedManyWithoutAdminInput = {
-    create?: XOR<Enumerable<GameTransactionsCreateWithoutAdminInput>, Enumerable<GameTransactionsUncheckedCreateWithoutAdminInput>>
-    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutAdminInput>
-    createMany?: GameTransactionsCreateManyAdminInputEnvelope
-    connect?: Enumerable<GameTransactionsWhereUniqueInput>
-  }
-
   export type AdminUncheckedCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
     connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
@@ -23358,13 +21928,6 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutAdminInput>
     createMany?: PlayerBalanceTransactionsCreateManyAdminInputEnvelope
     connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
-  }
-
-  export type GameTransactionsUncheckedCreateNestedManyWithoutAdminInput = {
-    create?: XOR<Enumerable<GameTransactionsCreateWithoutAdminInput>, Enumerable<GameTransactionsUncheckedCreateWithoutAdminInput>>
-    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutAdminInput>
-    createMany?: GameTransactionsCreateManyAdminInputEnvelope
-    connect?: Enumerable<GameTransactionsWhereUniqueInput>
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -23487,20 +22050,6 @@ export namespace Prisma {
     deleteMany?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
   }
 
-  export type GameTransactionsUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<Enumerable<GameTransactionsCreateWithoutAdminInput>, Enumerable<GameTransactionsUncheckedCreateWithoutAdminInput>>
-    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutAdminInput>
-    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutAdminInput>
-    createMany?: GameTransactionsCreateManyAdminInputEnvelope
-    set?: Enumerable<GameTransactionsWhereUniqueInput>
-    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
-    delete?: Enumerable<GameTransactionsWhereUniqueInput>
-    connect?: Enumerable<GameTransactionsWhereUniqueInput>
-    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutAdminInput>
-    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutAdminInput>
-    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
-  }
-
   export type AdminUncheckedUpdateManyWithoutCreatedByNestedInput = {
     create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
     connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
@@ -23569,20 +22118,6 @@ export namespace Prisma {
     update?: Enumerable<PlayerBalanceTransactionsUpdateWithWhereUniqueWithoutAdminInput>
     updateMany?: Enumerable<PlayerBalanceTransactionsUpdateManyWithWhereWithoutAdminInput>
     deleteMany?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
-  }
-
-  export type GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<Enumerable<GameTransactionsCreateWithoutAdminInput>, Enumerable<GameTransactionsUncheckedCreateWithoutAdminInput>>
-    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutAdminInput>
-    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutAdminInput>
-    createMany?: GameTransactionsCreateManyAdminInputEnvelope
-    set?: Enumerable<GameTransactionsWhereUniqueInput>
-    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
-    delete?: Enumerable<GameTransactionsWhereUniqueInput>
-    connect?: Enumerable<GameTransactionsWhereUniqueInput>
-    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutAdminInput>
-    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutAdminInput>
-    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
   }
 
   export type AdminCreateNestedOneWithoutAccountInput = {
@@ -24443,27 +22978,6 @@ export namespace Prisma {
     update?: XOR<GamesUpdateWithoutActiveGamePlayInput, GamesUncheckedUpdateWithoutActiveGamePlayInput>
   }
 
-  export type GameTransactionsCreateNestedOneWithoutSlotTransactionsInput = {
-    create?: XOR<GameTransactionsCreateWithoutSlotTransactionsInput, GameTransactionsUncheckedCreateWithoutSlotTransactionsInput>
-    connectOrCreate?: GameTransactionsCreateOrConnectWithoutSlotTransactionsInput
-    connect?: GameTransactionsWhereUniqueInput
-  }
-
-  export type NullableEnumSlotStatusFieldUpdateOperationsInput = {
-    set?: SlotStatus | null
-    unset?: boolean
-  }
-
-  export type GameTransactionsUpdateOneWithoutSlotTransactionsNestedInput = {
-    create?: XOR<GameTransactionsCreateWithoutSlotTransactionsInput, GameTransactionsUncheckedCreateWithoutSlotTransactionsInput>
-    connectOrCreate?: GameTransactionsCreateOrConnectWithoutSlotTransactionsInput
-    upsert?: GameTransactionsUpsertWithoutSlotTransactionsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: GameTransactionsWhereUniqueInput
-    update?: XOR<GameTransactionsUpdateWithoutSlotTransactionsInput, GameTransactionsUncheckedUpdateWithoutSlotTransactionsInput>
-  }
-
   export type GamesCreateNestedOneWithoutGameTransactionInput = {
     create?: XOR<GamesCreateWithoutGameTransactionInput, GamesUncheckedCreateWithoutGameTransactionInput>
     connectOrCreate?: GamesCreateOrConnectWithoutGameTransactionInput
@@ -24474,32 +22988,6 @@ export namespace Prisma {
     create?: XOR<PlayerCreateWithoutGameTransactionsInput, PlayerUncheckedCreateWithoutGameTransactionsInput>
     connectOrCreate?: PlayerCreateOrConnectWithoutGameTransactionsInput
     connect?: PlayerWhereUniqueInput
-  }
-
-  export type AdminCreateNestedOneWithoutGameTransactionsInput = {
-    create?: XOR<AdminCreateWithoutGameTransactionsInput, AdminUncheckedCreateWithoutGameTransactionsInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutGameTransactionsInput
-    connect?: AdminWhereUniqueInput
-  }
-
-  export type SlotTransactionsCreateNestedManyWithoutTransactionInput = {
-    create?: XOR<Enumerable<SlotTransactionsCreateWithoutTransactionInput>, Enumerable<SlotTransactionsUncheckedCreateWithoutTransactionInput>>
-    connectOrCreate?: Enumerable<SlotTransactionsCreateOrConnectWithoutTransactionInput>
-    createMany?: SlotTransactionsCreateManyTransactionInputEnvelope
-    connect?: Enumerable<SlotTransactionsWhereUniqueInput>
-  }
-
-  export type FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput = {
-    create?: XOR<FishGameTransactionsCreateWithoutGameTransactionsInput, FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput>
-    connectOrCreate?: FishGameTransactionsCreateOrConnectWithoutGameTransactionsInput
-    connect?: FishGameTransactionsWhereUniqueInput
-  }
-
-  export type SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput = {
-    create?: XOR<Enumerable<SlotTransactionsCreateWithoutTransactionInput>, Enumerable<SlotTransactionsUncheckedCreateWithoutTransactionInput>>
-    connectOrCreate?: Enumerable<SlotTransactionsCreateOrConnectWithoutTransactionInput>
-    createMany?: SlotTransactionsCreateManyTransactionInputEnvelope
-    connect?: Enumerable<SlotTransactionsWhereUniqueInput>
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -24536,54 +23024,6 @@ export namespace Prisma {
     update?: XOR<PlayerUpdateWithoutGameTransactionsInput, PlayerUncheckedUpdateWithoutGameTransactionsInput>
   }
 
-  export type AdminUpdateOneWithoutGameTransactionsNestedInput = {
-    create?: XOR<AdminCreateWithoutGameTransactionsInput, AdminUncheckedCreateWithoutGameTransactionsInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutGameTransactionsInput
-    upsert?: AdminUpsertWithoutGameTransactionsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: AdminWhereUniqueInput
-    update?: XOR<AdminUpdateWithoutGameTransactionsInput, AdminUncheckedUpdateWithoutGameTransactionsInput>
-  }
-
-  export type SlotTransactionsUpdateManyWithoutTransactionNestedInput = {
-    create?: XOR<Enumerable<SlotTransactionsCreateWithoutTransactionInput>, Enumerable<SlotTransactionsUncheckedCreateWithoutTransactionInput>>
-    connectOrCreate?: Enumerable<SlotTransactionsCreateOrConnectWithoutTransactionInput>
-    upsert?: Enumerable<SlotTransactionsUpsertWithWhereUniqueWithoutTransactionInput>
-    createMany?: SlotTransactionsCreateManyTransactionInputEnvelope
-    set?: Enumerable<SlotTransactionsWhereUniqueInput>
-    disconnect?: Enumerable<SlotTransactionsWhereUniqueInput>
-    delete?: Enumerable<SlotTransactionsWhereUniqueInput>
-    connect?: Enumerable<SlotTransactionsWhereUniqueInput>
-    update?: Enumerable<SlotTransactionsUpdateWithWhereUniqueWithoutTransactionInput>
-    updateMany?: Enumerable<SlotTransactionsUpdateManyWithWhereWithoutTransactionInput>
-    deleteMany?: Enumerable<SlotTransactionsScalarWhereInput>
-  }
-
-  export type FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput = {
-    create?: XOR<FishGameTransactionsCreateWithoutGameTransactionsInput, FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput>
-    connectOrCreate?: FishGameTransactionsCreateOrConnectWithoutGameTransactionsInput
-    upsert?: FishGameTransactionsUpsertWithoutGameTransactionsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: FishGameTransactionsWhereUniqueInput
-    update?: XOR<FishGameTransactionsUpdateWithoutGameTransactionsInput, FishGameTransactionsUncheckedUpdateWithoutGameTransactionsInput>
-  }
-
-  export type SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput = {
-    create?: XOR<Enumerable<SlotTransactionsCreateWithoutTransactionInput>, Enumerable<SlotTransactionsUncheckedCreateWithoutTransactionInput>>
-    connectOrCreate?: Enumerable<SlotTransactionsCreateOrConnectWithoutTransactionInput>
-    upsert?: Enumerable<SlotTransactionsUpsertWithWhereUniqueWithoutTransactionInput>
-    createMany?: SlotTransactionsCreateManyTransactionInputEnvelope
-    set?: Enumerable<SlotTransactionsWhereUniqueInput>
-    disconnect?: Enumerable<SlotTransactionsWhereUniqueInput>
-    delete?: Enumerable<SlotTransactionsWhereUniqueInput>
-    connect?: Enumerable<SlotTransactionsWhereUniqueInput>
-    update?: Enumerable<SlotTransactionsUpdateWithWhereUniqueWithoutTransactionInput>
-    updateMany?: Enumerable<SlotTransactionsUpdateManyWithWhereWithoutTransactionInput>
-    deleteMany?: Enumerable<SlotTransactionsScalarWhereInput>
-  }
-
   export type GamesCreateNestedOneWithoutFishGameTransactionsInput = {
     create?: XOR<GamesCreateWithoutFishGameTransactionsInput, GamesUncheckedCreateWithoutFishGameTransactionsInput>
     connectOrCreate?: GamesCreateOrConnectWithoutFishGameTransactionsInput
@@ -24594,20 +23034,6 @@ export namespace Prisma {
     create?: XOR<PlayerCreateWithoutFishGameTransactionsInput, PlayerUncheckedCreateWithoutFishGameTransactionsInput>
     connectOrCreate?: PlayerCreateOrConnectWithoutFishGameTransactionsInput
     connect?: PlayerWhereUniqueInput
-  }
-
-  export type GameTransactionsCreateNestedManyWithoutFishGameTransactionsInput = {
-    create?: XOR<Enumerable<GameTransactionsCreateWithoutFishGameTransactionsInput>, Enumerable<GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>>
-    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput>
-    createMany?: GameTransactionsCreateManyFishGameTransactionsInputEnvelope
-    connect?: Enumerable<GameTransactionsWhereUniqueInput>
-  }
-
-  export type GameTransactionsUncheckedCreateNestedManyWithoutFishGameTransactionsInput = {
-    create?: XOR<Enumerable<GameTransactionsCreateWithoutFishGameTransactionsInput>, Enumerable<GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>>
-    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput>
-    createMany?: GameTransactionsCreateManyFishGameTransactionsInputEnvelope
-    connect?: Enumerable<GameTransactionsWhereUniqueInput>
   }
 
   export type GamesUpdateOneWithoutFishGameTransactionsNestedInput = {
@@ -24628,34 +23054,6 @@ export namespace Prisma {
     delete?: boolean
     connect?: PlayerWhereUniqueInput
     update?: XOR<PlayerUpdateWithoutFishGameTransactionsInput, PlayerUncheckedUpdateWithoutFishGameTransactionsInput>
-  }
-
-  export type GameTransactionsUpdateManyWithoutFishGameTransactionsNestedInput = {
-    create?: XOR<Enumerable<GameTransactionsCreateWithoutFishGameTransactionsInput>, Enumerable<GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>>
-    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput>
-    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutFishGameTransactionsInput>
-    createMany?: GameTransactionsCreateManyFishGameTransactionsInputEnvelope
-    set?: Enumerable<GameTransactionsWhereUniqueInput>
-    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
-    delete?: Enumerable<GameTransactionsWhereUniqueInput>
-    connect?: Enumerable<GameTransactionsWhereUniqueInput>
-    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutFishGameTransactionsInput>
-    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutFishGameTransactionsInput>
-    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
-  }
-
-  export type GameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsNestedInput = {
-    create?: XOR<Enumerable<GameTransactionsCreateWithoutFishGameTransactionsInput>, Enumerable<GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>>
-    connectOrCreate?: Enumerable<GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput>
-    upsert?: Enumerable<GameTransactionsUpsertWithWhereUniqueWithoutFishGameTransactionsInput>
-    createMany?: GameTransactionsCreateManyFishGameTransactionsInputEnvelope
-    set?: Enumerable<GameTransactionsWhereUniqueInput>
-    disconnect?: Enumerable<GameTransactionsWhereUniqueInput>
-    delete?: Enumerable<GameTransactionsWhereUniqueInput>
-    connect?: Enumerable<GameTransactionsWhereUniqueInput>
-    update?: Enumerable<GameTransactionsUpdateWithWhereUniqueWithoutFishGameTransactionsInput>
-    updateMany?: Enumerable<GameTransactionsUpdateManyWithWhereWithoutFishGameTransactionsInput>
-    deleteMany?: Enumerable<GameTransactionsScalarWhereInput>
   }
 
   export type PlayerCreateNestedOneWithoutSlotFreeBonusInput = {
@@ -24991,25 +23389,6 @@ export namespace Prisma {
     _max?: NestedEnumGamePlatformFilter
   }
 
-  export type NestedEnumSlotStatusNullableFilter = {
-    equals?: SlotStatus | null
-    in?: Enumerable<SlotStatus> | null
-    notIn?: Enumerable<SlotStatus> | null
-    not?: NestedEnumSlotStatusNullableFilter | SlotStatus | null
-    isSet?: boolean
-  }
-
-  export type NestedEnumSlotStatusNullableWithAggregatesFilter = {
-    equals?: SlotStatus | null
-    in?: Enumerable<SlotStatus> | null
-    notIn?: Enumerable<SlotStatus> | null
-    not?: NestedEnumSlotStatusNullableWithAggregatesFilter | SlotStatus | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumSlotStatusNullableFilter
-    _max?: NestedEnumSlotStatusNullableFilter
-    isSet?: boolean
-  }
-
   export type NestedDateTimeNullableFilter = {
     equals?: Date | string | null
     in?: Enumerable<Date> | Enumerable<string> | null
@@ -25140,7 +23519,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -25164,7 +23542,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -25193,7 +23570,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -25217,7 +23593,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -25417,49 +23792,6 @@ export namespace Prisma {
     data: Enumerable<PlayerBalanceTransactionsCreateManyAdminInput>
   }
 
-  export type GameTransactionsCreateWithoutAdminInput = {
-    id?: string
-    date?: string | null
-    player: string
-    game: string
-    spent?: number | null
-    won?: number | null
-    winType?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-    Game?: GamesCreateNestedOneWithoutGameTransactionInput
-    Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
-    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
-  }
-
-  export type GameTransactionsUncheckedCreateWithoutAdminInput = {
-    id?: string
-    date?: string | null
-    player: string
-    game: string
-    spent?: number | null
-    won?: number | null
-    winType?: string | null
-    game_id?: string | null
-    player_id?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-    fish_transaction_id?: string | null
-  }
-
-  export type GameTransactionsCreateOrConnectWithoutAdminInput = {
-    where: GameTransactionsWhereUniqueInput
-    create: XOR<GameTransactionsCreateWithoutAdminInput, GameTransactionsUncheckedCreateWithoutAdminInput>
-  }
-
-  export type GameTransactionsCreateManyAdminInputEnvelope = {
-    data: Enumerable<GameTransactionsCreateManyAdminInput>
-  }
-
   export type SettingsUpsertWithoutAdminsInput = {
     update: XOR<SettingsUpdateWithoutAdminsInput, SettingsUncheckedUpdateWithoutAdminsInput>
     create: XOR<SettingsCreateWithoutAdminsInput, SettingsUncheckedCreateWithoutAdminsInput>
@@ -25536,7 +23868,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -25559,7 +23890,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -25733,42 +24063,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter | Date | string
   }
 
-  export type GameTransactionsUpsertWithWhereUniqueWithoutAdminInput = {
-    where: GameTransactionsWhereUniqueInput
-    update: XOR<GameTransactionsUpdateWithoutAdminInput, GameTransactionsUncheckedUpdateWithoutAdminInput>
-    create: XOR<GameTransactionsCreateWithoutAdminInput, GameTransactionsUncheckedCreateWithoutAdminInput>
-  }
-
-  export type GameTransactionsUpdateWithWhereUniqueWithoutAdminInput = {
-    where: GameTransactionsWhereUniqueInput
-    data: XOR<GameTransactionsUpdateWithoutAdminInput, GameTransactionsUncheckedUpdateWithoutAdminInput>
-  }
-
-  export type GameTransactionsUpdateManyWithWhereWithoutAdminInput = {
-    where: GameTransactionsScalarWhereInput
-    data: XOR<GameTransactionsUpdateManyMutationInput, GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput>
-  }
-
-  export type GameTransactionsScalarWhereInput = {
-    AND?: Enumerable<GameTransactionsScalarWhereInput>
-    OR?: Enumerable<GameTransactionsScalarWhereInput>
-    NOT?: Enumerable<GameTransactionsScalarWhereInput>
-    id?: StringFilter | string
-    date?: StringNullableFilter | string | null
-    player?: StringFilter | string
-    game?: StringFilter | string
-    spent?: FloatNullableFilter | number | null
-    won?: FloatNullableFilter | number | null
-    winType?: StringNullableFilter | string | null
-    game_id?: StringNullableFilter | string | null
-    player_id?: StringNullableFilter | string | null
-    user_id?: StringNullableFilter | string | null
-    createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeNullableFilter | Date | string | null
-    room_id?: StringNullableFilter | string | null
-    fish_transaction_id?: StringNullableFilter | string | null
-  }
-
   export type AdminCreateWithoutAccountInput = {
     id?: string
     email_id?: string | null
@@ -25786,7 +24080,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -25810,7 +24103,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -25839,7 +24131,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -25863,7 +24154,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -25896,7 +24186,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -25919,7 +24208,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -25947,7 +24235,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -25970,7 +24257,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -25994,7 +24280,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     Player?: PlayerCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -26018,7 +24303,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -26723,7 +25007,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -26747,7 +25030,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -26823,13 +25105,10 @@ export namespace Prisma {
     spent?: number | null
     won?: number | null
     winType?: string | null
+    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     Game?: GamesCreateNestedOneWithoutGameTransactionInput
-    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
-    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
   }
 
   export type GameTransactionsUncheckedCreateWithoutPlayerInput = {
@@ -26844,9 +25123,6 @@ export namespace Prisma {
     user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-    fish_transaction_id?: string | null
   }
 
   export type GameTransactionsCreateOrConnectWithoutPlayerInput = {
@@ -26864,7 +25140,6 @@ export namespace Prisma {
     started?: Date | string
     ended?: Date | string | null
     Game?: GamesCreateNestedOneWithoutFishGameTransactionsInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutFishGameTransactionsInput
   }
 
   export type FishGameTransactionsUncheckedCreateWithoutPlayerInput = {
@@ -26873,7 +25148,6 @@ export namespace Prisma {
     game_id?: string | null
     started?: Date | string
     ended?: Date | string | null
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutFishGameTransactionsInput
   }
 
   export type FishGameTransactionsCreateOrConnectWithoutPlayerInput = {
@@ -27065,7 +25339,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -27088,7 +25361,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -27144,6 +25416,24 @@ export namespace Prisma {
   export type GameTransactionsUpdateManyWithWhereWithoutPlayerInput = {
     where: GameTransactionsScalarWhereInput
     data: XOR<GameTransactionsUpdateManyMutationInput, GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput>
+  }
+
+  export type GameTransactionsScalarWhereInput = {
+    AND?: Enumerable<GameTransactionsScalarWhereInput>
+    OR?: Enumerable<GameTransactionsScalarWhereInput>
+    NOT?: Enumerable<GameTransactionsScalarWhereInput>
+    id?: StringFilter | string
+    date?: StringNullableFilter | string | null
+    player?: StringFilter | string
+    game?: StringFilter | string
+    spent?: FloatNullableFilter | number | null
+    won?: FloatNullableFilter | number | null
+    winType?: StringNullableFilter | string | null
+    game_id?: StringNullableFilter | string | null
+    player_id?: StringNullableFilter | string | null
+    user_id?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeNullableFilter | Date | string | null
   }
 
   export type FishGameTransactionsUpsertWithWhereUniqueWithoutPlayerInput = {
@@ -27296,13 +25586,10 @@ export namespace Prisma {
     spent?: number | null
     won?: number | null
     winType?: string | null
+    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
-    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
-    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
   }
 
   export type GameTransactionsUncheckedCreateWithoutGameInput = {
@@ -27317,9 +25604,6 @@ export namespace Prisma {
     user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-    fish_transaction_id?: string | null
   }
 
   export type GameTransactionsCreateOrConnectWithoutGameInput = {
@@ -27389,7 +25673,6 @@ export namespace Prisma {
     started?: Date | string
     ended?: Date | string | null
     Player?: PlayerCreateNestedOneWithoutFishGameTransactionsInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutFishGameTransactionsInput
   }
 
   export type FishGameTransactionsUncheckedCreateWithoutGameInput = {
@@ -27398,7 +25681,6 @@ export namespace Prisma {
     player_id?: string | null
     started?: Date | string
     ended?: Date | string | null
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutFishGameTransactionsInput
   }
 
   export type FishGameTransactionsCreateOrConnectWithoutGameInput = {
@@ -27861,82 +26143,6 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutGameNestedInput
   }
 
-  export type GameTransactionsCreateWithoutSlotTransactionsInput = {
-    id?: string
-    date?: string | null
-    player: string
-    game: string
-    spent?: number | null
-    won?: number | null
-    winType?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-    Game?: GamesCreateNestedOneWithoutGameTransactionInput
-    Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
-    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
-    room_id?: string | null
-    FishGameTransactions?: FishGameTransactionsCreateNestedOneWithoutGameTransactionsInput
-  }
-
-  export type GameTransactionsUncheckedCreateWithoutSlotTransactionsInput = {
-    id?: string
-    date?: string | null
-    player: string
-    game: string
-    spent?: number | null
-    won?: number | null
-    winType?: string | null
-    game_id?: string | null
-    player_id?: string | null
-    user_id?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-    room_id?: string | null
-    fish_transaction_id?: string | null
-  }
-
-  export type GameTransactionsCreateOrConnectWithoutSlotTransactionsInput = {
-    where: GameTransactionsWhereUniqueInput
-    create: XOR<GameTransactionsCreateWithoutSlotTransactionsInput, GameTransactionsUncheckedCreateWithoutSlotTransactionsInput>
-  }
-
-  export type GameTransactionsUpsertWithoutSlotTransactionsInput = {
-    update: XOR<GameTransactionsUpdateWithoutSlotTransactionsInput, GameTransactionsUncheckedUpdateWithoutSlotTransactionsInput>
-    create: XOR<GameTransactionsCreateWithoutSlotTransactionsInput, GameTransactionsUncheckedCreateWithoutSlotTransactionsInput>
-  }
-
-  export type GameTransactionsUpdateWithoutSlotTransactionsInput = {
-    date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
-    spent?: NullableFloatFieldUpdateOperationsInput | number | null
-    won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Game?: GamesUpdateOneWithoutGameTransactionNestedInput
-    Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
-    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
-  }
-
-  export type GameTransactionsUncheckedUpdateWithoutSlotTransactionsInput = {
-    date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
-    spent?: NullableFloatFieldUpdateOperationsInput | number | null
-    won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    game_id?: NullableStringFieldUpdateOperationsInput | string | null
-    player_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type GamesCreateWithoutGameTransactionInput = {
     id?: string
     name: string
@@ -28043,103 +26249,6 @@ export namespace Prisma {
     create: XOR<PlayerCreateWithoutGameTransactionsInput, PlayerUncheckedCreateWithoutGameTransactionsInput>
   }
 
-  export type AdminCreateWithoutGameTransactionsInput = {
-    id?: string
-    email_id?: string | null
-    username: string
-    password: string
-    balance?: number
-    status?: AccountStatus
-    account_type?: AccountType | null
-    Settings?: SettingsCreateNestedOneWithoutAdminsInput
-    timezone?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    CreatedBy?: AdminCreateNestedOneWithoutUserInput
-    User?: AdminCreateNestedManyWithoutCreatedByInput
-    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
-    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
-    Player?: PlayerCreateNestedManyWithoutManagerInput
-    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
-    master_id?: string | null
-    totalSpent?: number
-    totalRedeem?: number
-    totalLost?: number
-  }
-
-  export type AdminUncheckedCreateWithoutGameTransactionsInput = {
-    id?: string
-    email_id?: string | null
-    username: string
-    password: string
-    balance?: number
-    setting_id?: string | null
-    status?: AccountStatus
-    account_type?: AccountType | null
-    timezone?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    created_by?: string | null
-    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
-    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
-    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
-    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
-    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
-    master_id?: string | null
-    totalSpent?: number
-    totalRedeem?: number
-    totalLost?: number
-  }
-
-  export type AdminCreateOrConnectWithoutGameTransactionsInput = {
-    where: AdminWhereUniqueInput
-    create: XOR<AdminCreateWithoutGameTransactionsInput, AdminUncheckedCreateWithoutGameTransactionsInput>
-  }
-
-  export type SlotTransactionsCreateWithoutTransactionInput = {
-    id?: string
-    status?: SlotStatus | null
-    createdAt?: Date | string
-  }
-
-  export type SlotTransactionsUncheckedCreateWithoutTransactionInput = {
-    id?: string
-    status?: SlotStatus | null
-    createdAt?: Date | string
-  }
-
-  export type SlotTransactionsCreateOrConnectWithoutTransactionInput = {
-    where: SlotTransactionsWhereUniqueInput
-    create: XOR<SlotTransactionsCreateWithoutTransactionInput, SlotTransactionsUncheckedCreateWithoutTransactionInput>
-  }
-
-  export type SlotTransactionsCreateManyTransactionInputEnvelope = {
-    data: Enumerable<SlotTransactionsCreateManyTransactionInput>
-  }
-
-  export type FishGameTransactionsCreateWithoutGameTransactionsInput = {
-    id?: string
-    room_id?: string | null
-    started?: Date | string
-    ended?: Date | string | null
-    Game?: GamesCreateNestedOneWithoutFishGameTransactionsInput
-    Player?: PlayerCreateNestedOneWithoutFishGameTransactionsInput
-  }
-
-  export type FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput = {
-    id?: string
-    room_id?: string | null
-    player_id?: string | null
-    game_id?: string | null
-    started?: Date | string
-    ended?: Date | string | null
-  }
-
-  export type FishGameTransactionsCreateOrConnectWithoutGameTransactionsInput = {
-    where: FishGameTransactionsWhereUniqueInput
-    create: XOR<FishGameTransactionsCreateWithoutGameTransactionsInput, FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput>
-  }
-
   export type GamesUpsertWithoutGameTransactionInput = {
     update: XOR<GamesUpdateWithoutGameTransactionInput, GamesUncheckedUpdateWithoutGameTransactionInput>
     create: XOR<GamesCreateWithoutGameTransactionInput, GamesUncheckedCreateWithoutGameTransactionInput>
@@ -28240,104 +26349,6 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
-  }
-
-  export type AdminUpsertWithoutGameTransactionsInput = {
-    update: XOR<AdminUpdateWithoutGameTransactionsInput, AdminUncheckedUpdateWithoutGameTransactionsInput>
-    create: XOR<AdminCreateWithoutGameTransactionsInput, AdminUncheckedCreateWithoutGameTransactionsInput>
-  }
-
-  export type AdminUpdateWithoutGameTransactionsInput = {
-    email_id?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
-    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
-    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
-    timezone?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
-    User?: AdminUpdateManyWithoutCreatedByNestedInput
-    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
-    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
-    Player?: PlayerUpdateManyWithoutManagerNestedInput
-    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    master_id?: NullableStringFieldUpdateOperationsInput | string | null
-    totalSpent?: FloatFieldUpdateOperationsInput | number
-    totalRedeem?: FloatFieldUpdateOperationsInput | number
-    totalLost?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type AdminUncheckedUpdateWithoutGameTransactionsInput = {
-    email_id?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
-    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
-    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
-    timezone?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_by?: NullableStringFieldUpdateOperationsInput | string | null
-    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
-    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
-    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
-    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
-    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    master_id?: NullableStringFieldUpdateOperationsInput | string | null
-    totalSpent?: FloatFieldUpdateOperationsInput | number
-    totalRedeem?: FloatFieldUpdateOperationsInput | number
-    totalLost?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type SlotTransactionsUpsertWithWhereUniqueWithoutTransactionInput = {
-    where: SlotTransactionsWhereUniqueInput
-    update: XOR<SlotTransactionsUpdateWithoutTransactionInput, SlotTransactionsUncheckedUpdateWithoutTransactionInput>
-    create: XOR<SlotTransactionsCreateWithoutTransactionInput, SlotTransactionsUncheckedCreateWithoutTransactionInput>
-  }
-
-  export type SlotTransactionsUpdateWithWhereUniqueWithoutTransactionInput = {
-    where: SlotTransactionsWhereUniqueInput
-    data: XOR<SlotTransactionsUpdateWithoutTransactionInput, SlotTransactionsUncheckedUpdateWithoutTransactionInput>
-  }
-
-  export type SlotTransactionsUpdateManyWithWhereWithoutTransactionInput = {
-    where: SlotTransactionsScalarWhereInput
-    data: XOR<SlotTransactionsUpdateManyMutationInput, SlotTransactionsUncheckedUpdateManyWithoutSlotTransactionsInput>
-  }
-
-  export type SlotTransactionsScalarWhereInput = {
-    AND?: Enumerable<SlotTransactionsScalarWhereInput>
-    OR?: Enumerable<SlotTransactionsScalarWhereInput>
-    NOT?: Enumerable<SlotTransactionsScalarWhereInput>
-    id?: StringFilter | string
-    transaction_id?: StringNullableFilter | string | null
-    status?: EnumSlotStatusNullableFilter | SlotStatus | null
-    createdAt?: DateTimeFilter | Date | string
-  }
-
-  export type FishGameTransactionsUpsertWithoutGameTransactionsInput = {
-    update: XOR<FishGameTransactionsUpdateWithoutGameTransactionsInput, FishGameTransactionsUncheckedUpdateWithoutGameTransactionsInput>
-    create: XOR<FishGameTransactionsCreateWithoutGameTransactionsInput, FishGameTransactionsUncheckedCreateWithoutGameTransactionsInput>
-  }
-
-  export type FishGameTransactionsUpdateWithoutGameTransactionsInput = {
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    started?: DateTimeFieldUpdateOperationsInput | Date | string
-    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Game?: GamesUpdateOneWithoutFishGameTransactionsNestedInput
-    Player?: PlayerUpdateOneWithoutFishGameTransactionsNestedInput
-  }
-
-  export type FishGameTransactionsUncheckedUpdateWithoutGameTransactionsInput = {
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    player_id?: NullableStringFieldUpdateOperationsInput | string | null
-    game_id?: NullableStringFieldUpdateOperationsInput | string | null
-    started?: DateTimeFieldUpdateOperationsInput | Date | string
-    ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type GamesCreateWithoutFishGameTransactionsInput = {
@@ -28446,49 +26457,6 @@ export namespace Prisma {
     create: XOR<PlayerCreateWithoutFishGameTransactionsInput, PlayerUncheckedCreateWithoutFishGameTransactionsInput>
   }
 
-  export type GameTransactionsCreateWithoutFishGameTransactionsInput = {
-    id?: string
-    date?: string | null
-    player: string
-    game: string
-    spent?: number | null
-    won?: number | null
-    winType?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-    Game?: GamesCreateNestedOneWithoutGameTransactionInput
-    Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
-    Admin?: AdminCreateNestedOneWithoutGameTransactionsInput
-    SlotTransactions?: SlotTransactionsCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-  }
-
-  export type GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput = {
-    id?: string
-    date?: string | null
-    player: string
-    game: string
-    spent?: number | null
-    won?: number | null
-    winType?: string | null
-    game_id?: string | null
-    player_id?: string | null
-    user_id?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedCreateNestedManyWithoutTransactionInput
-    room_id?: string | null
-  }
-
-  export type GameTransactionsCreateOrConnectWithoutFishGameTransactionsInput = {
-    where: GameTransactionsWhereUniqueInput
-    create: XOR<GameTransactionsCreateWithoutFishGameTransactionsInput, GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>
-  }
-
-  export type GameTransactionsCreateManyFishGameTransactionsInputEnvelope = {
-    data: Enumerable<GameTransactionsCreateManyFishGameTransactionsInput>
-  }
-
   export type GamesUpsertWithoutFishGameTransactionsInput = {
     update: XOR<GamesUpdateWithoutFishGameTransactionsInput, GamesUncheckedUpdateWithoutFishGameTransactionsInput>
     create: XOR<GamesCreateWithoutFishGameTransactionsInput, GamesUncheckedCreateWithoutFishGameTransactionsInput>
@@ -28589,22 +26557,6 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
-  }
-
-  export type GameTransactionsUpsertWithWhereUniqueWithoutFishGameTransactionsInput = {
-    where: GameTransactionsWhereUniqueInput
-    update: XOR<GameTransactionsUpdateWithoutFishGameTransactionsInput, GameTransactionsUncheckedUpdateWithoutFishGameTransactionsInput>
-    create: XOR<GameTransactionsCreateWithoutFishGameTransactionsInput, GameTransactionsUncheckedCreateWithoutFishGameTransactionsInput>
-  }
-
-  export type GameTransactionsUpdateWithWhereUniqueWithoutFishGameTransactionsInput = {
-    where: GameTransactionsWhereUniqueInput
-    data: XOR<GameTransactionsUpdateWithoutFishGameTransactionsInput, GameTransactionsUncheckedUpdateWithoutFishGameTransactionsInput>
-  }
-
-  export type GameTransactionsUpdateManyWithWhereWithoutFishGameTransactionsInput = {
-    where: GameTransactionsScalarWhereInput
-    data: XOR<GameTransactionsUpdateManyMutationInput, GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput>
   }
 
   export type PlayerCreateWithoutSlotFreeBonusInput = {
@@ -28907,7 +26859,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
     cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
     Player?: PlayerCreateNestedManyWithoutManagerInput
-    GameTransactions?: GameTransactionsCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -28931,7 +26882,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
     cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
     Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
-    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutAdminInput
     master_id?: string | null
     totalSpent?: number
     totalRedeem?: number
@@ -29037,7 +26987,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUpdateManyWithoutManagerNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -29060,7 +27009,6 @@ export namespace Prisma {
     account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -29151,22 +27099,6 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type GameTransactionsCreateManyAdminInput = {
-    id?: string
-    date?: string | null
-    player: string
-    game: string
-    spent?: number | null
-    won?: number | null
-    winType?: string | null
-    game_id?: string | null
-    player_id?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-    room_id?: string | null
-    fish_transaction_id?: string | null
-  }
-
   export type AdminUpdateWithoutCreatedByInput = {
     email_id?: NullableStringFieldUpdateOperationsInput | string | null
     username?: StringFieldUpdateOperationsInput | string
@@ -29183,7 +27115,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -29206,7 +27137,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -29432,53 +27362,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type GameTransactionsUpdateWithoutAdminInput = {
-    date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
-    spent?: NullableFloatFieldUpdateOperationsInput | number | null
-    won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Game?: GamesUpdateOneWithoutGameTransactionNestedInput
-    Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
-    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
-  }
-
-  export type GameTransactionsUncheckedUpdateWithoutAdminInput = {
-    date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
-    spent?: NullableFloatFieldUpdateOperationsInput | number | null
-    won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    game_id?: NullableStringFieldUpdateOperationsInput | string | null
-    player_id?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput = {
-    date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
-    spent?: NullableFloatFieldUpdateOperationsInput | number | null
-    won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    game_id?: NullableStringFieldUpdateOperationsInput | string | null
-    player_id?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type AdminCreateManySettingsInput = {
     id?: string
     email_id?: string | null
@@ -29540,7 +27423,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -29563,7 +27445,6 @@ export namespace Prisma {
     cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
     Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
     PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutAdminNestedInput
     master_id?: NullableStringFieldUpdateOperationsInput | string | null
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
@@ -29706,8 +27587,6 @@ export namespace Prisma {
     user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
-    room_id?: string | null
-    fish_transaction_id?: string | null
   }
 
   export type FishGameTransactionsCreateManyPlayerInput = {
@@ -29783,13 +27662,10 @@ export namespace Prisma {
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
     winType?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Game?: GamesUpdateOneWithoutGameTransactionNestedInput
-    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
-    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
   }
 
   export type GameTransactionsUncheckedUpdateWithoutPlayerInput = {
@@ -29803,9 +27679,19 @@ export namespace Prisma {
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput = {
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    player?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    won?: NullableFloatFieldUpdateOperationsInput | number | null
+    winType?: NullableStringFieldUpdateOperationsInput | string | null
+    game_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FishGameTransactionsUpdateWithoutPlayerInput = {
@@ -29813,7 +27699,6 @@ export namespace Prisma {
     started?: DateTimeFieldUpdateOperationsInput | Date | string
     ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Game?: GamesUpdateOneWithoutFishGameTransactionsNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutFishGameTransactionsNestedInput
   }
 
   export type FishGameTransactionsUncheckedUpdateWithoutPlayerInput = {
@@ -29821,7 +27706,6 @@ export namespace Prisma {
     game_id?: NullableStringFieldUpdateOperationsInput | string | null
     started?: DateTimeFieldUpdateOperationsInput | Date | string
     ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsNestedInput
   }
 
   export type FishGameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsInput = {
@@ -29933,8 +27817,6 @@ export namespace Prisma {
     user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
-    room_id?: string | null
-    fish_transaction_id?: string | null
   }
 
   export type ActiveGamePlayCreateManyGameInput = {
@@ -29991,13 +27873,10 @@ export namespace Prisma {
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
     winType?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
-    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
-    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    FishGameTransactions?: FishGameTransactionsUpdateOneWithoutGameTransactionsNestedInput
   }
 
   export type GameTransactionsUncheckedUpdateWithoutGameInput = {
@@ -30011,9 +27890,6 @@ export namespace Prisma {
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GameTransactionsUncheckedUpdateManyWithoutGameTransactionInput = {
@@ -30027,8 +27903,6 @@ export namespace Prisma {
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-    fish_transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ActiveGamePlayUpdateWithoutGameInput = {
@@ -30081,7 +27955,6 @@ export namespace Prisma {
     started?: DateTimeFieldUpdateOperationsInput | Date | string
     ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Player?: PlayerUpdateOneWithoutFishGameTransactionsNestedInput
-    GameTransactions?: GameTransactionsUpdateManyWithoutFishGameTransactionsNestedInput
   }
 
   export type FishGameTransactionsUncheckedUpdateWithoutGameInput = {
@@ -30089,7 +27962,6 @@ export namespace Prisma {
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
     started?: DateTimeFieldUpdateOperationsInput | Date | string
     ended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutFishGameTransactionsNestedInput
   }
 
   export type SlotFreeBonusUpdateWithoutGameInput = {
@@ -30130,75 +28002,6 @@ export namespace Prisma {
   export type FavoriteGameUncheckedUpdateWithoutGameInput = {
     playerId?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type SlotTransactionsCreateManyTransactionInput = {
-    id?: string
-    status?: SlotStatus | null
-    createdAt?: Date | string
-  }
-
-  export type SlotTransactionsUpdateWithoutTransactionInput = {
-    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SlotTransactionsUncheckedUpdateWithoutTransactionInput = {
-    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SlotTransactionsUncheckedUpdateManyWithoutSlotTransactionsInput = {
-    status?: NullableEnumSlotStatusFieldUpdateOperationsInput | SlotStatus | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type GameTransactionsCreateManyFishGameTransactionsInput = {
-    id?: string
-    date?: string | null
-    player: string
-    game: string
-    spent?: number | null
-    won?: number | null
-    winType?: string | null
-    game_id?: string | null
-    player_id?: string | null
-    user_id?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string | null
-    room_id?: string | null
-  }
-
-  export type GameTransactionsUpdateWithoutFishGameTransactionsInput = {
-    date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
-    spent?: NullableFloatFieldUpdateOperationsInput | number | null
-    won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    Game?: GamesUpdateOneWithoutGameTransactionNestedInput
-    Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
-    Admin?: AdminUpdateOneWithoutGameTransactionsNestedInput
-    SlotTransactions?: SlotTransactionsUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type GameTransactionsUncheckedUpdateWithoutFishGameTransactionsInput = {
-    date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
-    spent?: NullableFloatFieldUpdateOperationsInput | number | null
-    won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    game_id?: NullableStringFieldUpdateOperationsInput | string | null
-    player_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    SlotTransactions?: SlotTransactionsUncheckedUpdateManyWithoutTransactionNestedInput
-    room_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
