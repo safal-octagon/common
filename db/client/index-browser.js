@@ -131,6 +131,13 @@ exports.Prisma.AdminScalarFieldEnum = makeEnum({
   totalLost: 'totalLost'
 });
 
+exports.Prisma.AnnouncementScalarFieldEnum = makeEnum({
+  id: 'id',
+  title: 'title',
+  message: 'message',
+  type: 'type'
+});
+
 exports.Prisma.FavoriteGameScalarFieldEnum = makeEnum({
   id: 'id',
   gameId: 'gameId',
@@ -178,6 +185,11 @@ exports.Prisma.GamesScalarFieldEnum = makeEnum({
   description: 'description',
   played: 'played',
   status: 'status'
+});
+
+exports.Prisma.MessagesScalarFieldEnum = makeEnum({
+  id: 'id',
+  message: 'message'
 });
 
 exports.Prisma.PlatformVersionScalarFieldEnum = makeEnum({
@@ -314,6 +326,12 @@ exports.AccountType = makeEnum({
   CASHIER: 'CASHIER'
 });
 
+exports.AnnouncementTypes = makeEnum({
+  DISTRIBUTOR: 'DISTRIBUTOR',
+  REGULAR: 'REGULAR',
+  BONUS: 'BONUS'
+});
+
 exports.GamePlatform = makeEnum({
   ios: 'ios',
   android: 'android',
@@ -322,6 +340,8 @@ exports.GamePlatform = makeEnum({
 
 exports.Prisma.ModelName = makeEnum({
   PlatformVersion: 'PlatformVersion',
+  Announcement: 'Announcement',
+  Messages: 'Messages',
   Admin: 'Admin',
   AdminBalanceTransactions: 'AdminBalanceTransactions',
   Settings: 'Settings',

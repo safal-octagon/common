@@ -18,6 +18,18 @@ model PlatformVersion {
     gameVersion String
 }
 
+model Announcement {
+    id      String            @id @default(uuid()) @map("_id")
+    title   String
+    message String
+    type    AnnouncementTypes
+}
+
+model Messages {
+    id      String @id @default(uuid()) @map("_id")
+    message String
+}
+
 model Admin {
     id                        String                      @id @default(uuid()) @map("_id")
     email_id                  String?                     @unique

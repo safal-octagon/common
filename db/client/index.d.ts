@@ -21,6 +21,26 @@ export type PlatformVersion = {
 }
 
 /**
+ * Model Announcement
+ * 
+ */
+export type Announcement = {
+  id: string
+  title: string
+  message: string
+  type: AnnouncementTypes
+}
+
+/**
+ * Model Messages
+ * 
+ */
+export type Messages = {
+  id: string
+  message: string
+}
+
+/**
  * Model Admin
  * 
  */
@@ -304,6 +324,15 @@ export const AccountType: {
 export type AccountType = (typeof AccountType)[keyof typeof AccountType]
 
 
+export const AnnouncementTypes: {
+  DISTRIBUTOR: 'DISTRIBUTOR',
+  REGULAR: 'REGULAR',
+  BONUS: 'BONUS'
+};
+
+export type AnnouncementTypes = (typeof AnnouncementTypes)[keyof typeof AnnouncementTypes]
+
+
 export const GamePlatform: {
   ios: 'ios',
   android: 'android',
@@ -408,6 +437,26 @@ export class PrismaClient<
     * ```
     */
   get platformVersion(): Prisma.PlatformVersionDelegate<GlobalReject>;
+
+  /**
+   * `prisma.announcement`: Exposes CRUD operations for the **Announcement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Announcements
+    * const announcements = await prisma.announcement.findMany()
+    * ```
+    */
+  get announcement(): Prisma.AnnouncementDelegate<GlobalReject>;
+
+  /**
+   * `prisma.messages`: Exposes CRUD operations for the **Messages** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Messages
+    * const messages = await prisma.messages.findMany()
+    * ```
+    */
+  get messages(): Prisma.MessagesDelegate<GlobalReject>;
 
   /**
    * `prisma.admin`: Exposes CRUD operations for the **Admin** model.
@@ -1028,6 +1077,8 @@ export namespace Prisma {
 
   export const ModelName: {
     PlatformVersion: 'PlatformVersion',
+    Announcement: 'Announcement',
+    Messages: 'Messages',
     Admin: 'Admin',
     AdminBalanceTransactions: 'AdminBalanceTransactions',
     Settings: 'Settings',
@@ -2329,6 +2380,1850 @@ export namespace Prisma {
      * Select specific fields to fetch from the PlatformVersion
      */
     select?: PlatformVersionSelect | null
+  }
+
+
+
+  /**
+   * Model Announcement
+   */
+
+
+  export type AggregateAnnouncement = {
+    _count: AnnouncementCountAggregateOutputType | null
+    _min: AnnouncementMinAggregateOutputType | null
+    _max: AnnouncementMaxAggregateOutputType | null
+  }
+
+  export type AnnouncementMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    message: string | null
+    type: AnnouncementTypes | null
+  }
+
+  export type AnnouncementMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    message: string | null
+    type: AnnouncementTypes | null
+  }
+
+  export type AnnouncementCountAggregateOutputType = {
+    id: number
+    title: number
+    message: number
+    type: number
+    _all: number
+  }
+
+
+  export type AnnouncementMinAggregateInputType = {
+    id?: true
+    title?: true
+    message?: true
+    type?: true
+  }
+
+  export type AnnouncementMaxAggregateInputType = {
+    id?: true
+    title?: true
+    message?: true
+    type?: true
+  }
+
+  export type AnnouncementCountAggregateInputType = {
+    id?: true
+    title?: true
+    message?: true
+    type?: true
+    _all?: true
+  }
+
+  export type AnnouncementAggregateArgs = {
+    /**
+     * Filter which Announcement to aggregate.
+     */
+    where?: AnnouncementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Announcements to fetch.
+     */
+    orderBy?: Enumerable<AnnouncementOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AnnouncementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Announcements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Announcements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Announcements
+    **/
+    _count?: true | AnnouncementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AnnouncementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AnnouncementMaxAggregateInputType
+  }
+
+  export type GetAnnouncementAggregateType<T extends AnnouncementAggregateArgs> = {
+        [P in keyof T & keyof AggregateAnnouncement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAnnouncement[P]>
+      : GetScalarType<T[P], AggregateAnnouncement[P]>
+  }
+
+
+
+
+  export type AnnouncementGroupByArgs = {
+    where?: AnnouncementWhereInput
+    orderBy?: Enumerable<AnnouncementOrderByWithAggregationInput>
+    by: AnnouncementScalarFieldEnum[]
+    having?: AnnouncementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AnnouncementCountAggregateInputType | true
+    _min?: AnnouncementMinAggregateInputType
+    _max?: AnnouncementMaxAggregateInputType
+  }
+
+
+  export type AnnouncementGroupByOutputType = {
+    id: string
+    title: string
+    message: string
+    type: AnnouncementTypes
+    _count: AnnouncementCountAggregateOutputType | null
+    _min: AnnouncementMinAggregateOutputType | null
+    _max: AnnouncementMaxAggregateOutputType | null
+  }
+
+  type GetAnnouncementGroupByPayload<T extends AnnouncementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<AnnouncementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AnnouncementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AnnouncementGroupByOutputType[P]>
+            : GetScalarType<T[P], AnnouncementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AnnouncementSelect = {
+    id?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+  }
+
+
+  export type AnnouncementGetPayload<S extends boolean | null | undefined | AnnouncementArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Announcement :
+    S extends undefined ? never :
+    S extends { include: any } & (AnnouncementArgs | AnnouncementFindManyArgs)
+    ? Announcement 
+    : S extends { select: any } & (AnnouncementArgs | AnnouncementFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof Announcement ? Announcement[P] : never
+  } 
+      : Announcement
+
+
+  type AnnouncementCountArgs = 
+    Omit<AnnouncementFindManyArgs, 'select' | 'include'> & {
+      select?: AnnouncementCountAggregateInputType | true
+    }
+
+  export interface AnnouncementDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Announcement that matches the filter.
+     * @param {AnnouncementFindUniqueArgs} args - Arguments to find a Announcement
+     * @example
+     * // Get one Announcement
+     * const announcement = await prisma.announcement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AnnouncementFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, AnnouncementFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Announcement'> extends True ? Prisma__AnnouncementClient<AnnouncementGetPayload<T>> : Prisma__AnnouncementClient<AnnouncementGetPayload<T> | null, null>
+
+    /**
+     * Find one Announcement that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AnnouncementFindUniqueOrThrowArgs} args - Arguments to find a Announcement
+     * @example
+     * // Get one Announcement
+     * const announcement = await prisma.announcement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AnnouncementFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, AnnouncementFindUniqueOrThrowArgs>
+    ): Prisma__AnnouncementClient<AnnouncementGetPayload<T>>
+
+    /**
+     * Find the first Announcement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnnouncementFindFirstArgs} args - Arguments to find a Announcement
+     * @example
+     * // Get one Announcement
+     * const announcement = await prisma.announcement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AnnouncementFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, AnnouncementFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Announcement'> extends True ? Prisma__AnnouncementClient<AnnouncementGetPayload<T>> : Prisma__AnnouncementClient<AnnouncementGetPayload<T> | null, null>
+
+    /**
+     * Find the first Announcement that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnnouncementFindFirstOrThrowArgs} args - Arguments to find a Announcement
+     * @example
+     * // Get one Announcement
+     * const announcement = await prisma.announcement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AnnouncementFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, AnnouncementFindFirstOrThrowArgs>
+    ): Prisma__AnnouncementClient<AnnouncementGetPayload<T>>
+
+    /**
+     * Find zero or more Announcements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnnouncementFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Announcements
+     * const announcements = await prisma.announcement.findMany()
+     * 
+     * // Get first 10 Announcements
+     * const announcements = await prisma.announcement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const announcementWithIdOnly = await prisma.announcement.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AnnouncementFindManyArgs>(
+      args?: SelectSubset<T, AnnouncementFindManyArgs>
+    ): Prisma.PrismaPromise<Array<AnnouncementGetPayload<T>>>
+
+    /**
+     * Create a Announcement.
+     * @param {AnnouncementCreateArgs} args - Arguments to create a Announcement.
+     * @example
+     * // Create one Announcement
+     * const Announcement = await prisma.announcement.create({
+     *   data: {
+     *     // ... data to create a Announcement
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AnnouncementCreateArgs>(
+      args: SelectSubset<T, AnnouncementCreateArgs>
+    ): Prisma__AnnouncementClient<AnnouncementGetPayload<T>>
+
+    /**
+     * Create many Announcements.
+     *     @param {AnnouncementCreateManyArgs} args - Arguments to create many Announcements.
+     *     @example
+     *     // Create many Announcements
+     *     const announcement = await prisma.announcement.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AnnouncementCreateManyArgs>(
+      args?: SelectSubset<T, AnnouncementCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Announcement.
+     * @param {AnnouncementDeleteArgs} args - Arguments to delete one Announcement.
+     * @example
+     * // Delete one Announcement
+     * const Announcement = await prisma.announcement.delete({
+     *   where: {
+     *     // ... filter to delete one Announcement
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AnnouncementDeleteArgs>(
+      args: SelectSubset<T, AnnouncementDeleteArgs>
+    ): Prisma__AnnouncementClient<AnnouncementGetPayload<T>>
+
+    /**
+     * Update one Announcement.
+     * @param {AnnouncementUpdateArgs} args - Arguments to update one Announcement.
+     * @example
+     * // Update one Announcement
+     * const announcement = await prisma.announcement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AnnouncementUpdateArgs>(
+      args: SelectSubset<T, AnnouncementUpdateArgs>
+    ): Prisma__AnnouncementClient<AnnouncementGetPayload<T>>
+
+    /**
+     * Delete zero or more Announcements.
+     * @param {AnnouncementDeleteManyArgs} args - Arguments to filter Announcements to delete.
+     * @example
+     * // Delete a few Announcements
+     * const { count } = await prisma.announcement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AnnouncementDeleteManyArgs>(
+      args?: SelectSubset<T, AnnouncementDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Announcements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnnouncementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Announcements
+     * const announcement = await prisma.announcement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AnnouncementUpdateManyArgs>(
+      args: SelectSubset<T, AnnouncementUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Announcement.
+     * @param {AnnouncementUpsertArgs} args - Arguments to update or create a Announcement.
+     * @example
+     * // Update or create a Announcement
+     * const announcement = await prisma.announcement.upsert({
+     *   create: {
+     *     // ... data to create a Announcement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Announcement we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AnnouncementUpsertArgs>(
+      args: SelectSubset<T, AnnouncementUpsertArgs>
+    ): Prisma__AnnouncementClient<AnnouncementGetPayload<T>>
+
+    /**
+     * Find zero or more Announcements that matches the filter.
+     * @param {AnnouncementFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const announcement = await prisma.announcement.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: AnnouncementFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Announcement.
+     * @param {AnnouncementAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const announcement = await prisma.announcement.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: AnnouncementAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of Announcements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnnouncementCountArgs} args - Arguments to filter Announcements to count.
+     * @example
+     * // Count the number of Announcements
+     * const count = await prisma.announcement.count({
+     *   where: {
+     *     // ... the filter for the Announcements we want to count
+     *   }
+     * })
+    **/
+    count<T extends AnnouncementCountArgs>(
+      args?: Subset<T, AnnouncementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AnnouncementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Announcement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnnouncementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AnnouncementAggregateArgs>(args: Subset<T, AnnouncementAggregateArgs>): Prisma.PrismaPromise<GetAnnouncementAggregateType<T>>
+
+    /**
+     * Group by Announcement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnnouncementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AnnouncementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AnnouncementGroupByArgs['orderBy'] }
+        : { orderBy?: AnnouncementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AnnouncementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAnnouncementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Announcement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__AnnouncementClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Announcement base type for findUnique actions
+   */
+  export type AnnouncementFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * Filter, which Announcement to fetch.
+     */
+    where: AnnouncementWhereUniqueInput
+  }
+
+  /**
+   * Announcement findUnique
+   */
+  export interface AnnouncementFindUniqueArgs extends AnnouncementFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Announcement findUniqueOrThrow
+   */
+  export type AnnouncementFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * Filter, which Announcement to fetch.
+     */
+    where: AnnouncementWhereUniqueInput
+  }
+
+
+  /**
+   * Announcement base type for findFirst actions
+   */
+  export type AnnouncementFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * Filter, which Announcement to fetch.
+     */
+    where?: AnnouncementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Announcements to fetch.
+     */
+    orderBy?: Enumerable<AnnouncementOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Announcements.
+     */
+    cursor?: AnnouncementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Announcements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Announcements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Announcements.
+     */
+    distinct?: Enumerable<AnnouncementScalarFieldEnum>
+  }
+
+  /**
+   * Announcement findFirst
+   */
+  export interface AnnouncementFindFirstArgs extends AnnouncementFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Announcement findFirstOrThrow
+   */
+  export type AnnouncementFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * Filter, which Announcement to fetch.
+     */
+    where?: AnnouncementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Announcements to fetch.
+     */
+    orderBy?: Enumerable<AnnouncementOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Announcements.
+     */
+    cursor?: AnnouncementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Announcements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Announcements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Announcements.
+     */
+    distinct?: Enumerable<AnnouncementScalarFieldEnum>
+  }
+
+
+  /**
+   * Announcement findMany
+   */
+  export type AnnouncementFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * Filter, which Announcements to fetch.
+     */
+    where?: AnnouncementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Announcements to fetch.
+     */
+    orderBy?: Enumerable<AnnouncementOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Announcements.
+     */
+    cursor?: AnnouncementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Announcements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Announcements.
+     */
+    skip?: number
+    distinct?: Enumerable<AnnouncementScalarFieldEnum>
+  }
+
+
+  /**
+   * Announcement create
+   */
+  export type AnnouncementCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * The data needed to create a Announcement.
+     */
+    data: XOR<AnnouncementCreateInput, AnnouncementUncheckedCreateInput>
+  }
+
+
+  /**
+   * Announcement createMany
+   */
+  export type AnnouncementCreateManyArgs = {
+    /**
+     * The data used to create many Announcements.
+     */
+    data: Enumerable<AnnouncementCreateManyInput>
+  }
+
+
+  /**
+   * Announcement update
+   */
+  export type AnnouncementUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * The data needed to update a Announcement.
+     */
+    data: XOR<AnnouncementUpdateInput, AnnouncementUncheckedUpdateInput>
+    /**
+     * Choose, which Announcement to update.
+     */
+    where: AnnouncementWhereUniqueInput
+  }
+
+
+  /**
+   * Announcement updateMany
+   */
+  export type AnnouncementUpdateManyArgs = {
+    /**
+     * The data used to update Announcements.
+     */
+    data: XOR<AnnouncementUpdateManyMutationInput, AnnouncementUncheckedUpdateManyInput>
+    /**
+     * Filter which Announcements to update
+     */
+    where?: AnnouncementWhereInput
+  }
+
+
+  /**
+   * Announcement upsert
+   */
+  export type AnnouncementUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * The filter to search for the Announcement to update in case it exists.
+     */
+    where: AnnouncementWhereUniqueInput
+    /**
+     * In case the Announcement found by the `where` argument doesn't exist, create a new Announcement with this data.
+     */
+    create: XOR<AnnouncementCreateInput, AnnouncementUncheckedCreateInput>
+    /**
+     * In case the Announcement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AnnouncementUpdateInput, AnnouncementUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Announcement delete
+   */
+  export type AnnouncementDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * Filter which Announcement to delete.
+     */
+    where: AnnouncementWhereUniqueInput
+  }
+
+
+  /**
+   * Announcement deleteMany
+   */
+  export type AnnouncementDeleteManyArgs = {
+    /**
+     * Filter which Announcements to delete
+     */
+    where?: AnnouncementWhereInput
+  }
+
+
+  /**
+   * Announcement findRaw
+   */
+  export type AnnouncementFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Announcement aggregateRaw
+   */
+  export type AnnouncementAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Announcement without action
+   */
+  export type AnnouncementArgs = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+  }
+
+
+
+  /**
+   * Model Messages
+   */
+
+
+  export type AggregateMessages = {
+    _count: MessagesCountAggregateOutputType | null
+    _min: MessagesMinAggregateOutputType | null
+    _max: MessagesMaxAggregateOutputType | null
+  }
+
+  export type MessagesMinAggregateOutputType = {
+    id: string | null
+    message: string | null
+  }
+
+  export type MessagesMaxAggregateOutputType = {
+    id: string | null
+    message: string | null
+  }
+
+  export type MessagesCountAggregateOutputType = {
+    id: number
+    message: number
+    _all: number
+  }
+
+
+  export type MessagesMinAggregateInputType = {
+    id?: true
+    message?: true
+  }
+
+  export type MessagesMaxAggregateInputType = {
+    id?: true
+    message?: true
+  }
+
+  export type MessagesCountAggregateInputType = {
+    id?: true
+    message?: true
+    _all?: true
+  }
+
+  export type MessagesAggregateArgs = {
+    /**
+     * Filter which Messages to aggregate.
+     */
+    where?: MessagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: Enumerable<MessagesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Messages
+    **/
+    _count?: true | MessagesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessagesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessagesMaxAggregateInputType
+  }
+
+  export type GetMessagesAggregateType<T extends MessagesAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessages]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessages[P]>
+      : GetScalarType<T[P], AggregateMessages[P]>
+  }
+
+
+
+
+  export type MessagesGroupByArgs = {
+    where?: MessagesWhereInput
+    orderBy?: Enumerable<MessagesOrderByWithAggregationInput>
+    by: MessagesScalarFieldEnum[]
+    having?: MessagesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessagesCountAggregateInputType | true
+    _min?: MessagesMinAggregateInputType
+    _max?: MessagesMaxAggregateInputType
+  }
+
+
+  export type MessagesGroupByOutputType = {
+    id: string
+    message: string
+    _count: MessagesCountAggregateOutputType | null
+    _min: MessagesMinAggregateOutputType | null
+    _max: MessagesMaxAggregateOutputType | null
+  }
+
+  type GetMessagesGroupByPayload<T extends MessagesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<MessagesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessagesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessagesGroupByOutputType[P]>
+            : GetScalarType<T[P], MessagesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessagesSelect = {
+    id?: boolean
+    message?: boolean
+  }
+
+
+  export type MessagesGetPayload<S extends boolean | null | undefined | MessagesArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Messages :
+    S extends undefined ? never :
+    S extends { include: any } & (MessagesArgs | MessagesFindManyArgs)
+    ? Messages 
+    : S extends { select: any } & (MessagesArgs | MessagesFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof Messages ? Messages[P] : never
+  } 
+      : Messages
+
+
+  type MessagesCountArgs = 
+    Omit<MessagesFindManyArgs, 'select' | 'include'> & {
+      select?: MessagesCountAggregateInputType | true
+    }
+
+  export interface MessagesDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Messages that matches the filter.
+     * @param {MessagesFindUniqueArgs} args - Arguments to find a Messages
+     * @example
+     * // Get one Messages
+     * const messages = await prisma.messages.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MessagesFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, MessagesFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Messages'> extends True ? Prisma__MessagesClient<MessagesGetPayload<T>> : Prisma__MessagesClient<MessagesGetPayload<T> | null, null>
+
+    /**
+     * Find one Messages that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MessagesFindUniqueOrThrowArgs} args - Arguments to find a Messages
+     * @example
+     * // Get one Messages
+     * const messages = await prisma.messages.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MessagesFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, MessagesFindUniqueOrThrowArgs>
+    ): Prisma__MessagesClient<MessagesGetPayload<T>>
+
+    /**
+     * Find the first Messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesFindFirstArgs} args - Arguments to find a Messages
+     * @example
+     * // Get one Messages
+     * const messages = await prisma.messages.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MessagesFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, MessagesFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Messages'> extends True ? Prisma__MessagesClient<MessagesGetPayload<T>> : Prisma__MessagesClient<MessagesGetPayload<T> | null, null>
+
+    /**
+     * Find the first Messages that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesFindFirstOrThrowArgs} args - Arguments to find a Messages
+     * @example
+     * // Get one Messages
+     * const messages = await prisma.messages.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MessagesFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, MessagesFindFirstOrThrowArgs>
+    ): Prisma__MessagesClient<MessagesGetPayload<T>>
+
+    /**
+     * Find zero or more Messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Messages
+     * const messages = await prisma.messages.findMany()
+     * 
+     * // Get first 10 Messages
+     * const messages = await prisma.messages.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const messagesWithIdOnly = await prisma.messages.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MessagesFindManyArgs>(
+      args?: SelectSubset<T, MessagesFindManyArgs>
+    ): Prisma.PrismaPromise<Array<MessagesGetPayload<T>>>
+
+    /**
+     * Create a Messages.
+     * @param {MessagesCreateArgs} args - Arguments to create a Messages.
+     * @example
+     * // Create one Messages
+     * const Messages = await prisma.messages.create({
+     *   data: {
+     *     // ... data to create a Messages
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MessagesCreateArgs>(
+      args: SelectSubset<T, MessagesCreateArgs>
+    ): Prisma__MessagesClient<MessagesGetPayload<T>>
+
+    /**
+     * Create many Messages.
+     *     @param {MessagesCreateManyArgs} args - Arguments to create many Messages.
+     *     @example
+     *     // Create many Messages
+     *     const messages = await prisma.messages.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MessagesCreateManyArgs>(
+      args?: SelectSubset<T, MessagesCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Messages.
+     * @param {MessagesDeleteArgs} args - Arguments to delete one Messages.
+     * @example
+     * // Delete one Messages
+     * const Messages = await prisma.messages.delete({
+     *   where: {
+     *     // ... filter to delete one Messages
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MessagesDeleteArgs>(
+      args: SelectSubset<T, MessagesDeleteArgs>
+    ): Prisma__MessagesClient<MessagesGetPayload<T>>
+
+    /**
+     * Update one Messages.
+     * @param {MessagesUpdateArgs} args - Arguments to update one Messages.
+     * @example
+     * // Update one Messages
+     * const messages = await prisma.messages.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MessagesUpdateArgs>(
+      args: SelectSubset<T, MessagesUpdateArgs>
+    ): Prisma__MessagesClient<MessagesGetPayload<T>>
+
+    /**
+     * Delete zero or more Messages.
+     * @param {MessagesDeleteManyArgs} args - Arguments to filter Messages to delete.
+     * @example
+     * // Delete a few Messages
+     * const { count } = await prisma.messages.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MessagesDeleteManyArgs>(
+      args?: SelectSubset<T, MessagesDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Messages
+     * const messages = await prisma.messages.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MessagesUpdateManyArgs>(
+      args: SelectSubset<T, MessagesUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Messages.
+     * @param {MessagesUpsertArgs} args - Arguments to update or create a Messages.
+     * @example
+     * // Update or create a Messages
+     * const messages = await prisma.messages.upsert({
+     *   create: {
+     *     // ... data to create a Messages
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Messages we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MessagesUpsertArgs>(
+      args: SelectSubset<T, MessagesUpsertArgs>
+    ): Prisma__MessagesClient<MessagesGetPayload<T>>
+
+    /**
+     * Find zero or more Messages that matches the filter.
+     * @param {MessagesFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const messages = await prisma.messages.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: MessagesFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Messages.
+     * @param {MessagesAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const messages = await prisma.messages.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: MessagesAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesCountArgs} args - Arguments to filter Messages to count.
+     * @example
+     * // Count the number of Messages
+     * const count = await prisma.messages.count({
+     *   where: {
+     *     // ... the filter for the Messages we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessagesCountArgs>(
+      args?: Subset<T, MessagesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessagesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessagesAggregateArgs>(args: Subset<T, MessagesAggregateArgs>): Prisma.PrismaPromise<GetMessagesAggregateType<T>>
+
+    /**
+     * Group by Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessagesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessagesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessagesGroupByArgs['orderBy'] }
+        : { orderBy?: MessagesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessagesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessagesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Messages.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__MessagesClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Messages base type for findUnique actions
+   */
+  export type MessagesFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where: MessagesWhereUniqueInput
+  }
+
+  /**
+   * Messages findUnique
+   */
+  export interface MessagesFindUniqueArgs extends MessagesFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Messages findUniqueOrThrow
+   */
+  export type MessagesFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where: MessagesWhereUniqueInput
+  }
+
+
+  /**
+   * Messages base type for findFirst actions
+   */
+  export type MessagesFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: Enumerable<MessagesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: Enumerable<MessagesScalarFieldEnum>
+  }
+
+  /**
+   * Messages findFirst
+   */
+  export interface MessagesFindFirstArgs extends MessagesFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Messages findFirstOrThrow
+   */
+  export type MessagesFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: Enumerable<MessagesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: Enumerable<MessagesScalarFieldEnum>
+  }
+
+
+  /**
+   * Messages findMany
+   */
+  export type MessagesFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: Enumerable<MessagesOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Messages.
+     */
+    cursor?: MessagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    distinct?: Enumerable<MessagesScalarFieldEnum>
+  }
+
+
+  /**
+   * Messages create
+   */
+  export type MessagesCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
+    /**
+     * The data needed to create a Messages.
+     */
+    data: XOR<MessagesCreateInput, MessagesUncheckedCreateInput>
+  }
+
+
+  /**
+   * Messages createMany
+   */
+  export type MessagesCreateManyArgs = {
+    /**
+     * The data used to create many Messages.
+     */
+    data: Enumerable<MessagesCreateManyInput>
+  }
+
+
+  /**
+   * Messages update
+   */
+  export type MessagesUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
+    /**
+     * The data needed to update a Messages.
+     */
+    data: XOR<MessagesUpdateInput, MessagesUncheckedUpdateInput>
+    /**
+     * Choose, which Messages to update.
+     */
+    where: MessagesWhereUniqueInput
+  }
+
+
+  /**
+   * Messages updateMany
+   */
+  export type MessagesUpdateManyArgs = {
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessagesUpdateManyMutationInput, MessagesUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessagesWhereInput
+  }
+
+
+  /**
+   * Messages upsert
+   */
+  export type MessagesUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
+    /**
+     * The filter to search for the Messages to update in case it exists.
+     */
+    where: MessagesWhereUniqueInput
+    /**
+     * In case the Messages found by the `where` argument doesn't exist, create a new Messages with this data.
+     */
+    create: XOR<MessagesCreateInput, MessagesUncheckedCreateInput>
+    /**
+     * In case the Messages was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessagesUpdateInput, MessagesUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Messages delete
+   */
+  export type MessagesDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
+    /**
+     * Filter which Messages to delete.
+     */
+    where: MessagesWhereUniqueInput
+  }
+
+
+  /**
+   * Messages deleteMany
+   */
+  export type MessagesDeleteManyArgs = {
+    /**
+     * Filter which Messages to delete
+     */
+    where?: MessagesWhereInput
+  }
+
+
+  /**
+   * Messages findRaw
+   */
+  export type MessagesFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Messages aggregateRaw
+   */
+  export type MessagesAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Messages without action
+   */
+  export type MessagesArgs = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect | null
   }
 
 
@@ -18879,6 +20774,16 @@ export namespace Prisma {
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
 
 
+  export const AnnouncementScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    message: 'message',
+    type: 'type'
+  };
+
+  export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
+
+
   export const FavoriteGameScalarFieldEnum: {
     id: 'id',
     gameId: 'gameId',
@@ -18941,6 +20846,14 @@ export namespace Prisma {
   };
 
   export type GamesScalarFieldEnum = (typeof GamesScalarFieldEnum)[keyof typeof GamesScalarFieldEnum]
+
+
+  export const MessagesScalarFieldEnum: {
+    id: 'id',
+    message: 'message'
+  };
+
+  export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
 
 
   export const PlatformVersionScalarFieldEnum: {
@@ -19133,6 +21046,80 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter | string
     gameURL?: StringWithAggregatesFilter | string
     gameVersion?: StringWithAggregatesFilter | string
+  }
+
+  export type AnnouncementWhereInput = {
+    AND?: Enumerable<AnnouncementWhereInput>
+    OR?: Enumerable<AnnouncementWhereInput>
+    NOT?: Enumerable<AnnouncementWhereInput>
+    id?: StringFilter | string
+    title?: StringFilter | string
+    message?: StringFilter | string
+    type?: EnumAnnouncementTypesFilter | AnnouncementTypes
+  }
+
+  export type AnnouncementOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+  }
+
+  export type AnnouncementWhereUniqueInput = {
+    id?: string
+  }
+
+  export type AnnouncementOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    _count?: AnnouncementCountOrderByAggregateInput
+    _max?: AnnouncementMaxOrderByAggregateInput
+    _min?: AnnouncementMinOrderByAggregateInput
+  }
+
+  export type AnnouncementScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<AnnouncementScalarWhereWithAggregatesInput>
+    OR?: Enumerable<AnnouncementScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<AnnouncementScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    title?: StringWithAggregatesFilter | string
+    message?: StringWithAggregatesFilter | string
+    type?: EnumAnnouncementTypesWithAggregatesFilter | AnnouncementTypes
+  }
+
+  export type MessagesWhereInput = {
+    AND?: Enumerable<MessagesWhereInput>
+    OR?: Enumerable<MessagesWhereInput>
+    NOT?: Enumerable<MessagesWhereInput>
+    id?: StringFilter | string
+    message?: StringFilter | string
+  }
+
+  export type MessagesOrderByWithRelationInput = {
+    id?: SortOrder
+    message?: SortOrder
+  }
+
+  export type MessagesWhereUniqueInput = {
+    id?: string
+  }
+
+  export type MessagesOrderByWithAggregationInput = {
+    id?: SortOrder
+    message?: SortOrder
+    _count?: MessagesCountOrderByAggregateInput
+    _max?: MessagesMaxOrderByAggregateInput
+    _min?: MessagesMinOrderByAggregateInput
+  }
+
+  export type MessagesScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<MessagesScalarWhereWithAggregatesInput>
+    OR?: Enumerable<MessagesScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<MessagesScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    message?: StringWithAggregatesFilter | string
   }
 
   export type AdminWhereInput = {
@@ -20257,6 +22244,82 @@ export namespace Prisma {
   export type PlatformVersionUncheckedUpdateManyInput = {
     gameURL?: StringFieldUpdateOperationsInput | string
     gameVersion?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AnnouncementCreateInput = {
+    id?: string
+    title: string
+    message: string
+    type: AnnouncementTypes
+  }
+
+  export type AnnouncementUncheckedCreateInput = {
+    id?: string
+    title: string
+    message: string
+    type: AnnouncementTypes
+  }
+
+  export type AnnouncementUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+  }
+
+  export type AnnouncementUncheckedUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+  }
+
+  export type AnnouncementCreateManyInput = {
+    id?: string
+    title: string
+    message: string
+    type: AnnouncementTypes
+  }
+
+  export type AnnouncementUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+  }
+
+  export type AnnouncementUncheckedUpdateManyInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+  }
+
+  export type MessagesCreateInput = {
+    id?: string
+    message: string
+  }
+
+  export type MessagesUncheckedCreateInput = {
+    id?: string
+    message: string
+  }
+
+  export type MessagesUpdateInput = {
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessagesUncheckedUpdateInput = {
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessagesCreateManyInput = {
+    id?: string
+    message: string
+  }
+
+  export type MessagesUpdateManyMutationInput = {
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessagesUncheckedUpdateManyInput = {
+    message?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdminCreateInput = {
@@ -21678,6 +23741,59 @@ export namespace Prisma {
     _max?: NestedStringFilter
   }
 
+  export type EnumAnnouncementTypesFilter = {
+    equals?: AnnouncementTypes
+    in?: Enumerable<AnnouncementTypes>
+    notIn?: Enumerable<AnnouncementTypes>
+    not?: NestedEnumAnnouncementTypesFilter | AnnouncementTypes
+  }
+
+  export type AnnouncementCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+  }
+
+  export type AnnouncementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+  }
+
+  export type AnnouncementMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+  }
+
+  export type EnumAnnouncementTypesWithAggregatesFilter = {
+    equals?: AnnouncementTypes
+    in?: Enumerable<AnnouncementTypes>
+    notIn?: Enumerable<AnnouncementTypes>
+    not?: NestedEnumAnnouncementTypesWithAggregatesFilter | AnnouncementTypes
+    _count?: NestedIntFilter
+    _min?: NestedEnumAnnouncementTypesFilter
+    _max?: NestedEnumAnnouncementTypesFilter
+  }
+
+  export type MessagesCountOrderByAggregateInput = {
+    id?: SortOrder
+    message?: SortOrder
+  }
+
+  export type MessagesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    message?: SortOrder
+  }
+
+  export type MessagesMinOrderByAggregateInput = {
+    id?: SortOrder
+    message?: SortOrder
+  }
+
   export type StringNullableFilter = {
     equals?: string | null
     in?: Enumerable<string> | null
@@ -22895,6 +25011,10 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type EnumAnnouncementTypesFieldUpdateOperationsInput = {
+    set?: AnnouncementTypes
   }
 
   export type SettingsCreateNestedOneWithoutAdminsInput = {
@@ -24205,6 +26325,23 @@ export namespace Prisma {
     gt?: number
     gte?: number
     not?: NestedIntFilter | number
+  }
+
+  export type NestedEnumAnnouncementTypesFilter = {
+    equals?: AnnouncementTypes
+    in?: Enumerable<AnnouncementTypes>
+    notIn?: Enumerable<AnnouncementTypes>
+    not?: NestedEnumAnnouncementTypesFilter | AnnouncementTypes
+  }
+
+  export type NestedEnumAnnouncementTypesWithAggregatesFilter = {
+    equals?: AnnouncementTypes
+    in?: Enumerable<AnnouncementTypes>
+    notIn?: Enumerable<AnnouncementTypes>
+    not?: NestedEnumAnnouncementTypesWithAggregatesFilter | AnnouncementTypes
+    _count?: NestedIntFilter
+    _min?: NestedEnumAnnouncementTypesFilter
+    _max?: NestedEnumAnnouncementTypesFilter
   }
 
   export type NestedStringNullableFilter = {
