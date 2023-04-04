@@ -180,6 +180,12 @@ exports.Prisma.GamesScalarFieldEnum = makeEnum({
   status: 'status'
 });
 
+exports.Prisma.PlatformVersionScalarFieldEnum = makeEnum({
+  id: 'id',
+  gameURL: 'gameURL',
+  gameVersion: 'gameVersion'
+});
+
 exports.Prisma.PlayerBalanceTransactionsScalarFieldEnum = makeEnum({
   id: 'id',
   admin: 'admin',
@@ -315,6 +321,7 @@ exports.GamePlatform = makeEnum({
 });
 
 exports.Prisma.ModelName = makeEnum({
+  PlatformVersion: 'PlatformVersion',
   Admin: 'Admin',
   AdminBalanceTransactions: 'AdminBalanceTransactions',
   Settings: 'Settings',

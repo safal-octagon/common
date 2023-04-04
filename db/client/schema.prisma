@@ -12,6 +12,12 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model PlatformVersion {
+    id          String @id @default(uuid()) @map("_id")
+    gameURL     String
+    gameVersion String
+}
+
 model Admin {
     id                        String                      @id @default(uuid()) @map("_id")
     email_id                  String?                     @unique
