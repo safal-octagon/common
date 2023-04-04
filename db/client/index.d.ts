@@ -29,6 +29,7 @@ export type Announcement = {
   title: string
   message: string
   type: AnnouncementTypes
+  created_by: string
 }
 
 /**
@@ -1265,6 +1266,7 @@ export namespace Prisma {
     cashier: number
     Player: number
     PlayerBalanceTransactions: number
+    Announcement: number
   }
 
   export type AdminCountOutputTypeSelect = {
@@ -1273,6 +1275,7 @@ export namespace Prisma {
     cashier?: boolean
     Player?: boolean
     PlayerBalanceTransactions?: boolean
+    Announcement?: boolean
   }
 
   export type AdminCountOutputTypeGetPayload<S extends boolean | null | undefined | AdminCountOutputTypeArgs> =
@@ -2400,6 +2403,7 @@ export namespace Prisma {
     title: string | null
     message: string | null
     type: AnnouncementTypes | null
+    created_by: string | null
   }
 
   export type AnnouncementMaxAggregateOutputType = {
@@ -2407,6 +2411,7 @@ export namespace Prisma {
     title: string | null
     message: string | null
     type: AnnouncementTypes | null
+    created_by: string | null
   }
 
   export type AnnouncementCountAggregateOutputType = {
@@ -2414,6 +2419,7 @@ export namespace Prisma {
     title: number
     message: number
     type: number
+    created_by: number
     _all: number
   }
 
@@ -2423,6 +2429,7 @@ export namespace Prisma {
     title?: true
     message?: true
     type?: true
+    created_by?: true
   }
 
   export type AnnouncementMaxAggregateInputType = {
@@ -2430,6 +2437,7 @@ export namespace Prisma {
     title?: true
     message?: true
     type?: true
+    created_by?: true
   }
 
   export type AnnouncementCountAggregateInputType = {
@@ -2437,6 +2445,7 @@ export namespace Prisma {
     title?: true
     message?: true
     type?: true
+    created_by?: true
     _all?: true
   }
 
@@ -2518,6 +2527,7 @@ export namespace Prisma {
     title: string
     message: string
     type: AnnouncementTypes
+    created_by: string
     _count: AnnouncementCountAggregateOutputType | null
     _min: AnnouncementMinAggregateOutputType | null
     _max: AnnouncementMaxAggregateOutputType | null
@@ -2542,19 +2552,28 @@ export namespace Prisma {
     title?: boolean
     message?: boolean
     type?: boolean
+    created_by?: boolean
+    Admin?: boolean | AdminArgs
   }
 
+
+  export type AnnouncementInclude = {
+    Admin?: boolean | AdminArgs
+  }
 
   export type AnnouncementGetPayload<S extends boolean | null | undefined | AnnouncementArgs> =
     S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
     S extends true ? Announcement :
     S extends undefined ? never :
     S extends { include: any } & (AnnouncementArgs | AnnouncementFindManyArgs)
-    ? Announcement 
+    ? Announcement  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Admin' ? AdminGetPayload<S['include'][P]> :  never
+  } 
     : S extends { select: any } & (AnnouncementArgs | AnnouncementFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-    P extends keyof Announcement ? Announcement[P] : never
+        P extends 'Admin' ? AdminGetPayload<S['select'][P]> :  P extends keyof Announcement ? Announcement[P] : never
   } 
       : Announcement
 
@@ -2953,6 +2972,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
+    Admin<T extends AdminArgs= {}>(args?: Subset<T, AdminArgs>): Prisma__AdminClient<AdminGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -2990,6 +3010,10 @@ export namespace Prisma {
      */
     select?: AnnouncementSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
+    /**
      * Filter, which Announcement to fetch.
      */
     where: AnnouncementWhereUniqueInput
@@ -3016,6 +3040,10 @@ export namespace Prisma {
      */
     select?: AnnouncementSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
+    /**
      * Filter, which Announcement to fetch.
      */
     where: AnnouncementWhereUniqueInput
@@ -3030,6 +3058,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Announcement
      */
     select?: AnnouncementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
     /**
      * Filter, which Announcement to fetch.
      */
@@ -3087,6 +3119,10 @@ export namespace Prisma {
      */
     select?: AnnouncementSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
+    /**
      * Filter, which Announcement to fetch.
      */
     where?: AnnouncementWhereInput
@@ -3132,6 +3168,10 @@ export namespace Prisma {
      */
     select?: AnnouncementSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
+    /**
      * Filter, which Announcements to fetch.
      */
     where?: AnnouncementWhereInput
@@ -3172,6 +3212,10 @@ export namespace Prisma {
      */
     select?: AnnouncementSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
+    /**
      * The data needed to create a Announcement.
      */
     data: XOR<AnnouncementCreateInput, AnnouncementUncheckedCreateInput>
@@ -3197,6 +3241,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Announcement
      */
     select?: AnnouncementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
     /**
      * The data needed to update a Announcement.
      */
@@ -3232,6 +3280,10 @@ export namespace Prisma {
      */
     select?: AnnouncementSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
+    /**
      * The filter to search for the Announcement to update in case it exists.
      */
     where: AnnouncementWhereUniqueInput
@@ -3254,6 +3306,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Announcement
      */
     select?: AnnouncementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
     /**
      * Filter which Announcement to delete.
      */
@@ -3310,6 +3366,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Announcement
      */
     select?: AnnouncementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
   }
 
 
@@ -4535,6 +4595,7 @@ export namespace Prisma {
     totalSpent?: boolean
     totalRedeem?: boolean
     totalLost?: boolean
+    Announcement?: boolean | Admin$AnnouncementArgs
     _count?: boolean | AdminCountOutputTypeArgs
   }
 
@@ -4547,6 +4608,7 @@ export namespace Prisma {
     cashier?: boolean | Admin$cashierArgs
     Player?: boolean | Admin$PlayerArgs
     PlayerBalanceTransactions?: boolean | Admin$PlayerBalanceTransactionsArgs
+    Announcement?: boolean | Admin$AnnouncementArgs
     _count?: boolean | AdminCountOutputTypeArgs
   }
 
@@ -4564,6 +4626,7 @@ export namespace Prisma {
         P extends 'cashier' ? Array < AdminBalanceTransactionsGetPayload<S['include'][P]>>  :
         P extends 'Player' ? Array < PlayerGetPayload<S['include'][P]>>  :
         P extends 'PlayerBalanceTransactions' ? Array < PlayerBalanceTransactionsGetPayload<S['include'][P]>>  :
+        P extends 'Announcement' ? Array < AnnouncementGetPayload<S['include'][P]>>  :
         P extends '_count' ? AdminCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (AdminArgs | AdminFindManyArgs)
@@ -4576,6 +4639,7 @@ export namespace Prisma {
         P extends 'cashier' ? Array < AdminBalanceTransactionsGetPayload<S['select'][P]>>  :
         P extends 'Player' ? Array < PlayerGetPayload<S['select'][P]>>  :
         P extends 'PlayerBalanceTransactions' ? Array < PlayerBalanceTransactionsGetPayload<S['select'][P]>>  :
+        P extends 'Announcement' ? Array < AnnouncementGetPayload<S['select'][P]>>  :
         P extends '_count' ? AdminCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Admin ? Admin[P] : never
   } 
       : Admin
@@ -4988,6 +5052,8 @@ export namespace Prisma {
     Player<T extends Admin$PlayerArgs= {}>(args?: Subset<T, Admin$PlayerArgs>): Prisma.PrismaPromise<Array<PlayerGetPayload<T>>| Null>;
 
     PlayerBalanceTransactions<T extends Admin$PlayerBalanceTransactionsArgs= {}>(args?: Subset<T, Admin$PlayerBalanceTransactionsArgs>): Prisma.PrismaPromise<Array<PlayerBalanceTransactionsGetPayload<T>>| Null>;
+
+    Announcement<T extends Admin$AnnouncementArgs= {}>(args?: Subset<T, Admin$AnnouncementArgs>): Prisma.PrismaPromise<Array<AnnouncementGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -5475,6 +5541,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<PlayerBalanceTransactionsScalarFieldEnum>
+  }
+
+
+  /**
+   * Admin.Announcement
+   */
+  export type Admin$AnnouncementArgs = {
+    /**
+     * Select specific fields to fetch from the Announcement
+     */
+    select?: AnnouncementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AnnouncementInclude | null
+    where?: AnnouncementWhereInput
+    orderBy?: Enumerable<AnnouncementOrderByWithRelationInput>
+    cursor?: AnnouncementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AnnouncementScalarFieldEnum>
   }
 
 
@@ -20778,7 +20865,8 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     message: 'message',
-    type: 'type'
+    type: 'type',
+    created_by: 'created_by'
   };
 
   export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
@@ -21056,6 +21144,8 @@ export namespace Prisma {
     title?: StringFilter | string
     message?: StringFilter | string
     type?: EnumAnnouncementTypesFilter | AnnouncementTypes
+    created_by?: StringFilter | string
+    Admin?: XOR<AdminRelationFilter, AdminWhereInput>
   }
 
   export type AnnouncementOrderByWithRelationInput = {
@@ -21063,6 +21153,8 @@ export namespace Prisma {
     title?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    created_by?: SortOrder
+    Admin?: AdminOrderByWithRelationInput
   }
 
   export type AnnouncementWhereUniqueInput = {
@@ -21074,6 +21166,7 @@ export namespace Prisma {
     title?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    created_by?: SortOrder
     _count?: AnnouncementCountOrderByAggregateInput
     _max?: AnnouncementMaxOrderByAggregateInput
     _min?: AnnouncementMinOrderByAggregateInput
@@ -21087,6 +21180,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter | string
     message?: StringWithAggregatesFilter | string
     type?: EnumAnnouncementTypesWithAggregatesFilter | AnnouncementTypes
+    created_by?: StringWithAggregatesFilter | string
   }
 
   export type MessagesWhereInput = {
@@ -21149,6 +21243,7 @@ export namespace Prisma {
     totalSpent?: FloatFilter | number
     totalRedeem?: FloatFilter | number
     totalLost?: FloatFilter | number
+    Announcement?: AnnouncementListRelationFilter
   }
 
   export type AdminOrderByWithRelationInput = {
@@ -21175,6 +21270,7 @@ export namespace Prisma {
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
+    Announcement?: AnnouncementOrderByRelationAggregateInput
   }
 
   export type AdminWhereUniqueInput = {
@@ -22251,6 +22347,7 @@ export namespace Prisma {
     title: string
     message: string
     type: AnnouncementTypes
+    Admin: AdminCreateNestedOneWithoutAnnouncementInput
   }
 
   export type AnnouncementUncheckedCreateInput = {
@@ -22258,18 +22355,21 @@ export namespace Prisma {
     title: string
     message: string
     type: AnnouncementTypes
+    created_by: string
   }
 
   export type AnnouncementUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+    Admin?: AdminUpdateOneRequiredWithoutAnnouncementNestedInput
   }
 
   export type AnnouncementUncheckedUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+    created_by?: StringFieldUpdateOperationsInput | string
   }
 
   export type AnnouncementCreateManyInput = {
@@ -22277,6 +22377,7 @@ export namespace Prisma {
     title: string
     message: string
     type: AnnouncementTypes
+    created_by: string
   }
 
   export type AnnouncementUpdateManyMutationInput = {
@@ -22289,6 +22390,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+    created_by?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessagesCreateInput = {
@@ -22344,6 +22446,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateInput = {
@@ -22368,6 +22471,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUpdateInput = {
@@ -22391,6 +22495,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
@@ -22414,6 +22519,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminCreateManyInput = {
@@ -23748,11 +23854,17 @@ export namespace Prisma {
     not?: NestedEnumAnnouncementTypesFilter | AnnouncementTypes
   }
 
+  export type AdminRelationFilter = {
+    is?: AdminWhereInput
+    isNot?: AdminWhereInput
+  }
+
   export type AnnouncementCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    created_by?: SortOrder
   }
 
   export type AnnouncementMaxOrderByAggregateInput = {
@@ -23760,6 +23872,7 @@ export namespace Prisma {
     title?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    created_by?: SortOrder
   }
 
   export type AnnouncementMinOrderByAggregateInput = {
@@ -23767,6 +23880,7 @@ export namespace Prisma {
     title?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    created_by?: SortOrder
   }
 
   export type EnumAnnouncementTypesWithAggregatesFilter = {
@@ -23852,11 +23966,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter | Date | string
   }
 
-  export type AdminRelationFilter = {
-    is?: AdminWhereInput
-    isNot?: AdminWhereInput
-  }
-
   export type AdminListRelationFilter = {
     every?: AdminWhereInput
     some?: AdminWhereInput
@@ -23881,6 +23990,12 @@ export namespace Prisma {
     none?: PlayerBalanceTransactionsWhereInput
   }
 
+  export type AnnouncementListRelationFilter = {
+    every?: AnnouncementWhereInput
+    some?: AnnouncementWhereInput
+    none?: AnnouncementWhereInput
+  }
+
   export type AdminOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -23894,6 +24009,10 @@ export namespace Prisma {
   }
 
   export type PlayerBalanceTransactionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AnnouncementOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25013,8 +25132,22 @@ export namespace Prisma {
     set?: string
   }
 
+  export type AdminCreateNestedOneWithoutAnnouncementInput = {
+    create?: XOR<AdminCreateWithoutAnnouncementInput, AdminUncheckedCreateWithoutAnnouncementInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutAnnouncementInput
+    connect?: AdminWhereUniqueInput
+  }
+
   export type EnumAnnouncementTypesFieldUpdateOperationsInput = {
     set?: AnnouncementTypes
+  }
+
+  export type AdminUpdateOneRequiredWithoutAnnouncementNestedInput = {
+    create?: XOR<AdminCreateWithoutAnnouncementInput, AdminUncheckedCreateWithoutAnnouncementInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutAnnouncementInput
+    upsert?: AdminUpsertWithoutAnnouncementInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<AdminUpdateWithoutAnnouncementInput, AdminUncheckedUpdateWithoutAnnouncementInput>
   }
 
   export type SettingsCreateNestedOneWithoutAdminsInput = {
@@ -25064,6 +25197,13 @@ export namespace Prisma {
     connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
   }
 
+  export type AnnouncementCreateNestedManyWithoutAdminInput = {
+    create?: XOR<Enumerable<AnnouncementCreateWithoutAdminInput>, Enumerable<AnnouncementUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<AnnouncementCreateOrConnectWithoutAdminInput>
+    createMany?: AnnouncementCreateManyAdminInputEnvelope
+    connect?: Enumerable<AnnouncementWhereUniqueInput>
+  }
+
   export type AdminUncheckedCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
     connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
@@ -25097,6 +25237,13 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutAdminInput>
     createMany?: PlayerBalanceTransactionsCreateManyAdminInputEnvelope
     connect?: Enumerable<PlayerBalanceTransactionsWhereUniqueInput>
+  }
+
+  export type AnnouncementUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<Enumerable<AnnouncementCreateWithoutAdminInput>, Enumerable<AnnouncementUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<AnnouncementCreateOrConnectWithoutAdminInput>
+    createMany?: AnnouncementCreateManyAdminInputEnvelope
+    connect?: Enumerable<AnnouncementWhereUniqueInput>
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -25215,6 +25362,20 @@ export namespace Prisma {
     deleteMany?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
   }
 
+  export type AnnouncementUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<Enumerable<AnnouncementCreateWithoutAdminInput>, Enumerable<AnnouncementUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<AnnouncementCreateOrConnectWithoutAdminInput>
+    upsert?: Enumerable<AnnouncementUpsertWithWhereUniqueWithoutAdminInput>
+    createMany?: AnnouncementCreateManyAdminInputEnvelope
+    set?: Enumerable<AnnouncementWhereUniqueInput>
+    disconnect?: Enumerable<AnnouncementWhereUniqueInput>
+    delete?: Enumerable<AnnouncementWhereUniqueInput>
+    connect?: Enumerable<AnnouncementWhereUniqueInput>
+    update?: Enumerable<AnnouncementUpdateWithWhereUniqueWithoutAdminInput>
+    updateMany?: Enumerable<AnnouncementUpdateManyWithWhereWithoutAdminInput>
+    deleteMany?: Enumerable<AnnouncementScalarWhereInput>
+  }
+
   export type AdminUncheckedUpdateManyWithoutCreatedByNestedInput = {
     create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
     connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
@@ -25283,6 +25444,20 @@ export namespace Prisma {
     update?: Enumerable<PlayerBalanceTransactionsUpdateWithWhereUniqueWithoutAdminInput>
     updateMany?: Enumerable<PlayerBalanceTransactionsUpdateManyWithWhereWithoutAdminInput>
     deleteMany?: Enumerable<PlayerBalanceTransactionsScalarWhereInput>
+  }
+
+  export type AnnouncementUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<Enumerable<AnnouncementCreateWithoutAdminInput>, Enumerable<AnnouncementUncheckedCreateWithoutAdminInput>>
+    connectOrCreate?: Enumerable<AnnouncementCreateOrConnectWithoutAdminInput>
+    upsert?: Enumerable<AnnouncementUpsertWithWhereUniqueWithoutAdminInput>
+    createMany?: AnnouncementCreateManyAdminInputEnvelope
+    set?: Enumerable<AnnouncementWhereUniqueInput>
+    disconnect?: Enumerable<AnnouncementWhereUniqueInput>
+    delete?: Enumerable<AnnouncementWhereUniqueInput>
+    connect?: Enumerable<AnnouncementWhereUniqueInput>
+    update?: Enumerable<AnnouncementUpdateWithWhereUniqueWithoutAdminInput>
+    updateMany?: Enumerable<AnnouncementUpdateManyWithWhereWithoutAdminInput>
+    deleteMany?: Enumerable<AnnouncementScalarWhereInput>
   }
 
   export type AdminCreateNestedOneWithoutAccountInput = {
@@ -26627,6 +26802,110 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type AdminCreateWithoutAnnouncementInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    status?: AccountStatus
+    account_type?: AccountType | null
+    Settings?: SettingsCreateNestedOneWithoutAdminsInput
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CreatedBy?: AdminCreateNestedOneWithoutUserInput
+    User?: AdminCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutAdminInput
+    master_id?: string | null
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminUncheckedCreateWithoutAnnouncementInput = {
+    id?: string
+    email_id?: string | null
+    username: string
+    password: string
+    balance?: number
+    setting_id?: string | null
+    status?: AccountStatus
+    account_type?: AccountType | null
+    timezone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    created_by?: string | null
+    User?: AdminUncheckedCreateNestedManyWithoutCreatedByInput
+    account?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutAccount_userInput
+    cashier?: AdminBalanceTransactionsUncheckedCreateNestedManyWithoutCashier_userInput
+    Player?: PlayerUncheckedCreateNestedManyWithoutManagerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutAdminInput
+    master_id?: string | null
+    totalSpent?: number
+    totalRedeem?: number
+    totalLost?: number
+  }
+
+  export type AdminCreateOrConnectWithoutAnnouncementInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutAnnouncementInput, AdminUncheckedCreateWithoutAnnouncementInput>
+  }
+
+  export type AdminUpsertWithoutAnnouncementInput = {
+    update: XOR<AdminUpdateWithoutAnnouncementInput, AdminUncheckedUpdateWithoutAnnouncementInput>
+    create: XOR<AdminCreateWithoutAnnouncementInput, AdminUncheckedCreateWithoutAnnouncementInput>
+  }
+
+  export type AdminUpdateWithoutAnnouncementInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    Settings?: SettingsUpdateOneWithoutAdminsNestedInput
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CreatedBy?: AdminUpdateOneWithoutUserNestedInput
+    User?: AdminUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutAdminNestedInput
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AdminUncheckedUpdateWithoutAnnouncementInput = {
+    email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    account_type?: NullableEnumAccountTypeFieldUpdateOperationsInput | AccountType | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: AdminUncheckedUpdateManyWithoutCreatedByNestedInput
+    account?: AdminBalanceTransactionsUncheckedUpdateManyWithoutAccount_userNestedInput
+    cashier?: AdminBalanceTransactionsUncheckedUpdateManyWithoutCashier_userNestedInput
+    Player?: PlayerUncheckedUpdateManyWithoutManagerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutAdminNestedInput
+    master_id?: NullableStringFieldUpdateOperationsInput | string | null
+    totalSpent?: FloatFieldUpdateOperationsInput | number
+    totalRedeem?: FloatFieldUpdateOperationsInput | number
+    totalLost?: FloatFieldUpdateOperationsInput | number
+  }
+
   export type SettingsCreateWithoutAdminsInput = {
     id?: string
     grandJP?: boolean
@@ -26705,6 +26984,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutUserInput = {
@@ -26728,6 +27008,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutUserInput = {
@@ -26756,6 +27037,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutCreatedByInput = {
@@ -26779,6 +27061,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutCreatedByInput = {
@@ -26974,6 +27257,29 @@ export namespace Prisma {
     data: Enumerable<PlayerBalanceTransactionsCreateManyAdminInput>
   }
 
+  export type AnnouncementCreateWithoutAdminInput = {
+    id?: string
+    title: string
+    message: string
+    type: AnnouncementTypes
+  }
+
+  export type AnnouncementUncheckedCreateWithoutAdminInput = {
+    id?: string
+    title: string
+    message: string
+    type: AnnouncementTypes
+  }
+
+  export type AnnouncementCreateOrConnectWithoutAdminInput = {
+    where: AnnouncementWhereUniqueInput
+    create: XOR<AnnouncementCreateWithoutAdminInput, AnnouncementUncheckedCreateWithoutAdminInput>
+  }
+
+  export type AnnouncementCreateManyAdminInputEnvelope = {
+    data: Enumerable<AnnouncementCreateManyAdminInput>
+  }
+
   export type SettingsUpsertWithoutAdminsInput = {
     update: XOR<SettingsUpdateWithoutAdminsInput, SettingsUncheckedUpdateWithoutAdminsInput>
     create: XOR<SettingsCreateWithoutAdminsInput, SettingsUncheckedCreateWithoutAdminsInput>
@@ -27054,6 +27360,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutUserInput = {
@@ -27076,6 +27383,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -27245,6 +27553,33 @@ export namespace Prisma {
     createdAt?: DateTimeFilter | Date | string
   }
 
+  export type AnnouncementUpsertWithWhereUniqueWithoutAdminInput = {
+    where: AnnouncementWhereUniqueInput
+    update: XOR<AnnouncementUpdateWithoutAdminInput, AnnouncementUncheckedUpdateWithoutAdminInput>
+    create: XOR<AnnouncementCreateWithoutAdminInput, AnnouncementUncheckedCreateWithoutAdminInput>
+  }
+
+  export type AnnouncementUpdateWithWhereUniqueWithoutAdminInput = {
+    where: AnnouncementWhereUniqueInput
+    data: XOR<AnnouncementUpdateWithoutAdminInput, AnnouncementUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type AnnouncementUpdateManyWithWhereWithoutAdminInput = {
+    where: AnnouncementScalarWhereInput
+    data: XOR<AnnouncementUpdateManyMutationInput, AnnouncementUncheckedUpdateManyWithoutAnnouncementInput>
+  }
+
+  export type AnnouncementScalarWhereInput = {
+    AND?: Enumerable<AnnouncementScalarWhereInput>
+    OR?: Enumerable<AnnouncementScalarWhereInput>
+    NOT?: Enumerable<AnnouncementScalarWhereInput>
+    id?: StringFilter | string
+    title?: StringFilter | string
+    message?: StringFilter | string
+    type?: EnumAnnouncementTypesFilter | AnnouncementTypes
+    created_by?: StringFilter | string
+  }
+
   export type AdminCreateWithoutAccountInput = {
     id?: string
     email_id?: string | null
@@ -27266,6 +27601,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutAccountInput = {
@@ -27289,6 +27625,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutAccountInput = {
@@ -27317,6 +27654,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutCashierInput = {
@@ -27340,6 +27678,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutCashierInput = {
@@ -27372,6 +27711,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutAccountInput = {
@@ -27394,6 +27734,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUpsertWithoutCashierInput = {
@@ -27421,6 +27762,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutCashierInput = {
@@ -27443,6 +27785,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminCreateWithoutSettingsInput = {
@@ -27466,6 +27809,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutSettingsInput = {
@@ -27489,6 +27833,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutSettingsInput = {
@@ -28193,6 +28538,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutPlayerInput = {
@@ -28216,6 +28562,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutPlayerInput = {
@@ -28525,6 +28872,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutPlayerInput = {
@@ -28547,6 +28895,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type PlayerBalanceTransactionsUpsertWithWhereUniqueWithoutPlayerInput = {
@@ -30045,6 +30394,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateWithoutPlayerBalanceTransactionsInput = {
@@ -30068,6 +30418,7 @@ export namespace Prisma {
     totalSpent?: number
     totalRedeem?: number
     totalLost?: number
+    Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminCreateOrConnectWithoutPlayerBalanceTransactionsInput = {
@@ -30173,6 +30524,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutPlayerBalanceTransactionsInput = {
@@ -30195,6 +30547,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminCreateManyCreatedByInput = {
@@ -30281,6 +30634,13 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type AnnouncementCreateManyAdminInput = {
+    id?: string
+    title: string
+    message: string
+    type: AnnouncementTypes
+  }
+
   export type AdminUpdateWithoutCreatedByInput = {
     email_id?: NullableStringFieldUpdateOperationsInput | string | null
     username?: StringFieldUpdateOperationsInput | string
@@ -30301,6 +30661,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutCreatedByInput = {
@@ -30323,6 +30684,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateManyWithoutUserInput = {
@@ -30544,6 +30906,24 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AnnouncementUpdateWithoutAdminInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+  }
+
+  export type AnnouncementUncheckedUpdateWithoutAdminInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+  }
+
+  export type AnnouncementUncheckedUpdateManyWithoutAnnouncementInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
+  }
+
   export type AdminCreateManySettingsInput = {
     id?: string
     email_id?: string | null
@@ -30609,6 +30989,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateWithoutSettingsInput = {
@@ -30631,6 +31012,7 @@ export namespace Prisma {
     totalSpent?: FloatFieldUpdateOperationsInput | number
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
+    Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateManyWithoutAdminsInput = {

@@ -135,7 +135,8 @@ exports.Prisma.AnnouncementScalarFieldEnum = makeEnum({
   id: 'id',
   title: 'title',
   message: 'message',
-  type: 'type'
+  type: 'type',
+  created_by: 'created_by'
 });
 
 exports.Prisma.FavoriteGameScalarFieldEnum = makeEnum({

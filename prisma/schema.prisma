@@ -19,10 +19,12 @@ model PlatformVersion {
 }
 
 model Announcement {
-    id      String            @id @default(uuid()) @map("_id")
-    title   String
-    message String
-    type    AnnouncementTypes
+    id         String            @id @default(uuid()) @map("_id")
+    title      String
+    message    String
+    type       AnnouncementTypes
+    created_by String
+    Admin      Admin             @relation(fields: [created_by], references: [id], onDelete: Cascade)
 }
 
 model Messages {
@@ -54,6 +56,7 @@ model Admin {
     totalSpent                Float                       @default(0)
     totalRedeem               Float                       @default(0)
     totalLost                 Float                       @default(0)
+    Announcement              Announcement[]
 }
 
 model AdminBalanceTransactions {
