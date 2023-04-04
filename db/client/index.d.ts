@@ -28,7 +28,6 @@ export type Announcement = {
   id: string
   title: string
   message: string
-  type: AnnouncementTypes
   created_by: string
 }
 
@@ -323,15 +322,6 @@ export const AccountType: {
 };
 
 export type AccountType = (typeof AccountType)[keyof typeof AccountType]
-
-
-export const AnnouncementTypes: {
-  DISTRIBUTOR: 'DISTRIBUTOR',
-  REGULAR: 'REGULAR',
-  BONUS: 'BONUS'
-};
-
-export type AnnouncementTypes = (typeof AnnouncementTypes)[keyof typeof AnnouncementTypes]
 
 
 export const GamePlatform: {
@@ -2402,7 +2392,6 @@ export namespace Prisma {
     id: string | null
     title: string | null
     message: string | null
-    type: AnnouncementTypes | null
     created_by: string | null
   }
 
@@ -2410,7 +2399,6 @@ export namespace Prisma {
     id: string | null
     title: string | null
     message: string | null
-    type: AnnouncementTypes | null
     created_by: string | null
   }
 
@@ -2418,7 +2406,6 @@ export namespace Prisma {
     id: number
     title: number
     message: number
-    type: number
     created_by: number
     _all: number
   }
@@ -2428,7 +2415,6 @@ export namespace Prisma {
     id?: true
     title?: true
     message?: true
-    type?: true
     created_by?: true
   }
 
@@ -2436,7 +2422,6 @@ export namespace Prisma {
     id?: true
     title?: true
     message?: true
-    type?: true
     created_by?: true
   }
 
@@ -2444,7 +2429,6 @@ export namespace Prisma {
     id?: true
     title?: true
     message?: true
-    type?: true
     created_by?: true
     _all?: true
   }
@@ -2526,7 +2510,6 @@ export namespace Prisma {
     id: string
     title: string
     message: string
-    type: AnnouncementTypes
     created_by: string
     _count: AnnouncementCountAggregateOutputType | null
     _min: AnnouncementMinAggregateOutputType | null
@@ -2551,7 +2534,6 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     message?: boolean
-    type?: boolean
     created_by?: boolean
     Admin?: boolean | AdminArgs
   }
@@ -20865,7 +20847,6 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     message: 'message',
-    type: 'type',
     created_by: 'created_by'
   };
 
@@ -21143,7 +21124,6 @@ export namespace Prisma {
     id?: StringFilter | string
     title?: StringFilter | string
     message?: StringFilter | string
-    type?: EnumAnnouncementTypesFilter | AnnouncementTypes
     created_by?: StringFilter | string
     Admin?: XOR<AdminRelationFilter, AdminWhereInput>
   }
@@ -21152,7 +21132,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     message?: SortOrder
-    type?: SortOrder
     created_by?: SortOrder
     Admin?: AdminOrderByWithRelationInput
   }
@@ -21165,7 +21144,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     message?: SortOrder
-    type?: SortOrder
     created_by?: SortOrder
     _count?: AnnouncementCountOrderByAggregateInput
     _max?: AnnouncementMaxOrderByAggregateInput
@@ -21179,7 +21157,6 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter | string
     title?: StringWithAggregatesFilter | string
     message?: StringWithAggregatesFilter | string
-    type?: EnumAnnouncementTypesWithAggregatesFilter | AnnouncementTypes
     created_by?: StringWithAggregatesFilter | string
   }
 
@@ -22346,7 +22323,6 @@ export namespace Prisma {
     id?: string
     title: string
     message: string
-    type: AnnouncementTypes
     Admin: AdminCreateNestedOneWithoutAnnouncementInput
   }
 
@@ -22354,21 +22330,18 @@ export namespace Prisma {
     id?: string
     title: string
     message: string
-    type: AnnouncementTypes
     created_by: string
   }
 
   export type AnnouncementUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
     Admin?: AdminUpdateOneRequiredWithoutAnnouncementNestedInput
   }
 
   export type AnnouncementUncheckedUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
     created_by?: StringFieldUpdateOperationsInput | string
   }
 
@@ -22376,20 +22349,17 @@ export namespace Prisma {
     id?: string
     title: string
     message: string
-    type: AnnouncementTypes
     created_by: string
   }
 
   export type AnnouncementUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
   }
 
   export type AnnouncementUncheckedUpdateManyInput = {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
     created_by?: StringFieldUpdateOperationsInput | string
   }
 
@@ -23847,13 +23817,6 @@ export namespace Prisma {
     _max?: NestedStringFilter
   }
 
-  export type EnumAnnouncementTypesFilter = {
-    equals?: AnnouncementTypes
-    in?: Enumerable<AnnouncementTypes>
-    notIn?: Enumerable<AnnouncementTypes>
-    not?: NestedEnumAnnouncementTypesFilter | AnnouncementTypes
-  }
-
   export type AdminRelationFilter = {
     is?: AdminWhereInput
     isNot?: AdminWhereInput
@@ -23863,7 +23826,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     message?: SortOrder
-    type?: SortOrder
     created_by?: SortOrder
   }
 
@@ -23871,7 +23833,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     message?: SortOrder
-    type?: SortOrder
     created_by?: SortOrder
   }
 
@@ -23879,18 +23840,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     message?: SortOrder
-    type?: SortOrder
     created_by?: SortOrder
-  }
-
-  export type EnumAnnouncementTypesWithAggregatesFilter = {
-    equals?: AnnouncementTypes
-    in?: Enumerable<AnnouncementTypes>
-    notIn?: Enumerable<AnnouncementTypes>
-    not?: NestedEnumAnnouncementTypesWithAggregatesFilter | AnnouncementTypes
-    _count?: NestedIntFilter
-    _min?: NestedEnumAnnouncementTypesFilter
-    _max?: NestedEnumAnnouncementTypesFilter
   }
 
   export type MessagesCountOrderByAggregateInput = {
@@ -25136,10 +25086,6 @@ export namespace Prisma {
     create?: XOR<AdminCreateWithoutAnnouncementInput, AdminUncheckedCreateWithoutAnnouncementInput>
     connectOrCreate?: AdminCreateOrConnectWithoutAnnouncementInput
     connect?: AdminWhereUniqueInput
-  }
-
-  export type EnumAnnouncementTypesFieldUpdateOperationsInput = {
-    set?: AnnouncementTypes
   }
 
   export type AdminUpdateOneRequiredWithoutAnnouncementNestedInput = {
@@ -26502,23 +26448,6 @@ export namespace Prisma {
     not?: NestedIntFilter | number
   }
 
-  export type NestedEnumAnnouncementTypesFilter = {
-    equals?: AnnouncementTypes
-    in?: Enumerable<AnnouncementTypes>
-    notIn?: Enumerable<AnnouncementTypes>
-    not?: NestedEnumAnnouncementTypesFilter | AnnouncementTypes
-  }
-
-  export type NestedEnumAnnouncementTypesWithAggregatesFilter = {
-    equals?: AnnouncementTypes
-    in?: Enumerable<AnnouncementTypes>
-    notIn?: Enumerable<AnnouncementTypes>
-    not?: NestedEnumAnnouncementTypesWithAggregatesFilter | AnnouncementTypes
-    _count?: NestedIntFilter
-    _min?: NestedEnumAnnouncementTypesFilter
-    _max?: NestedEnumAnnouncementTypesFilter
-  }
-
   export type NestedStringNullableFilter = {
     equals?: string | null
     in?: Enumerable<string> | null
@@ -27261,14 +27190,12 @@ export namespace Prisma {
     id?: string
     title: string
     message: string
-    type: AnnouncementTypes
   }
 
   export type AnnouncementUncheckedCreateWithoutAdminInput = {
     id?: string
     title: string
     message: string
-    type: AnnouncementTypes
   }
 
   export type AnnouncementCreateOrConnectWithoutAdminInput = {
@@ -27576,7 +27503,6 @@ export namespace Prisma {
     id?: StringFilter | string
     title?: StringFilter | string
     message?: StringFilter | string
-    type?: EnumAnnouncementTypesFilter | AnnouncementTypes
     created_by?: StringFilter | string
   }
 
@@ -30638,7 +30564,6 @@ export namespace Prisma {
     id?: string
     title: string
     message: string
-    type: AnnouncementTypes
   }
 
   export type AdminUpdateWithoutCreatedByInput = {
@@ -30909,19 +30834,16 @@ export namespace Prisma {
   export type AnnouncementUpdateWithoutAdminInput = {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
   }
 
   export type AnnouncementUncheckedUpdateWithoutAdminInput = {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
   }
 
   export type AnnouncementUncheckedUpdateManyWithoutAnnouncementInput = {
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: EnumAnnouncementTypesFieldUpdateOperationsInput | AnnouncementTypes
   }
 
   export type AdminCreateManySettingsInput = {

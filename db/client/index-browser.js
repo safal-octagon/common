@@ -135,7 +135,6 @@ exports.Prisma.AnnouncementScalarFieldEnum = makeEnum({
   id: 'id',
   title: 'title',
   message: 'message',
-  type: 'type',
   created_by: 'created_by'
 });
 
@@ -325,12 +324,6 @@ exports.AccountType = makeEnum({
   SUB_DISTRIBUTOR: 'SUB_DISTRIBUTOR',
   STORE: 'STORE',
   CASHIER: 'CASHIER'
-});
-
-exports.AnnouncementTypes = makeEnum({
-  DISTRIBUTOR: 'DISTRIBUTOR',
-  REGULAR: 'REGULAR',
-  BONUS: 'BONUS'
 });
 
 exports.GamePlatform = makeEnum({

@@ -19,12 +19,11 @@ model PlatformVersion {
 }
 
 model Announcement {
-    id         String            @id @default(uuid()) @map("_id")
+    id         String @id @default(uuid()) @map("_id")
     title      String
     message    String
-    type       AnnouncementTypes
     created_by String
-    Admin      Admin             @relation(fields: [created_by], references: [id], onDelete: Cascade)
+    Admin      Admin  @relation(fields: [created_by], references: [id], onDelete: Cascade)
 }
 
 model Messages {
@@ -289,12 +288,6 @@ enum AccountType {
 enum SlotStatus {
     STARTED
     COMPLETED
-}
-
-enum AnnouncementTypes {
-    DISTRIBUTOR
-    REGULAR
-    BONUS
 }
 
 enum AccountStatus {
