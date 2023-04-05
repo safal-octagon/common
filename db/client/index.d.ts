@@ -184,6 +184,7 @@ export type Games = {
   name: string
   description: string | null
   played: number
+  isHot: boolean
   status: AccountStatus | null
 }
 
@@ -12334,6 +12335,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     played: number | null
+    isHot: boolean | null
     status: AccountStatus | null
   }
 
@@ -12342,6 +12344,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     played: number | null
+    isHot: boolean | null
     status: AccountStatus | null
   }
 
@@ -12350,6 +12353,7 @@ export namespace Prisma {
     name: number
     description: number
     played: number
+    isHot: number
     status: number
     _all: number
   }
@@ -12368,6 +12372,7 @@ export namespace Prisma {
     name?: true
     description?: true
     played?: true
+    isHot?: true
     status?: true
   }
 
@@ -12376,6 +12381,7 @@ export namespace Prisma {
     name?: true
     description?: true
     played?: true
+    isHot?: true
     status?: true
   }
 
@@ -12384,6 +12390,7 @@ export namespace Prisma {
     name?: true
     description?: true
     played?: true
+    isHot?: true
     status?: true
     _all?: true
   }
@@ -12480,6 +12487,7 @@ export namespace Prisma {
     name: string
     description: string | null
     played: number
+    isHot: boolean
     status: AccountStatus | null
     _count: GamesCountAggregateOutputType | null
     _avg: GamesAvgAggregateOutputType | null
@@ -12507,6 +12515,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     played?: boolean
+    isHot?: boolean
     status?: boolean
     GameTransaction?: boolean | Games$GameTransactionArgs
     ActiveGamePlay?: boolean | Games$ActiveGamePlayArgs
@@ -20911,6 +20920,7 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     played: 'played',
+    isHot: 'isHot',
     status: 'status'
   };
 
@@ -21785,6 +21795,7 @@ export namespace Prisma {
     name?: StringFilter | string
     description?: StringNullableFilter | string | null
     played?: IntFilter | number
+    isHot?: BoolFilter | boolean
     status?: EnumAccountStatusNullableFilter | AccountStatus | null
     GameTransaction?: GameTransactionsListRelationFilter
     ActiveGamePlay?: ActiveGamePlayListRelationFilter
@@ -21799,6 +21810,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     played?: SortOrder
+    isHot?: SortOrder
     status?: SortOrder
     GameTransaction?: GameTransactionsOrderByRelationAggregateInput
     ActiveGamePlay?: ActiveGamePlayOrderByRelationAggregateInput
@@ -21817,6 +21829,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     played?: SortOrder
+    isHot?: SortOrder
     status?: SortOrder
     _count?: GamesCountOrderByAggregateInput
     _avg?: GamesAvgOrderByAggregateInput
@@ -21833,6 +21846,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter | string
     description?: StringNullableWithAggregatesFilter | string | null
     played?: IntWithAggregatesFilter | number
+    isHot?: BoolWithAggregatesFilter | boolean
     status?: EnumAccountStatusNullableWithAggregatesFilter | AccountStatus | null
   }
 
@@ -23174,6 +23188,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
@@ -23188,6 +23203,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
@@ -23201,6 +23217,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
@@ -23214,6 +23231,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
@@ -23228,6 +23246,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
   }
 
@@ -23235,6 +23254,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
   }
 
@@ -23242,6 +23262,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
   }
 
@@ -24638,6 +24659,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     played?: SortOrder
+    isHot?: SortOrder
     status?: SortOrder
   }
 
@@ -24650,6 +24672,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     played?: SortOrder
+    isHot?: SortOrder
     status?: SortOrder
   }
 
@@ -24658,6 +24681,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     played?: SortOrder
+    isHot?: SortOrder
     status?: SortOrder
   }
 
@@ -27887,6 +27911,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
@@ -27900,6 +27925,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
@@ -27997,6 +28023,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
@@ -28009,6 +28036,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
@@ -29337,6 +29365,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
@@ -29350,6 +29379,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
@@ -29372,6 +29402,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
@@ -29384,6 +29415,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
@@ -29472,6 +29504,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
     GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
@@ -29485,6 +29518,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
     GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
@@ -29580,6 +29614,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
     GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
@@ -29592,6 +29627,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
@@ -29605,6 +29641,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
     GameAssets?: GameAssetsCreateNestedManyWithoutGameInput
@@ -29618,6 +29655,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
     GameAssets?: GameAssetsUncheckedCreateNestedManyWithoutGameInput
@@ -29715,6 +29753,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
     GameAssets?: GameAssetsUpdateManyWithoutGameNestedInput
@@ -29727,6 +29766,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
     GameAssets?: GameAssetsUncheckedUpdateManyWithoutGameNestedInput
@@ -29813,6 +29853,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
@@ -29826,6 +29867,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
@@ -29923,6 +29965,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
@@ -29935,6 +29978,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput
@@ -30096,6 +30140,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayCreateNestedManyWithoutGameInput
@@ -30109,6 +30154,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     played?: number
+    isHot?: boolean
     status?: AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedCreateNestedManyWithoutGameInput
     ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedManyWithoutGameInput
@@ -30204,6 +30250,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUpdateManyWithoutGameNestedInput
@@ -30216,6 +30263,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     played?: IntFieldUpdateOperationsInput | number
+    isHot?: BoolFieldUpdateOperationsInput | boolean
     status?: NullableEnumAccountStatusFieldUpdateOperationsInput | AccountStatus | null
     GameTransaction?: GameTransactionsUncheckedUpdateManyWithoutGameNestedInput
     ActiveGamePlay?: ActiveGamePlayUncheckedUpdateManyWithoutGameNestedInput

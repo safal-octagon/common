@@ -184,6 +184,7 @@ exports.Prisma.GamesScalarFieldEnum = makeEnum({
   name: 'name',
   description: 'description',
   played: 'played',
+  isHot: 'isHot',
   status: 'status'
 });
 

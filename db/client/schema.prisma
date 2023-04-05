@@ -169,6 +169,7 @@ model Games {
     name                 String
     description          String?
     played               Int                    @default(0)
+    isHot                Boolean                @default(false)
     status               AccountStatus?         @default(ACTIVE)
     GameTransaction      GameTransactions[]
     ActiveGamePlay       ActiveGamePlay[]
