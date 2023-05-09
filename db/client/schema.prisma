@@ -56,6 +56,26 @@ model Admin {
     totalRedeem               Float                       @default(0)
     totalLost                 Float                       @default(0)
     Announcement              Announcement[]
+    ChatConversation          ChatConversation[]          @relation(fields: [chatConversationId], references: [id])
+    chatConversationId        String[]
+}
+
+model ChatConversation {
+    id           String         @id @default(uuid()) @map("_id")
+    player_id    String?
+    admins_id    String[]
+    Admin        Admin[]        @relation(fields: [admins_id], references: [id])
+    ChatMessages ChatMessages[]
+}
+
+model ChatMessages {
+    id             String           @id @default(uuid()) @map("_id")
+    message        String
+    senderId       String
+    receiverId     String
+    conversationId String
+    Conversation   ChatConversation @relation(fields: [conversationId], references: [id])
+    isRead         Boolean          @default(false)
 }
 
 model AdminBalanceTransactions {
