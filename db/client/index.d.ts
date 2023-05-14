@@ -1450,6 +1450,7 @@ export namespace Prisma {
     FavoriteGame: number
     PlayerToken: number
     SpinTime: number
+    ChatConversation: number
   }
 
   export type PlayerCountOutputTypeSelect = {
@@ -1460,6 +1461,7 @@ export namespace Prisma {
     FavoriteGame?: boolean
     PlayerToken?: boolean
     SpinTime?: boolean
+    ChatConversation?: boolean
   }
 
   export type PlayerCountOutputTypeGetPayload<S extends boolean | null | undefined | PlayerCountOutputTypeArgs> =
@@ -5835,6 +5837,7 @@ export namespace Prisma {
     player_id?: boolean
     admins_id?: boolean
     Admin?: boolean | ChatConversation$AdminArgs
+    Player?: boolean | PlayerArgs
     ChatMessages?: boolean | ChatConversation$ChatMessagesArgs
     _count?: boolean | ChatConversationCountOutputTypeArgs
   }
@@ -5842,6 +5845,7 @@ export namespace Prisma {
 
   export type ChatConversationInclude = {
     Admin?: boolean | ChatConversation$AdminArgs
+    Player?: boolean | PlayerArgs
     ChatMessages?: boolean | ChatConversation$ChatMessagesArgs
     _count?: boolean | ChatConversationCountOutputTypeArgs
   }
@@ -5854,6 +5858,7 @@ export namespace Prisma {
     ? ChatConversation  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'Admin' ? Array < AdminGetPayload<S['include'][P]>>  :
+        P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :
         P extends 'ChatMessages' ? Array < ChatMessagesGetPayload<S['include'][P]>>  :
         P extends '_count' ? ChatConversationCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
@@ -5861,6 +5866,7 @@ export namespace Prisma {
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'Admin' ? Array < AdminGetPayload<S['select'][P]>>  :
+        P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :
         P extends 'ChatMessages' ? Array < ChatMessagesGetPayload<S['select'][P]>>  :
         P extends '_count' ? ChatConversationCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof ChatConversation ? ChatConversation[P] : never
   } 
@@ -6262,6 +6268,8 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
     Admin<T extends ChatConversation$AdminArgs= {}>(args?: Subset<T, ChatConversation$AdminArgs>): Prisma.PrismaPromise<Array<AdminGetPayload<T>>| Null>;
+
+    Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
 
     ChatMessages<T extends ChatConversation$ChatMessagesArgs= {}>(args?: Subset<T, ChatConversation$ChatMessagesArgs>): Prisma.PrismaPromise<Array<ChatMessagesGetPayload<T>>| Null>;
 
@@ -13431,6 +13439,7 @@ export namespace Prisma {
     FavoriteGame?: boolean | Player$FavoriteGameArgs
     PlayerToken?: boolean | Player$PlayerTokenArgs
     SpinTime?: boolean | Player$SpinTimeArgs
+    ChatConversation?: boolean | Player$ChatConversationArgs
     _count?: boolean | PlayerCountOutputTypeArgs
   }
 
@@ -13446,6 +13455,7 @@ export namespace Prisma {
     FavoriteGame?: boolean | Player$FavoriteGameArgs
     PlayerToken?: boolean | Player$PlayerTokenArgs
     SpinTime?: boolean | Player$SpinTimeArgs
+    ChatConversation?: boolean | Player$ChatConversationArgs
     _count?: boolean | PlayerCountOutputTypeArgs
   }
 
@@ -13466,6 +13476,7 @@ export namespace Prisma {
         P extends 'FavoriteGame' ? Array < FavoriteGameGetPayload<S['include'][P]>>  :
         P extends 'PlayerToken' ? Array < PlayerTokenGetPayload<S['include'][P]>>  :
         P extends 'SpinTime' ? Array < SpinTimeGetPayload<S['include'][P]>>  :
+        P extends 'ChatConversation' ? Array < ChatConversationGetPayload<S['include'][P]>>  :
         P extends '_count' ? PlayerCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (PlayerArgs | PlayerFindManyArgs)
@@ -13481,6 +13492,7 @@ export namespace Prisma {
         P extends 'FavoriteGame' ? Array < FavoriteGameGetPayload<S['select'][P]>>  :
         P extends 'PlayerToken' ? Array < PlayerTokenGetPayload<S['select'][P]>>  :
         P extends 'SpinTime' ? Array < SpinTimeGetPayload<S['select'][P]>>  :
+        P extends 'ChatConversation' ? Array < ChatConversationGetPayload<S['select'][P]>>  :
         P extends '_count' ? PlayerCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Player ? Player[P] : never
   } 
       : Player
@@ -13899,6 +13911,8 @@ export namespace Prisma {
     PlayerToken<T extends Player$PlayerTokenArgs= {}>(args?: Subset<T, Player$PlayerTokenArgs>): Prisma.PrismaPromise<Array<PlayerTokenGetPayload<T>>| Null>;
 
     SpinTime<T extends Player$SpinTimeArgs= {}>(args?: Subset<T, Player$SpinTimeArgs>): Prisma.PrismaPromise<Array<SpinTimeGetPayload<T>>| Null>;
+
+    ChatConversation<T extends Player$ChatConversationArgs= {}>(args?: Subset<T, Player$ChatConversationArgs>): Prisma.PrismaPromise<Array<ChatConversationGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -14428,6 +14442,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<SpinTimeScalarFieldEnum>
+  }
+
+
+  /**
+   * Player.ChatConversation
+   */
+  export type Player$ChatConversationArgs = {
+    /**
+     * Select specific fields to fetch from the ChatConversation
+     */
+    select?: ChatConversationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatConversationInclude | null
+    where?: ChatConversationWhereInput
+    orderBy?: Enumerable<ChatConversationOrderByWithRelationInput>
+    cursor?: ChatConversationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<ChatConversationScalarFieldEnum>
   }
 
 
@@ -23487,6 +23522,7 @@ export namespace Prisma {
     player_id?: StringNullableFilter | string | null
     admins_id?: StringNullableListFilter
     Admin?: AdminListRelationFilter
+    Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
     ChatMessages?: ChatMessagesListRelationFilter
   }
 
@@ -23495,6 +23531,7 @@ export namespace Prisma {
     player_id?: SortOrder
     admins_id?: SortOrder
     Admin?: AdminOrderByRelationAggregateInput
+    Player?: PlayerOrderByWithRelationInput
     ChatMessages?: ChatMessagesOrderByRelationAggregateInput
   }
 
@@ -23935,6 +23972,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameListRelationFilter
     PlayerToken?: PlayerTokenListRelationFilter
     SpinTime?: SpinTimeListRelationFilter
+    ChatConversation?: ChatConversationListRelationFilter
   }
 
   export type PlayerOrderByWithRelationInput = {
@@ -23973,6 +24011,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameOrderByRelationAggregateInput
     PlayerToken?: PlayerTokenOrderByRelationAggregateInput
     SpinTime?: SpinTimeOrderByRelationAggregateInput
+    ChatConversation?: ChatConversationOrderByRelationAggregateInput
   }
 
   export type PlayerWhereUniqueInput = {
@@ -24830,9 +24869,9 @@ export namespace Prisma {
 
   export type ChatConversationCreateInput = {
     id?: string
-    player_id?: string | null
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
     Admin?: AdminCreateNestedManyWithoutChatConversationInput
+    Player?: PlayerCreateNestedOneWithoutChatConversationInput
     ChatMessages?: ChatMessagesCreateNestedManyWithoutConversationInput
   }
 
@@ -24845,9 +24884,9 @@ export namespace Prisma {
   }
 
   export type ChatConversationUpdateInput = {
-    player_id?: NullableStringFieldUpdateOperationsInput | string | null
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
     Admin?: AdminUpdateManyWithoutChatConversationNestedInput
+    Player?: PlayerUpdateOneWithoutChatConversationNestedInput
     ChatMessages?: ChatMessagesUpdateManyWithoutConversationNestedInput
   }
 
@@ -24865,7 +24904,6 @@ export namespace Prisma {
   }
 
   export type ChatConversationUpdateManyMutationInput = {
-    player_id?: NullableStringFieldUpdateOperationsInput | string | null
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
   }
 
@@ -25368,6 +25406,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateInput = {
@@ -25404,6 +25443,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUpdateInput = {
@@ -25439,6 +25479,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateInput = {
@@ -25474,6 +25515,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerCreateManyInput = {
@@ -26520,6 +26562,11 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
+  export type PlayerRelationFilter = {
+    is?: PlayerWhereInput | null
+    isNot?: PlayerWhereInput | null
+  }
+
   export type ChatMessagesListRelationFilter = {
     every?: ChatMessagesWhereInput
     some?: ChatMessagesWhereInput
@@ -26788,11 +26835,6 @@ export namespace Prisma {
   export type GamesRelationFilter = {
     is?: GamesWhereInput | null
     isNot?: GamesWhereInput | null
-  }
-
-  export type PlayerRelationFilter = {
-    is?: PlayerWhereInput | null
-    isNot?: PlayerWhereInput | null
   }
 
   export type FavoriteGameCountOrderByAggregateInput = {
@@ -27937,6 +27979,12 @@ export namespace Prisma {
     connect?: Enumerable<AdminWhereUniqueInput>
   }
 
+  export type PlayerCreateNestedOneWithoutChatConversationInput = {
+    create?: XOR<PlayerCreateWithoutChatConversationInput, PlayerUncheckedCreateWithoutChatConversationInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutChatConversationInput
+    connect?: PlayerWhereUniqueInput
+  }
+
   export type ChatMessagesCreateNestedManyWithoutConversationInput = {
     create?: XOR<Enumerable<ChatMessagesCreateWithoutConversationInput>, Enumerable<ChatMessagesUncheckedCreateWithoutConversationInput>>
     connectOrCreate?: Enumerable<ChatMessagesCreateOrConnectWithoutConversationInput>
@@ -27973,6 +28021,16 @@ export namespace Prisma {
     update?: Enumerable<AdminUpdateWithWhereUniqueWithoutChatConversationInput>
     updateMany?: Enumerable<AdminUpdateManyWithWhereWithoutChatConversationInput>
     deleteMany?: Enumerable<AdminScalarWhereInput>
+  }
+
+  export type PlayerUpdateOneWithoutChatConversationNestedInput = {
+    create?: XOR<PlayerCreateWithoutChatConversationInput, PlayerUncheckedCreateWithoutChatConversationInput>
+    connectOrCreate?: PlayerCreateOrConnectWithoutChatConversationInput
+    upsert?: PlayerUpsertWithoutChatConversationInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: PlayerWhereUniqueInput
+    update?: XOR<PlayerUpdateWithoutChatConversationInput, PlayerUncheckedUpdateWithoutChatConversationInput>
   }
 
   export type ChatMessagesUpdateManyWithoutConversationNestedInput = {
@@ -28281,6 +28339,13 @@ export namespace Prisma {
     connect?: Enumerable<SpinTimeWhereUniqueInput>
   }
 
+  export type ChatConversationCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<ChatConversationCreateWithoutPlayerInput>, Enumerable<ChatConversationUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<ChatConversationCreateOrConnectWithoutPlayerInput>
+    createMany?: ChatConversationCreateManyPlayerInputEnvelope
+    connect?: Enumerable<ChatConversationWhereUniqueInput>
+  }
+
   export type PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput = {
     create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutPlayerInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>>
     connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutPlayerInput>
@@ -28334,6 +28399,13 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<SpinTimeCreateOrConnectWithoutPlayerInput>
     createMany?: SpinTimeCreateManyPlayerInputEnvelope
     connect?: Enumerable<SpinTimeWhereUniqueInput>
+  }
+
+  export type ChatConversationUncheckedCreateNestedManyWithoutPlayerInput = {
+    create?: XOR<Enumerable<ChatConversationCreateWithoutPlayerInput>, Enumerable<ChatConversationUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<ChatConversationCreateOrConnectWithoutPlayerInput>
+    createMany?: ChatConversationCreateManyPlayerInputEnvelope
+    connect?: Enumerable<ChatConversationWhereUniqueInput>
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -28471,6 +28543,20 @@ export namespace Prisma {
     deleteMany?: Enumerable<SpinTimeScalarWhereInput>
   }
 
+  export type ChatConversationUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<ChatConversationCreateWithoutPlayerInput>, Enumerable<ChatConversationUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<ChatConversationCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<ChatConversationUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: ChatConversationCreateManyPlayerInputEnvelope
+    set?: Enumerable<ChatConversationWhereUniqueInput>
+    disconnect?: Enumerable<ChatConversationWhereUniqueInput>
+    delete?: Enumerable<ChatConversationWhereUniqueInput>
+    connect?: Enumerable<ChatConversationWhereUniqueInput>
+    update?: Enumerable<ChatConversationUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<ChatConversationUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<ChatConversationScalarWhereInput>
+  }
+
   export type PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput = {
     create?: XOR<Enumerable<PlayerBalanceTransactionsCreateWithoutPlayerInput>, Enumerable<PlayerBalanceTransactionsUncheckedCreateWithoutPlayerInput>>
     connectOrCreate?: Enumerable<PlayerBalanceTransactionsCreateOrConnectWithoutPlayerInput>
@@ -28577,6 +28663,20 @@ export namespace Prisma {
     update?: Enumerable<SpinTimeUpdateWithWhereUniqueWithoutPlayerInput>
     updateMany?: Enumerable<SpinTimeUpdateManyWithWhereWithoutPlayerInput>
     deleteMany?: Enumerable<SpinTimeScalarWhereInput>
+  }
+
+  export type ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput = {
+    create?: XOR<Enumerable<ChatConversationCreateWithoutPlayerInput>, Enumerable<ChatConversationUncheckedCreateWithoutPlayerInput>>
+    connectOrCreate?: Enumerable<ChatConversationCreateOrConnectWithoutPlayerInput>
+    upsert?: Enumerable<ChatConversationUpsertWithWhereUniqueWithoutPlayerInput>
+    createMany?: ChatConversationCreateManyPlayerInputEnvelope
+    set?: Enumerable<ChatConversationWhereUniqueInput>
+    disconnect?: Enumerable<ChatConversationWhereUniqueInput>
+    delete?: Enumerable<ChatConversationWhereUniqueInput>
+    connect?: Enumerable<ChatConversationWhereUniqueInput>
+    update?: Enumerable<ChatConversationUpdateWithWhereUniqueWithoutPlayerInput>
+    updateMany?: Enumerable<ChatConversationUpdateManyWithWhereWithoutPlayerInput>
+    deleteMany?: Enumerable<ChatConversationScalarWhereInput>
   }
 
   export type GameTransactionsCreateNestedManyWithoutGameInput = {
@@ -29745,6 +29845,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutManagerInput = {
@@ -29780,6 +29881,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutManagerInput = {
@@ -29849,8 +29951,8 @@ export namespace Prisma {
 
   export type ChatConversationCreateWithoutAdminInput = {
     id?: string
-    player_id?: string | null
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
+    Player?: PlayerCreateNestedOneWithoutChatConversationInput
     ChatMessages?: ChatMessagesCreateNestedManyWithoutConversationInput
   }
 
@@ -30252,6 +30354,83 @@ export namespace Prisma {
     create: XOR<AdminCreateWithoutChatConversationInput, AdminUncheckedCreateWithoutChatConversationInput>
   }
 
+  export type PlayerCreateWithoutChatConversationInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    Settings?: SettingsCreateNestedOneWithoutPlayersInput
+    manager: AdminCreateNestedOneWithoutPlayerInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerUncheckedCreateWithoutChatConversationInput = {
+    id?: string
+    name?: string | null
+    username: string
+    password: string
+    phone_number?: number | null
+    country_code?: string | null
+    status?: AccountStatus
+    balance?: number
+    game_played?: number
+    won?: number
+    spent?: number
+    won_total?: number
+    spent_total?: number
+    grandJP_won?: number
+    grandJP_won_count?: number
+    majorJP_won?: number
+    majorJP_won_count?: number
+    minorJP_won?: number
+    minorJP_won_count?: number
+    miniJP_won?: number
+    miniJP_won_count?: number
+    general_won?: number
+    general_won_count?: number
+    setting_id?: string | null
+    created_by: string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedCreateNestedOneWithoutPlayerInput
+    GameTransactions?: GameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    FishGameTransactions?: FishGameTransactionsUncheckedCreateNestedManyWithoutPlayerInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
+    FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
+    PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+  }
+
+  export type PlayerCreateOrConnectWithoutChatConversationInput = {
+    where: PlayerWhereUniqueInput
+    create: XOR<PlayerCreateWithoutChatConversationInput, PlayerUncheckedCreateWithoutChatConversationInput>
+  }
+
   export type ChatMessagesCreateWithoutConversationInput = {
     id?: string
     message: string
@@ -30293,6 +30472,81 @@ export namespace Prisma {
     data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyWithoutAdminInput>
   }
 
+  export type PlayerUpsertWithoutChatConversationInput = {
+    update: XOR<PlayerUpdateWithoutChatConversationInput, PlayerUncheckedUpdateWithoutChatConversationInput>
+    create: XOR<PlayerCreateWithoutChatConversationInput, PlayerUncheckedCreateWithoutChatConversationInput>
+  }
+
+  export type PlayerUpdateWithoutChatConversationInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    Settings?: SettingsUpdateOneWithoutPlayersNestedInput
+    manager?: AdminUpdateOneRequiredWithoutPlayerNestedInput
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+  }
+
+  export type PlayerUncheckedUpdateWithoutChatConversationInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone_number?: NullableIntFieldUpdateOperationsInput | number | null
+    country_code?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAccountStatusFieldUpdateOperationsInput | AccountStatus
+    balance?: FloatFieldUpdateOperationsInput | number
+    game_played?: IntFieldUpdateOperationsInput | number
+    won?: FloatFieldUpdateOperationsInput | number
+    spent?: FloatFieldUpdateOperationsInput | number
+    won_total?: FloatFieldUpdateOperationsInput | number
+    spent_total?: FloatFieldUpdateOperationsInput | number
+    grandJP_won?: FloatFieldUpdateOperationsInput | number
+    grandJP_won_count?: IntFieldUpdateOperationsInput | number
+    majorJP_won?: FloatFieldUpdateOperationsInput | number
+    majorJP_won_count?: IntFieldUpdateOperationsInput | number
+    minorJP_won?: FloatFieldUpdateOperationsInput | number
+    minorJP_won_count?: IntFieldUpdateOperationsInput | number
+    miniJP_won?: FloatFieldUpdateOperationsInput | number
+    miniJP_won_count?: IntFieldUpdateOperationsInput | number
+    general_won?: FloatFieldUpdateOperationsInput | number
+    general_won_count?: IntFieldUpdateOperationsInput | number
+    setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: StringFieldUpdateOperationsInput | string
+    PlayerBalanceTransactions?: PlayerBalanceTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    ActiveGamePlay?: ActiveGamePlayUncheckedUpdateOneWithoutPlayerNestedInput
+    GameTransactions?: GameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    FishGameTransactions?: FishGameTransactionsUncheckedUpdateManyWithoutPlayerNestedInput
+    SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
+    FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
+    PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+  }
+
   export type ChatMessagesUpsertWithWhereUniqueWithoutConversationInput = {
     where: ChatMessagesWhereUniqueInput
     update: XOR<ChatMessagesUpdateWithoutConversationInput, ChatMessagesUncheckedUpdateWithoutConversationInput>
@@ -30323,9 +30577,9 @@ export namespace Prisma {
 
   export type ChatConversationCreateWithoutChatMessagesInput = {
     id?: string
-    player_id?: string | null
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
     Admin?: AdminCreateNestedManyWithoutChatConversationInput
+    Player?: PlayerCreateNestedOneWithoutChatConversationInput
   }
 
   export type ChatConversationUncheckedCreateWithoutChatMessagesInput = {
@@ -30346,9 +30600,9 @@ export namespace Prisma {
   }
 
   export type ChatConversationUpdateWithoutChatMessagesInput = {
-    player_id?: NullableStringFieldUpdateOperationsInput | string | null
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
     Admin?: AdminUpdateManyWithoutChatConversationNestedInput
+    Player?: PlayerUpdateOneWithoutChatConversationNestedInput
   }
 
   export type ChatConversationUncheckedUpdateWithoutChatMessagesInput = {
@@ -30675,6 +30929,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutSettingsInput = {
@@ -30710,6 +30965,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutSettingsInput = {
@@ -30819,6 +31075,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutFavoriteGameInput = {
@@ -30854,6 +31111,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutFavoriteGameInput = {
@@ -30929,6 +31187,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutFavoriteGameInput = {
@@ -30963,6 +31222,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerCreateWithoutPlayerTokenInput = {
@@ -30998,6 +31258,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutPlayerTokenInput = {
@@ -31033,6 +31294,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutPlayerTokenInput = {
@@ -31077,6 +31339,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutPlayerTokenInput = {
@@ -31111,6 +31374,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerCreateWithoutSpinTimeInput = {
@@ -31146,6 +31410,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusCreateNestedManyWithoutPlayerInput
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutSpinTimeInput = {
@@ -31181,6 +31446,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusUncheckedCreateNestedManyWithoutPlayerInput
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutSpinTimeInput = {
@@ -31225,6 +31491,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusUpdateManyWithoutPlayerNestedInput
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutSpinTimeInput = {
@@ -31259,6 +31526,7 @@ export namespace Prisma {
     SlotFreeBonus?: SlotFreeBonusUncheckedUpdateManyWithoutPlayerNestedInput
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type SettingsCreateWithoutPlayersInput = {
@@ -31597,6 +31865,29 @@ export namespace Prisma {
     data: Enumerable<SpinTimeCreateManyPlayerInput>
   }
 
+  export type ChatConversationCreateWithoutPlayerInput = {
+    id?: string
+    admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
+    Admin?: AdminCreateNestedManyWithoutChatConversationInput
+    ChatMessages?: ChatMessagesCreateNestedManyWithoutConversationInput
+  }
+
+  export type ChatConversationUncheckedCreateWithoutPlayerInput = {
+    id?: string
+    admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
+    Admin?: AdminUncheckedCreateNestedManyWithoutChatConversationInput
+    ChatMessages?: ChatMessagesUncheckedCreateNestedManyWithoutConversationInput
+  }
+
+  export type ChatConversationCreateOrConnectWithoutPlayerInput = {
+    where: ChatConversationWhereUniqueInput
+    create: XOR<ChatConversationCreateWithoutPlayerInput, ChatConversationUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type ChatConversationCreateManyPlayerInputEnvelope = {
+    data: Enumerable<ChatConversationCreateManyPlayerInput>
+  }
+
   export type SettingsUpsertWithoutPlayersInput = {
     update: XOR<SettingsUpdateWithoutPlayersInput, SettingsUncheckedUpdateWithoutPlayersInput>
     create: XOR<SettingsCreateWithoutPlayersInput, SettingsUncheckedCreateWithoutPlayersInput>
@@ -31916,6 +32207,22 @@ export namespace Prisma {
     enabled?: BoolFilter | boolean
     renewOn?: StringFilter | string
     timeLeft?: StringFilter | string
+  }
+
+  export type ChatConversationUpsertWithWhereUniqueWithoutPlayerInput = {
+    where: ChatConversationWhereUniqueInput
+    update: XOR<ChatConversationUpdateWithoutPlayerInput, ChatConversationUncheckedUpdateWithoutPlayerInput>
+    create: XOR<ChatConversationCreateWithoutPlayerInput, ChatConversationUncheckedCreateWithoutPlayerInput>
+  }
+
+  export type ChatConversationUpdateWithWhereUniqueWithoutPlayerInput = {
+    where: ChatConversationWhereUniqueInput
+    data: XOR<ChatConversationUpdateWithoutPlayerInput, ChatConversationUncheckedUpdateWithoutPlayerInput>
+  }
+
+  export type ChatConversationUpdateManyWithWhereWithoutPlayerInput = {
+    where: ChatConversationScalarWhereInput
+    data: XOR<ChatConversationUpdateManyMutationInput, ChatConversationUncheckedUpdateManyWithoutChatConversationInput>
   }
 
   export type GameTransactionsCreateWithoutGameInput = {
@@ -32312,6 +32619,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutActiveGamePlayInput = {
@@ -32347,6 +32655,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutActiveGamePlayInput = {
@@ -32424,6 +32733,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutActiveGamePlayInput = {
@@ -32458,6 +32768,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GamesUpsertWithoutActiveGamePlayInput = {
@@ -32557,6 +32868,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutGameTransactionsInput = {
@@ -32592,6 +32904,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutGameTransactionsInput = {
@@ -32667,6 +32980,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutGameTransactionsInput = {
@@ -32701,6 +33015,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GamesCreateWithoutFishGameTransactionsInput = {
@@ -32769,6 +33084,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutFishGameTransactionsInput = {
@@ -32804,6 +33120,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutFishGameTransactionsInput = {
@@ -32879,6 +33196,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutFishGameTransactionsInput = {
@@ -32913,6 +33231,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerCreateWithoutSlotFreeBonusInput = {
@@ -32948,6 +33267,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutSlotFreeBonusInput = {
@@ -32983,6 +33303,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutSlotFreeBonusInput = {
@@ -33060,6 +33381,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutSlotFreeBonusInput = {
@@ -33094,6 +33416,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type GamesUpsertWithoutSlotFreeBonusInput = {
@@ -33160,6 +33483,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerUncheckedCreateWithoutPlayerBalanceTransactionsInput = {
@@ -33195,6 +33519,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
   }
 
   export type PlayerCreateOrConnectWithoutPlayerBalanceTransactionsInput = {
@@ -33296,6 +33621,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutPlayerBalanceTransactionsInput = {
@@ -33330,6 +33656,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type AdminUpsertWithoutPlayerBalanceTransactionsInput = {
@@ -33650,6 +33977,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutManagerInput = {
@@ -33684,6 +34012,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateManyWithoutPlayerInput = {
@@ -33764,8 +34093,8 @@ export namespace Prisma {
   }
 
   export type ChatConversationUpdateWithoutAdminInput = {
-    player_id?: NullableStringFieldUpdateOperationsInput | string | null
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
+    Player?: PlayerUpdateOneWithoutChatConversationNestedInput
     ChatMessages?: ChatMessagesUpdateManyWithoutConversationNestedInput
   }
 
@@ -34024,6 +34353,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateWithoutSettingsInput = {
@@ -34058,6 +34388,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
   }
 
   export type PlayerUncheckedUpdateManyWithoutPlayersInput = {
@@ -34153,6 +34484,11 @@ export namespace Prisma {
     enabled: boolean
     renewOn: string
     timeLeft: string
+  }
+
+  export type ChatConversationCreateManyPlayerInput = {
+    id?: string
+    admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
   }
 
   export type PlayerBalanceTransactionsUpdateWithoutPlayerInput = {
@@ -34327,6 +34663,18 @@ export namespace Prisma {
     enabled?: BoolFieldUpdateOperationsInput | boolean
     renewOn?: StringFieldUpdateOperationsInput | string
     timeLeft?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ChatConversationUpdateWithoutPlayerInput = {
+    admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
+    Admin?: AdminUpdateManyWithoutChatConversationNestedInput
+    ChatMessages?: ChatMessagesUpdateManyWithoutConversationNestedInput
+  }
+
+  export type ChatConversationUncheckedUpdateWithoutPlayerInput = {
+    admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
+    Admin?: AdminUncheckedUpdateManyWithoutChatConversationNestedInput
+    ChatMessages?: ChatMessagesUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type GameTransactionsCreateManyGameInput = {

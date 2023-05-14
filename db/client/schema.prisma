@@ -65,6 +65,7 @@ model ChatConversation {
     player_id    String?
     admins_id    String[]
     Admin        Admin[]        @relation(fields: [admins_id], references: [id])
+    Player       Player?        @relation(fields: [player_id], references: [id])
     ChatMessages ChatMessages[]
 }
 
@@ -182,6 +183,7 @@ model Player {
     FavoriteGame              FavoriteGame[]
     PlayerToken               PlayerToken[]
     SpinTime                  SpinTime[]
+    ChatConversation          ChatConversation[]
 }
 
 model Games {
