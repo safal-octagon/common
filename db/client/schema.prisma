@@ -58,6 +58,7 @@ model Admin {
     Announcement              Announcement[]
     ChatConversation          ChatConversation[]          @relation(fields: [chatConversationId], references: [id])
     chatConversationId        String[]
+    isOnline                  Boolean                     @default(false)
 }
 
 model ChatConversation {
@@ -184,6 +185,7 @@ model Player {
     PlayerToken               PlayerToken[]
     SpinTime                  SpinTime[]
     ChatConversation          ChatConversation[]
+    isOnline                  Boolean                     @default(false)
 }
 
 model Games {

@@ -62,6 +62,7 @@ export type Admin = {
   totalRedeem: number
   totalLost: number
   chatConversationId: string[]
+  isOnline: boolean
 }
 
 /**
@@ -197,6 +198,7 @@ export type Player = {
   general_won_count: number
   setting_id: string | null
   created_by: string
+  isOnline: boolean
 }
 
 /**
@@ -4410,6 +4412,7 @@ export namespace Prisma {
     totalSpent: number | null
     totalRedeem: number | null
     totalLost: number | null
+    isOnline: boolean | null
   }
 
   export type AdminMaxAggregateOutputType = {
@@ -4429,6 +4432,7 @@ export namespace Prisma {
     totalSpent: number | null
     totalRedeem: number | null
     totalLost: number | null
+    isOnline: boolean | null
   }
 
   export type AdminCountAggregateOutputType = {
@@ -4449,6 +4453,7 @@ export namespace Prisma {
     totalRedeem: number
     totalLost: number
     chatConversationId: number
+    isOnline: number
     _all: number
   }
 
@@ -4484,6 +4489,7 @@ export namespace Prisma {
     totalSpent?: true
     totalRedeem?: true
     totalLost?: true
+    isOnline?: true
   }
 
   export type AdminMaxAggregateInputType = {
@@ -4503,6 +4509,7 @@ export namespace Prisma {
     totalSpent?: true
     totalRedeem?: true
     totalLost?: true
+    isOnline?: true
   }
 
   export type AdminCountAggregateInputType = {
@@ -4523,6 +4530,7 @@ export namespace Prisma {
     totalRedeem?: true
     totalLost?: true
     chatConversationId?: true
+    isOnline?: true
     _all?: true
   }
 
@@ -4631,6 +4639,7 @@ export namespace Prisma {
     totalRedeem: number
     totalLost: number
     chatConversationId: string[]
+    isOnline: boolean
     _count: AdminCountAggregateOutputType | null
     _avg: AdminAvgAggregateOutputType | null
     _sum: AdminSumAggregateOutputType | null
@@ -4679,6 +4688,7 @@ export namespace Prisma {
     Announcement?: boolean | Admin$AnnouncementArgs
     ChatConversation?: boolean | Admin$ChatConversationArgs
     chatConversationId?: boolean
+    isOnline?: boolean
     _count?: boolean | AdminCountOutputTypeArgs
   }
 
@@ -13084,6 +13094,7 @@ export namespace Prisma {
     general_won_count: number | null
     setting_id: string | null
     created_by: string | null
+    isOnline: boolean | null
   }
 
   export type PlayerMaxAggregateOutputType = {
@@ -13112,6 +13123,7 @@ export namespace Prisma {
     general_won_count: number | null
     setting_id: string | null
     created_by: string | null
+    isOnline: boolean | null
   }
 
   export type PlayerCountAggregateOutputType = {
@@ -13140,6 +13152,7 @@ export namespace Prisma {
     general_won_count: number
     setting_id: number
     created_by: number
+    isOnline: number
     _all: number
   }
 
@@ -13210,6 +13223,7 @@ export namespace Prisma {
     general_won_count?: true
     setting_id?: true
     created_by?: true
+    isOnline?: true
   }
 
   export type PlayerMaxAggregateInputType = {
@@ -13238,6 +13252,7 @@ export namespace Prisma {
     general_won_count?: true
     setting_id?: true
     created_by?: true
+    isOnline?: true
   }
 
   export type PlayerCountAggregateInputType = {
@@ -13266,6 +13281,7 @@ export namespace Prisma {
     general_won_count?: true
     setting_id?: true
     created_by?: true
+    isOnline?: true
     _all?: true
   }
 
@@ -13382,6 +13398,7 @@ export namespace Prisma {
     general_won_count: number
     setting_id: string | null
     created_by: string
+    isOnline: boolean
     _count: PlayerCountAggregateOutputType | null
     _avg: PlayerAvgAggregateOutputType | null
     _sum: PlayerSumAggregateOutputType | null
@@ -13440,6 +13457,7 @@ export namespace Prisma {
     PlayerToken?: boolean | Player$PlayerTokenArgs
     SpinTime?: boolean | Player$SpinTimeArgs
     ChatConversation?: boolean | Player$ChatConversationArgs
+    isOnline?: boolean
     _count?: boolean | PlayerCountOutputTypeArgs
   }
 
@@ -23020,7 +23038,8 @@ export namespace Prisma {
     totalSpent: 'totalSpent',
     totalRedeem: 'totalRedeem',
     totalLost: 'totalLost',
-    chatConversationId: 'chatConversationId'
+    chatConversationId: 'chatConversationId',
+    isOnline: 'isOnline'
   };
 
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
@@ -23181,7 +23200,8 @@ export namespace Prisma {
     general_won: 'general_won',
     general_won_count: 'general_won_count',
     setting_id: 'setting_id',
-    created_by: 'created_by'
+    created_by: 'created_by',
+    isOnline: 'isOnline'
   };
 
   export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum]
@@ -23428,6 +23448,7 @@ export namespace Prisma {
     Announcement?: AnnouncementListRelationFilter
     ChatConversation?: ChatConversationListRelationFilter
     chatConversationId?: StringNullableListFilter
+    isOnline?: BoolFilter | boolean
   }
 
   export type AdminOrderByWithRelationInput = {
@@ -23457,6 +23478,7 @@ export namespace Prisma {
     Announcement?: AnnouncementOrderByRelationAggregateInput
     ChatConversation?: ChatConversationOrderByRelationAggregateInput
     chatConversationId?: SortOrder
+    isOnline?: SortOrder
   }
 
   export type AdminWhereUniqueInput = {
@@ -23484,6 +23506,7 @@ export namespace Prisma {
     totalRedeem?: SortOrder
     totalLost?: SortOrder
     chatConversationId?: SortOrder
+    isOnline?: SortOrder
     _count?: AdminCountOrderByAggregateInput
     _avg?: AdminAvgOrderByAggregateInput
     _max?: AdminMaxOrderByAggregateInput
@@ -23512,6 +23535,7 @@ export namespace Prisma {
     totalRedeem?: FloatWithAggregatesFilter | number
     totalLost?: FloatWithAggregatesFilter | number
     chatConversationId?: StringNullableListFilter
+    isOnline?: BoolWithAggregatesFilter | boolean
   }
 
   export type ChatConversationWhereInput = {
@@ -23973,6 +23997,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenListRelationFilter
     SpinTime?: SpinTimeListRelationFilter
     ChatConversation?: ChatConversationListRelationFilter
+    isOnline?: BoolFilter | boolean
   }
 
   export type PlayerOrderByWithRelationInput = {
@@ -24012,6 +24037,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenOrderByRelationAggregateInput
     SpinTime?: SpinTimeOrderByRelationAggregateInput
     ChatConversation?: ChatConversationOrderByRelationAggregateInput
+    isOnline?: SortOrder
   }
 
   export type PlayerWhereUniqueInput = {
@@ -24046,6 +24072,7 @@ export namespace Prisma {
     general_won_count?: SortOrder
     setting_id?: SortOrder
     created_by?: SortOrder
+    isOnline?: SortOrder
     _count?: PlayerCountOrderByAggregateInput
     _avg?: PlayerAvgOrderByAggregateInput
     _max?: PlayerMaxOrderByAggregateInput
@@ -24082,6 +24109,7 @@ export namespace Prisma {
     general_won_count?: IntWithAggregatesFilter | number
     setting_id?: StringNullableWithAggregatesFilter | string | null
     created_by?: StringWithAggregatesFilter | string
+    isOnline?: BoolWithAggregatesFilter | boolean
   }
 
   export type GamesWhereInput = {
@@ -24730,6 +24758,7 @@ export namespace Prisma {
     Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateInput = {
@@ -24757,6 +24786,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUpdateInput = {
@@ -24783,6 +24813,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateInput = {
@@ -24809,6 +24840,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminCreateManyInput = {
@@ -24829,6 +24861,7 @@ export namespace Prisma {
     totalRedeem?: number
     totalLost?: number
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUpdateManyMutationInput = {
@@ -24846,6 +24879,7 @@ export namespace Prisma {
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateManyInput = {
@@ -24865,6 +24899,7 @@ export namespace Prisma {
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ChatConversationCreateInput = {
@@ -25407,6 +25442,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateInput = {
@@ -25444,6 +25480,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUpdateInput = {
@@ -25480,6 +25517,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateInput = {
@@ -25516,6 +25554,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerCreateManyInput = {
@@ -25544,6 +25583,7 @@ export namespace Prisma {
     general_won_count?: number
     setting_id?: string | null
     created_by: string
+    isOnline?: boolean
   }
 
   export type PlayerUpdateManyMutationInput = {
@@ -25569,6 +25609,7 @@ export namespace Prisma {
     miniJP_won_count?: IntFieldUpdateOperationsInput | number
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateManyInput = {
@@ -25596,6 +25637,7 @@ export namespace Prisma {
     general_won_count?: IntFieldUpdateOperationsInput | number
     setting_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GamesCreateInput = {
@@ -26396,6 +26438,11 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
+  export type BoolFilter = {
+    equals?: boolean
+    not?: NestedBoolFilter | boolean
+  }
+
   export type AdminOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -26438,6 +26485,7 @@ export namespace Prisma {
     totalRedeem?: SortOrder
     totalLost?: SortOrder
     chatConversationId?: SortOrder
+    isOnline?: SortOrder
   }
 
   export type AdminAvgOrderByAggregateInput = {
@@ -26464,6 +26512,7 @@ export namespace Prisma {
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
+    isOnline?: SortOrder
   }
 
   export type AdminMinOrderByAggregateInput = {
@@ -26483,6 +26532,7 @@ export namespace Prisma {
     totalSpent?: SortOrder
     totalRedeem?: SortOrder
     totalLost?: SortOrder
+    isOnline?: SortOrder
   }
 
   export type AdminSumOrderByAggregateInput = {
@@ -26562,6 +26612,14 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
+  export type BoolWithAggregatesFilter = {
+    equals?: boolean
+    not?: NestedBoolWithAggregatesFilter | boolean
+    _count?: NestedIntFilter
+    _min?: NestedBoolFilter
+    _max?: NestedBoolFilter
+  }
+
   export type PlayerRelationFilter = {
     is?: PlayerWhereInput | null
     isNot?: PlayerWhereInput | null
@@ -26598,11 +26656,6 @@ export namespace Prisma {
     isNot?: ChatConversationWhereInput
   }
 
-  export type BoolFilter = {
-    equals?: boolean
-    not?: NestedBoolFilter | boolean
-  }
-
   export type ChatMessagesCountOrderByAggregateInput = {
     id?: SortOrder
     message?: SortOrder
@@ -26628,14 +26681,6 @@ export namespace Prisma {
     receiverId?: SortOrder
     conversationId?: SortOrder
     isRead?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter = {
-    equals?: boolean
-    not?: NestedBoolWithAggregatesFilter | boolean
-    _count?: NestedIntFilter
-    _min?: NestedBoolFilter
-    _max?: NestedBoolFilter
   }
 
   export type AdminBalanceTransactionsCountOrderByAggregateInput = {
@@ -27003,6 +27048,7 @@ export namespace Prisma {
     general_won_count?: SortOrder
     setting_id?: SortOrder
     created_by?: SortOrder
+    isOnline?: SortOrder
   }
 
   export type PlayerAvgOrderByAggregateInput = {
@@ -27051,6 +27097,7 @@ export namespace Prisma {
     general_won_count?: SortOrder
     setting_id?: SortOrder
     created_by?: SortOrder
+    isOnline?: SortOrder
   }
 
   export type PlayerMinOrderByAggregateInput = {
@@ -27079,6 +27126,7 @@ export namespace Prisma {
     general_won_count?: SortOrder
     setting_id?: SortOrder
     created_by?: SortOrder
+    isOnline?: SortOrder
   }
 
   export type PlayerSumOrderByAggregateInput = {
@@ -27872,6 +27920,10 @@ export namespace Prisma {
     push?: string | Enumerable<string>
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type AdminUncheckedUpdateManyWithoutCreatedByNestedInput = {
     create?: XOR<Enumerable<AdminCreateWithoutCreatedByInput>, Enumerable<AdminUncheckedCreateWithoutCreatedByInput>>
     connectOrCreate?: Enumerable<AdminCreateOrConnectWithoutCreatedByInput>
@@ -28086,10 +28138,6 @@ export namespace Prisma {
     upsert?: ChatConversationUpsertWithoutChatMessagesInput
     connect?: ChatConversationWhereUniqueInput
     update?: XOR<ChatConversationUpdateWithoutChatMessagesInput, ChatConversationUncheckedUpdateWithoutChatMessagesInput>
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type AdminCreateNestedOneWithoutAccountInput = {
@@ -29224,6 +29272,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter | Date | string
   }
 
+  export type NestedBoolFilter = {
+    equals?: boolean
+    not?: NestedBoolFilter | boolean
+  }
+
   export type NestedStringNullableWithAggregatesFilter = {
     equals?: string | null
     in?: Enumerable<string> | null
@@ -29303,11 +29356,6 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedDateTimeFilter
     _max?: NestedDateTimeFilter
-  }
-
-  export type NestedBoolFilter = {
-    equals?: boolean
-    not?: NestedBoolFilter | boolean
   }
 
   export type NestedBoolWithAggregatesFilter = {
@@ -29479,6 +29527,7 @@ export namespace Prisma {
     totalLost?: number
     ChatConversation?: ChatConversationCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateWithoutAnnouncementInput = {
@@ -29505,6 +29554,7 @@ export namespace Prisma {
     totalLost?: number
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminCreateOrConnectWithoutAnnouncementInput = {
@@ -29540,6 +29590,7 @@ export namespace Prisma {
     totalLost?: FloatFieldUpdateOperationsInput | number
     ChatConversation?: ChatConversationUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateWithoutAnnouncementInput = {
@@ -29565,6 +29616,7 @@ export namespace Prisma {
     totalLost?: FloatFieldUpdateOperationsInput | number
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SettingsCreateWithoutAdminsInput = {
@@ -29648,6 +29700,7 @@ export namespace Prisma {
     Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateWithoutUserInput = {
@@ -29674,6 +29727,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminCreateOrConnectWithoutUserInput = {
@@ -29705,6 +29759,7 @@ export namespace Prisma {
     Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateWithoutCreatedByInput = {
@@ -29731,6 +29786,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminCreateOrConnectWithoutCreatedByInput = {
@@ -29846,6 +29902,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutManagerInput = {
@@ -29882,6 +29939,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutManagerInput = {
@@ -30051,6 +30109,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateWithoutUserInput = {
@@ -30076,6 +30135,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -30115,6 +30175,7 @@ export namespace Prisma {
     totalRedeem?: FloatFilter | number
     totalLost?: FloatFilter | number
     chatConversationId?: StringNullableListFilter
+    isOnline?: BoolFilter | boolean
   }
 
   export type AdminBalanceTransactionsUpsertWithWhereUniqueWithoutAccount_userInput = {
@@ -30211,6 +30272,7 @@ export namespace Prisma {
     general_won_count?: IntFilter | number
     setting_id?: StringNullableFilter | string | null
     created_by?: StringFilter | string
+    isOnline?: BoolFilter | boolean
   }
 
   export type PlayerBalanceTransactionsUpsertWithWhereUniqueWithoutAdminInput = {
@@ -30321,6 +30383,7 @@ export namespace Prisma {
     totalLost?: number
     Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateWithoutChatConversationInput = {
@@ -30347,6 +30410,7 @@ export namespace Prisma {
     totalLost?: number
     Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminCreateOrConnectWithoutChatConversationInput = {
@@ -30388,6 +30452,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutChatConversationInput = {
@@ -30424,6 +30489,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutChatConversationInput = {
@@ -30510,6 +30576,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutChatConversationInput = {
@@ -30545,6 +30612,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ChatMessagesUpsertWithWhereUniqueWithoutConversationInput = {
@@ -30635,6 +30703,7 @@ export namespace Prisma {
     Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateWithoutAccountInput = {
@@ -30661,6 +30730,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminCreateOrConnectWithoutAccountInput = {
@@ -30692,6 +30762,7 @@ export namespace Prisma {
     Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateWithoutCashierInput = {
@@ -30718,6 +30789,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminCreateOrConnectWithoutCashierInput = {
@@ -30753,6 +30825,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateWithoutAccountInput = {
@@ -30778,6 +30851,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUpsertWithoutCashierInput = {
@@ -30808,6 +30882,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateWithoutCashierInput = {
@@ -30833,6 +30908,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminCreateWithoutSettingsInput = {
@@ -30859,6 +30935,7 @@ export namespace Prisma {
     Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateWithoutSettingsInput = {
@@ -30885,6 +30962,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminCreateOrConnectWithoutSettingsInput = {
@@ -30930,6 +31008,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutSettingsInput = {
@@ -30966,6 +31045,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutSettingsInput = {
@@ -31076,6 +31156,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutFavoriteGameInput = {
@@ -31112,6 +31193,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutFavoriteGameInput = {
@@ -31188,6 +31270,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutFavoriteGameInput = {
@@ -31223,6 +31306,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerCreateWithoutPlayerTokenInput = {
@@ -31259,6 +31343,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutPlayerTokenInput = {
@@ -31295,6 +31380,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutPlayerTokenInput = {
@@ -31340,6 +31426,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutPlayerTokenInput = {
@@ -31375,6 +31462,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerCreateWithoutSpinTimeInput = {
@@ -31411,6 +31499,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutSpinTimeInput = {
@@ -31447,6 +31536,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedCreateNestedManyWithoutPlayerInput
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutSpinTimeInput = {
@@ -31492,6 +31582,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutSpinTimeInput = {
@@ -31527,6 +31618,7 @@ export namespace Prisma {
     FavoriteGame?: FavoriteGameUncheckedUpdateManyWithoutPlayerNestedInput
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SettingsCreateWithoutPlayersInput = {
@@ -31610,6 +31702,7 @@ export namespace Prisma {
     Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateWithoutPlayerInput = {
@@ -31636,6 +31729,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminCreateOrConnectWithoutPlayerInput = {
@@ -31971,6 +32065,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateWithoutPlayerInput = {
@@ -31996,6 +32091,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerBalanceTransactionsUpsertWithWhereUniqueWithoutPlayerInput = {
@@ -32620,6 +32716,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutActiveGamePlayInput = {
@@ -32656,6 +32753,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutActiveGamePlayInput = {
@@ -32734,6 +32832,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutActiveGamePlayInput = {
@@ -32769,6 +32868,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GamesUpsertWithoutActiveGamePlayInput = {
@@ -32869,6 +32969,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutGameTransactionsInput = {
@@ -32905,6 +33006,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutGameTransactionsInput = {
@@ -32981,6 +33083,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutGameTransactionsInput = {
@@ -33016,6 +33119,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GamesCreateWithoutFishGameTransactionsInput = {
@@ -33085,6 +33189,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutFishGameTransactionsInput = {
@@ -33121,6 +33226,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutFishGameTransactionsInput = {
@@ -33197,6 +33303,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutFishGameTransactionsInput = {
@@ -33232,6 +33339,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerCreateWithoutSlotFreeBonusInput = {
@@ -33268,6 +33376,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutSlotFreeBonusInput = {
@@ -33304,6 +33413,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutSlotFreeBonusInput = {
@@ -33382,6 +33492,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutSlotFreeBonusInput = {
@@ -33417,6 +33528,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GamesUpsertWithoutSlotFreeBonusInput = {
@@ -33484,6 +33596,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerUncheckedCreateWithoutPlayerBalanceTransactionsInput = {
@@ -33520,6 +33633,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedCreateNestedManyWithoutPlayerInput
     SpinTime?: SpinTimeUncheckedCreateNestedManyWithoutPlayerInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutPlayerInput
+    isOnline?: boolean
   }
 
   export type PlayerCreateOrConnectWithoutPlayerBalanceTransactionsInput = {
@@ -33551,6 +33665,7 @@ export namespace Prisma {
     Announcement?: AnnouncementCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminUncheckedCreateWithoutPlayerBalanceTransactionsInput = {
@@ -33577,6 +33692,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedCreateNestedManyWithoutAdminInput
     ChatConversation?: ChatConversationUncheckedCreateNestedManyWithoutAdminInput
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminCreateOrConnectWithoutPlayerBalanceTransactionsInput = {
@@ -33622,6 +33738,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutPlayerBalanceTransactionsInput = {
@@ -33657,6 +33774,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUpsertWithoutPlayerBalanceTransactionsInput = {
@@ -33687,6 +33805,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateWithoutPlayerBalanceTransactionsInput = {
@@ -33712,6 +33831,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminCreateManyCreatedByInput = {
@@ -33731,6 +33851,7 @@ export namespace Prisma {
     totalRedeem?: number
     totalLost?: number
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type AdminBalanceTransactionsCreateManyAccount_userInput = {
@@ -33784,6 +33905,7 @@ export namespace Prisma {
     general_won?: number
     general_won_count?: number
     setting_id?: string | null
+    isOnline?: boolean
   }
 
   export type PlayerBalanceTransactionsCreateManyAdminInput = {
@@ -33828,6 +33950,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateWithoutCreatedByInput = {
@@ -33853,6 +33976,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateManyWithoutUserInput = {
@@ -33871,6 +33995,7 @@ export namespace Prisma {
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminBalanceTransactionsUpdateWithoutAccount_userInput = {
@@ -33978,6 +34103,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutManagerInput = {
@@ -34013,6 +34139,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateManyWithoutPlayerInput = {
@@ -34039,6 +34166,7 @@ export namespace Prisma {
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
     setting_id?: NullableStringFieldUpdateOperationsInput | string | null
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerBalanceTransactionsUpdateWithoutAdminInput = {
@@ -34140,6 +34268,7 @@ export namespace Prisma {
     totalLost?: FloatFieldUpdateOperationsInput | number
     Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateWithoutChatConversationInput = {
@@ -34165,6 +34294,7 @@ export namespace Prisma {
     totalLost?: FloatFieldUpdateOperationsInput | number
     Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateManyWithoutAdminInput = {
@@ -34184,6 +34314,7 @@ export namespace Prisma {
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ChatMessagesUpdateWithoutConversationInput = {
@@ -34224,6 +34355,7 @@ export namespace Prisma {
     totalRedeem?: number
     totalLost?: number
     chatConversationId?: AdminCreatechatConversationIdInput | Enumerable<string>
+    isOnline?: boolean
   }
 
   export type PlayerCreateManySettingsInput = {
@@ -34251,6 +34383,7 @@ export namespace Prisma {
     general_won?: number
     general_won_count?: number
     created_by: string
+    isOnline?: boolean
   }
 
   export type AdminUpdateWithoutSettingsInput = {
@@ -34276,6 +34409,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateWithoutSettingsInput = {
@@ -34301,6 +34435,7 @@ export namespace Prisma {
     Announcement?: AnnouncementUncheckedUpdateManyWithoutAdminNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutAdminNestedInput
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AdminUncheckedUpdateManyWithoutAdminsInput = {
@@ -34319,6 +34454,7 @@ export namespace Prisma {
     totalRedeem?: FloatFieldUpdateOperationsInput | number
     totalLost?: FloatFieldUpdateOperationsInput | number
     chatConversationId?: AdminUpdatechatConversationIdInput | Enumerable<string>
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUpdateWithoutSettingsInput = {
@@ -34354,6 +34490,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateWithoutSettingsInput = {
@@ -34389,6 +34526,7 @@ export namespace Prisma {
     PlayerToken?: PlayerTokenUncheckedUpdateManyWithoutPlayerNestedInput
     SpinTime?: SpinTimeUncheckedUpdateManyWithoutPlayerNestedInput
     ChatConversation?: ChatConversationUncheckedUpdateManyWithoutPlayerNestedInput
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerUncheckedUpdateManyWithoutPlayersInput = {
@@ -34415,6 +34553,7 @@ export namespace Prisma {
     general_won?: FloatFieldUpdateOperationsInput | number
     general_won_count?: IntFieldUpdateOperationsInput | number
     created_by?: StringFieldUpdateOperationsInput | string
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PlayerBalanceTransactionsCreateManyPlayerInput = {

@@ -129,7 +129,8 @@ exports.Prisma.AdminScalarFieldEnum = makeEnum({
   totalSpent: 'totalSpent',
   totalRedeem: 'totalRedeem',
   totalLost: 'totalLost',
-  chatConversationId: 'chatConversationId'
+  chatConversationId: 'chatConversationId',
+  isOnline: 'isOnline'
 });
 
 exports.Prisma.AnnouncementScalarFieldEnum = makeEnum({
@@ -254,7 +255,8 @@ exports.Prisma.PlayerScalarFieldEnum = makeEnum({
   general_won: 'general_won',
   general_won_count: 'general_won_count',
   setting_id: 'setting_id',
-  created_by: 'created_by'
+  created_by: 'created_by',
+  isOnline: 'isOnline'
 });
 
 exports.Prisma.PlayerTokenScalarFieldEnum = makeEnum({
