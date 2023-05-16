@@ -86,6 +86,7 @@ export type ChatMessages = {
   receiverId: string
   conversationId: string
   isRead: boolean
+  image: string | null
 }
 
 /**
@@ -6743,6 +6744,7 @@ export namespace Prisma {
     receiverId: string | null
     conversationId: string | null
     isRead: boolean | null
+    image: string | null
   }
 
   export type ChatMessagesMaxAggregateOutputType = {
@@ -6752,6 +6754,7 @@ export namespace Prisma {
     receiverId: string | null
     conversationId: string | null
     isRead: boolean | null
+    image: string | null
   }
 
   export type ChatMessagesCountAggregateOutputType = {
@@ -6761,6 +6764,7 @@ export namespace Prisma {
     receiverId: number
     conversationId: number
     isRead: number
+    image: number
     _all: number
   }
 
@@ -6772,6 +6776,7 @@ export namespace Prisma {
     receiverId?: true
     conversationId?: true
     isRead?: true
+    image?: true
   }
 
   export type ChatMessagesMaxAggregateInputType = {
@@ -6781,6 +6786,7 @@ export namespace Prisma {
     receiverId?: true
     conversationId?: true
     isRead?: true
+    image?: true
   }
 
   export type ChatMessagesCountAggregateInputType = {
@@ -6790,6 +6796,7 @@ export namespace Prisma {
     receiverId?: true
     conversationId?: true
     isRead?: true
+    image?: true
     _all?: true
   }
 
@@ -6873,6 +6880,7 @@ export namespace Prisma {
     receiverId: string
     conversationId: string
     isRead: boolean
+    image: string | null
     _count: ChatMessagesCountAggregateOutputType | null
     _min: ChatMessagesMinAggregateOutputType | null
     _max: ChatMessagesMaxAggregateOutputType | null
@@ -6900,6 +6908,7 @@ export namespace Prisma {
     conversationId?: boolean
     Conversation?: boolean | ChatConversationArgs
     isRead?: boolean
+    image?: boolean
   }
 
 
@@ -23070,7 +23079,8 @@ export namespace Prisma {
     senderId: 'senderId',
     receiverId: 'receiverId',
     conversationId: 'conversationId',
-    isRead: 'isRead'
+    isRead: 'isRead',
+    image: 'image'
   };
 
   export type ChatMessagesScalarFieldEnum = (typeof ChatMessagesScalarFieldEnum)[keyof typeof ChatMessagesScalarFieldEnum]
@@ -23592,6 +23602,7 @@ export namespace Prisma {
     conversationId?: StringFilter | string
     Conversation?: XOR<ChatConversationRelationFilter, ChatConversationWhereInput>
     isRead?: BoolFilter | boolean
+    image?: StringNullableFilter | string | null
   }
 
   export type ChatMessagesOrderByWithRelationInput = {
@@ -23602,6 +23613,7 @@ export namespace Prisma {
     conversationId?: SortOrder
     Conversation?: ChatConversationOrderByWithRelationInput
     isRead?: SortOrder
+    image?: SortOrder
   }
 
   export type ChatMessagesWhereUniqueInput = {
@@ -23615,6 +23627,7 @@ export namespace Prisma {
     receiverId?: SortOrder
     conversationId?: SortOrder
     isRead?: SortOrder
+    image?: SortOrder
     _count?: ChatMessagesCountOrderByAggregateInput
     _max?: ChatMessagesMaxOrderByAggregateInput
     _min?: ChatMessagesMinOrderByAggregateInput
@@ -23630,6 +23643,7 @@ export namespace Prisma {
     receiverId?: StringWithAggregatesFilter | string
     conversationId?: StringWithAggregatesFilter | string
     isRead?: BoolWithAggregatesFilter | boolean
+    image?: StringNullableWithAggregatesFilter | string | null
   }
 
   export type AdminBalanceTransactionsWhereInput = {
@@ -24954,6 +24968,7 @@ export namespace Prisma {
     receiverId: string
     Conversation: ChatConversationCreateNestedOneWithoutChatMessagesInput
     isRead?: boolean
+    image?: string | null
   }
 
   export type ChatMessagesUncheckedCreateInput = {
@@ -24963,6 +24978,7 @@ export namespace Prisma {
     receiverId: string
     conversationId: string
     isRead?: boolean
+    image?: string | null
   }
 
   export type ChatMessagesUpdateInput = {
@@ -24971,6 +24987,7 @@ export namespace Prisma {
     receiverId?: StringFieldUpdateOperationsInput | string
     Conversation?: ChatConversationUpdateOneRequiredWithoutChatMessagesNestedInput
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMessagesUncheckedUpdateInput = {
@@ -24979,6 +24996,7 @@ export namespace Prisma {
     receiverId?: StringFieldUpdateOperationsInput | string
     conversationId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMessagesCreateManyInput = {
@@ -24988,6 +25006,7 @@ export namespace Prisma {
     receiverId: string
     conversationId: string
     isRead?: boolean
+    image?: string | null
   }
 
   export type ChatMessagesUpdateManyMutationInput = {
@@ -24995,6 +25014,7 @@ export namespace Prisma {
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMessagesUncheckedUpdateManyInput = {
@@ -25003,6 +25023,7 @@ export namespace Prisma {
     receiverId?: StringFieldUpdateOperationsInput | string
     conversationId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdminBalanceTransactionsCreateInput = {
@@ -26663,6 +26684,7 @@ export namespace Prisma {
     receiverId?: SortOrder
     conversationId?: SortOrder
     isRead?: SortOrder
+    image?: SortOrder
   }
 
   export type ChatMessagesMaxOrderByAggregateInput = {
@@ -26672,6 +26694,7 @@ export namespace Prisma {
     receiverId?: SortOrder
     conversationId?: SortOrder
     isRead?: SortOrder
+    image?: SortOrder
   }
 
   export type ChatMessagesMinOrderByAggregateInput = {
@@ -26681,6 +26704,7 @@ export namespace Prisma {
     receiverId?: SortOrder
     conversationId?: SortOrder
     isRead?: SortOrder
+    image?: SortOrder
   }
 
   export type AdminBalanceTransactionsCountOrderByAggregateInput = {
@@ -30503,6 +30527,7 @@ export namespace Prisma {
     senderId: string
     receiverId: string
     isRead?: boolean
+    image?: string | null
   }
 
   export type ChatMessagesUncheckedCreateWithoutConversationInput = {
@@ -30511,6 +30536,7 @@ export namespace Prisma {
     senderId: string
     receiverId: string
     isRead?: boolean
+    image?: string | null
   }
 
   export type ChatMessagesCreateOrConnectWithoutConversationInput = {
@@ -30641,6 +30667,7 @@ export namespace Prisma {
     receiverId?: StringFilter | string
     conversationId?: StringFilter | string
     isRead?: BoolFilter | boolean
+    image?: StringNullableFilter | string | null
   }
 
   export type ChatConversationCreateWithoutChatMessagesInput = {
@@ -34243,6 +34270,7 @@ export namespace Prisma {
     senderId: string
     receiverId: string
     isRead?: boolean
+    image?: string | null
   }
 
   export type AdminUpdateWithoutChatConversationInput = {
@@ -34322,6 +34350,7 @@ export namespace Prisma {
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMessagesUncheckedUpdateWithoutConversationInput = {
@@ -34329,6 +34358,7 @@ export namespace Prisma {
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMessagesUncheckedUpdateManyWithoutChatMessagesInput = {
@@ -34336,6 +34366,7 @@ export namespace Prisma {
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdminCreateManySettingsInput = {

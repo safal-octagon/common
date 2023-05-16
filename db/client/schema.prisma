@@ -78,6 +78,7 @@ model ChatMessages {
     conversationId String
     Conversation   ChatConversation @relation(fields: [conversationId], references: [id])
     isRead         Boolean          @default(false)
+    image          String?
 }
 
 model AdminBalanceTransactions {
