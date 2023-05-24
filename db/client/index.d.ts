@@ -87,6 +87,8 @@ export type ChatMessages = {
   conversationId: string
   isRead: boolean
   image: string | null
+  createdAt: Date
+  updatedAt: Date
 }
 
 /**
@@ -6745,6 +6747,8 @@ export namespace Prisma {
     conversationId: string | null
     isRead: boolean | null
     image: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ChatMessagesMaxAggregateOutputType = {
@@ -6755,6 +6759,8 @@ export namespace Prisma {
     conversationId: string | null
     isRead: boolean | null
     image: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ChatMessagesCountAggregateOutputType = {
@@ -6765,6 +6771,8 @@ export namespace Prisma {
     conversationId: number
     isRead: number
     image: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -6777,6 +6785,8 @@ export namespace Prisma {
     conversationId?: true
     isRead?: true
     image?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type ChatMessagesMaxAggregateInputType = {
@@ -6787,6 +6797,8 @@ export namespace Prisma {
     conversationId?: true
     isRead?: true
     image?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type ChatMessagesCountAggregateInputType = {
@@ -6797,6 +6809,8 @@ export namespace Prisma {
     conversationId?: true
     isRead?: true
     image?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -6881,6 +6895,8 @@ export namespace Prisma {
     conversationId: string
     isRead: boolean
     image: string | null
+    createdAt: Date
+    updatedAt: Date
     _count: ChatMessagesCountAggregateOutputType | null
     _min: ChatMessagesMinAggregateOutputType | null
     _max: ChatMessagesMaxAggregateOutputType | null
@@ -6909,6 +6925,8 @@ export namespace Prisma {
     Conversation?: boolean | ChatConversationArgs
     isRead?: boolean
     image?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
 
@@ -23080,7 +23098,9 @@ export namespace Prisma {
     receiverId: 'receiverId',
     conversationId: 'conversationId',
     isRead: 'isRead',
-    image: 'image'
+    image: 'image',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type ChatMessagesScalarFieldEnum = (typeof ChatMessagesScalarFieldEnum)[keyof typeof ChatMessagesScalarFieldEnum]
@@ -23603,6 +23623,8 @@ export namespace Prisma {
     Conversation?: XOR<ChatConversationRelationFilter, ChatConversationWhereInput>
     isRead?: BoolFilter | boolean
     image?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
   }
 
   export type ChatMessagesOrderByWithRelationInput = {
@@ -23614,6 +23636,8 @@ export namespace Prisma {
     Conversation?: ChatConversationOrderByWithRelationInput
     isRead?: SortOrder
     image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ChatMessagesWhereUniqueInput = {
@@ -23628,6 +23652,8 @@ export namespace Prisma {
     conversationId?: SortOrder
     isRead?: SortOrder
     image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: ChatMessagesCountOrderByAggregateInput
     _max?: ChatMessagesMaxOrderByAggregateInput
     _min?: ChatMessagesMinOrderByAggregateInput
@@ -23644,6 +23670,8 @@ export namespace Prisma {
     conversationId?: StringWithAggregatesFilter | string
     isRead?: BoolWithAggregatesFilter | boolean
     image?: StringNullableWithAggregatesFilter | string | null
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
   export type AdminBalanceTransactionsWhereInput = {
@@ -24969,6 +24997,8 @@ export namespace Prisma {
     Conversation: ChatConversationCreateNestedOneWithoutChatMessagesInput
     isRead?: boolean
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ChatMessagesUncheckedCreateInput = {
@@ -24979,6 +25009,8 @@ export namespace Prisma {
     conversationId: string
     isRead?: boolean
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ChatMessagesUpdateInput = {
@@ -24988,6 +25020,8 @@ export namespace Prisma {
     Conversation?: ChatConversationUpdateOneRequiredWithoutChatMessagesNestedInput
     isRead?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatMessagesUncheckedUpdateInput = {
@@ -24997,6 +25031,8 @@ export namespace Prisma {
     conversationId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatMessagesCreateManyInput = {
@@ -25007,6 +25043,8 @@ export namespace Prisma {
     conversationId: string
     isRead?: boolean
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ChatMessagesUpdateManyMutationInput = {
@@ -25015,6 +25053,8 @@ export namespace Prisma {
     receiverId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatMessagesUncheckedUpdateManyInput = {
@@ -25024,6 +25064,8 @@ export namespace Prisma {
     conversationId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AdminBalanceTransactionsCreateInput = {
@@ -26685,6 +26727,8 @@ export namespace Prisma {
     conversationId?: SortOrder
     isRead?: SortOrder
     image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ChatMessagesMaxOrderByAggregateInput = {
@@ -26695,6 +26739,8 @@ export namespace Prisma {
     conversationId?: SortOrder
     isRead?: SortOrder
     image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ChatMessagesMinOrderByAggregateInput = {
@@ -26705,6 +26751,8 @@ export namespace Prisma {
     conversationId?: SortOrder
     isRead?: SortOrder
     image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type AdminBalanceTransactionsCountOrderByAggregateInput = {
@@ -30528,6 +30576,8 @@ export namespace Prisma {
     receiverId: string
     isRead?: boolean
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ChatMessagesUncheckedCreateWithoutConversationInput = {
@@ -30537,6 +30587,8 @@ export namespace Prisma {
     receiverId: string
     isRead?: boolean
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ChatMessagesCreateOrConnectWithoutConversationInput = {
@@ -30668,6 +30720,8 @@ export namespace Prisma {
     conversationId?: StringFilter | string
     isRead?: BoolFilter | boolean
     image?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
   }
 
   export type ChatConversationCreateWithoutChatMessagesInput = {
@@ -34271,6 +34325,8 @@ export namespace Prisma {
     receiverId: string
     isRead?: boolean
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AdminUpdateWithoutChatConversationInput = {
@@ -34351,6 +34407,8 @@ export namespace Prisma {
     receiverId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatMessagesUncheckedUpdateWithoutConversationInput = {
@@ -34359,6 +34417,8 @@ export namespace Prisma {
     receiverId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatMessagesUncheckedUpdateManyWithoutChatMessagesInput = {
@@ -34367,6 +34427,8 @@ export namespace Prisma {
     receiverId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AdminCreateManySettingsInput = {

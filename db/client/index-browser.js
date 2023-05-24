@@ -153,7 +153,9 @@ exports.Prisma.ChatMessagesScalarFieldEnum = makeEnum({
   receiverId: 'receiverId',
   conversationId: 'conversationId',
   isRead: 'isRead',
-  image: 'image'
+  image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 });
 
 exports.Prisma.FavoriteGameScalarFieldEnum = makeEnum({
