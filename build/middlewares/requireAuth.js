@@ -54,6 +54,7 @@ var requireAuth = function (req, res, next) { return __awaiter(void 0, void 0, v
                 return [3 /*break*/, 3];
             case 1: return [4 /*yield*/, prisma.playerToken.findFirst({
                     where: {
+                        playerId: req.currentUser.id,
                         token: (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1],
                     },
                 })];

@@ -15,6 +15,7 @@ export const requireAuth = async (
   } else {
     const player = await prisma.playerToken.findFirst({
       where: {
+        playerId: req.currentUser.id,
         token: req.headers.authorization?.split(" ")[1],
       },
     });
