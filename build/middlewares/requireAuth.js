@@ -63,10 +63,9 @@ var requireAuth = function (req, res, next) { return __awaiter(void 0, void 0, v
                 if (!player) {
                     throw new not_authorized_error_1.NotAuthorizedError();
                 }
-                _b.label = 3;
-            case 3:
                 next();
-                return [2 /*return*/];
+                _b.label = 3;
+            case 3: return [2 /*return*/];
         }
     });
 }); };

@@ -22,6 +22,6 @@ export const requireAuth = async (
     if (!player) {
       throw new NotAuthorizedError();
     }
+    next();
   }
-  next();
 };
