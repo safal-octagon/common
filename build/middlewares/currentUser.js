@@ -17,7 +17,6 @@ var AccountType;
 })(AccountType || (AccountType = {}));
 var currentUser = function (req, res, next) {
     var _a;
-    console.log(req.headers.authorization, "authorization header");
     if (!req.headers.authorization) {
         return next();
     }

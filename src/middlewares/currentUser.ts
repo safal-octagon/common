@@ -33,7 +33,6 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.headers.authorization, "authorization header");
   if (!req.headers.authorization) {
     return next();
   }
