@@ -38,35 +38,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.requireAuth = void 0;
 var not_authorized_error_1 = require("../errors/not-authorized-error");
-var client_1 = require("../../db/client");
 var requireAuth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var prisma, player;
-    var _a;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                if (!req.currentUser) {
-                    throw new not_authorized_error_1.NotAuthorizedError();
-                }
-                prisma = new client_1.PrismaClient();
-                if (!req.currentUser.account_type) return [3 /*break*/, 1];
-                next();
-                return [3 /*break*/, 3];
-            case 1: return [4 /*yield*/, prisma.playerToken.findFirst({
-                    where: {
-                        playerId: req.currentUser.id,
-                        token: (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1],
-                    },
-                })];
-            case 2:
-                player = _b.sent();
-                if (!player) {
-                    throw new not_authorized_error_1.NotAuthorizedError();
-                }
-                next();
-                _b.label = 3;
-            case 3: return [2 /*return*/];
+    return __generator(this, function (_a) {
+        if (!req.currentUser) {
+            throw new not_authorized_error_1.NotAuthorizedError();
         }
+        next();
+        return [2 /*return*/];
     });
 }); };
 exports.requireAuth = requireAuth;

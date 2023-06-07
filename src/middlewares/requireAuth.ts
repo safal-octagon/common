@@ -9,19 +9,20 @@ export const requireAuth = async (
   if (!req.currentUser) {
     throw new NotAuthorizedError();
   }
-  const prisma = new PrismaClient();
-  if (req.currentUser.account_type) {
-    next();
-  } else {
-    const player = await prisma.playerToken.findFirst({
-      where: {
-        playerId: req.currentUser.id,
-        token: req.headers.authorization?.split(" ")[1],
-      },
-    });
-    if (!player) {
-      throw new NotAuthorizedError();
-    }
-    next();
-  }
+  next();
+  // const prisma = new PrismaClient();
+  // if (req.currentUser.account_type) {
+  //   next();
+  // } else {
+  //   const player = await prisma.playerToken.findFirst({
+  //     where: {
+  //       playerId: req.currentUser.id,
+  //       token: req.headers.authorization?.split(" ")[1],
+  //     },
+  //   });
+  //   if (!player) {
+  //     throw new NotAuthorizedError();
+  //   }
+  //   next();
+  // }
 };
