@@ -143,7 +143,9 @@ exports.Prisma.AnnouncementScalarFieldEnum = makeEnum({
 exports.Prisma.ChatConversationScalarFieldEnum = makeEnum({
   id: 'id',
   player_id: 'player_id',
-  admins_id: 'admins_id'
+  admins_id: 'admins_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 });
 
 exports.Prisma.ChatMessagesScalarFieldEnum = makeEnum({
@@ -154,6 +156,16 @@ exports.Prisma.ChatMessagesScalarFieldEnum = makeEnum({
   conversationId: 'conversationId',
   isRead: 'isRead',
   image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+});
+
+exports.Prisma.ChatNotificationScalarFieldEnum = makeEnum({
+  id: 'id',
+  conversationId: 'conversationId',
+  userId: 'userId',
+  notificationMessage: 'notificationMessage',
+  isRead: 'isRead',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 });
@@ -360,6 +372,7 @@ exports.Prisma.ModelName = makeEnum({
   Messages: 'Messages',
   Admin: 'Admin',
   ChatConversation: 'ChatConversation',
+  ChatNotification: 'ChatNotification',
   ChatMessages: 'ChatMessages',
   AdminBalanceTransactions: 'AdminBalanceTransactions',
   Settings: 'Settings',

@@ -73,6 +73,22 @@ export type ChatConversation = {
   id: string
   player_id: string | null
   admins_id: string[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+/**
+ * Model ChatNotification
+ * 
+ */
+export type ChatNotification = {
+  id: string
+  conversationId: string
+  userId: string
+  notificationMessage: string
+  isRead: boolean
+  createdAt: Date
+  updatedAt: Date
 }
 
 /**
@@ -498,6 +514,16 @@ export class PrismaClient<
     * ```
     */
   get chatConversation(): Prisma.ChatConversationDelegate<GlobalReject>;
+
+  /**
+   * `prisma.chatNotification`: Exposes CRUD operations for the **ChatNotification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChatNotifications
+    * const chatNotifications = await prisma.chatNotification.findMany()
+    * ```
+    */
+  get chatNotification(): Prisma.ChatNotificationDelegate<GlobalReject>;
 
   /**
    * `prisma.chatMessages`: Exposes CRUD operations for the **ChatMessages** model.
@@ -1122,6 +1148,7 @@ export namespace Prisma {
     Messages: 'Messages',
     Admin: 'Admin',
     ChatConversation: 'ChatConversation',
+    ChatNotification: 'ChatNotification',
     ChatMessages: 'ChatMessages',
     AdminBalanceTransactions: 'AdminBalanceTransactions',
     Settings: 'Settings',
@@ -1360,11 +1387,13 @@ export namespace Prisma {
   export type ChatConversationCountOutputType = {
     Admin: number
     ChatMessages: number
+    ChatNotification: number
   }
 
   export type ChatConversationCountOutputTypeSelect = {
     Admin?: boolean
     ChatMessages?: boolean
+    ChatNotification?: boolean
   }
 
   export type ChatConversationCountOutputTypeGetPayload<S extends boolean | null | undefined | ChatConversationCountOutputTypeArgs> =
@@ -5717,17 +5746,23 @@ export namespace Prisma {
   export type ChatConversationMinAggregateOutputType = {
     id: string | null
     player_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ChatConversationMaxAggregateOutputType = {
     id: string | null
     player_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ChatConversationCountAggregateOutputType = {
     id: number
     player_id: number
     admins_id: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -5735,17 +5770,23 @@ export namespace Prisma {
   export type ChatConversationMinAggregateInputType = {
     id?: true
     player_id?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type ChatConversationMaxAggregateInputType = {
     id?: true
     player_id?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type ChatConversationCountAggregateInputType = {
     id?: true
     player_id?: true
     admins_id?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -5826,6 +5867,8 @@ export namespace Prisma {
     id: string
     player_id: string | null
     admins_id: string[]
+    createdAt: Date
+    updatedAt: Date
     _count: ChatConversationCountAggregateOutputType | null
     _min: ChatConversationMinAggregateOutputType | null
     _max: ChatConversationMaxAggregateOutputType | null
@@ -5852,6 +5895,9 @@ export namespace Prisma {
     Admin?: boolean | ChatConversation$AdminArgs
     Player?: boolean | PlayerArgs
     ChatMessages?: boolean | ChatConversation$ChatMessagesArgs
+    createdAt?: boolean
+    updatedAt?: boolean
+    ChatNotification?: boolean | ChatConversation$ChatNotificationArgs
     _count?: boolean | ChatConversationCountOutputTypeArgs
   }
 
@@ -5860,6 +5906,7 @@ export namespace Prisma {
     Admin?: boolean | ChatConversation$AdminArgs
     Player?: boolean | PlayerArgs
     ChatMessages?: boolean | ChatConversation$ChatMessagesArgs
+    ChatNotification?: boolean | ChatConversation$ChatNotificationArgs
     _count?: boolean | ChatConversationCountOutputTypeArgs
   }
 
@@ -5873,6 +5920,7 @@ export namespace Prisma {
         P extends 'Admin' ? Array < AdminGetPayload<S['include'][P]>>  :
         P extends 'Player' ? PlayerGetPayload<S['include'][P]> | null :
         P extends 'ChatMessages' ? Array < ChatMessagesGetPayload<S['include'][P]>>  :
+        P extends 'ChatNotification' ? Array < ChatNotificationGetPayload<S['include'][P]>>  :
         P extends '_count' ? ChatConversationCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (ChatConversationArgs | ChatConversationFindManyArgs)
@@ -5881,6 +5929,7 @@ export namespace Prisma {
         P extends 'Admin' ? Array < AdminGetPayload<S['select'][P]>>  :
         P extends 'Player' ? PlayerGetPayload<S['select'][P]> | null :
         P extends 'ChatMessages' ? Array < ChatMessagesGetPayload<S['select'][P]>>  :
+        P extends 'ChatNotification' ? Array < ChatNotificationGetPayload<S['select'][P]>>  :
         P extends '_count' ? ChatConversationCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof ChatConversation ? ChatConversation[P] : never
   } 
       : ChatConversation
@@ -6285,6 +6334,8 @@ export namespace Prisma {
     Player<T extends PlayerArgs= {}>(args?: Subset<T, PlayerArgs>): Prisma__PlayerClient<PlayerGetPayload<T> | Null>;
 
     ChatMessages<T extends ChatConversation$ChatMessagesArgs= {}>(args?: Subset<T, ChatConversation$ChatMessagesArgs>): Prisma.PrismaPromise<Array<ChatMessagesGetPayload<T>>| Null>;
+
+    ChatNotification<T extends ChatConversation$ChatNotificationArgs= {}>(args?: Subset<T, ChatConversation$ChatNotificationArgs>): Prisma.PrismaPromise<Array<ChatNotificationGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -6713,6 +6764,27 @@ export namespace Prisma {
 
 
   /**
+   * ChatConversation.ChatNotification
+   */
+  export type ChatConversation$ChatNotificationArgs = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    where?: ChatNotificationWhereInput
+    orderBy?: Enumerable<ChatNotificationOrderByWithRelationInput>
+    cursor?: ChatNotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<ChatNotificationScalarFieldEnum>
+  }
+
+
+  /**
    * ChatConversation without action
    */
   export type ChatConversationArgs = {
@@ -6724,6 +6796,1009 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: ChatConversationInclude | null
+  }
+
+
+
+  /**
+   * Model ChatNotification
+   */
+
+
+  export type AggregateChatNotification = {
+    _count: ChatNotificationCountAggregateOutputType | null
+    _min: ChatNotificationMinAggregateOutputType | null
+    _max: ChatNotificationMaxAggregateOutputType | null
+  }
+
+  export type ChatNotificationMinAggregateOutputType = {
+    id: string | null
+    conversationId: string | null
+    userId: string | null
+    notificationMessage: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChatNotificationMaxAggregateOutputType = {
+    id: string | null
+    conversationId: string | null
+    userId: string | null
+    notificationMessage: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChatNotificationCountAggregateOutputType = {
+    id: number
+    conversationId: number
+    userId: number
+    notificationMessage: number
+    isRead: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ChatNotificationMinAggregateInputType = {
+    id?: true
+    conversationId?: true
+    userId?: true
+    notificationMessage?: true
+    isRead?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChatNotificationMaxAggregateInputType = {
+    id?: true
+    conversationId?: true
+    userId?: true
+    notificationMessage?: true
+    isRead?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChatNotificationCountAggregateInputType = {
+    id?: true
+    conversationId?: true
+    userId?: true
+    notificationMessage?: true
+    isRead?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ChatNotificationAggregateArgs = {
+    /**
+     * Filter which ChatNotification to aggregate.
+     */
+    where?: ChatNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatNotifications to fetch.
+     */
+    orderBy?: Enumerable<ChatNotificationOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChatNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChatNotifications
+    **/
+    _count?: true | ChatNotificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChatNotificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChatNotificationMaxAggregateInputType
+  }
+
+  export type GetChatNotificationAggregateType<T extends ChatNotificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateChatNotification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChatNotification[P]>
+      : GetScalarType<T[P], AggregateChatNotification[P]>
+  }
+
+
+
+
+  export type ChatNotificationGroupByArgs = {
+    where?: ChatNotificationWhereInput
+    orderBy?: Enumerable<ChatNotificationOrderByWithAggregationInput>
+    by: ChatNotificationScalarFieldEnum[]
+    having?: ChatNotificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChatNotificationCountAggregateInputType | true
+    _min?: ChatNotificationMinAggregateInputType
+    _max?: ChatNotificationMaxAggregateInputType
+  }
+
+
+  export type ChatNotificationGroupByOutputType = {
+    id: string
+    conversationId: string
+    userId: string
+    notificationMessage: string
+    isRead: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: ChatNotificationCountAggregateOutputType | null
+    _min: ChatNotificationMinAggregateOutputType | null
+    _max: ChatNotificationMaxAggregateOutputType | null
+  }
+
+  type GetChatNotificationGroupByPayload<T extends ChatNotificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<ChatNotificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChatNotificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChatNotificationGroupByOutputType[P]>
+            : GetScalarType<T[P], ChatNotificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChatNotificationSelect = {
+    id?: boolean
+    conversationId?: boolean
+    Conversation?: boolean | ChatConversationArgs
+    userId?: boolean
+    notificationMessage?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type ChatNotificationInclude = {
+    Conversation?: boolean | ChatConversationArgs
+  }
+
+  export type ChatNotificationGetPayload<S extends boolean | null | undefined | ChatNotificationArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? ChatNotification :
+    S extends undefined ? never :
+    S extends { include: any } & (ChatNotificationArgs | ChatNotificationFindManyArgs)
+    ? ChatNotification  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Conversation' ? ChatConversationGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (ChatNotificationArgs | ChatNotificationFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'Conversation' ? ChatConversationGetPayload<S['select'][P]> :  P extends keyof ChatNotification ? ChatNotification[P] : never
+  } 
+      : ChatNotification
+
+
+  type ChatNotificationCountArgs = 
+    Omit<ChatNotificationFindManyArgs, 'select' | 'include'> & {
+      select?: ChatNotificationCountAggregateInputType | true
+    }
+
+  export interface ChatNotificationDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one ChatNotification that matches the filter.
+     * @param {ChatNotificationFindUniqueArgs} args - Arguments to find a ChatNotification
+     * @example
+     * // Get one ChatNotification
+     * const chatNotification = await prisma.chatNotification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ChatNotificationFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, ChatNotificationFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'ChatNotification'> extends True ? Prisma__ChatNotificationClient<ChatNotificationGetPayload<T>> : Prisma__ChatNotificationClient<ChatNotificationGetPayload<T> | null, null>
+
+    /**
+     * Find one ChatNotification that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ChatNotificationFindUniqueOrThrowArgs} args - Arguments to find a ChatNotification
+     * @example
+     * // Get one ChatNotification
+     * const chatNotification = await prisma.chatNotification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ChatNotificationFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, ChatNotificationFindUniqueOrThrowArgs>
+    ): Prisma__ChatNotificationClient<ChatNotificationGetPayload<T>>
+
+    /**
+     * Find the first ChatNotification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatNotificationFindFirstArgs} args - Arguments to find a ChatNotification
+     * @example
+     * // Get one ChatNotification
+     * const chatNotification = await prisma.chatNotification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ChatNotificationFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, ChatNotificationFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'ChatNotification'> extends True ? Prisma__ChatNotificationClient<ChatNotificationGetPayload<T>> : Prisma__ChatNotificationClient<ChatNotificationGetPayload<T> | null, null>
+
+    /**
+     * Find the first ChatNotification that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatNotificationFindFirstOrThrowArgs} args - Arguments to find a ChatNotification
+     * @example
+     * // Get one ChatNotification
+     * const chatNotification = await prisma.chatNotification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ChatNotificationFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, ChatNotificationFindFirstOrThrowArgs>
+    ): Prisma__ChatNotificationClient<ChatNotificationGetPayload<T>>
+
+    /**
+     * Find zero or more ChatNotifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatNotificationFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChatNotifications
+     * const chatNotifications = await prisma.chatNotification.findMany()
+     * 
+     * // Get first 10 ChatNotifications
+     * const chatNotifications = await prisma.chatNotification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chatNotificationWithIdOnly = await prisma.chatNotification.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ChatNotificationFindManyArgs>(
+      args?: SelectSubset<T, ChatNotificationFindManyArgs>
+    ): Prisma.PrismaPromise<Array<ChatNotificationGetPayload<T>>>
+
+    /**
+     * Create a ChatNotification.
+     * @param {ChatNotificationCreateArgs} args - Arguments to create a ChatNotification.
+     * @example
+     * // Create one ChatNotification
+     * const ChatNotification = await prisma.chatNotification.create({
+     *   data: {
+     *     // ... data to create a ChatNotification
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ChatNotificationCreateArgs>(
+      args: SelectSubset<T, ChatNotificationCreateArgs>
+    ): Prisma__ChatNotificationClient<ChatNotificationGetPayload<T>>
+
+    /**
+     * Create many ChatNotifications.
+     *     @param {ChatNotificationCreateManyArgs} args - Arguments to create many ChatNotifications.
+     *     @example
+     *     // Create many ChatNotifications
+     *     const chatNotification = await prisma.chatNotification.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ChatNotificationCreateManyArgs>(
+      args?: SelectSubset<T, ChatNotificationCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ChatNotification.
+     * @param {ChatNotificationDeleteArgs} args - Arguments to delete one ChatNotification.
+     * @example
+     * // Delete one ChatNotification
+     * const ChatNotification = await prisma.chatNotification.delete({
+     *   where: {
+     *     // ... filter to delete one ChatNotification
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ChatNotificationDeleteArgs>(
+      args: SelectSubset<T, ChatNotificationDeleteArgs>
+    ): Prisma__ChatNotificationClient<ChatNotificationGetPayload<T>>
+
+    /**
+     * Update one ChatNotification.
+     * @param {ChatNotificationUpdateArgs} args - Arguments to update one ChatNotification.
+     * @example
+     * // Update one ChatNotification
+     * const chatNotification = await prisma.chatNotification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ChatNotificationUpdateArgs>(
+      args: SelectSubset<T, ChatNotificationUpdateArgs>
+    ): Prisma__ChatNotificationClient<ChatNotificationGetPayload<T>>
+
+    /**
+     * Delete zero or more ChatNotifications.
+     * @param {ChatNotificationDeleteManyArgs} args - Arguments to filter ChatNotifications to delete.
+     * @example
+     * // Delete a few ChatNotifications
+     * const { count } = await prisma.chatNotification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ChatNotificationDeleteManyArgs>(
+      args?: SelectSubset<T, ChatNotificationDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChatNotifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatNotificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChatNotifications
+     * const chatNotification = await prisma.chatNotification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ChatNotificationUpdateManyArgs>(
+      args: SelectSubset<T, ChatNotificationUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ChatNotification.
+     * @param {ChatNotificationUpsertArgs} args - Arguments to update or create a ChatNotification.
+     * @example
+     * // Update or create a ChatNotification
+     * const chatNotification = await prisma.chatNotification.upsert({
+     *   create: {
+     *     // ... data to create a ChatNotification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChatNotification we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ChatNotificationUpsertArgs>(
+      args: SelectSubset<T, ChatNotificationUpsertArgs>
+    ): Prisma__ChatNotificationClient<ChatNotificationGetPayload<T>>
+
+    /**
+     * Find zero or more ChatNotifications that matches the filter.
+     * @param {ChatNotificationFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const chatNotification = await prisma.chatNotification.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: ChatNotificationFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ChatNotification.
+     * @param {ChatNotificationAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const chatNotification = await prisma.chatNotification.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: ChatNotificationAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of ChatNotifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatNotificationCountArgs} args - Arguments to filter ChatNotifications to count.
+     * @example
+     * // Count the number of ChatNotifications
+     * const count = await prisma.chatNotification.count({
+     *   where: {
+     *     // ... the filter for the ChatNotifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChatNotificationCountArgs>(
+      args?: Subset<T, ChatNotificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChatNotificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChatNotification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatNotificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChatNotificationAggregateArgs>(args: Subset<T, ChatNotificationAggregateArgs>): Prisma.PrismaPromise<GetChatNotificationAggregateType<T>>
+
+    /**
+     * Group by ChatNotification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChatNotificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChatNotificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChatNotificationGroupByArgs['orderBy'] }
+        : { orderBy?: ChatNotificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChatNotificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChatNotificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChatNotification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__ChatNotificationClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    Conversation<T extends ChatConversationArgs= {}>(args?: Subset<T, ChatConversationArgs>): Prisma__ChatConversationClient<ChatConversationGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * ChatNotification base type for findUnique actions
+   */
+  export type ChatNotificationFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    /**
+     * Filter, which ChatNotification to fetch.
+     */
+    where: ChatNotificationWhereUniqueInput
+  }
+
+  /**
+   * ChatNotification findUnique
+   */
+  export interface ChatNotificationFindUniqueArgs extends ChatNotificationFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * ChatNotification findUniqueOrThrow
+   */
+  export type ChatNotificationFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    /**
+     * Filter, which ChatNotification to fetch.
+     */
+    where: ChatNotificationWhereUniqueInput
+  }
+
+
+  /**
+   * ChatNotification base type for findFirst actions
+   */
+  export type ChatNotificationFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    /**
+     * Filter, which ChatNotification to fetch.
+     */
+    where?: ChatNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatNotifications to fetch.
+     */
+    orderBy?: Enumerable<ChatNotificationOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChatNotifications.
+     */
+    cursor?: ChatNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChatNotifications.
+     */
+    distinct?: Enumerable<ChatNotificationScalarFieldEnum>
+  }
+
+  /**
+   * ChatNotification findFirst
+   */
+  export interface ChatNotificationFindFirstArgs extends ChatNotificationFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * ChatNotification findFirstOrThrow
+   */
+  export type ChatNotificationFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    /**
+     * Filter, which ChatNotification to fetch.
+     */
+    where?: ChatNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatNotifications to fetch.
+     */
+    orderBy?: Enumerable<ChatNotificationOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChatNotifications.
+     */
+    cursor?: ChatNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatNotifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChatNotifications.
+     */
+    distinct?: Enumerable<ChatNotificationScalarFieldEnum>
+  }
+
+
+  /**
+   * ChatNotification findMany
+   */
+  export type ChatNotificationFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    /**
+     * Filter, which ChatNotifications to fetch.
+     */
+    where?: ChatNotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChatNotifications to fetch.
+     */
+    orderBy?: Enumerable<ChatNotificationOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChatNotifications.
+     */
+    cursor?: ChatNotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChatNotifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChatNotifications.
+     */
+    skip?: number
+    distinct?: Enumerable<ChatNotificationScalarFieldEnum>
+  }
+
+
+  /**
+   * ChatNotification create
+   */
+  export type ChatNotificationCreateArgs = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    /**
+     * The data needed to create a ChatNotification.
+     */
+    data: XOR<ChatNotificationCreateInput, ChatNotificationUncheckedCreateInput>
+  }
+
+
+  /**
+   * ChatNotification createMany
+   */
+  export type ChatNotificationCreateManyArgs = {
+    /**
+     * The data used to create many ChatNotifications.
+     */
+    data: Enumerable<ChatNotificationCreateManyInput>
+  }
+
+
+  /**
+   * ChatNotification update
+   */
+  export type ChatNotificationUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    /**
+     * The data needed to update a ChatNotification.
+     */
+    data: XOR<ChatNotificationUpdateInput, ChatNotificationUncheckedUpdateInput>
+    /**
+     * Choose, which ChatNotification to update.
+     */
+    where: ChatNotificationWhereUniqueInput
+  }
+
+
+  /**
+   * ChatNotification updateMany
+   */
+  export type ChatNotificationUpdateManyArgs = {
+    /**
+     * The data used to update ChatNotifications.
+     */
+    data: XOR<ChatNotificationUpdateManyMutationInput, ChatNotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which ChatNotifications to update
+     */
+    where?: ChatNotificationWhereInput
+  }
+
+
+  /**
+   * ChatNotification upsert
+   */
+  export type ChatNotificationUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    /**
+     * The filter to search for the ChatNotification to update in case it exists.
+     */
+    where: ChatNotificationWhereUniqueInput
+    /**
+     * In case the ChatNotification found by the `where` argument doesn't exist, create a new ChatNotification with this data.
+     */
+    create: XOR<ChatNotificationCreateInput, ChatNotificationUncheckedCreateInput>
+    /**
+     * In case the ChatNotification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChatNotificationUpdateInput, ChatNotificationUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ChatNotification delete
+   */
+  export type ChatNotificationDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
+    /**
+     * Filter which ChatNotification to delete.
+     */
+    where: ChatNotificationWhereUniqueInput
+  }
+
+
+  /**
+   * ChatNotification deleteMany
+   */
+  export type ChatNotificationDeleteManyArgs = {
+    /**
+     * Filter which ChatNotifications to delete
+     */
+    where?: ChatNotificationWhereInput
+  }
+
+
+  /**
+   * ChatNotification findRaw
+   */
+  export type ChatNotificationFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * ChatNotification aggregateRaw
+   */
+  export type ChatNotificationAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * ChatNotification without action
+   */
+  export type ChatNotificationArgs = {
+    /**
+     * Select specific fields to fetch from the ChatNotification
+     */
+    select?: ChatNotificationSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ChatNotificationInclude | null
   }
 
 
@@ -6922,7 +7997,7 @@ export namespace Prisma {
     senderId?: boolean
     receiverId?: boolean
     conversationId?: boolean
-    Conversation?: boolean | ChatConversationArgs
+    ChatConversation?: boolean | ChatConversationArgs
     isRead?: boolean
     image?: boolean
     createdAt?: boolean
@@ -6931,7 +8006,7 @@ export namespace Prisma {
 
 
   export type ChatMessagesInclude = {
-    Conversation?: boolean | ChatConversationArgs
+    ChatConversation?: boolean | ChatConversationArgs
   }
 
   export type ChatMessagesGetPayload<S extends boolean | null | undefined | ChatMessagesArgs> =
@@ -6941,12 +8016,12 @@ export namespace Prisma {
     S extends { include: any } & (ChatMessagesArgs | ChatMessagesFindManyArgs)
     ? ChatMessages  & {
     [P in TruthyKeys<S['include']>]:
-        P extends 'Conversation' ? ChatConversationGetPayload<S['include'][P]> :  never
+        P extends 'ChatConversation' ? ChatConversationGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (ChatMessagesArgs | ChatMessagesFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-        P extends 'Conversation' ? ChatConversationGetPayload<S['select'][P]> :  P extends keyof ChatMessages ? ChatMessages[P] : never
+        P extends 'ChatConversation' ? ChatConversationGetPayload<S['select'][P]> :  P extends keyof ChatMessages ? ChatMessages[P] : never
   } 
       : ChatMessages
 
@@ -7345,7 +8420,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    Conversation<T extends ChatConversationArgs= {}>(args?: Subset<T, ChatConversationArgs>): Prisma__ChatConversationClient<ChatConversationGetPayload<T> | Null>;
+    ChatConversation<T extends ChatConversationArgs= {}>(args?: Subset<T, ChatConversationArgs>): Prisma__ChatConversationClient<ChatConversationGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -23085,7 +24160,9 @@ export namespace Prisma {
   export const ChatConversationScalarFieldEnum: {
     id: 'id',
     player_id: 'player_id',
-    admins_id: 'admins_id'
+    admins_id: 'admins_id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type ChatConversationScalarFieldEnum = (typeof ChatConversationScalarFieldEnum)[keyof typeof ChatConversationScalarFieldEnum]
@@ -23104,6 +24181,19 @@ export namespace Prisma {
   };
 
   export type ChatMessagesScalarFieldEnum = (typeof ChatMessagesScalarFieldEnum)[keyof typeof ChatMessagesScalarFieldEnum]
+
+
+  export const ChatNotificationScalarFieldEnum: {
+    id: 'id',
+    conversationId: 'conversationId',
+    userId: 'userId',
+    notificationMessage: 'notificationMessage',
+    isRead: 'isRead',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ChatNotificationScalarFieldEnum = (typeof ChatNotificationScalarFieldEnum)[keyof typeof ChatNotificationScalarFieldEnum]
 
 
   export const FavoriteGameScalarFieldEnum: {
@@ -23578,6 +24668,9 @@ export namespace Prisma {
     Admin?: AdminListRelationFilter
     Player?: XOR<PlayerRelationFilter, PlayerWhereInput> | null
     ChatMessages?: ChatMessagesListRelationFilter
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    ChatNotification?: ChatNotificationListRelationFilter
   }
 
   export type ChatConversationOrderByWithRelationInput = {
@@ -23587,6 +24680,9 @@ export namespace Prisma {
     Admin?: AdminOrderByRelationAggregateInput
     Player?: PlayerOrderByWithRelationInput
     ChatMessages?: ChatMessagesOrderByRelationAggregateInput
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ChatNotification?: ChatNotificationOrderByRelationAggregateInput
   }
 
   export type ChatConversationWhereUniqueInput = {
@@ -23597,6 +24693,8 @@ export namespace Prisma {
     id?: SortOrder
     player_id?: SortOrder
     admins_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: ChatConversationCountOrderByAggregateInput
     _max?: ChatConversationMaxOrderByAggregateInput
     _min?: ChatConversationMinOrderByAggregateInput
@@ -23609,6 +24707,63 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter | string
     player_id?: StringNullableWithAggregatesFilter | string | null
     admins_id?: StringNullableListFilter
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
+  export type ChatNotificationWhereInput = {
+    AND?: Enumerable<ChatNotificationWhereInput>
+    OR?: Enumerable<ChatNotificationWhereInput>
+    NOT?: Enumerable<ChatNotificationWhereInput>
+    id?: StringFilter | string
+    conversationId?: StringFilter | string
+    Conversation?: XOR<ChatConversationRelationFilter, ChatConversationWhereInput>
+    userId?: StringFilter | string
+    notificationMessage?: StringFilter | string
+    isRead?: BoolFilter | boolean
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+  }
+
+  export type ChatNotificationOrderByWithRelationInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    Conversation?: ChatConversationOrderByWithRelationInput
+    userId?: SortOrder
+    notificationMessage?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChatNotificationWhereUniqueInput = {
+    id?: string
+  }
+
+  export type ChatNotificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    userId?: SortOrder
+    notificationMessage?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ChatNotificationCountOrderByAggregateInput
+    _max?: ChatNotificationMaxOrderByAggregateInput
+    _min?: ChatNotificationMinOrderByAggregateInput
+  }
+
+  export type ChatNotificationScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<ChatNotificationScalarWhereWithAggregatesInput>
+    OR?: Enumerable<ChatNotificationScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<ChatNotificationScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    conversationId?: StringWithAggregatesFilter | string
+    userId?: StringWithAggregatesFilter | string
+    notificationMessage?: StringWithAggregatesFilter | string
+    isRead?: BoolWithAggregatesFilter | boolean
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
   export type ChatMessagesWhereInput = {
@@ -23620,7 +24775,7 @@ export namespace Prisma {
     senderId?: StringFilter | string
     receiverId?: StringFilter | string
     conversationId?: StringFilter | string
-    Conversation?: XOR<ChatConversationRelationFilter, ChatConversationWhereInput>
+    ChatConversation?: XOR<ChatConversationRelationFilter, ChatConversationWhereInput>
     isRead?: BoolFilter | boolean
     image?: StringNullableFilter | string | null
     createdAt?: DateTimeFilter | Date | string
@@ -23633,7 +24788,7 @@ export namespace Prisma {
     senderId?: SortOrder
     receiverId?: SortOrder
     conversationId?: SortOrder
-    Conversation?: ChatConversationOrderByWithRelationInput
+    ChatConversation?: ChatConversationOrderByWithRelationInput
     isRead?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
@@ -24949,7 +26104,10 @@ export namespace Prisma {
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
     Admin?: AdminCreateNestedManyWithoutChatConversationInput
     Player?: PlayerCreateNestedOneWithoutChatConversationInput
-    ChatMessages?: ChatMessagesCreateNestedManyWithoutConversationInput
+    ChatMessages?: ChatMessagesCreateNestedManyWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ChatNotification?: ChatNotificationCreateNestedManyWithoutConversationInput
   }
 
   export type ChatConversationUncheckedCreateInput = {
@@ -24957,36 +26115,116 @@ export namespace Prisma {
     player_id?: string | null
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
     Admin?: AdminUncheckedCreateNestedManyWithoutChatConversationInput
-    ChatMessages?: ChatMessagesUncheckedCreateNestedManyWithoutConversationInput
+    ChatMessages?: ChatMessagesUncheckedCreateNestedManyWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ChatNotification?: ChatNotificationUncheckedCreateNestedManyWithoutConversationInput
   }
 
   export type ChatConversationUpdateInput = {
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
     Admin?: AdminUpdateManyWithoutChatConversationNestedInput
     Player?: PlayerUpdateOneWithoutChatConversationNestedInput
-    ChatMessages?: ChatMessagesUpdateManyWithoutConversationNestedInput
+    ChatMessages?: ChatMessagesUpdateManyWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ChatNotification?: ChatNotificationUpdateManyWithoutConversationNestedInput
   }
 
   export type ChatConversationUncheckedUpdateInput = {
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
     Admin?: AdminUncheckedUpdateManyWithoutChatConversationNestedInput
-    ChatMessages?: ChatMessagesUncheckedUpdateManyWithoutConversationNestedInput
+    ChatMessages?: ChatMessagesUncheckedUpdateManyWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ChatNotification?: ChatNotificationUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type ChatConversationCreateManyInput = {
     id?: string
     player_id?: string | null
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ChatConversationUpdateManyMutationInput = {
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatConversationUncheckedUpdateManyInput = {
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatNotificationCreateInput = {
+    id?: string
+    Conversation: ChatConversationCreateNestedOneWithoutChatNotificationInput
+    userId: string
+    notificationMessage: string
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChatNotificationUncheckedCreateInput = {
+    id?: string
+    conversationId: string
+    userId: string
+    notificationMessage: string
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChatNotificationUpdateInput = {
+    Conversation?: ChatConversationUpdateOneRequiredWithoutChatNotificationNestedInput
+    userId?: StringFieldUpdateOperationsInput | string
+    notificationMessage?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatNotificationUncheckedUpdateInput = {
+    conversationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    notificationMessage?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatNotificationCreateManyInput = {
+    id?: string
+    conversationId: string
+    userId: string
+    notificationMessage: string
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChatNotificationUpdateManyMutationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    notificationMessage?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatNotificationUncheckedUpdateManyInput = {
+    conversationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    notificationMessage?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatMessagesCreateInput = {
@@ -24994,7 +26232,7 @@ export namespace Prisma {
     message: string
     senderId: string
     receiverId: string
-    Conversation: ChatConversationCreateNestedOneWithoutChatMessagesInput
+    ChatConversation: ChatConversationCreateNestedOneWithoutChatMessagesInput
     isRead?: boolean
     image?: string | null
     createdAt?: Date | string
@@ -25017,7 +26255,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
-    Conversation?: ChatConversationUpdateOneRequiredWithoutChatMessagesNestedInput
+    ChatConversation?: ChatConversationUpdateOneRequiredWithoutChatMessagesNestedInput
     isRead?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26694,7 +27932,17 @@ export namespace Prisma {
     none?: ChatMessagesWhereInput
   }
 
+  export type ChatNotificationListRelationFilter = {
+    every?: ChatNotificationWhereInput
+    some?: ChatNotificationWhereInput
+    none?: ChatNotificationWhereInput
+  }
+
   export type ChatMessagesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ChatNotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26702,21 +27950,57 @@ export namespace Prisma {
     id?: SortOrder
     player_id?: SortOrder
     admins_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ChatConversationMaxOrderByAggregateInput = {
     id?: SortOrder
     player_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ChatConversationMinOrderByAggregateInput = {
     id?: SortOrder
     player_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ChatConversationRelationFilter = {
     is?: ChatConversationWhereInput
     isNot?: ChatConversationWhereInput
+  }
+
+  export type ChatNotificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    userId?: SortOrder
+    notificationMessage?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChatNotificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    userId?: SortOrder
+    notificationMessage?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChatNotificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    conversationId?: SortOrder
+    userId?: SortOrder
+    notificationMessage?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ChatMessagesCountOrderByAggregateInput = {
@@ -28109,11 +29393,18 @@ export namespace Prisma {
     connect?: PlayerWhereUniqueInput
   }
 
-  export type ChatMessagesCreateNestedManyWithoutConversationInput = {
-    create?: XOR<Enumerable<ChatMessagesCreateWithoutConversationInput>, Enumerable<ChatMessagesUncheckedCreateWithoutConversationInput>>
-    connectOrCreate?: Enumerable<ChatMessagesCreateOrConnectWithoutConversationInput>
-    createMany?: ChatMessagesCreateManyConversationInputEnvelope
+  export type ChatMessagesCreateNestedManyWithoutChatConversationInput = {
+    create?: XOR<Enumerable<ChatMessagesCreateWithoutChatConversationInput>, Enumerable<ChatMessagesUncheckedCreateWithoutChatConversationInput>>
+    connectOrCreate?: Enumerable<ChatMessagesCreateOrConnectWithoutChatConversationInput>
+    createMany?: ChatMessagesCreateManyChatConversationInputEnvelope
     connect?: Enumerable<ChatMessagesWhereUniqueInput>
+  }
+
+  export type ChatNotificationCreateNestedManyWithoutConversationInput = {
+    create?: XOR<Enumerable<ChatNotificationCreateWithoutConversationInput>, Enumerable<ChatNotificationUncheckedCreateWithoutConversationInput>>
+    connectOrCreate?: Enumerable<ChatNotificationCreateOrConnectWithoutConversationInput>
+    createMany?: ChatNotificationCreateManyConversationInputEnvelope
+    connect?: Enumerable<ChatNotificationWhereUniqueInput>
   }
 
   export type AdminUncheckedCreateNestedManyWithoutChatConversationInput = {
@@ -28122,11 +29413,18 @@ export namespace Prisma {
     connect?: Enumerable<AdminWhereUniqueInput>
   }
 
-  export type ChatMessagesUncheckedCreateNestedManyWithoutConversationInput = {
-    create?: XOR<Enumerable<ChatMessagesCreateWithoutConversationInput>, Enumerable<ChatMessagesUncheckedCreateWithoutConversationInput>>
-    connectOrCreate?: Enumerable<ChatMessagesCreateOrConnectWithoutConversationInput>
-    createMany?: ChatMessagesCreateManyConversationInputEnvelope
+  export type ChatMessagesUncheckedCreateNestedManyWithoutChatConversationInput = {
+    create?: XOR<Enumerable<ChatMessagesCreateWithoutChatConversationInput>, Enumerable<ChatMessagesUncheckedCreateWithoutChatConversationInput>>
+    connectOrCreate?: Enumerable<ChatMessagesCreateOrConnectWithoutChatConversationInput>
+    createMany?: ChatMessagesCreateManyChatConversationInputEnvelope
     connect?: Enumerable<ChatMessagesWhereUniqueInput>
+  }
+
+  export type ChatNotificationUncheckedCreateNestedManyWithoutConversationInput = {
+    create?: XOR<Enumerable<ChatNotificationCreateWithoutConversationInput>, Enumerable<ChatNotificationUncheckedCreateWithoutConversationInput>>
+    connectOrCreate?: Enumerable<ChatNotificationCreateOrConnectWithoutConversationInput>
+    createMany?: ChatNotificationCreateManyConversationInputEnvelope
+    connect?: Enumerable<ChatNotificationWhereUniqueInput>
   }
 
   export type ChatConversationUpdateadmins_idInput = {
@@ -28157,18 +29455,32 @@ export namespace Prisma {
     update?: XOR<PlayerUpdateWithoutChatConversationInput, PlayerUncheckedUpdateWithoutChatConversationInput>
   }
 
-  export type ChatMessagesUpdateManyWithoutConversationNestedInput = {
-    create?: XOR<Enumerable<ChatMessagesCreateWithoutConversationInput>, Enumerable<ChatMessagesUncheckedCreateWithoutConversationInput>>
-    connectOrCreate?: Enumerable<ChatMessagesCreateOrConnectWithoutConversationInput>
-    upsert?: Enumerable<ChatMessagesUpsertWithWhereUniqueWithoutConversationInput>
-    createMany?: ChatMessagesCreateManyConversationInputEnvelope
+  export type ChatMessagesUpdateManyWithoutChatConversationNestedInput = {
+    create?: XOR<Enumerable<ChatMessagesCreateWithoutChatConversationInput>, Enumerable<ChatMessagesUncheckedCreateWithoutChatConversationInput>>
+    connectOrCreate?: Enumerable<ChatMessagesCreateOrConnectWithoutChatConversationInput>
+    upsert?: Enumerable<ChatMessagesUpsertWithWhereUniqueWithoutChatConversationInput>
+    createMany?: ChatMessagesCreateManyChatConversationInputEnvelope
     set?: Enumerable<ChatMessagesWhereUniqueInput>
     disconnect?: Enumerable<ChatMessagesWhereUniqueInput>
     delete?: Enumerable<ChatMessagesWhereUniqueInput>
     connect?: Enumerable<ChatMessagesWhereUniqueInput>
-    update?: Enumerable<ChatMessagesUpdateWithWhereUniqueWithoutConversationInput>
-    updateMany?: Enumerable<ChatMessagesUpdateManyWithWhereWithoutConversationInput>
+    update?: Enumerable<ChatMessagesUpdateWithWhereUniqueWithoutChatConversationInput>
+    updateMany?: Enumerable<ChatMessagesUpdateManyWithWhereWithoutChatConversationInput>
     deleteMany?: Enumerable<ChatMessagesScalarWhereInput>
+  }
+
+  export type ChatNotificationUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<Enumerable<ChatNotificationCreateWithoutConversationInput>, Enumerable<ChatNotificationUncheckedCreateWithoutConversationInput>>
+    connectOrCreate?: Enumerable<ChatNotificationCreateOrConnectWithoutConversationInput>
+    upsert?: Enumerable<ChatNotificationUpsertWithWhereUniqueWithoutConversationInput>
+    createMany?: ChatNotificationCreateManyConversationInputEnvelope
+    set?: Enumerable<ChatNotificationWhereUniqueInput>
+    disconnect?: Enumerable<ChatNotificationWhereUniqueInput>
+    delete?: Enumerable<ChatNotificationWhereUniqueInput>
+    connect?: Enumerable<ChatNotificationWhereUniqueInput>
+    update?: Enumerable<ChatNotificationUpdateWithWhereUniqueWithoutConversationInput>
+    updateMany?: Enumerable<ChatNotificationUpdateManyWithWhereWithoutConversationInput>
+    deleteMany?: Enumerable<ChatNotificationScalarWhereInput>
   }
 
   export type AdminUncheckedUpdateManyWithoutChatConversationNestedInput = {
@@ -28184,18 +29496,46 @@ export namespace Prisma {
     deleteMany?: Enumerable<AdminScalarWhereInput>
   }
 
-  export type ChatMessagesUncheckedUpdateManyWithoutConversationNestedInput = {
-    create?: XOR<Enumerable<ChatMessagesCreateWithoutConversationInput>, Enumerable<ChatMessagesUncheckedCreateWithoutConversationInput>>
-    connectOrCreate?: Enumerable<ChatMessagesCreateOrConnectWithoutConversationInput>
-    upsert?: Enumerable<ChatMessagesUpsertWithWhereUniqueWithoutConversationInput>
-    createMany?: ChatMessagesCreateManyConversationInputEnvelope
+  export type ChatMessagesUncheckedUpdateManyWithoutChatConversationNestedInput = {
+    create?: XOR<Enumerable<ChatMessagesCreateWithoutChatConversationInput>, Enumerable<ChatMessagesUncheckedCreateWithoutChatConversationInput>>
+    connectOrCreate?: Enumerable<ChatMessagesCreateOrConnectWithoutChatConversationInput>
+    upsert?: Enumerable<ChatMessagesUpsertWithWhereUniqueWithoutChatConversationInput>
+    createMany?: ChatMessagesCreateManyChatConversationInputEnvelope
     set?: Enumerable<ChatMessagesWhereUniqueInput>
     disconnect?: Enumerable<ChatMessagesWhereUniqueInput>
     delete?: Enumerable<ChatMessagesWhereUniqueInput>
     connect?: Enumerable<ChatMessagesWhereUniqueInput>
-    update?: Enumerable<ChatMessagesUpdateWithWhereUniqueWithoutConversationInput>
-    updateMany?: Enumerable<ChatMessagesUpdateManyWithWhereWithoutConversationInput>
+    update?: Enumerable<ChatMessagesUpdateWithWhereUniqueWithoutChatConversationInput>
+    updateMany?: Enumerable<ChatMessagesUpdateManyWithWhereWithoutChatConversationInput>
     deleteMany?: Enumerable<ChatMessagesScalarWhereInput>
+  }
+
+  export type ChatNotificationUncheckedUpdateManyWithoutConversationNestedInput = {
+    create?: XOR<Enumerable<ChatNotificationCreateWithoutConversationInput>, Enumerable<ChatNotificationUncheckedCreateWithoutConversationInput>>
+    connectOrCreate?: Enumerable<ChatNotificationCreateOrConnectWithoutConversationInput>
+    upsert?: Enumerable<ChatNotificationUpsertWithWhereUniqueWithoutConversationInput>
+    createMany?: ChatNotificationCreateManyConversationInputEnvelope
+    set?: Enumerable<ChatNotificationWhereUniqueInput>
+    disconnect?: Enumerable<ChatNotificationWhereUniqueInput>
+    delete?: Enumerable<ChatNotificationWhereUniqueInput>
+    connect?: Enumerable<ChatNotificationWhereUniqueInput>
+    update?: Enumerable<ChatNotificationUpdateWithWhereUniqueWithoutConversationInput>
+    updateMany?: Enumerable<ChatNotificationUpdateManyWithWhereWithoutConversationInput>
+    deleteMany?: Enumerable<ChatNotificationScalarWhereInput>
+  }
+
+  export type ChatConversationCreateNestedOneWithoutChatNotificationInput = {
+    create?: XOR<ChatConversationCreateWithoutChatNotificationInput, ChatConversationUncheckedCreateWithoutChatNotificationInput>
+    connectOrCreate?: ChatConversationCreateOrConnectWithoutChatNotificationInput
+    connect?: ChatConversationWhereUniqueInput
+  }
+
+  export type ChatConversationUpdateOneRequiredWithoutChatNotificationNestedInput = {
+    create?: XOR<ChatConversationCreateWithoutChatNotificationInput, ChatConversationUncheckedCreateWithoutChatNotificationInput>
+    connectOrCreate?: ChatConversationCreateOrConnectWithoutChatNotificationInput
+    upsert?: ChatConversationUpsertWithoutChatNotificationInput
+    connect?: ChatConversationWhereUniqueInput
+    update?: XOR<ChatConversationUpdateWithoutChatNotificationInput, ChatConversationUncheckedUpdateWithoutChatNotificationInput>
   }
 
   export type ChatConversationCreateNestedOneWithoutChatMessagesInput = {
@@ -30083,14 +31423,20 @@ export namespace Prisma {
     id?: string
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
     Player?: PlayerCreateNestedOneWithoutChatConversationInput
-    ChatMessages?: ChatMessagesCreateNestedManyWithoutConversationInput
+    ChatMessages?: ChatMessagesCreateNestedManyWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ChatNotification?: ChatNotificationCreateNestedManyWithoutConversationInput
   }
 
   export type ChatConversationUncheckedCreateWithoutAdminInput = {
     id?: string
     player_id?: string | null
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
-    ChatMessages?: ChatMessagesUncheckedCreateNestedManyWithoutConversationInput
+    ChatMessages?: ChatMessagesUncheckedCreateNestedManyWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ChatNotification?: ChatNotificationUncheckedCreateNestedManyWithoutConversationInput
   }
 
   export type ChatConversationCreateOrConnectWithoutAdminInput = {
@@ -30429,6 +31775,8 @@ export namespace Prisma {
     id?: StringFilter | string
     player_id?: StringNullableFilter | string | null
     admins_id?: StringNullableListFilter
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
   }
 
   export type AdminCreateWithoutChatConversationInput = {
@@ -30569,7 +31917,7 @@ export namespace Prisma {
     create: XOR<PlayerCreateWithoutChatConversationInput, PlayerUncheckedCreateWithoutChatConversationInput>
   }
 
-  export type ChatMessagesCreateWithoutConversationInput = {
+  export type ChatMessagesCreateWithoutChatConversationInput = {
     id?: string
     message: string
     senderId: string
@@ -30580,7 +31928,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ChatMessagesUncheckedCreateWithoutConversationInput = {
+  export type ChatMessagesUncheckedCreateWithoutChatConversationInput = {
     id?: string
     message: string
     senderId: string
@@ -30591,13 +31939,40 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ChatMessagesCreateOrConnectWithoutConversationInput = {
+  export type ChatMessagesCreateOrConnectWithoutChatConversationInput = {
     where: ChatMessagesWhereUniqueInput
-    create: XOR<ChatMessagesCreateWithoutConversationInput, ChatMessagesUncheckedCreateWithoutConversationInput>
+    create: XOR<ChatMessagesCreateWithoutChatConversationInput, ChatMessagesUncheckedCreateWithoutChatConversationInput>
   }
 
-  export type ChatMessagesCreateManyConversationInputEnvelope = {
-    data: Enumerable<ChatMessagesCreateManyConversationInput>
+  export type ChatMessagesCreateManyChatConversationInputEnvelope = {
+    data: Enumerable<ChatMessagesCreateManyChatConversationInput>
+  }
+
+  export type ChatNotificationCreateWithoutConversationInput = {
+    id?: string
+    userId: string
+    notificationMessage: string
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChatNotificationUncheckedCreateWithoutConversationInput = {
+    id?: string
+    userId: string
+    notificationMessage: string
+    isRead?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChatNotificationCreateOrConnectWithoutConversationInput = {
+    where: ChatNotificationWhereUniqueInput
+    create: XOR<ChatNotificationCreateWithoutConversationInput, ChatNotificationUncheckedCreateWithoutConversationInput>
+  }
+
+  export type ChatNotificationCreateManyConversationInputEnvelope = {
+    data: Enumerable<ChatNotificationCreateManyConversationInput>
   }
 
   export type AdminUpsertWithWhereUniqueWithoutChatConversationInput = {
@@ -30693,18 +32068,18 @@ export namespace Prisma {
     isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type ChatMessagesUpsertWithWhereUniqueWithoutConversationInput = {
+  export type ChatMessagesUpsertWithWhereUniqueWithoutChatConversationInput = {
     where: ChatMessagesWhereUniqueInput
-    update: XOR<ChatMessagesUpdateWithoutConversationInput, ChatMessagesUncheckedUpdateWithoutConversationInput>
-    create: XOR<ChatMessagesCreateWithoutConversationInput, ChatMessagesUncheckedCreateWithoutConversationInput>
+    update: XOR<ChatMessagesUpdateWithoutChatConversationInput, ChatMessagesUncheckedUpdateWithoutChatConversationInput>
+    create: XOR<ChatMessagesCreateWithoutChatConversationInput, ChatMessagesUncheckedCreateWithoutChatConversationInput>
   }
 
-  export type ChatMessagesUpdateWithWhereUniqueWithoutConversationInput = {
+  export type ChatMessagesUpdateWithWhereUniqueWithoutChatConversationInput = {
     where: ChatMessagesWhereUniqueInput
-    data: XOR<ChatMessagesUpdateWithoutConversationInput, ChatMessagesUncheckedUpdateWithoutConversationInput>
+    data: XOR<ChatMessagesUpdateWithoutChatConversationInput, ChatMessagesUncheckedUpdateWithoutChatConversationInput>
   }
 
-  export type ChatMessagesUpdateManyWithWhereWithoutConversationInput = {
+  export type ChatMessagesUpdateManyWithWhereWithoutChatConversationInput = {
     where: ChatMessagesScalarWhereInput
     data: XOR<ChatMessagesUpdateManyMutationInput, ChatMessagesUncheckedUpdateManyWithoutChatMessagesInput>
   }
@@ -30724,11 +32099,91 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter | Date | string
   }
 
+  export type ChatNotificationUpsertWithWhereUniqueWithoutConversationInput = {
+    where: ChatNotificationWhereUniqueInput
+    update: XOR<ChatNotificationUpdateWithoutConversationInput, ChatNotificationUncheckedUpdateWithoutConversationInput>
+    create: XOR<ChatNotificationCreateWithoutConversationInput, ChatNotificationUncheckedCreateWithoutConversationInput>
+  }
+
+  export type ChatNotificationUpdateWithWhereUniqueWithoutConversationInput = {
+    where: ChatNotificationWhereUniqueInput
+    data: XOR<ChatNotificationUpdateWithoutConversationInput, ChatNotificationUncheckedUpdateWithoutConversationInput>
+  }
+
+  export type ChatNotificationUpdateManyWithWhereWithoutConversationInput = {
+    where: ChatNotificationScalarWhereInput
+    data: XOR<ChatNotificationUpdateManyMutationInput, ChatNotificationUncheckedUpdateManyWithoutChatNotificationInput>
+  }
+
+  export type ChatNotificationScalarWhereInput = {
+    AND?: Enumerable<ChatNotificationScalarWhereInput>
+    OR?: Enumerable<ChatNotificationScalarWhereInput>
+    NOT?: Enumerable<ChatNotificationScalarWhereInput>
+    id?: StringFilter | string
+    conversationId?: StringFilter | string
+    userId?: StringFilter | string
+    notificationMessage?: StringFilter | string
+    isRead?: BoolFilter | boolean
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+  }
+
+  export type ChatConversationCreateWithoutChatNotificationInput = {
+    id?: string
+    admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
+    Admin?: AdminCreateNestedManyWithoutChatConversationInput
+    Player?: PlayerCreateNestedOneWithoutChatConversationInput
+    ChatMessages?: ChatMessagesCreateNestedManyWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChatConversationUncheckedCreateWithoutChatNotificationInput = {
+    id?: string
+    player_id?: string | null
+    admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
+    Admin?: AdminUncheckedCreateNestedManyWithoutChatConversationInput
+    ChatMessages?: ChatMessagesUncheckedCreateNestedManyWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChatConversationCreateOrConnectWithoutChatNotificationInput = {
+    where: ChatConversationWhereUniqueInput
+    create: XOR<ChatConversationCreateWithoutChatNotificationInput, ChatConversationUncheckedCreateWithoutChatNotificationInput>
+  }
+
+  export type ChatConversationUpsertWithoutChatNotificationInput = {
+    update: XOR<ChatConversationUpdateWithoutChatNotificationInput, ChatConversationUncheckedUpdateWithoutChatNotificationInput>
+    create: XOR<ChatConversationCreateWithoutChatNotificationInput, ChatConversationUncheckedCreateWithoutChatNotificationInput>
+  }
+
+  export type ChatConversationUpdateWithoutChatNotificationInput = {
+    admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
+    Admin?: AdminUpdateManyWithoutChatConversationNestedInput
+    Player?: PlayerUpdateOneWithoutChatConversationNestedInput
+    ChatMessages?: ChatMessagesUpdateManyWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatConversationUncheckedUpdateWithoutChatNotificationInput = {
+    player_id?: NullableStringFieldUpdateOperationsInput | string | null
+    admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
+    Admin?: AdminUncheckedUpdateManyWithoutChatConversationNestedInput
+    ChatMessages?: ChatMessagesUncheckedUpdateManyWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ChatConversationCreateWithoutChatMessagesInput = {
     id?: string
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
     Admin?: AdminCreateNestedManyWithoutChatConversationInput
     Player?: PlayerCreateNestedOneWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ChatNotification?: ChatNotificationCreateNestedManyWithoutConversationInput
   }
 
   export type ChatConversationUncheckedCreateWithoutChatMessagesInput = {
@@ -30736,6 +32191,9 @@ export namespace Prisma {
     player_id?: string | null
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
     Admin?: AdminUncheckedCreateNestedManyWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ChatNotification?: ChatNotificationUncheckedCreateNestedManyWithoutConversationInput
   }
 
   export type ChatConversationCreateOrConnectWithoutChatMessagesInput = {
@@ -30752,12 +32210,18 @@ export namespace Prisma {
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
     Admin?: AdminUpdateManyWithoutChatConversationNestedInput
     Player?: PlayerUpdateOneWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ChatNotification?: ChatNotificationUpdateManyWithoutConversationNestedInput
   }
 
   export type ChatConversationUncheckedUpdateWithoutChatMessagesInput = {
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
     Admin?: AdminUncheckedUpdateManyWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ChatNotification?: ChatNotificationUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type AdminCreateWithoutAccountInput = {
@@ -32044,14 +33508,20 @@ export namespace Prisma {
     id?: string
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
     Admin?: AdminCreateNestedManyWithoutChatConversationInput
-    ChatMessages?: ChatMessagesCreateNestedManyWithoutConversationInput
+    ChatMessages?: ChatMessagesCreateNestedManyWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ChatNotification?: ChatNotificationCreateNestedManyWithoutConversationInput
   }
 
   export type ChatConversationUncheckedCreateWithoutPlayerInput = {
     id?: string
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
     Admin?: AdminUncheckedCreateNestedManyWithoutChatConversationInput
-    ChatMessages?: ChatMessagesUncheckedCreateNestedManyWithoutConversationInput
+    ChatMessages?: ChatMessagesUncheckedCreateNestedManyWithoutChatConversationInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ChatNotification?: ChatNotificationUncheckedCreateNestedManyWithoutConversationInput
   }
 
   export type ChatConversationCreateOrConnectWithoutPlayerInput = {
@@ -34304,27 +35774,44 @@ export namespace Prisma {
   export type ChatConversationUpdateWithoutAdminInput = {
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
     Player?: PlayerUpdateOneWithoutChatConversationNestedInput
-    ChatMessages?: ChatMessagesUpdateManyWithoutConversationNestedInput
+    ChatMessages?: ChatMessagesUpdateManyWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ChatNotification?: ChatNotificationUpdateManyWithoutConversationNestedInput
   }
 
   export type ChatConversationUncheckedUpdateWithoutAdminInput = {
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
-    ChatMessages?: ChatMessagesUncheckedUpdateManyWithoutConversationNestedInput
+    ChatMessages?: ChatMessagesUncheckedUpdateManyWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ChatNotification?: ChatNotificationUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type ChatConversationUncheckedUpdateManyWithoutChatConversationInput = {
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ChatMessagesCreateManyConversationInput = {
+  export type ChatMessagesCreateManyChatConversationInput = {
     id?: string
     message: string
     senderId: string
     receiverId: string
     isRead?: boolean
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChatNotificationCreateManyConversationInput = {
+    id?: string
+    userId: string
+    notificationMessage: string
+    isRead?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -34401,7 +35888,7 @@ export namespace Prisma {
     isOnline?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type ChatMessagesUpdateWithoutConversationInput = {
+  export type ChatMessagesUpdateWithoutChatConversationInput = {
     message?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
@@ -34411,7 +35898,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ChatMessagesUncheckedUpdateWithoutConversationInput = {
+  export type ChatMessagesUncheckedUpdateWithoutChatConversationInput = {
     message?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: StringFieldUpdateOperationsInput | string
@@ -34427,6 +35914,30 @@ export namespace Prisma {
     receiverId?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatNotificationUpdateWithoutConversationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    notificationMessage?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatNotificationUncheckedUpdateWithoutConversationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    notificationMessage?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatNotificationUncheckedUpdateManyWithoutChatNotificationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    notificationMessage?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34721,6 +36232,8 @@ export namespace Prisma {
   export type ChatConversationCreateManyPlayerInput = {
     id?: string
     admins_id?: ChatConversationCreateadmins_idInput | Enumerable<string>
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type PlayerBalanceTransactionsUpdateWithoutPlayerInput = {
@@ -34900,13 +36413,19 @@ export namespace Prisma {
   export type ChatConversationUpdateWithoutPlayerInput = {
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
     Admin?: AdminUpdateManyWithoutChatConversationNestedInput
-    ChatMessages?: ChatMessagesUpdateManyWithoutConversationNestedInput
+    ChatMessages?: ChatMessagesUpdateManyWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ChatNotification?: ChatNotificationUpdateManyWithoutConversationNestedInput
   }
 
   export type ChatConversationUncheckedUpdateWithoutPlayerInput = {
     admins_id?: ChatConversationUpdateadmins_idInput | Enumerable<string>
     Admin?: AdminUncheckedUpdateManyWithoutChatConversationNestedInput
-    ChatMessages?: ChatMessagesUncheckedUpdateManyWithoutConversationNestedInput
+    ChatMessages?: ChatMessagesUncheckedUpdateManyWithoutChatConversationNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ChatNotification?: ChatNotificationUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type GameTransactionsCreateManyGameInput = {
