@@ -267,14 +267,12 @@ export type ActiveGamePlay = {
 export type GameTransactions = {
   id: string
   date: string | null
-  player: string
-  game: string
   spent: number | null
+  balance_before: number | null
+  balance_after: number | null
   won: number | null
-  winType: string | null
   game_id: string | null
   player_id: string | null
-  user_id: string | null
   createdAt: Date
   updatedAt: Date | null
 }
@@ -18878,25 +18876,27 @@ export namespace Prisma {
 
   export type GameTransactionsAvgAggregateOutputType = {
     spent: number | null
+    balance_before: number | null
+    balance_after: number | null
     won: number | null
   }
 
   export type GameTransactionsSumAggregateOutputType = {
     spent: number | null
+    balance_before: number | null
+    balance_after: number | null
     won: number | null
   }
 
   export type GameTransactionsMinAggregateOutputType = {
     id: string | null
     date: string | null
-    player: string | null
-    game: string | null
     spent: number | null
+    balance_before: number | null
+    balance_after: number | null
     won: number | null
-    winType: string | null
     game_id: string | null
     player_id: string | null
-    user_id: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18904,14 +18904,12 @@ export namespace Prisma {
   export type GameTransactionsMaxAggregateOutputType = {
     id: string | null
     date: string | null
-    player: string | null
-    game: string | null
     spent: number | null
+    balance_before: number | null
+    balance_after: number | null
     won: number | null
-    winType: string | null
     game_id: string | null
     player_id: string | null
-    user_id: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18919,14 +18917,12 @@ export namespace Prisma {
   export type GameTransactionsCountAggregateOutputType = {
     id: number
     date: number
-    player: number
-    game: number
     spent: number
+    balance_before: number
+    balance_after: number
     won: number
-    winType: number
     game_id: number
     player_id: number
-    user_id: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -18935,25 +18931,27 @@ export namespace Prisma {
 
   export type GameTransactionsAvgAggregateInputType = {
     spent?: true
+    balance_before?: true
+    balance_after?: true
     won?: true
   }
 
   export type GameTransactionsSumAggregateInputType = {
     spent?: true
+    balance_before?: true
+    balance_after?: true
     won?: true
   }
 
   export type GameTransactionsMinAggregateInputType = {
     id?: true
     date?: true
-    player?: true
-    game?: true
     spent?: true
+    balance_before?: true
+    balance_after?: true
     won?: true
-    winType?: true
     game_id?: true
     player_id?: true
-    user_id?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18961,14 +18959,12 @@ export namespace Prisma {
   export type GameTransactionsMaxAggregateInputType = {
     id?: true
     date?: true
-    player?: true
-    game?: true
     spent?: true
+    balance_before?: true
+    balance_after?: true
     won?: true
-    winType?: true
     game_id?: true
     player_id?: true
-    user_id?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18976,14 +18972,12 @@ export namespace Prisma {
   export type GameTransactionsCountAggregateInputType = {
     id?: true
     date?: true
-    player?: true
-    game?: true
     spent?: true
+    balance_before?: true
+    balance_after?: true
     won?: true
-    winType?: true
     game_id?: true
     player_id?: true
-    user_id?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -19079,14 +19073,12 @@ export namespace Prisma {
   export type GameTransactionsGroupByOutputType = {
     id: string
     date: string | null
-    player: string
-    game: string
     spent: number | null
+    balance_before: number | null
+    balance_after: number | null
     won: number | null
-    winType: string | null
     game_id: string | null
     player_id: string | null
-    user_id: string | null
     createdAt: Date
     updatedAt: Date | null
     _count: GameTransactionsCountAggregateOutputType | null
@@ -19113,14 +19105,12 @@ export namespace Prisma {
   export type GameTransactionsSelect = {
     id?: boolean
     date?: boolean
-    player?: boolean
-    game?: boolean
     spent?: boolean
+    balance_before?: boolean
+    balance_after?: boolean
     won?: boolean
-    winType?: boolean
     game_id?: boolean
     player_id?: boolean
-    user_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     Game?: boolean | GamesArgs
@@ -24234,14 +24224,12 @@ export namespace Prisma {
   export const GameTransactionsScalarFieldEnum: {
     id: 'id',
     date: 'date',
-    player: 'player',
-    game: 'game',
     spent: 'spent',
+    balance_before: 'balance_before',
+    balance_after: 'balance_after',
     won: 'won',
-    winType: 'winType',
     game_id: 'game_id',
     player_id: 'player_id',
-    user_id: 'user_id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -25491,14 +25479,12 @@ export namespace Prisma {
     NOT?: Enumerable<GameTransactionsWhereInput>
     id?: StringFilter | string
     date?: StringNullableFilter | string | null
-    player?: StringFilter | string
-    game?: StringFilter | string
     spent?: FloatNullableFilter | number | null
+    balance_before?: FloatNullableFilter | number | null
+    balance_after?: FloatNullableFilter | number | null
     won?: FloatNullableFilter | number | null
-    winType?: StringNullableFilter | string | null
     game_id?: StringNullableFilter | string | null
     player_id?: StringNullableFilter | string | null
-    user_id?: StringNullableFilter | string | null
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeNullableFilter | Date | string | null
     Game?: XOR<GamesRelationFilter, GamesWhereInput> | null
@@ -25508,14 +25494,12 @@ export namespace Prisma {
   export type GameTransactionsOrderByWithRelationInput = {
     id?: SortOrder
     date?: SortOrder
-    player?: SortOrder
-    game?: SortOrder
     spent?: SortOrder
+    balance_before?: SortOrder
+    balance_after?: SortOrder
     won?: SortOrder
-    winType?: SortOrder
     game_id?: SortOrder
     player_id?: SortOrder
-    user_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     Game?: GamesOrderByWithRelationInput
@@ -25529,14 +25513,12 @@ export namespace Prisma {
   export type GameTransactionsOrderByWithAggregationInput = {
     id?: SortOrder
     date?: SortOrder
-    player?: SortOrder
-    game?: SortOrder
     spent?: SortOrder
+    balance_before?: SortOrder
+    balance_after?: SortOrder
     won?: SortOrder
-    winType?: SortOrder
     game_id?: SortOrder
     player_id?: SortOrder
-    user_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: GameTransactionsCountOrderByAggregateInput
@@ -25552,14 +25534,12 @@ export namespace Prisma {
     NOT?: Enumerable<GameTransactionsScalarWhereWithAggregatesInput>
     id?: StringWithAggregatesFilter | string
     date?: StringNullableWithAggregatesFilter | string | null
-    player?: StringWithAggregatesFilter | string
-    game?: StringWithAggregatesFilter | string
     spent?: FloatNullableWithAggregatesFilter | number | null
+    balance_before?: FloatNullableWithAggregatesFilter | number | null
+    balance_after?: FloatNullableWithAggregatesFilter | number | null
     won?: FloatNullableWithAggregatesFilter | number | null
-    winType?: StringNullableWithAggregatesFilter | string | null
     game_id?: StringNullableWithAggregatesFilter | string | null
     player_id?: StringNullableWithAggregatesFilter | string | null
-    user_id?: StringNullableWithAggregatesFilter | string | null
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
   }
@@ -27149,12 +27129,10 @@ export namespace Prisma {
   export type GameTransactionsCreateInput = {
     id?: string
     date?: string | null
-    player: string
-    game: string
     spent?: number | null
+    balance_before?: number | null
+    balance_after?: number | null
     won?: number | null
-    winType?: string | null
-    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     Game?: GamesCreateNestedOneWithoutGameTransactionInput
@@ -27164,26 +27142,22 @@ export namespace Prisma {
   export type GameTransactionsUncheckedCreateInput = {
     id?: string
     date?: string | null
-    player: string
-    game: string
     spent?: number | null
+    balance_before?: number | null
+    balance_after?: number | null
     won?: number | null
-    winType?: string | null
     game_id?: string | null
     player_id?: string | null
-    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
 
   export type GameTransactionsUpdateInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Game?: GamesUpdateOneWithoutGameTransactionNestedInput
@@ -27192,14 +27166,12 @@ export namespace Prisma {
 
   export type GameTransactionsUncheckedUpdateInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
     game_id?: NullableStringFieldUpdateOperationsInput | string | null
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -27207,40 +27179,34 @@ export namespace Prisma {
   export type GameTransactionsCreateManyInput = {
     id?: string
     date?: string | null
-    player: string
-    game: string
     spent?: number | null
+    balance_before?: number | null
+    balance_after?: number | null
     won?: number | null
-    winType?: string | null
     game_id?: string | null
     player_id?: string | null
-    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
 
   export type GameTransactionsUpdateManyMutationInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type GameTransactionsUncheckedUpdateManyInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
     game_id?: NullableStringFieldUpdateOperationsInput | string | null
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -28713,34 +28679,32 @@ export namespace Prisma {
   export type GameTransactionsCountOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
-    player?: SortOrder
-    game?: SortOrder
     spent?: SortOrder
+    balance_before?: SortOrder
+    balance_after?: SortOrder
     won?: SortOrder
-    winType?: SortOrder
     game_id?: SortOrder
     player_id?: SortOrder
-    user_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type GameTransactionsAvgOrderByAggregateInput = {
     spent?: SortOrder
+    balance_before?: SortOrder
+    balance_after?: SortOrder
     won?: SortOrder
   }
 
   export type GameTransactionsMaxOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
-    player?: SortOrder
-    game?: SortOrder
     spent?: SortOrder
+    balance_before?: SortOrder
+    balance_after?: SortOrder
     won?: SortOrder
-    winType?: SortOrder
     game_id?: SortOrder
     player_id?: SortOrder
-    user_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -28748,20 +28712,20 @@ export namespace Prisma {
   export type GameTransactionsMinOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
-    player?: SortOrder
-    game?: SortOrder
     spent?: SortOrder
+    balance_before?: SortOrder
+    balance_after?: SortOrder
     won?: SortOrder
-    winType?: SortOrder
     game_id?: SortOrder
     player_id?: SortOrder
-    user_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type GameTransactionsSumOrderByAggregateInput = {
     spent?: SortOrder
+    balance_before?: SortOrder
+    balance_after?: SortOrder
     won?: SortOrder
   }
 
@@ -33341,12 +33305,10 @@ export namespace Prisma {
   export type GameTransactionsCreateWithoutPlayerInput = {
     id?: string
     date?: string | null
-    player: string
-    game: string
     spent?: number | null
+    balance_before?: number | null
+    balance_after?: number | null
     won?: number | null
-    winType?: string | null
-    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     Game?: GamesCreateNestedOneWithoutGameTransactionInput
@@ -33355,13 +33317,11 @@ export namespace Prisma {
   export type GameTransactionsUncheckedCreateWithoutPlayerInput = {
     id?: string
     date?: string | null
-    player: string
-    game: string
     spent?: number | null
+    balance_before?: number | null
+    balance_after?: number | null
     won?: number | null
-    winType?: string | null
     game_id?: string | null
-    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -33702,14 +33662,12 @@ export namespace Prisma {
     NOT?: Enumerable<GameTransactionsScalarWhereInput>
     id?: StringFilter | string
     date?: StringNullableFilter | string | null
-    player?: StringFilter | string
-    game?: StringFilter | string
     spent?: FloatNullableFilter | number | null
+    balance_before?: FloatNullableFilter | number | null
+    balance_after?: FloatNullableFilter | number | null
     won?: FloatNullableFilter | number | null
-    winType?: StringNullableFilter | string | null
     game_id?: StringNullableFilter | string | null
     player_id?: StringNullableFilter | string | null
-    user_id?: StringNullableFilter | string | null
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeNullableFilter | Date | string | null
   }
@@ -33875,12 +33833,10 @@ export namespace Prisma {
   export type GameTransactionsCreateWithoutGameInput = {
     id?: string
     date?: string | null
-    player: string
-    game: string
     spent?: number | null
+    balance_before?: number | null
+    balance_after?: number | null
     won?: number | null
-    winType?: string | null
-    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
     Player?: PlayerCreateNestedOneWithoutGameTransactionsInput
@@ -33889,13 +33845,11 @@ export namespace Prisma {
   export type GameTransactionsUncheckedCreateWithoutGameInput = {
     id?: string
     date?: string | null
-    player: string
-    game: string
     spent?: number | null
+    balance_before?: number | null
+    balance_after?: number | null
     won?: number | null
-    winType?: string | null
     player_id?: string | null
-    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -36176,13 +36130,11 @@ export namespace Prisma {
   export type GameTransactionsCreateManyPlayerInput = {
     id?: string
     date?: string | null
-    player: string
-    game: string
     spent?: number | null
+    balance_before?: number | null
+    balance_after?: number | null
     won?: number | null
-    winType?: string | null
     game_id?: string | null
-    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -36262,12 +36214,10 @@ export namespace Prisma {
 
   export type GameTransactionsUpdateWithoutPlayerInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Game?: GamesUpdateOneWithoutGameTransactionNestedInput
@@ -36275,26 +36225,22 @@ export namespace Prisma {
 
   export type GameTransactionsUncheckedUpdateWithoutPlayerInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
     game_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type GameTransactionsUncheckedUpdateManyWithoutGameTransactionsInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
     game_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -36431,13 +36377,11 @@ export namespace Prisma {
   export type GameTransactionsCreateManyGameInput = {
     id?: string
     date?: string | null
-    player: string
-    game: string
     spent?: number | null
+    balance_before?: number | null
+    balance_after?: number | null
     won?: number | null
-    winType?: string | null
     player_id?: string | null
-    user_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -36491,12 +36435,10 @@ export namespace Prisma {
 
   export type GameTransactionsUpdateWithoutGameInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Player?: PlayerUpdateOneWithoutGameTransactionsNestedInput
@@ -36504,26 +36446,22 @@ export namespace Prisma {
 
   export type GameTransactionsUncheckedUpdateWithoutGameInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type GameTransactionsUncheckedUpdateManyWithoutGameTransactionInput = {
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    player?: StringFieldUpdateOperationsInput | string
-    game?: StringFieldUpdateOperationsInput | string
     spent?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_before?: NullableFloatFieldUpdateOperationsInput | number | null
+    balance_after?: NullableFloatFieldUpdateOperationsInput | number | null
     won?: NullableFloatFieldUpdateOperationsInput | number | null
-    winType?: NullableStringFieldUpdateOperationsInput | string | null
     player_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }

@@ -199,14 +199,12 @@ exports.Prisma.GameAssetsScalarFieldEnum = makeEnum({
 exports.Prisma.GameTransactionsScalarFieldEnum = makeEnum({
   id: 'id',
   date: 'date',
-  player: 'player',
-  game: 'game',
   spent: 'spent',
+  balance_before: 'balance_before',
+  balance_after: 'balance_after',
   won: 'won',
-  winType: 'winType',
   game_id: 'game_id',
   player_id: 'player_id',
-  user_id: 'user_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 });
