@@ -249,20 +249,18 @@ model ActiveGamePlay {
 }
 
 model GameTransactions {
-    id        String    @id @default(uuid()) @map("_id")
-    date      String?
-    player    String
-    game      String
-    spent     Float?
-    won       Float?
-    winType   String?
-    game_id   String?
-    player_id String?
-    user_id   String?
-    createdAt DateTime  @default(now())
-    updatedAt DateTime? @updatedAt
-    Game      Games?    @relation(fields: [game_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
-    Player    Player?   @relation(fields: [player_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    id             String    @id @default(uuid()) @map("_id")
+    date           String?
+    spent          Float?
+    balance_before Float?
+    balance_after  Float?
+    won            Float?
+    game_id        String?
+    player_id      String?
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime? @updatedAt
+    Game           Games?    @relation(fields: [game_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    Player         Player?   @relation(fields: [player_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
 }
 
 model FishGameTransactions {
